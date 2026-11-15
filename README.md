@@ -1,2 +1,77 @@
-# Kymontran
-Sự phối hợp giữa 2 dòng Đỗ Lê
+# Trận Pháp Kỳ Môn (Kymontran)
+
+Trang học và thực hành Kỳ Môn Độn Giáp: lập bàn 9 cung, tra Cục số theo tiết khí, đổi giờ Ngũ Tý Độn và luận giải theo Dụng thần. Sự phối hợp giữa hai dòng Đỗ – Lê.
+
+Toàn bộ trang là một tệp `index.html` chạy thẳng trên trình duyệt, không cần máy chủ. Tệp đó được dựng tự động từ các tệp nguồn bên dưới.
+
+## Cấu trúc kho mã
+
+| Đường dẫn | Vai trò |
+| --- | --- |
+| `index.html` | Trang hoàn chỉnh — **sản phẩm dựng ra, không sửa tay** |
+| `build.py` | Ghép nguồn thành `index.html` |
+| `src/template.html` | Khung trang và nội dung các trang con |
+| `src/styles.css` | Giao diện |
+| `src/app.js` | Bộ định tuyến, bộ máy lập bàn, công cụ tra cứu, phiếu đăng ký |
+| `assets/` | Logo ĐL và tranh sơn thủy (được nhúng thẳng vào trang) |
+| `content/kien-thuc/*.md` | Bài viết của trang Kiến Thức |
+| `tests/check_site.py` | Kiểm tra mọi liên kết nội bộ dẫn tới trang và mục có thật |
+| `.github/workflows/` | Kiểm tra tự động khi đẩy mã; đưa trang lên GitHub Pages (bấm tay) |
+
+## Cách làm việc
+
+Chỉ cần Python 3, không cài thêm gói nào.
+
+```bash
+python3 build.py              # dựng lại index.html sau khi sửa nguồn
+python3 tests/check_site.py   # kiểm tra trước khi đẩy mã
+```
+
+Mở `index.html` bằng trình duyệt để xem kết quả.
+
+## Thêm một bài Kiến Thức
+
+Tạo tệp mới trong `content/kien-thuc/`, tên bắt đầu bằng số thứ tự để xếp vị trí, ví dụ `07-bat-than.md`:
+
+```markdown
+---
+id: bat-than
+title: Bát Thần
+link: Lập bàn để xem Bát Thần → | #/tra-cuu/cong-cu?mode=lapban
+---
+Đoạn văn thường. Dùng **hai dấu sao** để in đậm.
+
+- Mỗi dòng bắt đầu bằng "- " là một mục danh sách.
+```
+
+- `id`: chữ thường không dấu, số và dấu gạch nối. Bài sẽ có địa chỉ `#/kien-thuc/<id>`.
+- `link`: nút dẫn ở cuối bài, dạng `chữ hiển thị | địa chỉ`; có thể khai báo nhiều dòng.
+- Khối thơ, ca quyết: mở bằng dòng ```` ```verse Tiêu đề ```` và đóng bằng ```` ``` ````.
+
+Chạy `python3 build.py` rồi `python3 tests/check_site.py`.
+
+## Địa chỉ trong trang
+
+Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
+
+- `<trang>`: `home`, `tra-cuu`, `huong-dan`, `bang-gia`, `kien-thuc`, `faq`, `dang-ky`.
+- `<mục>`: cuộn tới phần tử có `id="muc-<mục>"` trong trang đó.
+- Tham số của trang Tra Cứu: `mode` (`dudoan`, `chonngay`, `lapban`), `linhvuc`, `cung` (1–9). Trang Đăng Ký: `goi` (`que`, `thang`, `chuyen-gia`).
+
+## Tài liệu khác
+
+- [CHANGELOG.md](CHANGELOG.md) — nhật ký thay đổi
+- [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md) — việc cần làm trước khi đưa trang lên mạng
+- [RESPONSIBLE-USE.md](RESPONSIBLE-USE.md) — nguyên tắc trình bày nội dung dự đoán
+- [SECURITY.md](SECURITY.md) — những thứ không được đưa vào kho và cách báo lỗi bảo mật
+- [SUPPORT.md](SUPPORT.md) — liên hệ
+
+## Bản quyền và nguồn tham khảo
+
+© 2026 Trận Pháp Kỳ Môn (Đỗ Lê). Bảo lưu mọi quyền — xem [LICENSE](LICENSE). Không sao chép, sửa đổi, phân phối hay dùng lại khi chưa có văn bản đồng ý của chủ sở hữu.
+
+- Tri thức cổ pháp (ca quyết Ngũ Tý Độn, bảng 24 tiết khí – Cục số, Cửu Tinh, Bát Môn, Bát Thần, Tam Kỳ – Lục Nghi, Can Chi, Ngũ hành) thuộc phạm vi công cộng; lời diễn giải do Trận Pháp Kỳ Môn tự viết.
+- [winvu88888888-maker/cuongtan66666666](https://github.com/winvu88888888-maker/cuongtan66666666): chỉ xem để đối chiếu ý tưởng chức năng.
+- [masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code](https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code): chỉ xem để học cách tổ chức tài liệu và quy trình của kho mã.
+- Không có mã nguồn, văn bản hay hình ảnh nào được lấy từ hai kho trên.
+- Phông chữ Be Vietnam Pro và Noto Serif: SIL Open Font License 1.1 (Google Fonts).

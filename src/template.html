@@ -1,0 +1,324 @@
+<!doctype html>
+<!--
+  Trận Pháp Kỳ Môn — trang học & thực hành Kỳ Môn Độn Giáp
+  © 2026 Trận Pháp Kỳ Môn (Đỗ Lê). Kho mã: https://github.com/Hung-Phongdautu/Kymontran
+  Mã nguồn (giao diện, bộ định tuyến, bộ máy lập bàn), lời diễn giải và logo ĐL
+  do Trận Pháp Kỳ Môn tự biên soạn. Bảo lưu mọi quyền (All rights reserved) — xem tệp LICENSE.
+  Không sao chép, sửa đổi, phân phối hay dùng lại khi chưa có văn bản đồng ý của chủ sở hữu.
+
+  Ghi chú nguồn tham khảo:
+  - Tri thức cổ pháp (ca quyết Ngũ Tý Độn, bảng 24 tiết khí – Cục số, Cửu Tinh, Bát Môn,
+    Bát Thần, Tam Kỳ – Lục Nghi) là tri thức cổ truyền thuộc phạm vi công cộng.
+  - Kho mã công khai https://github.com/winvu88888888-maker/cuongtan66666666
+    chỉ được xem để đối chiếu ý tưởng chức năng; không sao chép mã nguồn, văn bản hay hình ảnh.
+  - Kho mã công khai https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code
+    chỉ được xem để học cách tổ chức tài liệu và quy trình của kho mã; không dùng mã nguồn, văn bản hay hình ảnh.
+
+  Tệp này do build.py dựng ra từ src/, assets/ và content/ — hãy sửa ở nguồn rồi chạy: python3 build.py
+  - Phông chữ Be Vietnam Pro, Noto Serif: giấy phép SIL Open Font License 1.1 (Google Fonts).
+-->
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<meta name="author" content="Trận Pháp Kỳ Môn"/>
+<meta name="copyright" content="© 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền."/>
+<meta name="description" content="Trận Pháp Kỳ Môn — học và thực hành Kỳ Môn Độn Giáp: lập bàn 9 cung, tra Cục số theo tiết khí, đổi giờ Ngũ Tý Độn và luận giải theo Dụng thần."/>
+<link rel="icon" type="image/png" href="{{asset:logo.png}}"/>
+<title>Trận Pháp Kỳ Môn — Kỳ Môn Độn Giáp: Lập Trận &amp; Tra Cứu Định Cục</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Non-render-blocking font load: the page paints immediately with fallback
+     fonts and swaps in Be Vietnam Pro / Noto Serif when (and if) the font
+     stylesheet arrives, so a slow or unreachable font CDN can no longer
+     leave the page stuck on a blank screen. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Noto+Serif:opsz,wght@6..72,600;6..72,700;6..72,800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Noto+Serif:opsz,wght@6..72,600;6..72,700;6..72,800&display=swap" rel="stylesheet"></noscript>
+<style>
+{{styles}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-in">
+  <a class="brand" href="#/home" data-navlink="home"><img class="brand-logo" src="{{asset:logo.png}}" alt="Logo Trận Pháp Kỳ Môn — vòng Thái cực âm dương thư pháp"><span><b>Trận Pháp Kỳ Môn</b><span>Sơn thủy hữu tình · Lập trận · Định cục</span></span></a>
+  <nav class="main" aria-label="Điều hướng chính">
+    <a href="#/tra-cuu" data-navlink="tra-cuu">Tra Cứu</a><a href="#/huong-dan" data-navlink="huong-dan">Hướng Dẫn</a><a href="#/bang-gia" data-navlink="bang-gia">Bảng Giá</a><a href="#/kien-thuc" data-navlink="kien-thuc">Kiến Thức</a><a href="#/faq" data-navlink="faq">Giới Thiệu</a>
+  </nav>
+  <div class="top-actions"><a class="btn btn-primary" href="#/tra-cuu">Lập Bàn Miễn Phí</a></div>
+</div></header>
+
+<main>
+<!-- ================= PAGE: HOME ================= -->
+<div class="page" data-page="home">
+<div class="hero"><div class="wrap hero-grid">
+  <div>
+    <span class="pill"><img src="{{asset:logo.png}}" alt=""> Học &amp; thực hành theo cổ pháp Lưu Bá Ôn</span>
+    <h1><span class="r">Kỳ Môn Độn Giáp</span><br>Định cục trước,<br>luận việc sau.</h1>
+    <p class="lead">Trang tra cứu và học tập Kỳ Môn Độn Giáp theo cổ pháp. Hệ thống tự đối chiếu <strong>giờ, tiết khí và Cục số</strong> phía sau mỗi lần tra cứu — bạn chỉ cần nhập thời gian và câu hỏi, việc định cục đã có trang lo ngầm để bàn luôn chuẩn xác.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#/tra-cuu">Tra cứu ngay →</a>
+      <a class="btn btn-ghost" href="#/kien-thuc">Tìm Hiểu Thêm</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-logo-badge"><img src="{{asset:logo.png}}" alt="Logo Trận Pháp Kỳ Môn — Thái cực âm dương"></div>
+    <div class="board" aria-label="Bàn 9 cung Kỳ Môn">
+      <div class="grid9" id="grid9"></div>
+    </div>
+    <div class="board-note" id="boardNote"><strong>Cung Trung (5):</strong> Tâm bàn — nơi an Trực Phù, Trực Sử khi luận cục. Chạm vào từng cung để sang <a href="#/tra-cuu/cong-cu?mode=lapban"><strong>trang Tra Cứu — Lập bàn</strong></a> và xem chi tiết đúng cung đó trên bàn đầy đủ.</div>
+  </div>
+</div></div>
+
+<div class="statsband"><div class="wrap">
+  <a class="stat" href="#/tra-cuu/cuc-so"><b>24</b><span><i>◆</i>Tiết khí tra Cục số</span></a>
+  <a class="stat" href="#/tra-cuu/cong-cu?mode=lapban"><b>9 cung</b><span><i>◆</i>Bàn Kỳ Môn Lạc Thư</span></a>
+  <a class="stat" href="#/tra-cuu/doi-gio"><b>12 giờ</b><span><i>◆</i>Can Chi theo Ngũ Tý Độn</span></a>
+  <a class="stat" href="#/huong-dan/linh-vuc"><b>11</b><span><i>◆</i>Lĩnh vực luận giải</span></a>
+</div></div>
+
+<div class="landscape"><div class="wrap">
+  <figure>
+    <img src="{{asset:son-thuy.jpg}}" alt="Tranh sơn thủy hữu tình — núi non trùng điệp, mây sương và dòng sông uốn quanh theo phong cách thủy mặc">
+    <figcaption><img src="{{asset:logo.png}}" alt=""><span><b>Sơn thủy hữu tình — an cục giữa núi sông</b><span>Phong thủy lấy sơn làm chỗ dựa, thủy làm dòng khí: “Sơn quản nhân đinh, thủy quản tài”. An cục giữa núi sông cũng vậy — có thế núi vững làm nền, dòng việc mới chảy thuận.</span></span></figcaption>
+  </figure>
+</div></div>
+
+<section><div class="wrap">
+  <div class="sec-head center"><div class="kicker">Tính năng</div><h2>Tính Năng Nổi Bật</h2><p>Từ tra cứu nhanh đến học sâu cổ pháp — mọi thứ bắt đầu từ việc định cục đúng.</p></div>
+  <div class="cards3">
+    <a class="card" href="#/tra-cuu/tra-nhanh"><div class="iconbox ib-mint">🧭</div><h3>Tra cứu Định cục</h3><p>Chọn Can ngày + giờ để ra Can Chi giờ theo Ngũ Tý Độn; chọn tiết khí + nguyên để ra Âm/Dương độn và Cục số 1–9, tức thì, không cần tra bảng giấy.</p><span class="more">Dùng công cụ →</span></a>
+    <a class="card" href="#/tra-cuu/cong-cu?mode=lapban"><div class="iconbox ib-sky">☯</div><h3>Bàn Kỳ Môn đầy đủ 4 lớp</h3><p>Lập bàn thật theo Cục số: Địa bàn an Lục Nghi – Tam Kỳ, Thiên bàn xoay Cửu Tinh, an Bát Môn theo Trực Sử và Bát Thần theo Trực Phù. Bấm vào từng cung để xem chi tiết.</p><span class="more">Lập bàn đầy đủ →</span></a>
+    <a class="card" href="#/tra-cuu/cong-cu?mode=dudoan"><div class="iconbox ib-rose">📜</div><h3>Luận giải &amp; Dụng thần</h3><p>Ngoài 4 phần Hiện trạng — Dự đoán — Triển vọng — Kết luận, trang còn chỉ rõ Dụng thần theo lĩnh vực, cung Dụng thần rơi vào, Trực Phù / Trực Sử và các cách cục nổi bật trong bàn.</p><span class="more">Thử luận giải →</span></a>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="quick">
+    <a href="#/faq/gioi-thieu"><span class="qi">ⓘ</span><span><b>Giới Thiệu</b><span>Về Kỳ Môn Độn Giáp</span></span></a>
+    <a href="#/huong-dan"><span class="qi">📖</span><span><b>Hướng Dẫn Sử Dụng</b><span>Bắt đầu nhanh</span></span></a>
+    <a href="#/faq/hoi-dap"><span class="qi">?</span><span><b>Câu Hỏi Thường Gặp</b><span>Giải đáp thắc mắc</span></span></a>
+    <a href="#/bang-gia"><span class="qi">💬</span><span><b>Bảng Giá &amp; Gói Dùng</b><span>Ba mức sử dụng</span></span></a>
+  </div>
+  <div class="kicker" style="margin:38px 0 14px">Kiến thức nền</div>
+  <div class="knowlist">
+    <a href="#/kien-thuc/ky-mon-la-gi" style="display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:var(--ink);padding:14px;border-radius:14px"><span class="qi" style="width:46px;height:46px;flex:none;border-radius:12px;background:var(--surface);display:grid;place-items:center;font-size:21px">📖</span><span><b style="display:block;font-size:15.5px">Kỳ Môn Độn Giáp là gì?</b><span style="font-size:13.5px;color:var(--muted)">Tên gọi, lịch sử, cấu trúc bàn</span></span></a>
+    <a href="#/kien-thuc/dinh-cuc" style="display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:var(--ink);padding:14px;border-radius:14px"><span class="qi" style="width:46px;height:46px;flex:none;border-radius:12px;background:var(--surface);display:grid;place-items:center;font-size:21px">📖</span><span><b style="display:block;font-size:15.5px">Định cục &amp; Cục số</b><span style="font-size:13.5px;color:var(--muted)">Tiết khí, Tam nguyên, Cục số 1–9</span></span></a>
+    <a href="#/kien-thuc/cau-truc-ban" style="display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:var(--ink);padding:14px;border-radius:14px"><span class="qi" style="width:46px;height:46px;flex:none;border-radius:12px;background:var(--surface);display:grid;place-items:center;font-size:21px">📖</span><span><b style="display:block;font-size:15.5px">Một bàn Kỳ Môn gồm những gì</b><span style="font-size:13.5px;color:var(--muted)">9 cung và các lớp ký hiệu</span></span></a>
+    <a href="#/kien-thuc/ngu-ty-don" style="display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:var(--ink);padding:14px;border-radius:14px"><span class="qi" style="width:46px;height:46px;flex:none;border-radius:12px;background:var(--surface);display:grid;place-items:center;font-size:21px">📖</span><span><b style="display:block;font-size:15.5px">Ngũ Tý Độn đổi giờ</b><span style="font-size:13.5px;color:var(--muted)">Đổi giờ theo Can ngày</span></span></a>
+  </div>
+</div></section>
+</div>
+
+<!-- ================= PAGE: TRA CUU ================= -->
+<div class="page" data-page="tra-cuu">
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="#/home">Trang chủ</a> / <b>Tra Cứu</b></div>
+  <h1>Tra Cứu <em>Kỳ Môn</em></h1>
+  <p>Dự đoán, chọn ngày và lập bàn Kỳ Môn đầy đủ: Địa bàn, Thiên bàn, Cửu Tinh, Bát Môn, Bát Thần cùng Trực Phù — Trực Sử và Dụng thần theo lĩnh vực. Hệ thống tự xử lý định cục phía sau — đổi giờ, tiết khí và Cục số — để bạn tập trung vào việc cần xem.</p>
+</div></div>
+
+<section id="muc-cong-cu"><div class="wrap">
+  <div class="sec-head"><div class="kicker">Công cụ tra cứu</div><h2>Dự đoán · Chọn ngày · Lập bàn</h2><p>Chọn chế độ, nhập thời gian và câu hỏi cụ thể (tối đa 500 ký tự). Bản trình diễn này luận giải ngay trên trình duyệt để bạn trải nghiệm cấu trúc kết quả.</p></div>
+  <div class="tabs">
+    <button type="button" class="tab active" data-mode="dudoan">🔮 Dự đoán</button>
+    <button type="button" class="tab" data-mode="chonngay">📅 Chọn ngày</button>
+    <button type="button" class="tab" data-mode="lapban">☯ Lập bàn</button>
+  </div>
+  <div class="tool">
+    <div class="form-grid">
+      <div><label class="fl" for="fTime">Thời gian lập trận / xem việc</label><input type="datetime-local" id="fTime"></div>
+      <div><label class="fl" for="fField">Lĩnh vực</label><select id="fField">
+        <option>Kinh doanh</option><option>Bệnh tật</option><option>Hôn nhân</option><option>Công danh</option><option>Tài vận</option><option>Gia trạch</option><option>Pháp lý</option><option>Thất vật</option><option>Xuất hành</option><option>Học tập</option><option>Thể thao</option>
+      </select></div>
+      <div class="full"><label class="fl" for="fQ">Câu hỏi của bạn</label><textarea id="fQ" maxlength="500" placeholder="Ví dụ: Tôi định ký hợp đồng phân phối vào tuần tới, việc này có thuận lợi không? Nên chú ý điều gì?"></textarea><div class="hint"><span id="qCount">0</span>/500 ký tự</div></div>
+    </div>
+    <button type="button" class="btn btn-primary" id="btnCast" style="margin-top:8px">Lập trận &amp; xem kết quả</button>
+    <span class="note" style="margin-left:10px">Miễn phí cho chế độ Lập bàn. Kết quả mang tính tham khảo học thuật.</span>
+    <div class="result" id="castResult">
+      <h3 id="castTitle" style="margin-top:6px"></h3>
+      <p class="note" id="castMeta"></p>
+      <div class="km-meta" id="kmMeta"></div>
+      <div class="km-board" aria-label="Bàn Kỳ Môn đầy đủ 9 cung"><div class="km-grid" id="kmGrid"></div></div>
+      <div class="km-legend"><span><strong>Thần</strong> = Bát Thần</span><span><strong>Tinh</strong> = Cửu Tinh (Thiên bàn)</span><span><strong>Môn</strong> = Bát Môn</span><span><strong>Thiên Can</strong> đi theo Tinh · <strong>Địa Can</strong> cố định theo Cục</span><span>Viền đỏ = cung Dụng thần · Bấm vào cung để xem chi tiết</span></div>
+      <div class="rbox km-detail" id="palaceDetail"><h4>Chi tiết cung</h4><p>Bấm vào một cung trên bàn để xem Tinh, Môn, Thần, Thiên/Địa Can và ý nghĩa của cung đó trong bàn này.</p></div>
+      <div class="result-grid">
+        <div class="rbox full" id="rDaysBox" hidden><h4>Ngày gợi ý — 10 ngày tới, cùng khung giờ</h4><p id="rDaysNote"></p><div class="day-list" id="rDays"></div></div>
+        <div class="rbox" data-luan><h4>Hiện trạng</h4><p id="rNow"></p></div>
+        <div class="rbox" data-luan><h4>Dự đoán</h4><p id="rPred"></p></div>
+        <div class="rbox" data-luan><h4>Triển vọng</h4><p id="rPros"></p></div>
+        <div class="rbox" data-luan><h4>Kết luận</h4><p id="rConc"></p></div>
+        <div class="rbox"><h4>Dụng thần &amp; cách cục</h4><p id="rDung"></p></div>
+        <div class="rbox"><h4>Đọc bàn nhanh</h4><p id="rRead"></p></div>
+      </div>
+      <p class="note" style="margin-top:12px">Cách an bàn trên trang là bản rút gọn theo lối Chuyển bàn để học &amp; tham khảo: Địa bàn theo Cục số và chiều độn, Thiên bàn xoay theo Trực Phù, Bát Môn xoay theo Trực Sử. Tiết khí và Nguyên được ước tính theo ngày trong năm và số ngày đã qua trong tiết — khi luận việc hệ trọng nên đối chiếu lịch vạn niên và tài liệu cổ pháp.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="alt" id="muc-tra-nhanh"><div class="wrap">
+  <div class="sec-head"><div class="kicker">Công cụ tương tác</div><h2>Tra cứu nhanh — Định cục</h2><p>Hai tra cứu dùng hằng ngày khi lập trận: đổi giờ theo Ngũ Tý Độn và tra Cục số theo tiết khí, cho kết quả tức thì ngay tại đây.</p></div>
+  <div class="lookup">
+    <div class="card" id="muc-doi-gio">
+      <h3 style="margin-top:0">⏰ A · Đổi giờ — Ngũ Tý Độn</h3>
+      <label class="fl" for="selCan">Thiên can của ngày</label>
+      <select id="selCan"><option>Giáp</option><option>Ất</option><option>Bính</option><option>Đinh</option><option>Mậu</option><option>Kỷ</option><option>Canh</option><option>Tân</option><option>Nhâm</option><option>Quý</option></select>
+      <label class="fl" for="selGio" style="margin-top:12px">Giờ cần tra</label>
+      <select id="selGio"></select>
+      <button type="button" class="btn btn-primary" id="btnGio" style="margin-top:14px;width:100%">Tra Can Chi giờ</button>
+      <div class="lookup-out" id="outGio"></div>
+    </div>
+    <div class="card" id="muc-cuc-so">
+      <h3 style="margin-top:0">🧮 B · Tra Cục số — Tiết khí &amp; Nguyên</h3>
+      <label class="fl" for="selTiet">Tiết khí</label>
+      <select id="selTiet"></select>
+      <label class="fl" for="selNguyen" style="margin-top:12px">Nguyên</label>
+      <select id="selNguyen"><option value="0">Thượng nguyên</option><option value="1">Trung nguyên</option><option value="2">Hạ nguyên</option></select>
+      <button type="button" class="btn btn-primary" id="btnCuc" style="margin-top:14px;width:100%">Tra Cục số</button>
+      <div class="lookup-out" id="outCuc"></div>
+    </div>
+  </div>
+</div></section>
+</div>
+
+<!-- ================= PAGE: HUONG DAN ================= -->
+<div class="page" data-page="huong-dan">
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="#/home">Trang chủ</a> / <b>Hướng Dẫn</b></div>
+  <h1>Hướng Dẫn <em>Sử Dụng</em></h1>
+  <p>Đi đúng trình tự — định cục chuẩn là nền của mọi luận giải.</p>
+</div></div>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="kicker">Hướng dẫn</div><h2>Bắt đầu sử dụng</h2><p>Chọn chế độ Dự đoán, Chọn ngày hoặc Lập bàn ở trang Tra Cứu, nhập đúng ngày giờ và viết câu hỏi cụ thể — một việc, một quẻ, tối đa 500 ký tự. Hệ thống tự định cục phía sau và trả kết quả theo 4 phần dễ đọc: Hiện trạng, Dự đoán, Triển vọng, Kết luận.</p></div>
+  <div class="steps" id="muc-cac-buoc">
+    <a class="step" href="#/tra-cuu/cong-cu?mode=dudoan"><div class="num">1</div><b>Chọn chế độ</b><span>Dự đoán để hỏi một việc, Chọn ngày để tìm ngày thuận, Lập bàn để xem riêng bàn 9 cung.</span></a>
+    <a class="step" href="#/tra-cuu/cong-cu"><div class="num">2</div><b>Nhập thời gian</b><span>Dùng đúng ngày giờ khởi ý hỏi việc (hoặc giờ dự định làm). Trang tự đổi giờ, tìm tiết khí và Cục số.</span></a>
+    <a class="step" href="#/huong-dan/linh-vuc"><div class="num">3</div><b>Chọn lĩnh vực &amp; viết câu hỏi</b><span>Một việc, một quẻ. Lĩnh vực quyết định cách lấy Dụng thần nên hãy chọn sát việc nhất.</span></a>
+    <a class="step" href="#/kien-thuc/cau-truc-ban"><div class="num">4</div><b>Đọc bàn &amp; kết quả</b><span>Xem cung Dụng thần (viền đậm) trước, rồi tới Trực Phù, Trực Sử; bấm từng cung để xem chi tiết.</span></a>
+  </div>
+  <h3 id="muc-linh-vuc" style="margin:34px 0 6px;font-size:22px">11 lĩnh vực luận giải</h3>
+  <p class="note">Chọn đúng lĩnh vực giúp cách lấy Dụng thần và luận giải sát việc hơn. Bấm vào một lĩnh vực để mở trang Tra Cứu với lĩnh vực đó.</p>
+  <div class="fields" id="fields"></div>
+  <div class="cta-band"><div><h3>Sẵn sàng lập quẻ đầu tiên?</h3><p>Lập bàn và tra cứu định cục luôn miễn phí.</p></div><a class="btn btn-primary" href="#/tra-cuu">Mở trang Tra Cứu →</a></div>
+</div></section>
+</div>
+
+<!-- ================= PAGE: BANG GIA ================= -->
+<div class="page" data-page="bang-gia">
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="#/home">Trang chủ</a> / <b>Bảng Giá</b></div>
+  <h1>Bảng Giá <em>Tham Khảo</em></h1>
+  <p>Lập bàn và tra cứu định cục luôn miễn phí. Các mức dưới đây dành cho nhu cầu luận giải sâu hơn.</p>
+</div></div>
+
+<section id="muc-cac-goi"><div class="wrap">
+  <div class="sec-head"><div class="kicker">Bảng giá tham khảo</div><h2>Ba mức sử dụng</h2></div>
+  <div class="price">
+    <div class="card"><h3>Theo quẻ</h3><div class="amount">49.000₫<span style="font-size:15px;color:var(--muted);font-weight:500"> / quẻ</span></div><p>Cho một việc cụ thể, cần câu trả lời ngay.</p><ul><li>Luận giải 4 phần đầy đủ</li><li>Chọn 1 trong 11 lĩnh vực</li><li>Lưu lại nội dung quẻ</li></ul><a class="btn btn-ghost" href="#/tra-cuu/cong-cu?mode=dudoan" style="width:100%">Bắt đầu với 1 quẻ</a></div>
+    <div class="card featured"><span class="tag">PHỔ BIẾN</span><h3>Gói tháng</h3><div class="amount">199.000₫<span style="font-size:15px;color:var(--muted);font-weight:500"> / tháng</span></div><p>Cho người thường xuyên xem việc và học Kỳ Môn.</p><ul><li>Không giới hạn lập bàn &amp; tra cứu</li><li>30 quẻ luận giải / tháng</li><li>Chọn ngày cho nhiều việc</li><li>Ưu tiên hỗ trợ</li></ul><a class="btn btn-primary" href="#/dang-ky?goi=thang" style="width:100%">Chọn gói tháng</a></div>
+    <div class="card"><h3>Hiệu đính chuyên gia</h3><div class="amount">490.000₫<span style="font-size:15px;color:var(--muted);font-weight:500"> / quẻ</span></div><p>Việc hệ trọng cần người có kinh nghiệm rà soát.</p><ul><li>Chuyên gia hiệu đính thủ công</li><li>Kiểm tra lại định cục &amp; Dụng thần</li><li>Nhận xét bổ sung riêng</li></ul><a class="btn btn-ghost" href="#/dang-ky?goi=chuyen-gia" style="width:100%">Tìm hiểu thêm</a></div>
+  </div>
+  <p class="note" style="margin-top:14px">Giá trên là mức tham khảo để bạn hình dung cấu trúc gói; thanh toán chỉ thực hiện khi dịch vụ luận giải chuyên sâu được mở chính thức. Trong lúc chờ, bạn có thể <a href="#/dang-ky">lập phiếu đăng ký quan tâm</a> hoặc xem <a href="#/faq/hoi-phi">câu hỏi về chi phí</a>.</p>
+</div></section>
+</div>
+
+<!-- ================= PAGE: KIEN THUC ================= -->
+<div class="page" data-page="kien-thuc">
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="#/home">Trang chủ</a> / <b>Kiến Thức</b></div>
+  <h1>Kiến Thức <em>Nền</em></h1>
+  <p>Học Kỳ Môn từ nền tảng định cục đến cấu trúc bàn — và thực hành ngay bằng công cụ ở trang Tra Cứu.</p>
+</div></div>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="kicker">Kiến thức nền</div><h2>Học Kỳ Môn theo thứ tự</h2></div>
+  <div class="cards3">
+    <a class="card" href="#/kien-thuc/ky-mon-la-gi"><div class="iconbox ib-mint">📖</div><h3>Kỳ Môn Độn Giáp là gì?</h3><p>Tên gọi, nguồn gốc và vị trí của Kỳ Môn trong Tam thức (Thái Ất, Kỳ Môn, Lục Nhâm) — phép dự trắc kết hợp thời gian và không gian trên bàn Cửu cung.</p><span class="more">Đọc tiếp →</span></a>
+    <a class="card" href="#/kien-thuc/cau-truc-ban"><div class="iconbox ib-sky">🗺️</div><h3>Một bàn Kỳ Môn gồm những gì?</h3><p>9 cung Lạc Thư và các lớp ký hiệu: Địa bàn, Thiên bàn, Cửu Tinh, Bát Môn, Bát Thần, Tam Kỳ — Lục Nghi. Hiểu cấu trúc trước khi an bài.</p><span class="more">Đọc cấu trúc bàn →</span></a>
+    <a class="card" href="#/kien-thuc/dinh-cuc"><div class="iconbox ib-rose">🧮</div><h3>Định cục &amp; Cục số</h3><p>Ngũ Tý Độn đổi giờ, 24 tiết khí, Âm/Dương độn, Tam nguyên — Phù đầu, Siêu thần — Tiếp khí — Chính thụ, Đặt nhuận và Cục số, được hệ thống xử lý ngầm mỗi lần tra cứu.</p><span class="more">Đọc cách định cục →</span></a>
+  </div>
+  <div class="reads">
+{{kien-thuc}}
+  </div>
+  <div class="two" id="muc-bang-tra" style="margin-top:26px">
+    <div class="table-wrap"><table><thead><tr><th>Cửu Tinh</th><th>Tính chất</th><th>Chủ về</th></tr></thead><tbody>
+    <tr><td>Thiên Bồng</td><td>Hung</td><td>Trí mưu, việc ngầm, Thủy</td></tr><tr><td>Thiên Nhậm</td><td>Cát</td><td>Nhân hậu, đất đai, nâng đỡ</td></tr><tr><td>Thiên Xung</td><td>Cát nhẹ</td><td>Hành động nhanh, khởi sự</td></tr><tr><td>Thiên Phụ</td><td>Đại cát</td><td>Văn thư, học hành, quý nhân</td></tr><tr><td>Thiên Anh</td><td>Trung / Hỏa vượng</td><td>Danh tiếng, hiển lộ, nóng nảy</td></tr><tr><td>Thiên Nhuế</td><td>Hung</td><td>Bệnh tật, trì trệ, việc cũ</td></tr><tr><td>Thiên Trụ</td><td>Hung</td><td>Tranh cãi, phá vỡ, miệng lưỡi</td></tr><tr><td>Thiên Tâm</td><td>Đại cát</td><td>Lãnh đạo, y dược, quyết đoán</td></tr><tr><td>Thiên Cầm</td><td>Cát</td><td>Trung tâm, điều hòa (ở cung Trung)</td></tr>
+    </tbody></table></div>
+    <div class="table-wrap"><table><thead><tr><th>Bát Môn / Bát Thần</th><th>Tính chất</th><th>Chủ về</th></tr></thead><tbody>
+    <tr><td>Khai Môn</td><td>Đại cát</td><td>Mở việc, công danh, khởi đầu</td></tr><tr><td>Hưu Môn</td><td>Cát</td><td>Nghỉ ngơi, gặp quý nhân, hòa giải</td></tr><tr><td>Sinh Môn</td><td>Đại cát</td><td>Tài lộc, kinh doanh, sinh sôi</td></tr><tr><td>Thương Môn</td><td>Hung</td><td>Tổn thương, tranh chấp</td></tr><tr><td>Đỗ Môn</td><td>Trung / bế tắc</td><td>Ẩn giấu, kỹ thuật, chậm lại</td></tr><tr><td>Cảnh Môn</td><td>Trung</td><td>Văn thư, tin tức, trình diễn</td></tr><tr><td>Tử Môn</td><td>Đại hung</td><td>Bế tắc, việc cũ, đất đai âm</td></tr><tr><td>Kinh Môn</td><td>Hung</td><td>Lo âu, kiện tụng, bất ngờ</td></tr><tr><td>Bát Thần</td><td>Theo vị trí</td><td>Trực Phù (chủ), Đằng Xà (biến), Thái Âm (âm trợ), Lục Hợp (hòa hợp), Bạch Hổ (sát), Huyền Vũ (mờ ám), Cửu Địa (vững), Cửu Thiên (cao xa)</td></tr>
+    </tbody></table></div>
+  </div>
+  <p class="note" style="margin-top:12px">Bảng trên là tóm tắt học tập do trang biên soạn để đọc bàn nhanh — tính cát hung còn tùy tổ hợp Tinh – Môn – Thần – Can trong từng cung và quan hệ với Dụng thần, không đọc riêng lẻ một yếu tố.</p>
+  <div class="cta-band"><div><h3>Thực hành định cục ngay</h3><p>Dùng hai công cụ tra cứu ở trang Tra Cứu để tự định cục cho một thời điểm bất kỳ.</p></div><a class="btn btn-primary" href="#/tra-cuu/tra-nhanh">Thực hành tra cứu →</a></div>
+</div></section>
+</div>
+
+<!-- ================= PAGE: FAQ / GIOI THIEU ================= -->
+<div class="page" data-page="faq">
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="#/home">Trang chủ</a> / <b>Giới Thiệu &amp; FAQ</b></div>
+  <h1>Giới Thiệu <em>&amp; Câu Hỏi</em></h1>
+  <p>Về Trận Pháp Kỳ Môn và những thắc mắc thường gặp khi bắt đầu với Kỳ Môn Độn Giáp.</p>
+</div></div>
+
+<section><div class="wrap">
+  <div class="card" id="muc-gioi-thieu" style="margin-bottom:26px"><div class="about-brand"><img src="{{asset:logo.png}}" alt="Logo Trận Pháp Kỳ Môn — vòng Thái cực âm dương với nét thư pháp"><div><h3 style="margin-top:0">Về Trận Pháp Kỳ Môn</h3><p>Trận Pháp Kỳ Môn là trang học &amp; thực hành Kỳ Môn Độn Giáp theo cổ pháp, lấy <strong>Định cục</strong> làm nền: hệ thống tự đổi giờ bằng Ngũ Tý Độn, xác định tiết khí, Âm/Dương độn, Tam nguyên và Cục số phía sau mỗi lần tra cứu, trước mọi luận giải. Biểu tượng của trang là vòng Thái cực âm dương ôm nét thư pháp — âm dương tương sinh, sơn thủy tương hợp, đúng tinh thần “định cục trước, luận việc sau”. Phần định cục do Trận Pháp Kỳ Môn tự biên soạn và lập trình theo các bảng tra cổ pháp phổ thông, vận hành ngầm trong các công cụ của trang.</p><p style="margin-top:10px"><a href="#/tra-cuu"><strong>Mở trang Tra Cứu →</strong></a> &nbsp;·&nbsp; <a href="#/huong-dan"><strong>Xem Hướng dẫn sử dụng →</strong></a> &nbsp;·&nbsp; <a href="#/faq/ban-quyen"><strong>Bản quyền &amp; nguồn tham khảo →</strong></a></p></div></div></div>
+  <div class="sec-head" id="muc-hoi-dap"><div class="kicker">FAQ</div><h2>Câu hỏi thường gặp</h2></div>
+  <details open><summary>Vì sao phải định cục trước khi luận quẻ?</summary><p>Cục số quyết định cách an Lục Nghi — Tam Kỳ trên cửu cung. Sai cục là sai toàn bộ bàn, nên khâu định cục (đổi giờ, xác định tiết khí, Tam nguyên, Cục số) luôn được hệ thống xử lý trước mọi luận giải.</p></details>
+  <details><summary>Ngũ Tý Độn dùng để làm gì?</summary><p>Để suy ra Thiên can của giờ từ Thiên can của ngày. Biết ngày là Giáp Tý chẳng hạn, ca quyết “Giáp Kỷ hoàn gia Giáp” cho giờ Tý là Giáp Tý, đếm thuận sẽ ra mọi giờ trong ngày — ví dụ 15h (giờ Thân) là Nhâm Thân.</p></details>
+  <details><summary>Dương độn và Âm độn khác nhau thế nào?</summary><p>Dương độn chạy từ Đông chí đến Mang chủng, Lục Nghi đi thuận — Tam Kỳ đi nghịch. Âm độn chạy từ Hạ chí đến Đại tuyết, chiều an bài ngược lại. Tiết khí tại thời điểm lập trận quyết định đang ở độn nào.</p></details>
+  <details><summary>Siêu thần, Tiếp khí, Chính thụ là gì?</summary><p>Là ba trạng thái lệch nhau giữa Phù đầu (ngày Giáp/Kỷ đầu nguyên) và thời điểm giao tiết khí: trùng ngày là Chính thụ, Phù đầu đến trước là Siêu thần, tiết khí đến trước là Tiếp khí. Siêu quá 9 ngày thì dùng phép Đặt nhuận ở Mang chủng hoặc Đại tuyết.</p></details>
+  <details id="muc-hoi-phi"><summary>Lập bàn và tra cứu định cục có mất phí không?</summary><p>Không. Lập bàn 9 cung và hai công cụ tra cứu định cục trên website này miễn phí. Chỉ luận giải chuyên sâu theo quẻ, gói tháng hoặc hiệu đính chuyên gia mới thuộc các mức tham khảo ở <a href="#/bang-gia">Bảng giá</a>.</p></details>
+  <details><summary>Kết quả luận giải có phải quyết định thay cho tôi không?</summary><p>Không. Kỳ Môn là công cụ tham khảo để nhìn cục diện và thời điểm rõ hơn. Với việc hệ trọng về sức khỏe, pháp lý hay tài chính, hãy đối chiếu thêm ý kiến chuyên môn tương ứng.</p></details>
+  <div class="card" id="muc-ban-quyen" style="margin-top:26px"><h3 style="margin-top:0">Bản quyền &amp; nguồn tham khảo</h3>
+    <p>© 2026 Trận Pháp Kỳ Môn. Mã nguồn của trang (giao diện, bộ định tuyến, bộ máy lập bàn), toàn bộ lời diễn giải, bảng tóm tắt và logo ĐL do Trận Pháp Kỳ Môn tự biên soạn và sở hữu. <strong>Bảo lưu mọi quyền:</strong> không sao chép, sửa đổi, phân phối hay dùng lại bất kỳ phần nào khi chưa có văn bản đồng ý của chủ sở hữu. Mã nguồn lưu tại <a href="https://github.com/Hung-Phongdautu/Kymontran" target="_blank" rel="noopener">kho mã Kymontran</a>; liên hệ xin phép sử dụng: <a href="mailto:agencylehung@gmail.com">agencylehung@gmail.com</a>.</p>
+    <p style="margin-top:10px"><strong>Ghi chú nguồn tham khảo:</strong></p>
+    <ul style="margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:15px">
+      <li>Tri thức cổ pháp — ca quyết Ngũ Tý Độn, bảng 24 tiết khí – Cục số, Cửu Tinh, Bát Môn, Bát Thần, Tam Kỳ – Lục Nghi — là tri thức cổ truyền thuộc phạm vi công cộng; phần trình bày và diễn giải trên trang là của Trận Pháp Kỳ Môn.</li>
+      <li>Kho mã công khai <a href="https://github.com/winvu88888888-maker/cuongtan66666666" target="_blank" rel="noopener">winvu88888888-maker/cuongtan66666666</a> (ứng dụng “Kỳ Môn Độn Giáp” của tác giả Vũ Việt Cường) được xem để đối chiếu ý tưởng chức năng. Trang này không sao chép mã nguồn, văn bản hay hình ảnh từ kho đó.</li>
+      <li>Kho mã công khai <a href="https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code" target="_blank" rel="noopener">masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code</a> được xem để học cách tổ chức tài liệu và quy trình của một kho mã (các tệp hướng dẫn, kiểm tra tự động). Trang này không dùng mã nguồn, văn bản hay hình ảnh từ kho đó.</li>
+      <li>Phông chữ Be Vietnam Pro và Noto Serif dùng theo giấy phép SIL Open Font License 1.1, tải qua Google Fonts.</li>
+      <li>Logo ĐL và tranh sơn thủy do chủ trang cung cấp; tranh sơn thủy được tạo bằng công cụ AI.</li>
+    </ul>
+  </div>
+  <div class="cta-band"><div><h3>Còn thắc mắc khi lập trận?</h3><p>Quay lại trang Tra Cứu và thử định cục cho thời điểm bạn đang quan tâm.</p></div><a class="btn btn-primary" href="#/tra-cuu">Mở trang Tra Cứu →</a></div>
+</div></section>
+</div>
+<!-- ================= PAGE: DANG KY ================= -->
+<div class="page" data-page="dang-ky">
+<div class="page-head"><div class="wrap">
+  <div class="crumb"><a href="#/home">Trang chủ</a> / <a href="#/bang-gia">Bảng Giá</a> / <b>Đăng Ký</b></div>
+  <h1>Đăng Ký <em>Gói Dùng</em></h1>
+  <p>Lập phiếu đăng ký quan tâm cho gói luận giải bạn chọn. Thanh toán chưa mở — phiếu chỉ để giữ chỗ và trao đổi với quản trị trang.</p>
+</div></div>
+<section><div class="wrap">
+  <div class="sec-head"><div class="kicker">Phiếu đăng ký</div><h2 id="dkTitle">Chọn gói &amp; để lại liên hệ</h2><p id="dkDesc">Chọn một trong ba mức ở Bảng Giá, điền cách liên hệ thuận tiện nhất rồi tạo phiếu.</p></div>
+  <form class="tool" id="dkForm">
+    <div class="form-grid">
+      <div><label class="fl" for="dkGoi">Gói quan tâm</label><select id="dkGoi">
+        <option value="que">Theo quẻ — 49.000₫ / quẻ</option><option value="thang">Gói tháng — 199.000₫ / tháng</option><option value="chuyen-gia">Hiệu đính chuyên gia — 490.000₫ / quẻ</option>
+      </select></div>
+      <div><label class="fl" for="dkName">Họ tên</label><input type="text" id="dkName" maxlength="80" autocomplete="name" required></div>
+      <div class="full"><label class="fl" for="dkContact">Cách liên hệ (email, điện thoại hoặc Zalo)</label><input type="text" id="dkContact" maxlength="120" required></div>
+      <div class="full"><label class="fl" for="dkNote">Việc cần xem / ghi chú</label><textarea id="dkNote" maxlength="500" placeholder="Ví dụ: cần chọn ngày khai trương trong tháng tới."></textarea></div>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top:8px">Tạo phiếu đăng ký</button>
+    <span class="note" style="margin-left:10px">Phiếu được tạo ngay trên trình duyệt của bạn, trang không tự gửi dữ liệu đi đâu.</span>
+    <div class="lookup-out" id="dkOut"><p class="copy-out" id="dkText"></p><button type="button" class="btn btn-ghost" id="dkCopy">Sao chép phiếu</button> <a class="btn btn-primary" id="dkMail" href="#/dang-ky" hidden>Gửi qua email</a><p class="note" id="dkHint" style="margin:10px 0 0"></p></div>
+  </form>
+  <div class="cta-band"><div><h3>Chưa cần gói trả phí?</h3><p>Lập bàn và tra cứu định cục luôn miễn phí.</p></div><a class="btn btn-primary" href="#/tra-cuu">Mở trang Tra Cứu →</a></div>
+</div></section>
+</div>
+</main>
+
+<footer><div class="wrap foot">
+  <div style="display:flex;gap:14px;align-items:flex-start;max-width:560px"><img class="brand-logo brand-foot" src="{{asset:logo.png}}" alt="Logo Trận Pháp Kỳ Môn"><div><strong style="color:#fff;font-family:'Noto Serif',serif;font-size:17px">Trận Pháp Kỳ Môn</strong><br>Học &amp; thực hành Kỳ Môn Độn Giáp theo cổ pháp — bắt đầu từ Định cục.<br><span style="font-size:13px;opacity:.8">© 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền. Nội dung và mã nguồn do Trận Pháp Kỳ Môn tự biên soạn — xem <a href="#/faq/ban-quyen" style="text-decoration:underline">Bản quyền &amp; nguồn tham khảo</a>.</span></div></div>
+  <div><a href="#/tra-cuu" data-navlink="tra-cuu">Tra Cứu</a> · <a href="#/huong-dan" data-navlink="huong-dan">Hướng Dẫn</a> · <a href="#/bang-gia" data-navlink="bang-gia">Bảng Giá</a> · <a href="#/kien-thuc" data-navlink="kien-thuc">Kiến Thức</a> · <a href="#/faq/hoi-dap" data-navlink="faq">FAQ</a> · <a href="#/faq/ban-quyen">Bản quyền</a></div>
+</div></footer>
+
+<script>
+{{script}}
+</script>
+</body>
+</html>
