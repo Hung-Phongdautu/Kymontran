@@ -16,7 +16,9 @@ Toàn bộ trang là một tệp `index.html` chạy thẳng trên trình duyệ
 | `src/app.js` | Bộ định tuyến, bộ máy lập bàn, công cụ tra cứu, phiếu đăng ký |
 | `assets/` | Logo ĐL và tranh sơn thủy (được nhúng thẳng vào trang) |
 | `content/kien-thuc/*.md` | Bài viết của trang Kiến Thức |
+| `worker/` | Máy chủ trung gian (Cloudflare Workers) giữ khóa OpenAI cho phần "Luận giải bằng AI" — tùy chọn |
 | `tests/check_site.py` | Kiểm tra mọi liên kết nội bộ dẫn tới trang và mục có thật |
+| `tests/test_worker.mjs` | Kiểm thử máy chủ trung gian bằng OpenAI giả |
 | `.github/workflows/` | Kiểm tra tự động khi đẩy mã; đưa trang lên GitHub Pages khi `main` thay đổi |
 
 ## Cách làm việc
@@ -63,6 +65,7 @@ Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
 ## Tài liệu khác
 
 - [KHOI-CHAY.md](KHOI-CHAY.md) — khởi chạy trên máy và đưa lên GitHub Pages
+- [worker/README.md](worker/README.md) — bật "Luận giải bằng AI" bằng khóa OpenAI của bạn
 - [CHANGELOG.md](CHANGELOG.md) — nhật ký thay đổi
 - [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md) — việc cần làm trước khi đưa trang lên mạng
 - [RESPONSIBLE-USE.md](RESPONSIBLE-USE.md) — nguyên tắc trình bày nội dung dự đoán
@@ -77,4 +80,5 @@ Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
 - [winvu88888888-maker/cuongtan66666666](https://github.com/winvu88888888-maker/cuongtan66666666): chỉ xem để đối chiếu ý tưởng chức năng.
 - [masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code](https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code): chỉ xem để học cách tổ chức tài liệu và quy trình của kho mã.
 - Không có mã nguồn, văn bản hay hình ảnh nào được lấy từ hai kho trên.
+- Phần "Luận giải bằng AI" dùng dịch vụ của OpenAI; lời nhắc và mã gọi dịch vụ do Trận Pháp Kỳ Môn tự viết.
 - Phông chữ Be Vietnam Pro và Noto Serif: SIL Open Font License 1.1 (Google Fonts).

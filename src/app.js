@@ -281,10 +281,56 @@ function cast(scroll){
   document.getElementById('rDaysBox').hidden=(mode!=='chonngay');
   if(mode==='chonngay')renderDays(date,field);
   document.getElementById('palaceDetail').innerHTML='<h4>Chi tiết cung</h4><p>Bấm vào một cung trên bàn để xem Tinh, Môn, Thần, Thiên/Địa Can và ý nghĩa của cung đó trong bàn này.</p>';
+  resetAI(date,field,q,t);
   document.getElementById('castResult').classList.add('show');
   if(scroll)document.getElementById('castResult').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 document.getElementById('btnCast').addEventListener('click',function(){cast(true);});
+
+// ===== Luan giai bang AI (qua may chu trung gian, xem worker/README.md) =====
+// Dan dia chi Worker vao day de bat nut "Luan giai bang AI" (de trong = tat, trang chi dung
+// luan giai soan san). KHONG bao gio dat khoa OpenAI trong tep nay: khoa nam tren Worker.
+var AI_ENDPOINT='';
+var AI_NOTE='Bốn phần trên là luận giải soạn sẵn theo bàn. Bấm nút để nhận bản luận giải riêng cho câu hỏi của bạn. Khi bấm, bàn Kỳ Môn và câu hỏi được gửi tới dịch vụ AI (OpenAI) để xử lý.';
+var aiRequest=null, aiSeq=0;
+function resetAI(date,field,question,timeText){
+  aiSeq++; // bo ket qua AI cua lan lap ban truoc neu no ve muon
+  var board=lastBoard, palaces=[];
+  for(var p=1;p<=9;p++){palaces.push({so:p,ten:PAL_INFO[p].name,huong:PAL_INFO[p].dir,than:board.than[p],tinh:board.thienStar[p],mon:board.thienDoor[p],thienCan:board.thienCan[p],diaCan:board.dia[p]});}
+  aiRequest={mode:mode,field:field,question:fQ.value.trim(),board:{
+    thoiDiem:timeText?timeText.replace('T',' '):toLocalInput(date).replace('T',' '),
+    cuc:board.est.cucRow[1]+' — '+(board.isDuong?'Dương độn':'Âm độn')+' '+board.cuc+' cục, '+["Thượng nguyên","Trung nguyên","Hạ nguyên"][board.est.nguyen],
+    ngayGio:'ngày '+board.dayStem+' '+board.dayBranch+', giờ '+board.hourStemFull,
+    trucPhu:board.trucPhuStar+' đóng tại cung '+board.hourPal,
+    trucSu:board.trucSuDoor,
+    dungThan:board.dung.label,
+    cungDungThan:board.dungPal,
+    palaces:palaces}};
+  var btn=document.getElementById('btnAI');
+  document.getElementById('aiBar').hidden=!(AI_ENDPOINT&&mode!=='lapban');
+  document.getElementById('aiNote').textContent=AI_NOTE;
+  btn.disabled=false; btn.textContent='Luận giải bằng AI';
+}
+document.getElementById('btnAI').addEventListener('click',function(){
+  if(!AI_ENDPOINT||!aiRequest)return;
+  var btn=this, note=document.getElementById('aiNote'), seq=aiSeq;
+  btn.disabled=true; btn.textContent='Đang luận giải…';
+  var fail=function(msg){if(seq!==aiSeq)return;note.textContent=msg+' Bốn phần trên vẫn là luận giải soạn sẵn.';btn.disabled=false;btn.textContent='Thử lại';};
+  fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(aiRequest)})
+    .then(function(res){return res.json().then(function(data){return {ok:res.ok,data:data};},function(){return {ok:false,data:{}};});})
+    .then(function(r){
+      if(seq!==aiSeq)return;
+      if(!r.ok){fail(r.data&&r.data.error?r.data.error:'Chưa nhận được luận giải từ AI.');return;}
+      document.getElementById('rNow').textContent=r.data.hienTrang;
+      document.getElementById('rPred').textContent=r.data.duDoan;
+      document.getElementById('rPros').textContent=r.data.trienVong;
+      document.getElementById('rConc').textContent=r.data.ketLuan;
+      note.textContent='Bốn phần Hiện trạng — Dự đoán — Triển vọng — Kết luận ở trên đã được thay bằng bản do AI viết theo bàn và câu hỏi của bạn. Nội dung chỉ mang tính tham khảo.';
+      btn.textContent='Đã luận giải ✓';
+      document.querySelector('[data-luan]').scrollIntoView({behavior:'smooth',block:'nearest'});
+    })
+    .catch(function(){fail('Không kết nối được máy chủ luận giải.');});
+});
 
 // ===== Dang ky (registration-of-interest slip; nothing is sent automatically) =====
 // Dien email nhan dang ky vao day de bat nut "Gui qua email" (de trong = chi sao chep phieu).

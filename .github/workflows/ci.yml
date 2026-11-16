@@ -17,3 +17,5 @@ jobs:
           python-version: "3.12"
       - name: index.html khớp với nguồn và mọi liên kết nội bộ hợp lệ
         run: python3 tests/check_site.py
+      - name: Máy chủ trung gian xử lý đúng (không gọi OpenAI thật)
+        run: node tests/test_worker.mjs

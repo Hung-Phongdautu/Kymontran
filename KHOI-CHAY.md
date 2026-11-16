@@ -62,6 +62,12 @@ Trang nằm tại https://hung-phongdautu.github.io/Kymontran/
 2. Chạy `python3 build.py` rồi `python3 tests/check_site.py`.
 3. Đẩy lên `main`. Trang trên mạng tự cập nhật sau một đến hai phút.
 
+## D. Bật "Luận giải bằng AI" (tùy chọn)
+
+Trang chạy đầy đủ mà không cần AI. Muốn phần luận giải do OpenAI viết theo từng câu hỏi, làm theo [worker/README.md](worker/README.md): tạo một Worker trên Cloudflare để giữ khóa, rồi dán địa chỉ Worker vào `AI_ENDPOINT` trong `src/app.js`.
+
+Không đặt khóa OpenAI vào trang, vào kho mã hay vào GitHub Pages.
+
 ## Lưu ý
 
 - Không đưa khóa API, mật khẩu hay dữ liệu khách hàng vào kho hoặc vào tài liệu hướng dẫn — kho công khai thì ai cũng đọc được (xem [SECURITY.md](SECURITY.md)).
