@@ -7,6 +7,7 @@
 - Quy trình GitHub Pages tự chạy khi nhánh `main` thay đổi.
 - Thêm hướng dẫn `KHOI-CHAY.md`.
 - Thêm phần "Luận giải bằng AI" (tùy chọn): máy chủ trung gian `worker/` giữ khóa OpenAI, trang gọi qua `AI_ENDPOINT`. Mặc định tắt.
+- `build.py --demo` ghi `demo.html`: bản chạy thử có nút AI trả về nội dung minh họa, không gọi dịch vụ nào.
 
 ## 2026-11-15
 

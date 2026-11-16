@@ -4,6 +4,7 @@
     python3 build.py              # ghi index.html
     python3 build.py --check      # báo lỗi nếu index.html chưa khớp với nguồn
     python3 build.py --site _site # ghi thêm thư mục để đưa lên mạng (GitHub Pages)
+    python3 build.py --demo       # ghi demo.html: bản chạy thử có nút AI trả về nội dung minh họa
 
 Nguồn:
     src/template.html          khung trang, chứa các chỗ giữ chỗ {{...}}
@@ -168,8 +169,21 @@ def write_site(folder):
     return folder
 
 
+def write_demo():
+    """Bản chạy thử: bật nút "Luận giải bằng AI" ở chế độ minh họa, không gọi dịch vụ nào."""
+    page, off, on = build(), "var AI_ENDPOINT='';", "var AI_ENDPOINT='demo';"
+    if page.count(off) != 1:
+        raise SystemExit("Không tìm thấy đúng một dòng AI_ENDPOINT trống trong src/app.js để tạo bản demo")
+    page = page.replace(off, on).replace("<title>", "<title>[Demo] ", 1)
+    (ROOT / "demo.html").write_text(page, encoding="utf-8")
+    print("Đã ghi demo.html (bản chạy thử, không đưa lên mạng thay cho index.html)")
+
+
 def main():
     args = sys.argv[1:]
+    if "--demo" in args:
+        write_demo()
+        return
     if "--check" in args:
         if not OUTPUT.is_file() or read(OUTPUT) != build():
             raise SystemExit("index.html chưa khớp với nguồn — hãy chạy: python3 build.py")

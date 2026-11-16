@@ -29,6 +29,7 @@ Chỉ cần Python 3, không cài thêm gói nào.
 python3 server.py             # dựng lại và chạy thử tại http://localhost:8000
 python3 build.py              # chỉ dựng lại index.html sau khi sửa nguồn
 python3 tests/check_site.py   # kiểm tra trước khi đẩy mã
+python3 build.py --demo       # ghi demo.html: bản chạy thử, nút AI trả về nội dung minh họa
 ```
 
 Hướng dẫn từng bước để chạy trên máy và đưa lên mạng: [KHOI-CHAY.md](KHOI-CHAY.md).

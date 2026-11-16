@@ -896,8 +896,20 @@ document.getElementById('btnCast').addEventListener('click',function(){cast(true
 // ===== Luan giai bang AI (qua may chu trung gian, xem worker/README.md) =====
 // Dan dia chi Worker vao day de bat nut "Luan giai bang AI" (de trong = tat, trang chi dung
 // luan giai soan san). KHONG bao gio dat khoa OpenAI trong tep nay: khoa nam tren Worker.
+// Gia tri 'demo' (do `python3 build.py --demo` dat) cho chay thu giao dien: nut hien ra va tra ve
+// mot ban MINH HOA soan ngay tren trinh duyet, khong goi AI va khong gui du lieu di dau.
 var AI_ENDPOINT='';
-var AI_NOTE='Bốn phần trên là luận giải soạn sẵn theo bàn. Bấm nút để nhận bản luận giải riêng cho câu hỏi của bạn. Khi bấm, bàn Kỳ Môn và câu hỏi được gửi tới dịch vụ AI (OpenAI) để xử lý.';
+var AI_DEMO=(AI_ENDPOINT==='demo');
+var AI_NOTE=AI_DEMO?'BẢN DEMO — chưa nối với OpenAI. Bấm nút để xem cách phần luận giải bằng AI sẽ hiển thị; nội dung trả về là bản minh họa soạn ngay trên trình duyệt, không có dữ liệu nào được gửi đi.':'Bốn phần trên là luận giải soạn sẵn theo bàn. Bấm nút để nhận bản luận giải riêng cho câu hỏi của bạn. Khi bấm, bàn Kỳ Môn và câu hỏi được gửi tới dịch vụ AI (OpenAI) để xử lý.';
+function demoAnswer(req){
+  var b=req.board, d=b.palaces[b.cungDungThan-1], q=req.question?('“'+req.question+'”'):'việc thuộc lĩnh vực '+req.field;
+  var tag='[Minh họa] ';
+  return {
+    hienTrang:tag+'Với câu hỏi '+q+', bàn lập lúc '+b.thoiDiem+' thuộc '+b.cuc+'. Dụng thần ('+b.dungThan+') rơi tại cung '+d.so+' '+d.ten+' ('+d.huong+'), nơi có '+d.tinh+', '+d.mon+' và '+d.than+'.',
+    duDoan:tag+'Tại cung Dụng thần, Thiên Can '+d.thienCan+' đi trên Địa Can '+d.diaCan+'. Bản AI thật sẽ phân tích tổ hợp này cùng quan hệ sinh khắc với cung của người hỏi để nêu diễn biến gần.',
+    trienVong:tag+b.trucPhu+', Trực Sử là '+b.trucSu+'. Bản AI thật sẽ dựa vào hướng và mảng việc của các cung này để nêu triển vọng trung hạn và điều cần chuẩn bị.',
+    ketLuan:tag+'Đây là bản demo để xem bố cục; khi nối với OpenAI, bốn phần này sẽ là lời luận giải viết riêng cho bàn và câu hỏi của bạn. Nội dung chỉ mang tính tham khảo.'};
+}
 var aiRequest=null, aiSeq=0;
 function resetAI(date,field,question,timeText){
   aiSeq++; // bo ket qua AI cua lan lap ban truoc neu no ve muon
@@ -922,8 +934,10 @@ document.getElementById('btnAI').addEventListener('click',function(){
   var btn=this, note=document.getElementById('aiNote'), seq=aiSeq;
   btn.disabled=true; btn.textContent='Đang luận giải…';
   var fail=function(msg){if(seq!==aiSeq)return;note.textContent=msg+' Bốn phần trên vẫn là luận giải soạn sẵn.';btn.disabled=false;btn.textContent='Thử lại';};
-  fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(aiRequest)})
-    .then(function(res){return res.json().then(function(data){return {ok:res.ok,data:data};},function(){return {ok:false,data:{}};});})
+  var call=AI_DEMO?new Promise(function(done){var req=aiRequest;setTimeout(function(){done({ok:true,data:demoAnswer(req)});},900);})
+    :fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(aiRequest)})
+    .then(function(res){return res.json().then(function(data){return {ok:res.ok,data:data};},function(){return {ok:false,data:{}};});});
+  call
     .then(function(r){
       if(seq!==aiSeq)return;
       if(!r.ok){fail(r.data&&r.data.error?r.data.error:'Chưa nhận được luận giải từ AI.');return;}
@@ -931,8 +945,8 @@ document.getElementById('btnAI').addEventListener('click',function(){
       document.getElementById('rPred').textContent=r.data.duDoan;
       document.getElementById('rPros').textContent=r.data.trienVong;
       document.getElementById('rConc').textContent=r.data.ketLuan;
-      note.textContent='Bốn phần Hiện trạng — Dự đoán — Triển vọng — Kết luận ở trên đã được thay bằng bản do AI viết theo bàn và câu hỏi của bạn. Nội dung chỉ mang tính tham khảo.';
-      btn.textContent='Đã luận giải ✓';
+      note.textContent=AI_DEMO?'BẢN DEMO — bốn phần ở trên vừa được thay bằng nội dung minh họa (chưa phải AI viết). Khi nối với OpenAI, chỗ này sẽ là lời luận giải thật.':'Bốn phần Hiện trạng — Dự đoán — Triển vọng — Kết luận ở trên đã được thay bằng bản do AI viết theo bàn và câu hỏi của bạn. Nội dung chỉ mang tính tham khảo.';
+      btn.textContent=AI_DEMO?'Đã hiển thị bản minh họa ✓':'Đã luận giải ✓';
       document.querySelector('[data-luan]').scrollIntoView({behavior:'smooth',block:'nearest'});
     })
     .catch(function(){fail('Không kết nối được máy chủ luận giải.');});
