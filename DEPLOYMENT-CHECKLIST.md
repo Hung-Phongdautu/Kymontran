@@ -7,4 +7,5 @@
 - [ ] Không có khóa API, mật khẩu hay dữ liệu khách hàng trong kho (xem [SECURITY.md](SECURITY.md)).
 - [ ] Lời nhắc "kết quả mang tính tham khảo" vẫn hiển thị ở trang Tra Cứu và FAQ (xem [RESPONSIBLE-USE.md](RESPONSIBLE-USE.md)).
 - [ ] Ghi thay đổi vào [CHANGELOG.md](CHANGELOG.md).
-- [ ] Nếu dùng GitHub Pages: bật Pages với nguồn "GitHub Actions" trong Settings, rồi chạy tay quy trình "Đưa trang lên GitHub Pages".
+- [ ] Chạy `python3 server.py` và xem trang tại http://localhost:8000.
+- [ ] Lần đầu dùng GitHub Pages: làm theo mục B trong [KHOI-CHAY.md](KHOI-CHAY.md).

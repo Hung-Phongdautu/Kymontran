@@ -10,24 +10,26 @@ Toàn bộ trang là một tệp `index.html` chạy thẳng trên trình duyệ
 | --- | --- |
 | `index.html` | Trang hoàn chỉnh — **sản phẩm dựng ra, không sửa tay** |
 | `build.py` | Ghép nguồn thành `index.html` |
+| `server.py` | Chạy thử trang trên máy tại http://localhost:8000 |
 | `src/template.html` | Khung trang và nội dung các trang con |
 | `src/styles.css` | Giao diện |
 | `src/app.js` | Bộ định tuyến, bộ máy lập bàn, công cụ tra cứu, phiếu đăng ký |
 | `assets/` | Logo ĐL và tranh sơn thủy (được nhúng thẳng vào trang) |
 | `content/kien-thuc/*.md` | Bài viết của trang Kiến Thức |
 | `tests/check_site.py` | Kiểm tra mọi liên kết nội bộ dẫn tới trang và mục có thật |
-| `.github/workflows/` | Kiểm tra tự động khi đẩy mã; đưa trang lên GitHub Pages (bấm tay) |
+| `.github/workflows/` | Kiểm tra tự động khi đẩy mã; đưa trang lên GitHub Pages khi `main` thay đổi |
 
 ## Cách làm việc
 
 Chỉ cần Python 3, không cài thêm gói nào.
 
 ```bash
-python3 build.py              # dựng lại index.html sau khi sửa nguồn
+python3 server.py             # dựng lại và chạy thử tại http://localhost:8000
+python3 build.py              # chỉ dựng lại index.html sau khi sửa nguồn
 python3 tests/check_site.py   # kiểm tra trước khi đẩy mã
 ```
 
-Mở `index.html` bằng trình duyệt để xem kết quả.
+Hướng dẫn từng bước để chạy trên máy và đưa lên mạng: [KHOI-CHAY.md](KHOI-CHAY.md).
 
 ## Thêm một bài Kiến Thức
 
@@ -60,6 +62,7 @@ Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
 
 ## Tài liệu khác
 
+- [KHOI-CHAY.md](KHOI-CHAY.md) — khởi chạy trên máy và đưa lên GitHub Pages
 - [CHANGELOG.md](CHANGELOG.md) — nhật ký thay đổi
 - [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md) — việc cần làm trước khi đưa trang lên mạng
 - [RESPONSIBLE-USE.md](RESPONSIBLE-USE.md) — nguyên tắc trình bày nội dung dự đoán

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Dựng index.html của Trận Pháp Kỳ Môn từ các tệp nguồn.
 
-    python3 build.py            # ghi index.html
-    python3 build.py --check    # báo lỗi nếu index.html chưa khớp với nguồn
+    python3 build.py              # ghi index.html
+    python3 build.py --check      # báo lỗi nếu index.html chưa khớp với nguồn
+    python3 build.py --site _site # ghi thêm thư mục để đưa lên mạng (GitHub Pages)
 
 Nguồn:
     src/template.html          khung trang, chứa các chỗ giữ chỗ {{...}}
@@ -146,15 +147,40 @@ def build():
     return page
 
 
-def main():
+def write_index():
     page = build()
-    if "--check" in sys.argv[1:]:
-        if not OUTPUT.is_file() or read(OUTPUT) != page:
+    OUTPUT.write_text(page, encoding="utf-8")
+    print(f"Đã ghi {OUTPUT.name} ({len(page.encode('utf-8')) // 1024} KB)")
+    return page
+
+
+def write_site(folder):
+    """Ghi thư mục đưa lên mạng: trang chính, trang 404 và các tệp cho máy tìm kiếm."""
+    folder = Path(folder)
+    folder.mkdir(parents=True, exist_ok=True)
+    page = read(OUTPUT)
+    (folder / "index.html").write_text(page, encoding="utf-8")
+    # Địa chỉ gõ sai vẫn mở được trang (bộ định tuyến đưa về trang chủ).
+    (folder / "404.html").write_text(page, encoding="utf-8")
+    (folder / "robots.txt").write_text("User-agent: *\nAllow: /\n", encoding="utf-8")
+    # Báo cho GitHub Pages phục vụ nguyên trạng, không chạy Jekyll.
+    (folder / ".nojekyll").write_text("", encoding="utf-8")
+    return folder
+
+
+def main():
+    args = sys.argv[1:]
+    if "--check" in args:
+        if not OUTPUT.is_file() or read(OUTPUT) != build():
             raise SystemExit("index.html chưa khớp với nguồn — hãy chạy: python3 build.py")
         print("index.html khớp với nguồn.")
         return
-    OUTPUT.write_text(page, encoding="utf-8")
-    print(f"Đã ghi {OUTPUT.name} ({len(page.encode('utf-8')) // 1024} KB)")
+    write_index()
+    if "--site" in args:
+        position = args.index("--site") + 1
+        if position >= len(args):
+            raise SystemExit("Thiếu tên thư mục sau --site")
+        print(f"Đã ghi thư mục {write_site(ROOT / args[position]).name}/")
 
 
 if __name__ == "__main__":

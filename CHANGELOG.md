@@ -1,5 +1,12 @@
 # Nhật ký thay đổi
 
+## 2026-11-16
+
+- Thêm `server.py` để chạy thử trang trên máy.
+- `build.py --site <thư mục>` ghi thư mục đưa lên mạng (trang chính, trang 404, `robots.txt`).
+- Quy trình GitHub Pages tự chạy khi nhánh `main` thay đổi.
+- Thêm hướng dẫn `KHOI-CHAY.md`.
+
 ## 2026-11-15
 
 - Đưa trang Trận Pháp Kỳ Môn vào kho; ghi rõ bản quyền và nguồn tham khảo.
