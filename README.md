@@ -13,11 +13,13 @@ Toàn bộ trang là một tệp `index.html` chạy thẳng trên trình duyệ
 | `server.py` | Chạy thử trang trên máy tại http://localhost:8000 |
 | `src/template.html` | Khung trang và nội dung các trang con |
 | `src/styles.css` | Giao diện |
-| `src/app.js` | Bộ định tuyến, bộ máy lập bàn, công cụ tra cứu, phiếu đăng ký |
+| `src/kymon.js` | Bộ máy lập trận theo quy trình 12 bước (lịch Can Chi, tiết khí, Phù đầu, an bàn, Mã Tinh, Không Vong, Ám thần, Ám Can) |
+| `src/app.js` | Bộ định tuyến, hiển thị bàn, công cụ tra cứu, phiếu đăng ký |
 | `assets/` | Logo ĐL và tranh sơn thủy (được nhúng thẳng vào trang) |
 | `content/kien-thuc/*.md` | Bài viết của trang Kiến Thức |
 | `worker/` | Máy chủ trung gian (Cloudflare Workers) giữ khóa OpenAI cho phần "Luận giải bằng AI" — tùy chọn |
 | `tests/check_site.py` | Kiểm tra mọi liên kết nội bộ dẫn tới trang và mục có thật |
+| `tests/test_kymon.mjs` | Kiểm thử bộ máy lập trận bằng các ví dụ của tài liệu 12 bước |
 | `tests/test_worker.mjs` | Kiểm thử máy chủ trung gian bằng OpenAI giả |
 | `.github/workflows/` | Kiểm tra tự động khi đẩy mã; đưa trang lên GitHub Pages khi `main` thay đổi |
 
@@ -29,6 +31,7 @@ Chỉ cần Python 3, không cài thêm gói nào.
 python3 server.py             # dựng lại và chạy thử tại http://localhost:8000
 python3 build.py              # chỉ dựng lại index.html sau khi sửa nguồn
 python3 tests/check_site.py   # kiểm tra trước khi đẩy mã
+node tests/test_kymon.mjs     # kiểm tra bộ máy lập trận (cần Node.js)
 python3 build.py --demo       # ghi demo.html: bản chạy thử, nút AI trả về nội dung minh họa
 ```
 

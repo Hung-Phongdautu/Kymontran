@@ -167,7 +167,7 @@ th{background:var(--surface2);font-size:13px;color:var(--red-dark)} tr td:first-
 details{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:6px 18px;margin-bottom:10px}
 summary{cursor:pointer;font-weight:700;padding:10px 0} details p{color:var(--muted);margin:0 0 14px}
 /* ===== Ky Mon full board (new) ===== */
-.km-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.km-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:16px}
 .km-meta .mbox{background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:14px}
 .km-meta .mbox small{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);font-weight:800;margin-bottom:4px}
 .km-meta .mbox b{font-size:16px;line-height:1.3;display:block}
@@ -188,10 +188,18 @@ summary{cursor:pointer;font-weight:700;padding:10px 0} details p{color:var(--mut
 .km-door{font-size:14px;font-weight:700;color:var(--red-dark)} .km-cell.is-center .km-door{color:#f2d98c}
 .km-cans{display:flex;gap:12px;margin-top:8px;font-size:13px;color:var(--muted);flex-wrap:wrap}.km-cell.is-center .km-cans{color:#cfe8d8}
 .km-cans b{color:var(--ink);font-size:14px}.km-cell.is-center .km-cans b{color:#fff}
+.km-am{margin-top:2px;font-size:12px}.km-am b{font-size:13px}
+.km-flags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;min-height:20px}
+.km-chip{font-size:10px;font-weight:800;letter-spacing:.04em;padding:2px 7px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);white-space:nowrap}
+.km-chip.tp{border-color:var(--gold);color:var(--gold-ink)}.km-chip.ts{border-color:var(--red);color:var(--red-dark)}
+.km-chip.ma{background:var(--gold-soft);color:var(--sand-ink);border-color:transparent}.km-chip.kv{background:var(--surface2);color:var(--muted);border-style:dashed}
+.km-steps{margin-top:14px}.km-steps summary{font-weight:700;color:var(--red);cursor:pointer}
+.km-steps ol{margin:10px 0 0;padding-left:0;list-style:none;display:grid;gap:10px}
+.km-steps li{display:grid;gap:2px;font-size:13.5px;color:var(--muted);min-width:0;overflow-wrap:anywhere}.km-steps li b{color:var(--ink);font-size:14px}
 .km-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:10px}
 .km-detail{margin-top:14px}
 @media(max-width:700px){.km-meta{grid-template-columns:1fr 1fr}.km-cell{min-height:132px;padding:10px 8px}.km-star{font-size:15px}}
-@media(max-width:560px){.km-meta{grid-template-columns:1fr}}
+@media(max-width:560px){.km-meta{grid-template-columns:1fr}.km-cell{padding:8px 6px;min-height:150px}.km-top{flex-wrap:wrap}.km-pal{font-size:10px;letter-spacing:.04em}.km-star{font-size:13.5px}.km-door{font-size:12.5px}.km-cans{gap:2px 8px;font-size:11.5px}.km-cans b{font-size:12px}.km-chip{font-size:9px;padding:1px 5px}}
 .example{background:var(--sand);color:var(--sand-ink);border:1px solid color-mix(in srgb, var(--gold) 40%, transparent);border-radius:16px;padding:22px}
 .example h3{margin-bottom:8px}.example p{margin:6px 0}
 .cta-band{position:relative;overflow:hidden;background:linear-gradient(100deg,rgba(7,26,20,.96) 30%,rgba(10,45,36,.82)),url("{{asset:son-thuy.jpg}}") center/cover no-repeat #0a2520;border:1px solid color-mix(in srgb, var(--gold) 45%, transparent);border-radius:22px;padding:30px;color:#eef1f7;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:34px}

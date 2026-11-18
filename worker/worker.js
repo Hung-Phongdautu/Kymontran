@@ -19,12 +19,13 @@ const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 const FIELDS = ["Kinh doanh", "Bệnh tật", "Hôn nhân", "Công danh", "Tài vận", "Gia trạch", "Pháp lý", "Thất vật", "Xuất hành", "Học tập", "Thể thao"];
 const MODES = { dudoan: "Dự đoán", chonngay: "Chọn ngày" };
 const SECTIONS = ["hienTrang", "duDoan", "trienVong", "ketLuan"];
-const MAX_BODY = 6000; // ký tự
+const MAX_BODY = 8000; // ký tự
 const MAX_QUESTION = 500;
 
 const SYSTEM_PROMPT = [
   "Bạn là người luận giải Kỳ Môn Độn Giáp cho trang Trận Pháp Kỳ Môn, viết bằng tiếng Việt.",
-  "Chỉ dựa trên bàn Kỳ Môn được cung cấp (tiết khí, Cục, Trực Phù, Trực Sử, cung Dụng thần và chín cung); không tự bịa thêm sao, môn hay thần.",
+  "Chỉ dựa trên bàn Kỳ Môn được cung cấp (Tứ trụ, tiết khí, Cục, Trực Phù, Trực Sử, cung Dụng thần và chín cung với Thần, Tinh, Môn, Thiên Can, Địa Can, Ám Can, Ám thần, Mã Tinh, Không Vong); không tự bịa thêm sao, môn hay thần.",
+  "Cung gặp Không Vong thì cát hung đều giảm; cung có Mã Tinh chủ chuyển động nhanh.",
   "Trả lời đúng một đối tượng JSON với bốn khóa: hienTrang, duDoan, trienVong, ketLuan. Mỗi khóa là một đoạn văn 2–4 câu, không dùng Markdown.",
   "Nêu rõ căn cứ trên bàn (ví dụ tên Môn, Tinh, Thần, Can tại cung Dụng thần) rồi mới kết luận.",
   "Giọng điềm đạm, mang tính tham khảo; không khẳng định chắc chắn về tương lai, không gây sợ hãi.",
@@ -76,7 +77,8 @@ export function buildUserMessage(input) {
   const palaces = board.palaces.map((p) => {
     const n = Number(p && p.so);
     if (!Number.isInteger(n) || n < 1 || n > 9) return null;
-    return `- Cung ${n} ${text(p.ten, 12)} (${text(p.huong, 30)}): Thần ${text(p.than, 20)}; Tinh ${text(p.tinh, 20)}; Môn ${text(p.mon, 20)}; Thiên Can ${text(p.thienCan, 8)}; Địa Can ${text(p.diaCan, 8)}`;
+    const phu = (p.ma === true ? "; có Mã Tinh" : "") + (p.khongVong === true ? "; gặp Không Vong" : "");
+    return `- Cung ${n} ${text(p.ten, 12)} (${text(p.huong, 30)}): Thần ${text(p.than, 20)}; Tinh ${text(p.tinh, 40)}; Môn ${text(p.mon, 20)}; Thiên Can ${text(p.thienCan, 20)}; Địa Can ${text(p.diaCan, 8)}; Ám Can ${text(p.amCan, 8) || "—"}; Ám thần ${text(p.thanDia, 20) || "—"}${phu}`;
   });
   const dung = Number(board.cungDungThan);
   if (palaces.includes(null) || !Number.isInteger(dung) || dung < 1 || dung > 9) return null;

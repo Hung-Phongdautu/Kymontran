@@ -5,7 +5,7 @@ import worker, { buildUserMessage } from "../worker/worker.js";
 
 const ORIGIN = "https://hung-phongdautu.github.io";
 const env = { OPENAI_API_KEY: "sk-test-not-real", ALLOWED_ORIGIN: ORIGIN + ", http://localhost:8000", RATE_PER_MINUTE: "3" };
-const palaces = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((so) => ({ so, ten: "KHẢM", huong: "Bắc · Thủy", than: "Trực Phù", tinh: "Thiên Tâm", mon: "Khai Môn", thienCan: "Ất", diaCan: "Mậu" }));
+const palaces = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((so) => ({ so, ten: "KHẢM", huong: "Bắc · Thủy", than: "Trực Phù", tinh: so === 1 ? "Thiên Nhuế · Thiên Cầm" : "Thiên Tâm", mon: "Khai Môn", thienCan: so === 1 ? "Ất · Canh" : "Ất", diaCan: "Mậu", amCan: "Bính", thanDia: "Lục Hợp", ma: so === 2, khongVong: so === 6 }));
 const good = { mode: "dudoan", field: "Kinh doanh", question: "Ký hợp đồng tuần tới có thuận không?", board: { thoiDiem: "2026-11-16 09:00", cuc: "Lập đông — Âm 6 cục", ngayGio: "Giáp Tý · Kỷ Tỵ", trucPhu: "Thiên Tâm tại cung 6", trucSu: "Khai Môn", dungThan: "Sinh Môn + Thiên Tâm", cungDungThan: 8, palaces } };
 const answer = { hienTrang: "A.", duDoan: "B.", trienVong: "C.", ketLuan: "D." };
 
@@ -30,6 +30,9 @@ assert.equal(sent.messages[0].role, "system");
 assert.match(sent.messages[1].content, /Lĩnh vực: Kinh doanh/);
 assert.match(sent.messages[1].content, /rơi tại cung 8/);
 assert.match(sent.messages[1].content, /Câu hỏi: Ký hợp đồng/);
+assert.match(sent.messages[1].content, /Cung 1 KHẢM .*Tinh Thiên Nhuế · Thiên Cầm; .*Thiên Can Ất · Canh; .*Ám Can Bính; Ám thần Lục Hợp/);
+assert.match(sent.messages[1].content, /Cung 2 .*; có Mã Tinh/);
+assert.match(sent.messages[1].content, /Cung 6 .*; gặp Không Vong/);
 
 // 2. Nguồn lạ hoặc thiếu Origin bị chặn trước khi gọi OpenAI.
 calls = [];
@@ -50,7 +53,7 @@ assert.equal((await post({ ...good, field: "Lĩnh vực lạ" })).status, 400);
 assert.equal((await post({ ...good, mode: "lapban" })).status, 400);
 assert.equal((await post({ ...good, board: { ...good.board, palaces: palaces.slice(0, 8) } })).status, 400);
 assert.equal((await post({ ...good, board: { ...good.board, cungDungThan: 12 } })).status, 400);
-assert.equal((await post({ ...good, question: "x".repeat(7000) })).status, 413);
+assert.equal((await post({ ...good, question: "x".repeat(9000) })).status, 413);
 assert.equal(calls.length, 0);
 
 // 5. Câu hỏi bị cắt còn 500 ký tự; xuống dòng bị gộp.

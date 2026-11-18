@@ -81,9 +81,20 @@ Tài liệu này mô tả toàn bộ nội dung của `index.html`: các trang, 
   - Câu hỏi: tối đa 500 ký tự, có bộ đếm.
 - Kết quả hiện ra sau khi bấm nút chính:
   - Tiêu đề, ví dụ “Dự đoán · Kinh doanh — Âm độn 6 cục”, và dòng thời điểm, tiết khí, câu hỏi.
-  - Ba ô tóm tắt: Tiết khí · Cục (kèm Nguyên, số ngày trong tiết, chiều Nghi/Kỳ); Ngày · Giờ (Can Chi, tuần thủ ẩn trong Nghi nào); Trực Phù · Trực Sử (cung đóng, Dụng thần).
-  - **Bàn đầy đủ 9 cung.** Mỗi ô ghi Bát Thần, nhãn CÁT/HUNG/TRUNG, tên cung và hướng, Cửu Tinh, Bát Môn, Thiên Can, Địa Can. Cung Dụng thần có viền đậm. Bấm ô nào thì ô “Chi tiết cung” bên dưới giải thích ô đó.
+  - Bốn ô tóm tắt:
+    - Tứ trụ: ngày, giờ, năm, tháng; ghi chú khi giờ từ 23h được tính sang ngày hôm sau.
+    - Tiết khí · Cục: tên tiết, Âm/Dương và Cục số, Phù đầu, Tam nguyên, thời điểm giao tiết.
+    - Trực Phù · Trực Sử: tuần thủ, cờ, cung của cờ, cung Trực Phù và Trực Sử bay tới.
+    - Mã Tinh · Không Vong: cung và chi của Mã Tinh, Không Vong; ghi rõ khi là giờ Lục Giáp, Phục ngâm hoặc Phản ngâm.
+  - **Bàn đầy đủ 9 cung.** Mỗi ô ghi:
+    - Bát Thần, nhãn CÁT/HUNG/TRUNG, tên cung và hướng;
+    - Cửu Tinh (ô có Thiên Nhuế ghi kèm Thiên Cầm) và Bát Môn;
+    - Thiên Can (ô có Thiên Nhuế mang hai can), Địa Can, Ám Can, Ám thần;
+    - nhãn Trực Phù, Trực Sử, Mã, KV.
+
+    Cung Dụng thần có viền đậm. Bấm ô nào thì ô “Chi tiết cung” bên dưới giải thích ô đó, kể cả ý nghĩa của Ám Can là Tam Kỳ hoặc Canh, Tân, của Mã Tinh và Không Vong.
   - Chú giải ký hiệu.
+  - **Trình tự 12 bước của bàn này** (mục mở/đóng): kết quả từng bước của quy trình, từ Tứ trụ tới Ám Can.
   - Theo chế độ:
 
 | Phần kết quả | Dự đoán | Chọn ngày | Lập bàn |
@@ -94,12 +105,14 @@ Tài liệu này mô tả toàn bộ nội dung của `index.html`: các trang, 
 | Luận giải sâu bằng AI | có (khi đã bật) | có (khi đã bật) | — |
 | Dụng thần & cách cục · Đọc bàn nhanh | có | có | có |
 
-- Ghi chú cuối kết quả: cách an bàn là bản rút gọn theo lối Chuyển bàn; tiết khí và Nguyên là ước tính, nên đối chiếu lịch vạn niên khi luận việc hệ trọng.
+- Ghi chú cuối kết quả: bàn an theo lối Chuyển bàn, đúng 12 bước; tiết khí theo vị trí Mặt Trời, Nguyên theo Phù đầu, giờ Tý từ 23h tính sang ngày hôm sau, thời gian theo múi giờ của máy; chưa áp dụng phép Đặt nhuận.
 
 **Mục Tra cứu nhanh — Định cục** (`#/tra-cuu/tra-nhanh`)
 
 - **A · Đổi giờ — Ngũ Tý Độn** (`#/tra-cuu/doi-gio`): chọn Thiên can ngày và một trong 12 giờ → ra Can Chi giờ, kèm lời giải theo ca quyết. Mặc định giờ Thân.
 - **B · Tra Cục số — Tiết khí & Nguyên** (`#/tra-cuu/cuc-so`): chọn một trong 24 tiết khí và Thượng/Trung/Hạ nguyên → ra Âm/Dương độn và Cục số, kèm ba số của tiết đó.
+- **C · Phù đầu & Tam nguyên** (`#/tra-cuu/phu-dau`): chọn một trong 60 Can Chi ngày → số ngày phải lùi, Phù đầu, nhóm chi và Nguyên.
+- **D · Tuần thủ, Cờ, Không Vong, Mã Tinh** (`#/tra-cuu/tuan-thu`): chọn một trong 60 Can Chi giờ → tuần thủ, cờ, hai chi và cung Không Vong, chi và cung Mã Tinh. Mặc định giờ Canh Ngọ.
 
 **Tham số địa chỉ của trang này**
 
@@ -135,16 +148,17 @@ Ghi chú dưới bảng: giá là mức tham khảo, thanh toán chỉ mở khi 
 ### 4.5. Kiến Thức (`#/kien-thuc`)
 
 1. **Ba thẻ dẫn bài:** Kỳ Môn Độn Giáp là gì?; Một bàn Kỳ Môn gồm những gì?; Định cục & Cục số. Mỗi thẻ cuộn tới bài tương ứng.
-2. **Sáu bài viết** theo thứ tự học, mỗi bài có địa chỉ riêng `#/kien-thuc/<id>` và nút dẫn tiếp ở cuối:
+2. **Bảy bài viết** theo thứ tự học, mỗi bài có địa chỉ riêng `#/kien-thuc/<id>` và nút dẫn tiếp ở cuối:
 
 | # | Bài | Địa chỉ | Nội dung chính | Nút dẫn tiếp |
 | --- | --- | --- | --- | --- |
 | 1 | Kỳ Môn Độn Giáp là gì? | `ky-mon-la-gi` | Tam thức; nghĩa của Kỳ, Môn, Độn Giáp; 1.080 cục rút còn 18 cục | Cấu trúc bàn; Can Chi & Ngũ hành; Về Trận Pháp Kỳ Môn |
 | 2 | Can Chi & Ngũ hành | `can-chi-ngu-hanh` | Hành của 10 Can, 12 Chi; tương sinh, tương khắc; Lục thập hoa giáp và sáu tuần Giáp | Tam Kỳ – Lục Nghi; Ngũ Tý Độn |
-| 3 | Một bàn Kỳ Môn gồm những gì? | `cau-truc-ban` | Chín cung Lạc Thư; bốn lớp Địa bàn, Thiên bàn, Nhân bàn, Thần bàn; cách đọc bàn | Lập bàn đầy đủ; Bảng Cửu Tinh · Bát Môn |
+| 3 | Một bàn Kỳ Môn gồm những gì? | `cau-truc-ban` | Chín cung Lạc Thư; bốn tầng Địa, Thiên, Nhân, Thần bàn; bốn ký hiệu phụ Mã Tinh, Không Vong, Ám thần, Ám Can; cách đọc bàn | Lập bàn đầy đủ; Quy trình 12 bước; Bảng Cửu Tinh · Bát Môn |
 | 4 | Tam Kỳ – Lục Nghi | `tam-ky-luc-nghi` | Thứ tự an 9 Can; Nhật, Nguyệt, Tinh Kỳ; Giáp ẩn dưới Nghi nào; ví dụ Dương độn 1 cục | Xem Địa bàn; Định cục & Cục số |
-| 5 | Định cục & Cục số | `dinh-cuc` | Bốn bước đổi giờ, tiết khí, Nguyên, Cục số; Chính thụ, Siêu thần, Tiếp khí, Đặt nhuận | Tra Cục số; Hỏi đáp Siêu thần |
+| 5 | Định cục & Cục số | `dinh-cuc` | Bốn bước đổi giờ, tiết khí, Nguyên theo Phù đầu, Cục số; Chính thụ, Siêu thần, Tiếp khí, Đặt nhuận | Tìm Phù đầu; Tra Cục số; Hỏi đáp Siêu thần |
 | 6 | Ngũ Tý Độn | `ngu-ty-don` | Khung ca quyết sáu câu và lời giải; ví dụ ngày Giáp giờ Thân là Nhâm Thân | Đổi giờ bằng công cụ |
+| 7 | Quy trình 12 bước lập trận | `quy-trinh-12-buoc` | Tóm tắt từng bước từ Tứ trụ tới Ám Can; ví dụ Dương độn 3 cục giờ Canh Ngọ | Lập bàn và xem 12 bước; Tìm Phù đầu; Tra Tuần thủ |
 
 3. **Hai bảng tra** (`#/kien-thuc/bang-tra`): Cửu Tinh (tính chất, chủ về) và Bát Môn / Bát Thần (tính chất, chủ về), kèm ghi chú không đọc riêng lẻ một yếu tố.
 4. Dải kêu gọi: “Thực hành định cục ngay” → `#/tra-cuu/tra-nhanh`.
@@ -181,17 +195,28 @@ Ghi chú dưới bảng: giá là mức tham khảo, thanh toán chỉ mở khi 
 
 ### 5.1. Lập bàn
 
-Bàn được lập theo giờ (Thời gia Kỳ Môn), lối Chuyển bàn rút gọn:
+Bàn được lập theo giờ (Thời gia Kỳ Môn), lối Chuyển bàn, đúng 12 bước của tài liệu “Quy trình lập trận Kỳ Môn Độn Giáp”. Mã nằm trong `src/kymon.js`, mỗi bước một đoạn.
 
-1. **Tiết khí:** so ngày dương lịch với ngày giao tiết cố định trong năm (ví dụ Lập xuân 4/2, Hạ chí 21/6, Đông chí 22/12).
-2. **Nguyên:** đếm số ngày đã qua trong tiết: ngày 1–5 là Thượng, 6–10 là Trung, từ ngày 11 là Hạ nguyên.
-3. **Cục số:** tra bảng ở mục 5.4 theo tiết khí và Nguyên.
-4. **Địa bàn:** an Mậu, Kỷ, Canh, Tân, Nhâm, Quý, Đinh, Bính, Ất bắt đầu từ cung bằng Cục số; Dương độn đi thuận, Âm độn đi nghịch.
-5. **Can Chi ngày:** ước tính theo vòng 60 ngày tính từ một ngày gốc cố định. Can Chi giờ suy ra bằng Ngũ Tý Độn.
-6. **Tuần thủ:** tìm tuần Giáp của giờ và Nghi mà Giáp ẩn dưới đó.
-7. **Thiên bàn:** xoay Cửu Tinh và Thiên Can theo vòng 8 cung ngoài, đưa sao Trực Phù tới cung của Can giờ.
-8. **Nhân bàn:** xoay Bát Môn theo số giờ đã qua trong tuần Giáp.
-9. **Thần bàn:** khởi Trực Phù tại cung Trực Phù đóng, an tiếp Đằng Xà, Thái Âm, Lục Hợp, Bạch Hổ, Huyền Vũ, Cửu Địa, Cửu Thiên; Dương độn thuận, Âm độn nghịch.
+1. **Đổi giờ, tiết khí:**
+   - Lập Tứ trụ. Ngày Can Chi tính theo số ngày Julius (01/10/1949 là Giáp Tý). Giờ Tý từ 23h tính sang ngày hôm sau. Can giờ theo Ngũ Tý Độn.
+   - Tháng đổi theo các “tiết” (Lập xuân mở tháng Dần…), Can tháng theo Ngũ Hổ Độn. Năm đổi ở Lập xuân.
+   - Tiết khí xác định theo kinh độ Mặt Trời tại thời điểm lập trận (công thức Meeus, sai số khoảng 15 phút).
+2. **Phù đầu, Tam nguyên:** lùi Can Chi ngày về ngày Giáp hoặc Kỷ; chi của Phù đầu thuộc Tứ Chính, Tứ Sinh hay Tứ Mộ cho Thượng, Trung hay Hạ nguyên; tra bảng 5.4 ra Cục số.
+3. **Địa bàn:** Mậu khởi tại cung bằng Cục số, an tiếp Kỷ, Canh, Tân, Nhâm, Quý, Đinh, Bính, Ất; Dương độn thuận, Âm độn nghịch số Cửu Cung.
+4. **Tuần thủ, Cờ:** lùi Can Chi giờ về can Giáp; Giáp Tý cờ Mậu, Giáp Tuất cờ Kỷ, Giáp Thân cờ Canh, Giáp Ngọ cờ Tân, Giáp Thìn cờ Nhâm, Giáp Dần cờ Quý.
+5. **Đại Trực Phù, Trực Sử:** sao gốc và cửa gốc của cung có Cờ. Cờ ở Trung cung thì lấy Thiên Cầm và Tử Môn, gửi Khôn 2.
+6. **Thiên bàn:** Đại Trực Phù cùng Cờ bay tới cung của Can giờ (giờ Giáp lấy cung của Cờ; cung 5 gửi Khôn 2). Các sao và Can Thiên bàn xoay thuận kim đồng hồ quanh 8 cung, cả Âm lẫn Dương độn. Thiên Cầm và can Trung cung đi cùng Thiên Nhuế.
+7. **Nhân bàn:** từ cung của Cờ đếm từ Giáp tới Can giờ theo số Cửu Cung (Dương thuận, Âm nghịch). Dừng ở đâu đặt Trực Sử ở đó (cung 5 mượn Khôn 2), các cửa còn lại xoay thuận kim đồng hồ.
+8. **Bát Thần Thiên bàn:** thần Trực Phù đóng cùng Đại Trực Phù; Dương độn an thuận, Âm độn an nghịch kim đồng hồ.
+9. **Mã Tinh:** theo Tam Hợp của chi giờ, đóng ở Cấn 8, Tốn 4, Khôn 2 hoặc Càn 6.
+10. **Không Vong:** hai chi thiếu Can trong tuần của giờ, quy về một hoặc hai cung.
+11. **Bát Thần Địa bàn:**
+    - Giờ Lục Giáp, Phục ngâm hoặc Phản ngâm toàn trận (Thiên bàn không dịch, hoặc dịch đúng nửa vòng): an trùng Bát Thần Thiên bàn.
+    - Giờ thường: khởi Trực Phù tại cung gốc của Đại Trực Phù, cùng chiều với Bát Thần Thiên bàn.
+12. **Ám Can:**
+    - Trường hợp đặc biệt như trên: Can giờ (giờ Giáp lấy can của Cờ) nhập Trung cung 5.
+    - Giờ thường: Can giờ khởi tại cung Trực Sử.
+    - Từ cung khởi, phi qua 9 cung theo số Cửu Cung (Dương thuận, Âm nghịch), an theo thứ tự Lục Nghi – Tam Kỳ.
 
 Vị trí gốc của Cửu Tinh và Bát Môn trên chín cung:
 
@@ -211,28 +236,34 @@ Nhãn cát/hung của cung lấy theo Môn: Khai, Hưu, Sinh là CÁT; Thương,
 
 ### 5.2. Dụng thần theo lĩnh vực
 
-Trang tìm cung có **Môn** tương ứng trước; nếu không có thì tìm cung có **Tinh** tương ứng; nếu vẫn không có thì lấy cung Trung.
+Trang dò lần lượt từng ký hiệu theo thứ tự ghi trong bảng; cung đầu tiên (trừ Trung cung) có ký hiệu đó là cung Dụng thần. Thứ tự dò trùng với thứ tự ghi trong nhãn hiển thị.
 
-| Lĩnh vực | Mô tả trên thẻ | Môn tìm trước | Tinh tìm sau | Nhãn hiển thị |
-| --- | --- | --- | --- | --- |
-| Kinh doanh | Ký kết, mở bán, đối tác & dòng tiền | Sinh Môn | Thiên Tâm | Sinh Môn + Thiên Tâm (tài lộc, điều hành) |
-| Bệnh tật | Sức khỏe, thời điểm thăm khám & hồi phục | Hưu Môn | Thiên Tâm | Thiên Tâm + Thiên Nhuế (bệnh trạng, thầy thuốc) |
-| Hôn nhân | Tình cảm, cưới hỏi, hòa hợp đôi lứa | Hưu Môn | Thiên Phụ | Lục Hợp + Hưu Môn (hòa hợp đôi lứa) |
-| Công danh | Thi cử quan lộc, thăng tiến, bổ nhiệm | Khai Môn | Thiên Phụ | Khai Môn + Thiên Phụ (văn thư, bổ nhiệm) |
-| Tài vận | Đầu tư, vay mượn, thu hồi nợ | Sinh Môn | Thiên Tâm | Sinh Môn (tài) + cung Can ngày (bản thân) |
-| Gia trạch | Nhà đất, xây sửa, an cư | Sinh Môn | Thiên Nhậm | Thiên Nhậm + Sinh Môn (đất đai, an cư) |
-| Pháp lý | Kiện tụng, hợp đồng, tranh chấp | Khai Môn | Thiên Tâm | Khai Môn + Thiên Tâm (phán quyết, người cầm cân) |
-| Thất vật | Tìm đồ mất, giấy tờ thất lạc | Hưu Môn | Thiên Bồng | Huyền Vũ + Thiên Bồng (vật mất, hướng tìm) |
-| Xuất hành | Đi xa, chuyển việc, khai trương | Khai Môn | Thiên Xung | Khai Môn theo hướng cung (xuất hành, khai trương) |
-| Học tập | Học hành, thi cử, chọn trường | Cảnh Môn | Thiên Phụ | Thiên Phụ + Cảnh Môn (học hành, thi cử) |
-| Thể thao | Thi đấu, phong độ, kết quả trận đấu | Thương Môn | Thiên Xung | Thiên Xung + Thương Môn (thi đấu, tốc độ) |
+| Lĩnh vực | Mô tả trên thẻ | Thứ tự dò | Nhãn hiển thị |
+| --- | --- | --- | --- |
+| Kinh doanh | Ký kết, mở bán, đối tác & dòng tiền | Môn Sinh Môn → Tinh Thiên Tâm | Sinh Môn + Thiên Tâm (tài lộc, điều hành) |
+| Bệnh tật | Sức khỏe, thời điểm thăm khám & hồi phục | Tinh Thiên Nhuế → Tinh Thiên Tâm | Thiên Nhuế (bệnh trạng) + Thiên Tâm (thầy thuốc) |
+| Hôn nhân | Tình cảm, cưới hỏi, hòa hợp đôi lứa | Thần Lục Hợp → Môn Hưu Môn | Lục Hợp + Hưu Môn (hòa hợp đôi lứa) |
+| Công danh | Thi cử quan lộc, thăng tiến, bổ nhiệm | Môn Khai Môn → Tinh Thiên Phụ | Khai Môn + Thiên Phụ (văn thư, bổ nhiệm) |
+| Tài vận | Đầu tư, vay mượn, thu hồi nợ | Môn Sinh Môn → Tinh Thiên Tâm | Sinh Môn (tài lộc) + Thiên Tâm (người quản tài) |
+| Gia trạch | Nhà đất, xây sửa, an cư | Tinh Thiên Nhậm → Môn Sinh Môn | Thiên Nhậm + Sinh Môn (đất đai, an cư) |
+| Pháp lý | Kiện tụng, hợp đồng, tranh chấp | Môn Khai Môn → Tinh Thiên Tâm | Khai Môn + Thiên Tâm (phán quyết, người cầm cân) |
+| Thất vật | Tìm đồ mất, giấy tờ thất lạc | Thần Huyền Vũ → Tinh Thiên Bồng | Huyền Vũ + Thiên Bồng (vật mất, hướng tìm) |
+| Xuất hành | Đi xa, chuyển việc, khai trương | Môn Khai Môn → Tinh Thiên Xung | Khai Môn + Thiên Xung (xuất hành, khai trương) |
+| Học tập | Học hành, thi cử, chọn trường | Tinh Thiên Phụ → Môn Cảnh Môn | Thiên Phụ + Cảnh Môn (học hành, thi cử) |
+| Thể thao | Thi đấu, phong độ, kết quả trận đấu | Tinh Thiên Xung → Môn Thương Môn | Thiên Xung + Thương Môn (thi đấu, tốc độ) |
 
 ### 5.3. Luận giải
 
 - **Hiện trạng · Dự đoán · Triển vọng · Kết luận:** mỗi phần có ba câu soạn sẵn. Câu được chọn theo nhãn của Môn tại cung Dụng thần (cát, trung hoặc hung). Câu hỏi của người dùng chỉ được nhắc lại, không làm đổi nội dung.
-- **Dụng thần & cách cục:** cung Dụng thần rơi vào đâu, có Tinh, Môn, Thần, Can gì, Môn cát hay hung, và có gặp Tam Kỳ (Ất, Bính, Đinh) không.
-- **Đọc bàn nhanh:** đếm số cung Môn cát và Môn hung, hướng Trực Phù đóng, lời khuyên ưu tiên hướng các cung cát.
-- **Chọn ngày:** xét 10 ngày tới cùng khung giờ. Giữ ngày mà cung Dụng thần có ít nhất hai trong ba dấu hiệu:
+- **Dụng thần & cách cục:**
+  - Cung Dụng thần rơi vào đâu, tìm theo ký hiệu nào.
+  - Cung đó có Tinh, Môn, Thần, Thiên Can, Địa Can, Ám Can gì; Môn cát hay hung.
+  - Cung có gặp Tam Kỳ (Ất, Bính, Đinh), Mã Tinh hoặc Không Vong không.
+- **Đọc bàn nhanh:**
+  - Số cung Môn cát và Môn hung.
+  - Hướng của Đại Trực Phù và Trực Sử, hướng của Mã Tinh và Không Vong.
+  - Ghi rõ khi bàn là giờ Lục Giáp, Phục ngâm hoặc Phản ngâm.
+- **Chọn ngày:** xét 10 ngày tới cùng khung giờ. Bỏ ngày có cung Dụng thần gặp Không Vong; giữ ngày mà cung Dụng thần có ít nhất hai trong ba dấu hiệu:
   - Tam Kỳ;
   - Thần cát: Trực Phù, Thái Âm, Lục Hợp, Cửu Địa, Cửu Thiên;
   - Tinh cát: Thiên Phụ, Thiên Tâm, Thiên Nhậm, Thiên Xung, Thiên Cầm.
@@ -275,11 +306,17 @@ Từ giờ Tý đếm thuận Thiên can ra 11 giờ còn lại (Sửu 1–3h, D
 
 Các điểm sau được ghi ngay trên trang (ghi chú dưới kết quả và trong bài Định cục):
 
-- Ngày giao tiết là ngày cố định trong năm, không tính theo giờ giao tiết thật, nên có thể lệch một ngày quanh lúc giao tiết.
-- Nguyên tính theo số ngày đã qua trong tiết, không theo Phù đầu, nên chưa xử lý Siêu thần, Tiếp khí và Đặt nhuận.
-- Can Chi ngày là ước tính theo vòng 60 ngày, chưa đối chiếu lịch âm.
-- Cách an bàn là bản rút gọn theo lối Chuyển bàn.
+- Tiết khí tính theo vị trí Mặt Trời với sai số khoảng 15 phút: bàn lập trong khoảng 15 phút quanh lúc giao tiết có thể rơi nhầm sang tiết bên cạnh.
+- Thời gian lấy theo múi giờ của máy người dùng; Can Chi ngày đổi lúc 23h (đầu giờ Tý).
+- Nguyên tính theo Phù đầu của ngày (đúng Bước 2) nhưng chưa áp dụng phép Đặt nhuận khi Siêu thần quá 9 ngày.
 - Phần luận giải soạn sẵn chỉ có ba mức theo Môn tại cung Dụng thần.
+
+Bộ máy được kiểm thử bằng chính các ví dụ trong tài liệu 12 bước (`tests/test_kymon.mjs`). Tài liệu có một chỗ tự mâu thuẫn ở ví dụ 2 của Bước 6 (Dương độn 1 cục, giờ Tân Mão):
+
+- Tài liệu ghi Thiên Trụ mang can Quý và Thiên Tâm mang can Đinh.
+- Theo nguyên tắc “can đi theo sao” của chính bước đó, Thiên Trụ (gốc Đoài 7, can Đinh) mang Đinh, Thiên Tâm (gốc Càn 6, can Quý) mang Quý.
+
+Trang làm theo nguyên tắc.
 
 ## 7. Dữ liệu người dùng
 
@@ -290,27 +327,24 @@ Các điểm sau được ghi ngay trên trang (ghi chú dưới kết quả và
 
 ## 8. Điểm cần rà lại trong nội dung
 
-Đây là các chỗ nội dung hiển thị chưa khớp hoàn toàn với cách tính, phát hiện khi lập tài liệu này:
-
-- **Nhãn Dụng thần của ba lĩnh vực khác với cách tìm cung thật** (bảng 5.2):
-  - “Bệnh tật” ghi Thiên Tâm + Thiên Nhuế nhưng trang tìm Hưu Môn rồi Thiên Tâm.
-  - “Hôn nhân” ghi Lục Hợp + Hưu Môn nhưng trang tìm Hưu Môn rồi Thiên Phụ, không xét Lục Hợp.
-  - “Thất vật” ghi Huyền Vũ + Thiên Bồng nhưng trang tìm Hưu Môn rồi Thiên Bồng, không xét Huyền Vũ.
-
-  Cần sửa nhãn cho khớp, hoặc sửa cách tìm để xét cả Bát Thần.
-- **Ngày 1–4 tháng 1 luôn ra Thượng nguyên.** Những ngày này thuộc tiết Đông chí của năm trước, nhưng trang tính ngày bắt đầu tiết theo năm hiện tại nên số ngày trong tiết bị đưa về 0. Cần tính ngày bắt đầu theo tháng 12 năm trước.
 - **Gói “Theo quẻ” ghi quyền lợi “Lưu lại nội dung quẻ”**, nhưng trang chưa có chức năng lưu quẻ.
 - **Bảng giá và quyền lợi các gói chưa có thật:** thanh toán chưa mở, “30 quẻ / tháng” và “Ưu tiên hỗ trợ” chưa có cơ chế. Trang đã ghi rõ đây là mức tham khảo.
+
+Hai lỗi ghi ở bản trước đã được sửa khi viết lại bộ máy:
+
+- Nhãn Dụng thần nay khớp với cách dò cung.
+- Ngày 1–4 tháng 1 không còn bị ép về Thượng nguyên, vì Nguyên nay tính theo Phù đầu.
 
 ## 9. Sửa nội dung ở đâu
 
 | Muốn sửa | Tệp |
 | --- | --- |
 | Chữ trên các trang, bảng giá, FAQ, bảng tra, phiếu đăng ký | `src/template.html` |
-| Sáu bài Kiến Thức (thêm, bớt, đổi thứ tự) | `content/kien-thuc/*.md` (cách viết: [README.md](README.md)) |
+| Bảy bài Kiến Thức (thêm, bớt, đổi thứ tự) | `content/kien-thuc/*.md` (cách viết: [README.md](README.md)) |
 | Màu, chữ, bố cục | `src/styles.css` |
-| Cách lập bàn, Dụng thần, câu luận giải soạn sẵn, quy tắc chọn ngày, giá trong phiếu, email nhận phiếu, địa chỉ AI | `src/app.js` |
+| Cách lập bàn 12 bước, lịch Can Chi, tiết khí | `src/kymon.js` (kiểm thử: `node tests/test_kymon.mjs`) |
+| Dụng thần, câu luận giải soạn sẵn, quy tắc chọn ngày, giá trong phiếu, email nhận phiếu, địa chỉ AI | `src/app.js` |
 | Logo, tranh sơn thủy | `assets/` |
 | Lời nhắc và giới hạn của phần AI | `worker/worker.js` |
 
-Sau khi sửa: `python3 build.py` rồi `python3 tests/check_site.py`.
+Sau khi sửa: `python3 build.py`, `python3 tests/check_site.py` và `node tests/test_kymon.mjs`.

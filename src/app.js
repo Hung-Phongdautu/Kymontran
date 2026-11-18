@@ -95,18 +95,33 @@ document.getElementById('btnGio').addEventListener('click',function(){
   out.innerHTML='Ngày <strong>'+can+'</strong> (nhóm '+GROUP_LABEL[CAN_GROUP[can]]+') — giờ <strong>'+GIO[gi][0]+'</strong> ('+GIO[gi][1]+') là: <span style="font-size:20px;font-weight:800;color:var(--red)">'+res+'</span><br><span style="font-size:13px;color:var(--muted)">Theo ca quyết: giờ Tý của nhóm này là '+NTD[0][CAN_GROUP[can]]+', đếm thuận Thiên can tới giờ '+GIO[gi][0]+' được '+res+'.</span>';
 });
 
-// Cuc so table
-var CUC=[
- ["Dương độn","Đông chí",1,7,4],["Dương độn","Tiểu hàn",2,8,5],["Dương độn","Đại hàn",3,9,6],["Dương độn","Lập xuân",8,5,2],["Dương độn","Vũ thủy",9,6,3],["Dương độn","Kinh trập",1,7,4],["Dương độn","Xuân phân",3,9,6],["Dương độn","Thanh minh",4,1,7],["Dương độn","Cốc vũ",5,2,8],["Dương độn","Lập hạ",4,1,7],["Dương độn","Tiểu mãn",5,2,8],["Dương độn","Mang chủng",6,3,9],
- ["Âm độn","Hạ chí",9,3,6],["Âm độn","Tiểu thử",8,2,5],["Âm độn","Đại thử",7,1,4],["Âm độn","Lập thu",2,5,8],["Âm độn","Xử thử",1,4,7],["Âm độn","Bạch lộ",9,3,6],["Âm độn","Thu phân",7,1,4],["Âm độn","Hàn lộ",6,9,3],["Âm độn","Sương giáng",5,8,2],["Âm độn","Lập đông",6,9,3],["Âm độn","Tiểu tuyết",5,8,2],["Âm độn","Đại tuyết",4,7,1]
-];
+// B · Cục số 24 tiết khí (bảng nằm trong bộ máy KyMon.TIET)
 var selTiet=document.getElementById('selTiet');
-CUC.forEach(function(r,i){var o=document.createElement('option');o.value=i;o.textContent=r[1]+' ('+r[0]+')';selTiet.appendChild(o);});
+KyMon.TIET.forEach(function(r,i){var o=document.createElement('option');o.value=i;o.textContent=r.ten+' ('+(r.duong?'Dương độn':'Âm độn')+')';selTiet.appendChild(o);});
 document.getElementById('btnCuc').addEventListener('click',function(){
-  var r=CUC[parseInt(selTiet.value,10)], ng=parseInt(document.getElementById('selNguyen').value,10);
-  var ngName=["Thượng nguyên","Trung nguyên","Hạ nguyên"][ng], cuc=r[2+ng];
+  var r=KyMon.TIET[parseInt(selTiet.value,10)], ng=parseInt(document.getElementById('selNguyen').value,10);
+  var don=r.duong?'Dương độn':'Âm độn', cuc=r.cuc[ng];
   var out=document.getElementById('outCuc'); out.classList.add('show');
-  out.innerHTML='Tiết khí <strong>'+r[1]+'</strong> thuộc <strong>'+r[0]+'</strong> — '+ngName+' dùng: <span style="font-size:20px;font-weight:800;color:var(--red)">'+r[0].split(' ')[0]+' '+cuc+' cục</span><br><span style="font-size:13px;color:var(--muted)">'+(r[0]==='Dương độn'?'Dương độn: Lục Nghi đi thuận cửu cung, Tam Kỳ đi nghịch.':'Âm độn: Lục Nghi đi nghịch cửu cung, Tam Kỳ đi thuận.')+' Ba số của tiết này — Thượng: '+r[2]+' · Trung: '+r[3]+' · Hạ: '+r[4]+'.</span>';
+  out.innerHTML='Tiết khí <strong>'+r.ten+'</strong> thuộc <strong>'+don+'</strong> — '+KyMon.NGUYEN[ng]+' dùng: <span style="font-size:20px;font-weight:800;color:var(--red)">'+(r.duong?'Dương ':'Âm ')+cuc+' cục</span><br><span style="font-size:13px;color:var(--muted)">'+(r.duong?'Dương độn: Lục Nghi đi thuận cửu cung, Tam Kỳ đi nghịch.':'Âm độn: Lục Nghi đi nghịch cửu cung, Tam Kỳ đi thuận.')+' Ba số của tiết này — Thượng: '+r.cuc[0]+' · Trung: '+r.cuc[1]+' · Hạ: '+r.cuc[2]+'.</span>';
+});
+
+// C · Phù đầu & Tam nguyên theo Can Chi ngày (Bước 2)
+var selNgayCC=document.getElementById('selNgayCC');
+for(var k60=0;k60<60;k60++){var o60=document.createElement('option');o60.value=k60;o60.textContent=KyMon.canChi(k60);selNgayCC.appendChild(o60);}
+document.getElementById('btnPhuDau').addEventListener('click',function(){
+  var d=parseInt(selNgayCC.value,10), r=KyMon.buoc2(d,0), lui=(d%10)%5;
+  var out=document.getElementById('outPhuDau'); out.classList.add('show');
+  out.innerHTML='Ngày <strong>'+KyMon.canChi(d)+'</strong> '+(lui?'lùi '+lui+' ngày':'chính là ngày Phù đầu')+' → Phù đầu <span style="font-size:20px;font-weight:800;color:var(--red)">'+KyMon.canChi(r.phuDau)+'</span> thuộc <strong>'+r.nhomChi+'</strong> → <strong>'+KyMon.NGUYEN[r.nguyen]+'</strong>.<br><span style="font-size:13px;color:var(--muted)">Tứ Chính (Tý, Ngọ, Mão, Dậu) là Thượng nguyên; Tứ Sinh (Dần, Thân, Tỵ, Hợi) là Trung nguyên; Tứ Mộ (Thìn, Tuất, Sửu, Mùi) là Hạ nguyên. Ghép với tiết khí ở bảng B để ra Cục số.</span>';
+});
+
+// D · Tuần thủ, Cờ, Không Vong, Mã Tinh theo Can Chi giờ (Bước 4, 9, 10)
+var selGioCC=document.getElementById('selGioCC');
+for(var g60=0;g60<60;g60++){var og=document.createElement('option');og.value=g60;og.textContent=KyMon.canChi(g60);selGioCC.appendChild(og);}
+selGioCC.value=6; // Canh Ngọ — ví dụ của tài liệu
+document.getElementById('btnTuan').addEventListener('click',function(){
+  var g=parseInt(selGioCC.value,10), r=KyMon.anBan(true,1,g%10,g%12);
+  var out=document.getElementById('outTuan'); out.classList.add('show');
+  out.innerHTML='Giờ <strong>'+KyMon.canChi(g)+'</strong> thuộc tuần <span style="font-size:20px;font-weight:800;color:var(--red)">'+KyMon.canChi(r.tuanThu)+'</span>, mang cờ <strong>'+KyMon.CAN[r.co]+'</strong>.<br>Không Vong: <strong>'+r.khongVong.chi.map(function(c){return KyMon.CHI[c];}).join(', ')+'</strong> (cung '+r.khongVong.cung.map(function(p){return KyMon.CUNG[p].ten+' '+p;}).join(', ')+') · Mã Tinh tại <strong>'+KyMon.CHI[r.ma.chi]+'</strong> (cung '+KyMon.CUNG[r.ma.cung].ten+' '+r.ma.cung+').<br><span style="font-size:13px;color:var(--muted)">Tìm cung của cờ '+KyMon.CAN[r.co]+' trên Địa bàn để ra Đại Trực Phù và Trực Sử (Bước 5).</span>';
 });
 
 // Fields 11 — clicking a field opens the Tra Cuu page with that field selected
@@ -132,120 +147,120 @@ var fQ=document.getElementById('fQ');
 fQ.addEventListener('input',function(){document.getElementById('qCount').textContent=fQ.value.length;});
 var now=new Date(); now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
 document.getElementById('fTime').value=now.toISOString().slice(0,16);
-// ===== Ky Mon full board engine (original implementation, Chuyen ban style) =====
-var STEMS10=["Giáp","Ất","Bính","Đinh","Mậu","Kỷ","Canh","Tân","Nhâm","Quý"];
-var BRANCH12=["Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi","Thân","Dậu","Tuất","Hợi"];
-var DIA_SEQ=["Mậu","Kỷ","Canh","Tân","Nhâm","Quý","Đinh","Bính","Ất"];
-var RING=[1,8,3,4,9,2,7,6]; // clockwise outer ring from North
-var PAL_INFO={1:{name:"KHẢM",dir:"Bắc · Thủy",star:"Thiên Bồng",door:"Hưu Môn",nature:"hung"},2:{name:"KHÔN",dir:"Tây Nam · Thổ",star:"Thiên Nhuế",door:"Tử Môn",nature:"hung"},3:{name:"CHẤN",dir:"Đông · Mộc",star:"Thiên Xung",door:"Thương Môn",nature:"hung"},4:{name:"TỐN",dir:"Đông Nam · Mộc",star:"Thiên Phụ",door:"Đỗ Môn",nature:"trung"},5:{name:"TRUNG",dir:"Trung tâm · Thổ",star:"Thiên Cầm",door:"—",nature:"cat"},6:{name:"CÀN",dir:"Tây Bắc · Kim",star:"Thiên Tâm",door:"Khai Môn",nature:"cat"},7:{name:"ĐOÀI",dir:"Tây · Kim",star:"Thiên Trụ",door:"Kinh Môn",nature:"hung"},8:{name:"CẤN",dir:"Đông Bắc · Thổ",star:"Thiên Nhậm",door:"Sinh Môn",nature:"cat"},9:{name:"LY",dir:"Nam · Hỏa",star:"Thiên Anh",door:"Cảnh Môn",nature:"trung"}};
+// ===== Lập bàn: bộ máy 12 bước nằm trong src/kymon.js (biến KyMon) =====
+var CAN=KyMon.CAN, CHI=KyMon.CHI, CUNG=KyMon.CUNG, cc=KyMon.canChi;
+function tenCan(i){return CAN[i];}
+function huongCung(p){return CUNG[p].huong+' · '+CUNG[p].hanh;}
+function laTamKy(i){return i===1||i===2||i===3;} // Ất, Bính, Đinh
 var DOOR_NATURE={"Khai Môn":"cat","Hưu Môn":"cat","Sinh Môn":"cat","Cảnh Môn":"trung","Đỗ Môn":"trung","Thương Môn":"hung","Tử Môn":"hung","Kinh Môn":"hung","—":"trung"};
-var FIELD_DUNG={"Kinh doanh":{door:"Sinh Môn",star:"Thiên Tâm",label:"Sinh Môn + Thiên Tâm (tài lộc, điều hành)"},"Bệnh tật":{door:"Hưu Môn",star:"Thiên Tâm",label:"Thiên Tâm + Thiên Nhuế (bệnh trạng, thầy thuốc)"},"Hôn nhân":{door:"Hưu Môn",star:"Thiên Phụ",label:"Lục Hợp + Hưu Môn (hòa hợp đôi lứa)"},"Công danh":{door:"Khai Môn",star:"Thiên Phụ",label:"Khai Môn + Thiên Phụ (văn thư, bổ nhiệm)"},"Tài vận":{door:"Sinh Môn",star:"Thiên Tâm",label:"Sinh Môn (tài) + cung Can ngày (bản thân)"},"Gia trạch":{door:"Sinh Môn",star:"Thiên Nhậm",label:"Thiên Nhậm + Sinh Môn (đất đai, an cư)"},"Pháp lý":{door:"Khai Môn",star:"Thiên Tâm",label:"Khai Môn + Thiên Tâm (phán quyết, người cầm cân)"},"Thất vật":{door:"Hưu Môn",star:"Thiên Bồng",label:"Huyền Vũ + Thiên Bồng (vật mất, hướng tìm)"},"Xuất hành":{door:"Khai Môn",star:"Thiên Xung",label:"Khai Môn theo hướng cung (xuất hành, khai trương)"},"Học tập":{door:"Cảnh Môn",star:"Thiên Phụ",label:"Thiên Phụ + Cảnh Môn (học hành, thi cử)"},"Thể thao":{door:"Thương Môn",star:"Thiên Xung",label:"Thiên Xung + Thương Môn (thi đấu, tốc độ)"}};
-var TIET_START=[[0,5],[0,20],[1,4],[1,19],[2,5],[2,20],[3,5],[3,20],[4,5],[4,21],[5,5],[5,21],[6,7],[6,22],[7,7],[7,23],[8,7],[8,23],[9,7],[9,23],[10,8],[10,23],[11,7],[11,22]];
-var TIET_ORDER_CUC=[12,13,14,3,4,5,6,7,8,9,10,11,0,1,2,15,16,17,18,19,20,21,22,23]; // not used directly; mapping via CUC index below
-function estimateTiet(date){
-  // CUC array order is: 0 Dong chi ... 11 Mang chung, 12 Ha chi ... 23 Dai tuyet
-  // Solar term sequence in calendar year starting Tieu han:
-  var seq=[{n:"Tiểu hàn",cucIdx:1},{n:"Đại hàn",cucIdx:2},{n:"Lập xuân",cucIdx:3},{n:"Vũ thủy",cucIdx:4},{n:"Kinh trập",cucIdx:5},{n:"Xuân phân",cucIdx:6},{n:"Thanh minh",cucIdx:7},{n:"Cốc vũ",cucIdx:8},{n:"Lập hạ",cucIdx:9},{n:"Tiểu mãn",cucIdx:10},{n:"Mang chủng",cucIdx:11},{n:"Hạ chí",cucIdx:12},{n:"Tiểu thử",cucIdx:13},{n:"Đại thử",cucIdx:14},{n:"Lập thu",cucIdx:15},{n:"Xử thử",cucIdx:16},{n:"Bạch lộ",cucIdx:17},{n:"Thu phân",cucIdx:18},{n:"Hàn lộ",cucIdx:19},{n:"Sương giáng",cucIdx:20},{n:"Lập đông",cucIdx:21},{n:"Tiểu tuyết",cucIdx:22},{n:"Đại tuyết",cucIdx:23},{n:"Đông chí",cucIdx:0}];
-  var m=date.getMonth(), d=date.getDate(), chosen=seq[seq.length-1], startDate=new Date(date.getFullYear(),11,21), idx=seq.length-1;
-  for(var i=0;i<TIET_START.length;i++){var sm=TIET_START[i][0], sd=TIET_START[i][1]; if(m>sm||(m===sm&&d>=sd)){chosen=seq[i]; idx=i; startDate=new Date(date.getFullYear(),sm,sd);}}
-  var days=Math.floor((new Date(date.getFullYear(),m,d)-startDate)/86400000); if(days<0)days=0;
-  var nguyen=days<5?0:(days<10?1:2);
-  return {tiet:chosen, cucRow:CUC[chosen.cucIdx], nguyen:nguyen, days:days};
+// Dụng thần theo lĩnh vực: dò lần lượt từng ký hiệu trong `tim`; cung đầu tiên có ký hiệu đó là cung Dụng thần.
+// Thứ tự trong `tim` trùng với thứ tự ghi trong nhãn hiển thị.
+var FIELD_DUNG={
+ "Kinh doanh":{tim:[["mon","Sinh Môn"],["tinh","Thiên Tâm"]],label:"Sinh Môn + Thiên Tâm (tài lộc, điều hành)"},
+ "Bệnh tật":{tim:[["tinh","Thiên Nhuế"],["tinh","Thiên Tâm"]],label:"Thiên Nhuế (bệnh trạng) + Thiên Tâm (thầy thuốc)"},
+ "Hôn nhân":{tim:[["than","Lục Hợp"],["mon","Hưu Môn"]],label:"Lục Hợp + Hưu Môn (hòa hợp đôi lứa)"},
+ "Công danh":{tim:[["mon","Khai Môn"],["tinh","Thiên Phụ"]],label:"Khai Môn + Thiên Phụ (văn thư, bổ nhiệm)"},
+ "Tài vận":{tim:[["mon","Sinh Môn"],["tinh","Thiên Tâm"]],label:"Sinh Môn (tài lộc) + Thiên Tâm (người quản tài)"},
+ "Gia trạch":{tim:[["tinh","Thiên Nhậm"],["mon","Sinh Môn"]],label:"Thiên Nhậm + Sinh Môn (đất đai, an cư)"},
+ "Pháp lý":{tim:[["mon","Khai Môn"],["tinh","Thiên Tâm"]],label:"Khai Môn + Thiên Tâm (phán quyết, người cầm cân)"},
+ "Thất vật":{tim:[["than","Huyền Vũ"],["tinh","Thiên Bồng"]],label:"Huyền Vũ + Thiên Bồng (vật mất, hướng tìm)"},
+ "Xuất hành":{tim:[["mon","Khai Môn"],["tinh","Thiên Xung"]],label:"Khai Môn + Thiên Xung (xuất hành, khai trương)"},
+ "Học tập":{tim:[["tinh","Thiên Phụ"],["mon","Cảnh Môn"]],label:"Thiên Phụ + Cảnh Môn (học hành, thi cử)"},
+ "Thể thao":{tim:[["tinh","Thiên Xung"],["mon","Thương Môn"]],label:"Thiên Xung + Thương Môn (thi đấu, tốc độ)"}};
+function buildBoard(date){return KyMon.lapTran(date);}
+// Ký hiệu của một cung, đã đổi sang chữ để hiển thị.
+function oCung(b,p){
+  var t=b.thien[p];
+  return {
+    than:b.than[p]||'—', tinh:t?t.tinh.join(' · '):'—', tinhDs:t?t.tinh:[], mon:b.mon[p]||'—',
+    thienCan:t?t.can.map(tenCan).join(' · '):'—', thienCanDs:t?t.can:[], diaCan:tenCan(b.dia[p]),
+    amCan:tenCan(b.amCan[p]), amCanSo:b.amCan[p], thanDia:b.thanDia[p]||'—',
+    ma:b.ma.cung===p, kv:b.khongVong.cung.indexOf(p)>=0, trucPhu:p===b.cungDenTP, trucSu:p===b.cungDenTS
+  };
 }
-function buildBoard(date){
-  var est=estimateTiet(date);
-  var isDuong=est.cucRow[0]==="Dương độn";
-  var cuc=est.cucRow[2+est.nguyen];
-  // Dia ban
-  var dia={}; for(var i=0;i<9;i++){var pn=isDuong?((cuc-1+i)%9)+1:(((cuc-1-i)%9)+9)%9+1; dia[pn]=DIA_SEQ[i];}
-  // Day / hour Can Chi (deterministic 60-cycle estimate)
-  var daysUtc=Math.floor(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/86400000);
-  var dayIdx=((daysUtc+40)%60+60)%60; var dayStem=STEMS10[dayIdx%10], dayBranch=BRANCH12[dayIdx%12];
-  var hourBranchIdx=Math.floor(((date.getHours()+1)%24)/2)%12;
-  var hourStemFull=NTD[hourBranchIdx][CAN_GROUP[dayStem]]; var hourStem=hourStemFull.split(" ")[0];
-  // Tuan thu / hidden Nghi for Giaap
-  var hourIdx=-1; for(var k=0;k<60;k++){if(STEMS10[k%10]===hourStem&&BRANCH12[k%12]===BRANCH12[hourBranchIdx]){hourIdx=k;break;}}
-  if(hourIdx<0)hourIdx=0; var tuanStart=Math.floor(hourIdx/10)*10;
-  var tuanBranch=BRANCH12[tuanStart%12];
-  var HIDDEN={"Tý":"Mậu","Tuất":"Kỷ","Thân":"Canh","Ngọ":"Tân","Thìn":"Nhâm","Dần":"Quý"}; var hiddenNghi=HIDDEN[tuanBranch]||"Mậu";
-  var findPal=function(stem){for(var p=1;p<=9;p++){if(dia[p]===stem)return p;} return 5;};
-  var originPal=findPal(hiddenNghi);
-  var hourPal=findPal(hourStem==="Giáp"?hiddenNghi:hourStem);
-  // Star rotation along RING
-  var thienStar={}, thienCan={}; thienStar[5]="Thiên Cầm"; thienCan[5]=dia[5];
-  var oi=RING.indexOf(originPal), hi=RING.indexOf(hourPal); if(oi<0){oi=0;hi=0;}
-  var starShift=((hi-oi)%8+8)%8;
-  RING.forEach(function(p){var srcIdx=RING.indexOf(p); var dst=RING[(srcIdx+starShift)%8]; thienStar[dst]=PAL_INFO[p].star; thienCan[dst]=dia[p];});
-  if(originPal===5){thienStar[hourPal]="Thiên Cầm"; thienCan[hourPal]=dia[5];}
-  // Door rotation: Truc Su steps = position in tuan (0..9 mapped mod 8)
-  var steps=hourIdx-tuanStart; var doorShift=isDuong?(steps%8):((-steps)%8+8)%8;
-  var thienDoor={}; thienDoor[5]="—";
-  RING.forEach(function(p){var srcIdx=RING.indexOf(p); var dst=RING[(srcIdx+doorShift)%8]; thienDoor[dst]=PAL_INFO[p].door;});
-  // Bat Than: Truc Phu at hourPal (star position), then along ring
-  var GODS=["Trực Phù","Đằng Xà","Thái Âm","Lục Hợp","Bạch Hổ","Huyền Vũ","Cửu Địa","Cửu Thiên"];
-  var than={}; than[5]="—"; var startIdx=RING.indexOf(hourPal); if(startIdx<0)startIdx=0;
-  for(var g=0;g<8;g++){var dst2=isDuong?RING[(startIdx+g)%8]:RING[((startIdx-g)%8+8)%8]; than[dst2]=GODS[g];}
-  return {est:est,isDuong:isDuong,cuc:cuc,dia:dia,thienStar:thienStar,thienCan:thienCan,thienDoor:thienDoor,than:than,dayStem:dayStem,dayBranch:dayBranch,hourStemFull:hourStemFull,hourBranch:BRANCH12[hourBranchIdx],trucPhuStar:PAL_INFO[originPal].star,trucSuDoor:PAL_INFO[originPal].door,originPal:originPal,hourPal:hourPal,hiddenNghi:hiddenNghi};
-}
-var lastBoard=null;
-function findDungPal(board,dung){
-  for(var p=1;p<=9;p++){if(board.thienDoor[p]===dung.door)return p;}
-  for(var p2=1;p2<=9;p2++){if(board.thienStar[p2]===dung.star)return p2;}
-  return 5;
+function findDungPal(b,dung){
+  for(var i=0;i<dung.tim.length;i++){
+    var loai=dung.tim[i][0], ten=dung.tim[i][1];
+    for(var p=1;p<=9;p++){
+      if(p===5)continue;
+      var o=oCung(b,p);
+      if((loai==='mon'&&o.mon===ten)||(loai==='than'&&o.than===ten)||(loai==='tinh'&&o.tinhDs.indexOf(ten)>=0))return {pal:p,theo:ten};
+    }
+  }
+  return {pal:b.cungDenTP,theo:b.trucPhu};
 }
 function pad2(n){return (n<10?'0':'')+n;}
 function toLocalInput(d){return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+pad2(d.getHours())+':'+pad2(d.getMinutes());}
-// "Chon ngay": scan the next 10 days at the same hour and keep the days whose
-// Dung than palace gathers at least two good signs (Tam Ky stem, auspicious god, auspicious star).
-// Each result re-casts the board for that day.
+var lastBoard=null;
+// "Chon ngay": xét 10 ngày tới cùng khung giờ, giữ ngày mà cung Dụng thần hội ít nhất hai dấu hiệu tốt
+// (Tam Kỳ, Thần cát, Tinh cát) và không rơi vào Không Vong (Bước 10: "Cát phùng Không tắc bất cát").
 var GOOD_GODS=["Trực Phù","Thái Âm","Lục Hợp","Cửu Địa","Cửu Thiên"], GOOD_STARS=["Thiên Phụ","Thiên Tâm","Thiên Nhậm","Thiên Xung","Thiên Cầm"];
 function renderDays(date,field){
   var dung=FIELD_DUNG[field]||FIELD_DUNG["Kinh doanh"], wrap=document.getElementById('rDays'), found=0;
   wrap.innerHTML='';
   for(var i=1;i<=10;i++){
     var d=new Date(date.getTime()); d.setDate(d.getDate()+i);
-    var b=buildBoard(d), pal=findDungPal(b,dung);
-    var can=b.thienCan[pal], why=[];
-    if(can==="Ất"||can==="Bính"||can==="Đinh")why.push('Tam Kỳ '+can);
-    if(GOOD_GODS.indexOf(b.than[pal])>=0)why.push(b.than[pal]);
-    if(GOOD_STARS.indexOf(b.thienStar[pal])>=0)why.push(b.thienStar[pal]);
+    var b=buildBoard(d), pal=findDungPal(b,dung).pal, o=oCung(b,pal), why=[];
+    if(o.kv)continue;
+    var ky=o.thienCanDs.filter(laTamKy); if(ky.length)why.push('Tam Kỳ '+ky.map(tenCan).join(', '));
+    if(GOOD_GODS.indexOf(o.than)>=0)why.push(o.than);
+    var sao=o.tinhDs.filter(function(s){return GOOD_STARS.indexOf(s)>=0;}); if(sao.length)why.push(sao[0]);
     if(why.length<2)continue;
     found++;
     var btn=document.createElement('button'); btn.type='button'; btn.className='tab';
-    btn.textContent=pad2(d.getDate())+'/'+pad2(d.getMonth()+1)+' · '+b.dayStem+' '+b.dayBranch+' · '+why.join(' + ')+' tại '+PAL_INFO[pal].name;
+    btn.textContent=pad2(d.getDate())+'/'+pad2(d.getMonth()+1)+' · '+cc(b.tuTru.ngay)+' · '+why.join(' + ')+' tại '+CUNG[pal].ten;
     (function(day){btn.addEventListener('click',function(){document.getElementById('fTime').value=toLocalInput(day);cast(true);});})(d);
     wrap.appendChild(btn);
   }
-  document.getElementById('rDaysNote').textContent=found?('Có '+found+' ngày mà cung Dụng thần của lĩnh vực "'+field+'" hội được ít nhất hai yếu tố tốt (Tam Kỳ, Thần cát, Tinh cát) vào giờ này. Đây là gợi ý rút gọn — bấm một ngày để lập lại bàn cho đúng ngày đó.'):('Trong 10 ngày tới, vào khung giờ này chưa có ngày nào cung Dụng thần của lĩnh vực "'+field+'" hội đủ hai yếu tố tốt (Tam Kỳ, Thần cát, Tinh cát). Hãy thử đổi sang khung giờ khác rồi tìm lại.');
+  document.getElementById('rDaysNote').textContent=found?('Có '+found+' ngày mà cung Dụng thần của lĩnh vực "'+field+'" hội được ít nhất hai yếu tố tốt (Tam Kỳ, Thần cát, Tinh cát) và không gặp Không Vong vào giờ này. Đây là gợi ý rút gọn — bấm một ngày để lập lại bàn cho đúng ngày đó.'):('Trong 10 ngày tới, vào khung giờ này chưa có ngày nào cung Dụng thần của lĩnh vực "'+field+'" hội đủ hai yếu tố tốt mà không gặp Không Vong. Hãy thử đổi sang khung giờ khác rồi tìm lại.');
 }
+function chip(on,cls,text){return on?'<span class="km-chip '+cls+'">'+text+'</span>':'';}
 function renderBoard(board,field){
   lastBoard=board;
   var dung=FIELD_DUNG[field]||FIELD_DUNG["Kinh doanh"];
-  var dungPal=findDungPal(board,dung);
-  board.dungPal=dungPal; board.dung=dung;
+  var found=findDungPal(board,dung), dungPal=found.pal;
+  board.dungPal=dungPal; board.dung=dung; board.dungTheo=found.theo;
+  var tt=board.tuTru, gioTy=board.thoiDiem.getHours()>=23;
+  var dacBiet=board.canGio===0?'Giờ Lục Giáp':(board.phucNgam?'Phục ngâm toàn trận':(board.phanNgam?'Phản ngâm toàn trận':''));
   document.getElementById('kmMeta').innerHTML=
-   '<div class="mbox"><small>Tiết khí · Cục</small><b>'+board.est.cucRow[1]+' — '+(board.isDuong?'Dương':'Âm')+' '+board.cuc+' cục</b><span>'+["Thượng nguyên","Trung nguyên","Hạ nguyên"][board.est.nguyen]+' (ước tính, ngày thứ '+(board.est.days+1)+' trong tiết) · '+(board.isDuong?'Nghi thuận, Kỳ nghịch':'Nghi nghịch, Kỳ thuận')+'</span></div>'+
-   '<div class="mbox"><small>Ngày · Giờ</small><b>'+board.dayStem+' '+board.dayBranch+' · '+board.hourStemFull+'</b><span>Giờ '+board.hourBranch+' · Tuần thủ ẩn trong '+board.hiddenNghi+'</span></div>'+
-   '<div class="mbox"><small>Trực Phù · Trực Sử</small><b>'+board.trucPhuStar+' · '+board.trucSuDoor+'</b><span>Trực Phù đóng tại cung '+board.hourPal+' ('+PAL_INFO[board.hourPal].name+') · Dụng thần: '+dung.label+'</span></div>';
+   '<div class="mbox"><small>Tứ trụ</small><b>Ngày '+cc(tt.ngay)+' · giờ '+cc(tt.gio)+'</b><span>Năm '+cc(tt.nam)+' · tháng '+cc(tt.thang)+(gioTy?' · sau 23h tính sang ngày hôm sau':'')+'</span></div>'+
+   '<div class="mbox"><small>Tiết khí · Cục</small><b>'+board.tenTiet+' — '+(board.duong?'Dương':'Âm')+' '+board.cuc+' cục</b><span>Phù đầu '+cc(board.phuDau)+' ('+board.nhomChi+') → '+KyMon.NGUYEN[board.nguyen]+' · giao tiết '+KyMon.dinhDangGio(board.giaoTiet)+'</span></div>'+
+   '<div class="mbox"><small>Trực Phù · Trực Sử</small><b>'+board.trucPhu+' · '+board.trucSu+'</b><span>Tuần '+cc(board.tuanThu)+', cờ '+tenCan(board.co)+' ở cung '+board.cungCo+' · Trực Phù tới '+CUNG[board.cungDenTP].ten+' '+board.cungDenTP+', Trực Sử tới '+CUNG[board.cungDenTS].ten+' '+board.cungDenTS+'</span></div>'+
+   '<div class="mbox"><small>Mã Tinh · Không Vong</small><b>Mã '+CUNG[board.ma.cung].ten+' '+board.ma.cung+' · KV '+board.khongVong.cung.map(function(p){return CUNG[p].ten+' '+p;}).join(', ')+'</b><span>Mã tại '+CHI[board.ma.chi]+' · Không Vong '+board.khongVong.chi.map(function(c){return CHI[c];}).join(', ')+(dacBiet?' · '+dacBiet:'')+'</span></div>';
   var order=[4,9,2,3,5,7,8,1,6]; var grid=document.getElementById('kmGrid'); grid.innerHTML='';
   order.forEach(function(p){
-    var nature=DOOR_NATURE[board.thienDoor[p]]||"trung";
+    var o=oCung(board,p);
+    var nature=DOOR_NATURE[o.mon]||"trung";
     var badge=nature==="cat"?"CÁT":(nature==="hung"?"HUNG":"TRUNG");
     var cell=document.createElement('button'); cell.type='button'; cell.className='km-cell'+(p===5?' is-center':'')+(p===dungPal?' is-dung':''); cell.setAttribute('data-pal',p);
-    cell.innerHTML='<div class="km-top"><span class="km-than">'+board.than[p]+'</span><span class="km-badge '+nature+'">'+badge+'</span></div><div class="km-pal">'+PAL_INFO[p].name+' · '+p+' — '+PAL_INFO[p].dir+'</div><div class="km-star">'+board.thienStar[p]+'</div><div class="km-door">'+board.thienDoor[p]+'</div><div class="km-cans"><span>Thiên: <b>'+board.thienCan[p]+'</b></span><span>Địa: <b>'+board.dia[p]+'</b></span></div>';
+    cell.innerHTML='<div class="km-top"><span class="km-than">'+o.than+'</span><span class="km-badge '+nature+'">'+badge+'</span></div>'+
+      '<div class="km-pal">'+CUNG[p].ten+' · '+p+' — '+huongCung(p)+'</div>'+
+      '<div class="km-star">'+o.tinh+'</div><div class="km-door">'+o.mon+'</div>'+
+      '<div class="km-cans"><span>Thiên: <b>'+o.thienCan+'</b></span><span>Địa: <b>'+o.diaCan+'</b></span></div>'+
+      '<div class="km-cans km-am"><span>Ám can: <b>'+o.amCan+'</b></span><span>Ám thần: <b>'+o.thanDia+'</b></span></div>'+
+      '<div class="km-flags">'+chip(o.trucPhu,'tp','Trực Phù')+chip(o.trucSu,'ts','Trực Sử')+chip(o.ma,'ma','Mã')+chip(o.kv,'kv','KV')+'</div>';
     cell.addEventListener('click',function(){
       document.querySelectorAll('.km-cell').forEach(function(c){c.classList.remove('sel');}); cell.classList.add('sel');
-      var d=document.getElementById('palaceDetail');
-      d.innerHTML='<h4>Cung '+PAL_INFO[p].name+' ('+p+') — '+PAL_INFO[p].dir+(p===dungPal?' · Cung Dụng thần':'')+'</h4><p><strong>'+board.than[p]+' · '+board.thienStar[p]+' · '+board.thienDoor[p]+'</strong> · Thiên Can <strong>'+board.thienCan[p]+'</strong> / Địa Can <strong>'+board.dia[p]+'</strong>. '+(nature==="cat"?'Tổ hợp Môn ở cung này thuộc nhóm cát — thuận cho việc khởi sự, gặp gỡ và cam kết trong phạm vi lĩnh vực đang xem.':nature==="hung"?'Môn ở cung này thuộc nhóm hung — nên thận trọng, kiểm tra kỹ điều kiện và tránh quyết định vội tại hướng / mảng việc thuộc cung này.':'Môn ở cung này trung tính — kết quả tùy tổ hợp Tinh – Thần đi cùng và quan hệ sinh khắc với cung Dụng thần.')+(board.thienCan[p]==="Ất"||board.thienCan[p]==="Bính"||board.thienCan[p]==="Đinh"?' Thiên Can là một trong Tam Kỳ ('+board.thienCan[p]+') — điểm sáng trong cung, đặc biệt tốt khi gặp Môn cát.':'')+'</p>';
+      var d=document.getElementById('palaceDetail'), ky=o.thienCanDs.filter(laTamKy);
+      var y=[];
+      if(p===5)y.push('Trung cung không có Sao, Môn, Thần riêng: Thiên Cầm cùng can Trung cung đi kèm Thiên Nhuế, Môn và Thần gửi sang Khôn 2.');
+      else y.push(nature==="cat"?'Môn ở cung này thuộc nhóm cát — thuận cho việc khởi sự, gặp gỡ và cam kết trong phạm vi lĩnh vực đang xem.':nature==="hung"?'Môn ở cung này thuộc nhóm hung — nên thận trọng, kiểm tra kỹ điều kiện và tránh quyết định vội tại hướng / mảng việc thuộc cung này.':'Môn ở cung này trung tính — kết quả tùy tổ hợp Tinh – Thần đi cùng và quan hệ sinh khắc với cung Dụng thần.');
+      if(ky.length)y.push('Thiên Can có Tam Kỳ ('+ky.map(tenCan).join(', ')+') — điểm sáng trong cung, đặc biệt tốt khi gặp Môn cát.');
+      if(laTamKy(o.amCanSo))y.push('Ám can '+o.amCan+' là Tam Kỳ — có trợ lực ngầm.');
+      if(o.amCanSo===6||o.amCanSo===7)y.push('Ám can '+o.amCan+' — đề phòng cản trở, phá hoại từ bên trong khi gặp hung môn, hung tinh.');
+      if(o.ma)y.push('Cung có Mã Tinh — nơi sự việc chuyển động mạnh nhất: xuất hành, đổi chỗ, tin tức.');
+      if(o.kv)y.push('Cung gặp Không Vong — cát hung đều giảm, sự việc dễ hư, chưa ngã ngũ cho tới khi điền thực hoặc xung không.');
+      d.innerHTML='<h4>Cung '+CUNG[p].ten+' ('+p+') — '+huongCung(p)+(p===dungPal?' · Cung Dụng thần':'')+'</h4><p><strong>'+o.than+' · '+o.tinh+' · '+o.mon+'</strong> · Thiên Can <strong>'+o.thienCan+'</strong> / Địa Can <strong>'+o.diaCan+'</strong> · Ám can <strong>'+o.amCan+'</strong> · Ám thần <strong>'+o.thanDia+'</strong>. '+y.join(' ')+'</p>';
     });
     grid.appendChild(cell);
   });
+  document.getElementById('kmStepList').innerHTML=KyMon.trinhTu(board).map(function(s){return '<li><b>Bước '+s.buoc+' · '+s.ten+'</b><span>'+s.ketQua+'</span></li>';}).join('');
   // Dung / pattern analysis
-  var dungNature=DOOR_NATURE[board.thienDoor[dungPal]];
-  var tamKy=(board.thienCan[dungPal]==="Ất"||board.thienCan[dungPal]==="Bính"||board.thienCan[dungPal]==="Đinh");
-  var catCount=0,hungCount=0; for(var q=1;q<=9;q++){var n=DOOR_NATURE[board.thienDoor[q]]; if(n==="cat")catCount++; if(n==="hung")hungCount++;}
-  document.getElementById('rDung').textContent='Dụng thần lấy '+dung.label+'. Trong bàn này Dụng thần rơi tại cung '+PAL_INFO[dungPal].name+' ('+dungPal+') với '+board.thienStar[dungPal]+', '+board.thienDoor[dungPal]+', '+board.than[dungPal]+', Thiên Can '+board.thienCan[dungPal]+' / Địa Can '+board.dia[dungPal]+'. '+(dungNature==="cat"?'Môn tại cung Dụng thuộc nhóm cát — việc có cửa mở rõ ràng.':dungNature==="hung"?'Môn tại cung Dụng thuộc nhóm hung — việc dễ nghẽn ở khâu thực thi, cần đổi thời điểm hoặc cách tiếp cận.':'Môn tại cung Dụng trung tính — cần thêm tín hiệu xác nhận trước khi chốt.')+(tamKy?' Cung Dụng gặp Tam Kỳ '+board.thienCan[dungPal]+' — cách cục sáng, thường gọi là Tam Kỳ đắc địa / đắc Môn khi đi cùng Môn cát.':'');
-  document.getElementById('rRead').textContent='Toàn bàn có '+catCount+' cung Môn cát, '+hungCount+' cung Môn hung. Trực Phù '+board.trucPhuStar+' đóng cung '+board.hourPal+' cho thấy trọng tâm và người / yếu tố chủ chốt của việc đang ở hướng '+PAL_INFO[board.hourPal].dir+'. Đọc nhanh: ưu tiên hành động theo hướng và mảng việc của các cung Cát (Khai, Hưu, Sinh), tránh dồn lực vào cung Tử / Kinh / Thương trong thời điểm này.';
+  var od=oCung(board,dungPal), dungNature=DOOR_NATURE[od.mon];
+  var ky=od.thienCanDs.filter(laTamKy);
+  var catCount=0,hungCount=0; for(var q=1;q<=9;q++){var n=DOOR_NATURE[board.mon[q]]; if(n==="cat")catCount++; if(n==="hung")hungCount++;}
+  document.getElementById('rDung').textContent='Dụng thần lấy '+dung.label+'. Trong bàn này '+found.theo+' rơi tại cung '+CUNG[dungPal].ten+' ('+dungPal+') với '+od.tinh+', '+od.mon+', '+od.than+', Thiên Can '+od.thienCan+' / Địa Can '+od.diaCan+', Ám can '+od.amCan+'. '+(dungNature==="cat"?'Môn tại cung Dụng thuộc nhóm cát — việc có cửa mở rõ ràng.':dungNature==="hung"?'Môn tại cung Dụng thuộc nhóm hung — việc dễ nghẽn ở khâu thực thi, cần đổi thời điểm hoặc cách tiếp cận.':'Môn tại cung Dụng trung tính — cần thêm tín hiệu xác nhận trước khi chốt.')+(ky.length?' Cung Dụng gặp Tam Kỳ '+ky.map(tenCan).join(', ')+' — cách cục sáng, thường gọi là Tam Kỳ đắc địa / đắc Môn khi đi cùng Môn cát.':'')+(od.ma?' Mã Tinh cùng cung — việc chuyển động nhanh.':'')+(od.kv?' Cung Dụng gặp Không Vong — kết quả dễ hư, nên chờ tới ngày giờ điền thực hoặc xung không.':'');
+  document.getElementById('rRead').textContent='Toàn bàn có '+catCount+' cung Môn cát, '+hungCount+' cung Môn hung. Đại Trực Phù '+board.trucPhu+' tới cung '+board.cungDenTP+' ('+CUNG[board.cungDenTP].huong+'), Trực Sử '+board.trucSu+' tới cung '+board.cungDenTS+' ('+CUNG[board.cungDenTS].huong+'): đây là trọng tâm và hướng hành động chính của việc. Mã Tinh ở '+CUNG[board.ma.cung].huong+', Không Vong ở '+board.khongVong.cung.map(function(p){return CUNG[p].huong;}).join(' và ')+'.'+(dacBiet?' Bàn thuộc trường hợp '+dacBiet+'.':'')+' Đọc nhanh: ưu tiên hướng và mảng việc của các cung Cát (Khai, Hưu, Sinh), tránh dồn lực vào cung Tử / Kinh / Thương hoặc cung Không Vong trong thời điểm này.';
   return {dungPal:dungPal,dungNature:dungNature,catCount:catCount};
 }
 function cast(scroll){
@@ -255,8 +270,8 @@ function cast(scroll){
   var date=t?new Date(t):new Date(); if(isNaN(date.getTime()))date=new Date();
   var board=buildBoard(date); var info=renderBoard(board,field);
   var tone=info.dungNature==="cat"?1:(info.dungNature==="hung"?2:0);
-  document.getElementById('castTitle').textContent=modeName[mode]+' · '+field+' — '+(board.isDuong?'Dương độn':'Âm độn')+' '+board.cuc+' cục';
-  document.getElementById('castMeta').textContent='Thời điểm: '+(t?t.replace('T',' lúc '):'hiện tại')+' · Tiết khí ước tính: '+board.est.cucRow[1]+' · Câu hỏi: “'+q+'”';
+  document.getElementById('castTitle').textContent=modeName[mode]+' · '+field+' — '+(board.duong?'Dương độn':'Âm độn')+' '+board.cuc+' cục';
+  document.getElementById('castMeta').textContent='Thời điểm: '+(t?t.replace('T',' lúc '):'hiện tại')+' · Tiết '+board.tenTiet+' · Câu hỏi: “'+q+'”';
   var NOW=[
     'Cục diện hiện tại còn đang chuyển động: Dụng thần chưa gặp Môn cát, việc "'+field.toLowerCase()+'" đang ở thế thăm dò, chưa nên chốt vội.',
     'Hiện trạng cho thấy nền việc đã có sẵn, Dụng thần đứng ở cung có sinh khí — bạn đang có một điểm tựa thực tế để bắt đầu.',
@@ -300,7 +315,7 @@ function demoAnswer(req){
   var tag='[Minh họa] ';
   return {
     hienTrang:tag+'Với câu hỏi '+q+', bàn lập lúc '+b.thoiDiem+' thuộc '+b.cuc+'. Dụng thần ('+b.dungThan+') rơi tại cung '+d.so+' '+d.ten+' ('+d.huong+'), nơi có '+d.tinh+', '+d.mon+' và '+d.than+'.',
-    duDoan:tag+'Tại cung Dụng thần, Thiên Can '+d.thienCan+' đi trên Địa Can '+d.diaCan+'. Bản AI thật sẽ phân tích tổ hợp này cùng quan hệ sinh khắc với cung của người hỏi để nêu diễn biến gần.',
+    duDoan:tag+'Tại cung Dụng thần, Thiên Can '+d.thienCan+' đi trên Địa Can '+d.diaCan+', Ám can '+d.amCan+'. Bản AI thật sẽ phân tích tổ hợp này cùng quan hệ sinh khắc với cung của người hỏi để nêu diễn biến gần.',
     trienVong:tag+b.trucPhu+', Trực Sử là '+b.trucSu+'. Bản AI thật sẽ dựa vào hướng và mảng việc của các cung này để nêu triển vọng trung hạn và điều cần chuẩn bị.',
     ketLuan:tag+'Đây là bản demo để xem bố cục; khi nối với OpenAI, bốn phần này sẽ là lời luận giải viết riêng cho bàn và câu hỏi của bạn. Nội dung chỉ mang tính tham khảo.'};
 }
@@ -308,13 +323,13 @@ var aiRequest=null, aiSeq=0;
 function resetAI(date,field,question,timeText){
   aiSeq++; // bo ket qua AI cua lan lap ban truoc neu no ve muon
   var board=lastBoard, palaces=[];
-  for(var p=1;p<=9;p++){palaces.push({so:p,ten:PAL_INFO[p].name,huong:PAL_INFO[p].dir,than:board.than[p],tinh:board.thienStar[p],mon:board.thienDoor[p],thienCan:board.thienCan[p],diaCan:board.dia[p]});}
+  for(var p=1;p<=9;p++){var o=oCung(board,p);palaces.push({so:p,ten:CUNG[p].ten,huong:huongCung(p),than:o.than,tinh:o.tinh,mon:o.mon,thienCan:o.thienCan,diaCan:o.diaCan,amCan:o.amCan,thanDia:o.thanDia,ma:o.ma,khongVong:o.kv});}
   aiRequest={mode:mode,field:field,question:fQ.value.trim(),board:{
     thoiDiem:timeText?timeText.replace('T',' '):toLocalInput(date).replace('T',' '),
-    cuc:board.est.cucRow[1]+' — '+(board.isDuong?'Dương độn':'Âm độn')+' '+board.cuc+' cục, '+["Thượng nguyên","Trung nguyên","Hạ nguyên"][board.est.nguyen],
-    ngayGio:'ngày '+board.dayStem+' '+board.dayBranch+', giờ '+board.hourStemFull,
-    trucPhu:board.trucPhuStar+' đóng tại cung '+board.hourPal,
-    trucSu:board.trucSuDoor,
+    cuc:board.tenTiet+' — '+(board.duong?'Dương độn':'Âm độn')+' '+board.cuc+' cục, '+KyMon.NGUYEN[board.nguyen]+' (Phù đầu '+cc(board.phuDau)+')',
+    ngayGio:'năm '+cc(board.tuTru.nam)+', tháng '+cc(board.tuTru.thang)+', ngày '+cc(board.tuTru.ngay)+', giờ '+cc(board.tuTru.gio),
+    trucPhu:board.trucPhu+' tới cung '+board.cungDenTP,
+    trucSu:board.trucSu+' tới cung '+board.cungDenTS,
     dungThan:board.dung.label,
     cungDungThan:board.dungPal,
     palaces:palaces}};

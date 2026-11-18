@@ -88,7 +88,7 @@
   <div class="sec-head center"><div class="kicker">Tính năng</div><h2>Tính Năng Nổi Bật</h2><p>Từ tra cứu nhanh đến học sâu cổ pháp — mọi thứ bắt đầu từ việc định cục đúng.</p></div>
   <div class="cards3">
     <a class="card" href="#/tra-cuu/tra-nhanh"><div class="iconbox ib-mint">🧭</div><h3>Tra cứu Định cục</h3><p>Chọn Can ngày + giờ để ra Can Chi giờ theo Ngũ Tý Độn; chọn tiết khí + nguyên để ra Âm/Dương độn và Cục số 1–9, tức thì, không cần tra bảng giấy.</p><span class="more">Dùng công cụ →</span></a>
-    <a class="card" href="#/tra-cuu/cong-cu?mode=lapban"><div class="iconbox ib-sky">☯</div><h3>Bàn Kỳ Môn đầy đủ 4 lớp</h3><p>Lập bàn thật theo Cục số: Địa bàn an Lục Nghi – Tam Kỳ, Thiên bàn xoay Cửu Tinh, an Bát Môn theo Trực Sử và Bát Thần theo Trực Phù. Bấm vào từng cung để xem chi tiết.</p><span class="more">Lập bàn đầy đủ →</span></a>
+    <a class="card" href="#/tra-cuu/cong-cu?mode=lapban"><div class="iconbox ib-sky">☯</div><h3>Bàn Kỳ Môn đầy đủ 4 lớp</h3><p>Lập bàn đủ 12 bước: Địa bàn, Thiên bàn, Nhân bàn, Thần bàn cùng Mã Tinh, Không Vong, Bát Thần Địa bàn và Ám Can. Bấm vào từng cung để xem chi tiết.</p><span class="more">Lập bàn đầy đủ →</span></a>
     <a class="card" href="#/tra-cuu/cong-cu?mode=dudoan"><div class="iconbox ib-rose">📜</div><h3>Luận giải &amp; Dụng thần</h3><p>Ngoài 4 phần Hiện trạng — Dự đoán — Triển vọng — Kết luận, trang còn chỉ rõ Dụng thần theo lĩnh vực, cung Dụng thần rơi vào, Trực Phù / Trực Sử và các cách cục nổi bật trong bàn.</p><span class="more">Thử luận giải →</span></a>
   </div>
 </div></section>
@@ -115,7 +115,7 @@
 <div class="page-head"><div class="wrap">
   <div class="crumb"><a href="#/home">Trang chủ</a> / <b>Tra Cứu</b></div>
   <h1>Tra Cứu <em>Kỳ Môn</em></h1>
-  <p>Dự đoán, chọn ngày và lập bàn Kỳ Môn đầy đủ: Địa bàn, Thiên bàn, Cửu Tinh, Bát Môn, Bát Thần cùng Trực Phù — Trực Sử và Dụng thần theo lĩnh vực. Hệ thống tự xử lý định cục phía sau — đổi giờ, tiết khí và Cục số — để bạn tập trung vào việc cần xem.</p>
+  <p>Dự đoán, chọn ngày và lập bàn Kỳ Môn đầy đủ: Địa bàn, Thiên bàn, Cửu Tinh, Bát Môn, Bát Thần cùng Trực Phù — Trực Sử và Dụng thần theo lĩnh vực. Bàn được lập theo quy trình 12 bước — Tứ trụ, tiết khí, Phù đầu, Cục số đến Mã Tinh, Không Vong và Ám Can — và mỗi bước đều được ghi lại ngay dưới bàn.</p>
 </div></div>
 
 <section id="muc-cong-cu"><div class="wrap">
@@ -140,7 +140,8 @@
       <p class="note" id="castMeta"></p>
       <div class="km-meta" id="kmMeta"></div>
       <div class="km-board" aria-label="Bàn Kỳ Môn đầy đủ 9 cung"><div class="km-grid" id="kmGrid"></div></div>
-      <div class="km-legend"><span><strong>Thần</strong> = Bát Thần</span><span><strong>Tinh</strong> = Cửu Tinh (Thiên bàn)</span><span><strong>Môn</strong> = Bát Môn</span><span><strong>Thiên Can</strong> đi theo Tinh · <strong>Địa Can</strong> cố định theo Cục</span><span>Viền đỏ = cung Dụng thần · Bấm vào cung để xem chi tiết</span></div>
+      <div class="km-legend"><span><strong>Thần</strong> = Bát Thần</span><span><strong>Tinh</strong> = Cửu Tinh (Thiên bàn)</span><span><strong>Môn</strong> = Bát Môn</span><span><strong>Thiên Can</strong> đi theo Tinh · <strong>Địa Can</strong> cố định theo Cục</span><span><strong>Ám can</strong>, <strong>Ám thần</strong> = Ám Can và Bát Thần Địa bàn</span><span><strong>Mã</strong> = Mã Tinh · <strong>KV</strong> = Không Vong</span><span>Viền đỏ = cung Dụng thần · Bấm vào cung để xem chi tiết</span></div>
+      <details class="rbox km-steps" id="kmSteps"><summary>Trình tự 12 bước của bàn này</summary><ol id="kmStepList"></ol></details>
       <div class="rbox km-detail" id="palaceDetail"><h4>Chi tiết cung</h4><p>Bấm vào một cung trên bàn để xem Tinh, Môn, Thần, Thiên/Địa Can và ý nghĩa của cung đó trong bàn này.</p></div>
       <div class="result-grid">
         <div class="rbox full" id="rDaysBox" hidden><h4>Ngày gợi ý — 10 ngày tới, cùng khung giờ</h4><p id="rDaysNote"></p><div class="day-list" id="rDays"></div></div>
@@ -152,13 +153,13 @@
         <div class="rbox"><h4>Dụng thần &amp; cách cục</h4><p id="rDung"></p></div>
         <div class="rbox"><h4>Đọc bàn nhanh</h4><p id="rRead"></p></div>
       </div>
-      <p class="note" style="margin-top:12px">Cách an bàn trên trang là bản rút gọn theo lối Chuyển bàn để học &amp; tham khảo: Địa bàn theo Cục số và chiều độn, Thiên bàn xoay theo Trực Phù, Bát Môn xoay theo Trực Sử. Tiết khí và Nguyên được ước tính theo ngày trong năm và số ngày đã qua trong tiết — khi luận việc hệ trọng nên đối chiếu lịch vạn niên và tài liệu cổ pháp.</p>
+      <p class="note" style="margin-top:12px">Bàn được an theo lối Chuyển bàn, đúng 12 bước của tài liệu Quy trình lập trận. Tiết khí tính theo vị trí Mặt Trời (sai số khoảng 15 phút quanh lúc giao tiết), Nguyên theo Phù đầu của ngày; giờ Tý (từ 23h) tính sang ngày hôm sau; thời gian lấy theo múi giờ của máy bạn. Trang chưa áp dụng phép Đặt nhuận khi Siêu thần quá 9 ngày — khi luận việc hệ trọng nên đối chiếu thêm lịch vạn niên.</p>
     </div>
   </div>
 </div></section>
 
 <section class="alt" id="muc-tra-nhanh"><div class="wrap">
-  <div class="sec-head"><div class="kicker">Công cụ tương tác</div><h2>Tra cứu nhanh — Định cục</h2><p>Hai tra cứu dùng hằng ngày khi lập trận: đổi giờ theo Ngũ Tý Độn và tra Cục số theo tiết khí, cho kết quả tức thì ngay tại đây.</p></div>
+  <div class="sec-head"><div class="kicker">Công cụ tương tác</div><h2>Tra cứu nhanh — Định cục</h2><p>Bốn tra cứu dùng hằng ngày khi lập trận, theo đúng các bước của quy trình: đổi giờ (Bước 1), tra Cục số (Bước 1 – 2), tìm Phù đầu (Bước 2), tìm Tuần thủ, Không Vong và Mã Tinh (Bước 4, 9, 10).</p></div>
   <div class="lookup">
     <div class="card" id="muc-doi-gio">
       <h3 style="margin-top:0">⏰ A · Đổi giờ — Ngũ Tý Độn</h3>
@@ -177,6 +178,20 @@
       <select id="selNguyen"><option value="0">Thượng nguyên</option><option value="1">Trung nguyên</option><option value="2">Hạ nguyên</option></select>
       <button type="button" class="btn btn-primary" id="btnCuc" style="margin-top:14px;width:100%">Tra Cục số</button>
       <div class="lookup-out" id="outCuc"></div>
+    </div>
+    <div class="card" id="muc-phu-dau">
+      <h3 style="margin-top:0">📅 C · Phù đầu &amp; Tam nguyên</h3>
+      <label class="fl" for="selNgayCC">Can Chi của ngày</label>
+      <select id="selNgayCC"></select>
+      <button type="button" class="btn btn-primary" id="btnPhuDau" style="margin-top:14px;width:100%">Tìm Phù đầu</button>
+      <div class="lookup-out" id="outPhuDau"></div>
+    </div>
+    <div class="card" id="muc-tuan-thu">
+      <h3 style="margin-top:0">🚩 D · Tuần thủ, Cờ, Không Vong, Mã Tinh</h3>
+      <label class="fl" for="selGioCC">Can Chi của giờ</label>
+      <select id="selGioCC"></select>
+      <button type="button" class="btn btn-primary" id="btnTuan" style="margin-top:14px;width:100%">Tra Tuần thủ</button>
+      <div class="lookup-out" id="outTuan"></div>
     </div>
   </div>
 </div></section>
@@ -264,7 +279,7 @@
 </div></div>
 
 <section><div class="wrap">
-  <div class="card" id="muc-gioi-thieu" style="margin-bottom:26px"><div class="about-brand"><img src="{{asset:logo.png}}" alt="Logo Trận Pháp Kỳ Môn — vòng Thái cực âm dương với nét thư pháp"><div><h3 style="margin-top:0">Về Trận Pháp Kỳ Môn</h3><p>Trận Pháp Kỳ Môn là trang học &amp; thực hành Kỳ Môn Độn Giáp theo cổ pháp, lấy <strong>Định cục</strong> làm nền: hệ thống tự đổi giờ bằng Ngũ Tý Độn, xác định tiết khí, Âm/Dương độn, Tam nguyên và Cục số phía sau mỗi lần tra cứu, trước mọi luận giải. Biểu tượng của trang là vòng Thái cực âm dương ôm nét thư pháp — âm dương tương sinh, sơn thủy tương hợp, đúng tinh thần “định cục trước, luận việc sau”. Phần định cục do Trận Pháp Kỳ Môn tự biên soạn và lập trình theo các bảng tra cổ pháp phổ thông, vận hành ngầm trong các công cụ của trang.</p><p style="margin-top:10px"><a href="#/tra-cuu"><strong>Mở trang Tra Cứu →</strong></a> &nbsp;·&nbsp; <a href="#/huong-dan"><strong>Xem Hướng dẫn sử dụng →</strong></a> &nbsp;·&nbsp; <a href="#/faq/ban-quyen"><strong>Bản quyền &amp; nguồn tham khảo →</strong></a></p></div></div></div>
+  <div class="card" id="muc-gioi-thieu" style="margin-bottom:26px"><div class="about-brand"><img src="{{asset:logo.png}}" alt="Logo Trận Pháp Kỳ Môn — vòng Thái cực âm dương với nét thư pháp"><div><h3 style="margin-top:0">Về Trận Pháp Kỳ Môn</h3><p>Trận Pháp Kỳ Môn là trang học &amp; thực hành Kỳ Môn Độn Giáp theo cổ pháp, lấy <strong>Định cục</strong> làm nền: hệ thống tự đổi giờ bằng Ngũ Tý Độn, xác định tiết khí, Âm/Dương độn, Tam nguyên và Cục số phía sau mỗi lần tra cứu, trước mọi luận giải. Biểu tượng của trang là vòng Thái cực âm dương ôm nét thư pháp — âm dương tương sinh, sơn thủy tương hợp, đúng tinh thần “định cục trước, luận việc sau”. Bàn trận được lập trình đúng theo tài liệu “Quy trình lập trận Kỳ Môn Độn Giáp” 12 bước do Trận Pháp Kỳ Môn biên soạn, vận hành trong các công cụ của trang.</p><p style="margin-top:10px"><a href="#/tra-cuu"><strong>Mở trang Tra Cứu →</strong></a> &nbsp;·&nbsp; <a href="#/huong-dan"><strong>Xem Hướng dẫn sử dụng →</strong></a> &nbsp;·&nbsp; <a href="#/faq/ban-quyen"><strong>Bản quyền &amp; nguồn tham khảo →</strong></a></p></div></div></div>
   <div class="sec-head" id="muc-hoi-dap"><div class="kicker">FAQ</div><h2>Câu hỏi thường gặp</h2></div>
   <details open><summary>Vì sao phải định cục trước khi luận quẻ?</summary><p>Cục số quyết định cách an Lục Nghi — Tam Kỳ trên cửu cung. Sai cục là sai toàn bộ bàn, nên khâu định cục (đổi giờ, xác định tiết khí, Tam nguyên, Cục số) luôn được hệ thống xử lý trước mọi luận giải.</p></details>
   <details><summary>Ngũ Tý Độn dùng để làm gì?</summary><p>Để suy ra Thiên can của giờ từ Thiên can của ngày. Biết ngày là Giáp Tý chẳng hạn, ca quyết “Giáp Kỷ hoàn gia Giáp” cho giờ Tý là Giáp Tý, đếm thuận sẽ ra mọi giờ trong ngày — ví dụ 15h (giờ Thân) là Nhâm Thân.</p></details>

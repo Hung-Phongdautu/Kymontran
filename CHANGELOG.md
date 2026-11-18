@@ -2,6 +2,16 @@
 
 ## 2026-11-18
 
+- Viết lại bộ máy lập trận theo tài liệu "Quy trình lập trận Kỳ Môn Độn Giáp" 12 bước, tách riêng thành `src/kymon.js`:
+  - Tứ trụ đủ năm, tháng, ngày, giờ; năm đổi ở Lập xuân, tháng đổi theo tiết, giờ Tý từ 23h tính sang ngày hôm sau.
+  - Tiết khí tính theo vị trí Mặt Trời thay cho ngày cố định; Nguyên tính theo Phù đầu thay cho số ngày trong tiết.
+  - Thêm Mã Tinh, Không Vong, Bát Thần Địa bàn (Ám thần), Ám Can; xử lý Thiên Cầm đi kèm Thiên Nhuế, Trung cung gửi Khôn 2, giờ Lục Giáp, Phục ngâm và Phản ngâm.
+  - Sửa Can Chi ngày bị lệch (ví dụ 01/10/1949 trước ra Đinh Hợi, nay đúng là Giáp Tý).
+- Dưới bàn có mục "Trình tự 12 bước" ghi kết quả từng bước; thêm hai tra cứu nhanh Phù đầu và Tuần thủ – Không Vong – Mã Tinh.
+- Dụng thần dò đúng các ký hiệu ghi trong nhãn (Bệnh tật, Hôn nhân, Thất vật, Tài vận, Gia trạch, Học tập, Thể thao, Xuất hành). Chọn ngày bỏ qua ngày có cung Dụng thần gặp Không Vong.
+- Thêm bài Kiến Thức "Quy trình 12 bước lập trận"; cập nhật bài Định cục và Cấu trúc bàn.
+- Máy chủ trung gian AI nhận thêm Ám Can, Ám thần, Mã Tinh, Không Vong. Nếu đã dán `worker.js` lên Cloudflare, cần dán lại bản mới.
+- Thêm `tests/test_kymon.mjs` vào kiểm tra tự động.
 - Thêm `MO-TA-NOI-DUNG.md`: mô tả nội dung `index.html` theo từng trang, công cụ, dữ liệu tra và các điểm cần rà lại.
 
 ## 2026-11-16
