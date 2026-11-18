@@ -39,8 +39,8 @@ Trong trang của Worker, vào **Settings** → **Variables and Secrets** và th
 ### Bước 4: Nối trang với Worker
 
 1. Sao chép địa chỉ của Worker (dạng `https://kymontran-luan-giai.<tên-bạn>.workers.dev`).
-2. Mở `src/app.js`, tìm dòng `var AI_ENDPOINT='';` và dán địa chỉ vào giữa hai dấu nháy.
-3. Chạy `python3 build.py`, kiểm tra bằng `python3 tests/check_site.py`, rồi đẩy lên `main`.
+2. Mở `public/js/app.js`, tìm dòng `var AI_ENDPOINT='';` và dán địa chỉ vào giữa hai dấu nháy.
+3. Chạy `python3 build.py`, kiểm tra bằng `npm test` (hoặc `python3 test/check_site.py`), rồi đẩy lên `main`.
 
 Địa chỉ Worker không phải bí mật nên được phép nằm trong kho mã.
 
@@ -80,7 +80,7 @@ Vì hai lớp giữa không tuyệt đối, **hạn mức chi tiêu ở Bước 
 ## Kiểm thử
 
 ```bash
-node tests/test_worker.mjs
+node --test test/worker.test.mjs
 ```
 
 Bài kiểm thử thay OpenAI bằng bản giả nên không cần khóa và không tốn tiền.

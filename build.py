@@ -6,12 +6,13 @@
     python3 build.py --site _site # ghi thêm thư mục để đưa lên mạng (GitHub Pages)
     python3 build.py --demo       # ghi demo.html: bản chạy thử có nút AI trả về nội dung minh họa
 
-Nguồn:
-    src/template.html          khung trang, chứa các chỗ giữ chỗ {{...}}
-    src/styles.css             toàn bộ CSS            -> {{styles}}
-    src/tiet-khi.js, src/kymon.js, src/app.js  bảng giao tiết, bộ máy lập trận, mã giao diện -> {{script}}
-    assets/<tên tệp>           ảnh, nhúng dạng data URI -> {{asset:<tên tệp>}}
-    content/kien-thuc/*.md     bài viết Kiến Thức     -> {{kien-thuc}}
+Nguồn (bố cục giống các dự án lập bàn Kỳ Môn: lib/ tính toán, views/ khung trang, public/ giao diện):
+    views/index.html           khung trang, chứa các chỗ giữ chỗ {{...}}
+    public/css/style.css       toàn bộ CSS                                   -> {{styles}}
+    lib/*.js                   bộ máy lập trận 12 bước (thứ tự ở LIB)        -> {{script}}
+    public/js/*.js             mã giao diện (thứ tự ở GIAO_DIEN)             -> {{script}}
+    public/img/<tên tệp>       ảnh, nhúng dạng data URI                      -> {{asset:<tên tệp>}}
+    content/kien-thuc/*.md     bài viết Kiến Thức                            -> {{kien-thuc}}
 
 Chỉ dùng thư viện chuẩn của Python 3.
 © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
@@ -24,6 +25,12 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+# Thứ tự ghép trong trình duyệt: mỗi tệp chỉ dùng những tệp đứng trước nó.
+LIB = ["km.js", "cong-cu.js", "bang-tra.js", "tiet-khi-bang.js", "lich.js",
+       "b01-tu-tru.js", "b02-phu-dau.js", "b03-dia-ban.js", "b04-tuan-thu.js", "b05-truc-phu-su.js", "b06-thien-ban.js",
+       "b07-nhan-ban.js", "b08-than-ban.js", "b09-ma-tinh.js", "b10-khong-vong.js", "b11-than-dia-ban.js", "b12-am-can.js",
+       "trinh-tu.js", "kymon.js"]
+GIAO_DIEN = ["app.js", "mo-dun.js", "dang-ky.js", "khoi-dong.js"]
 OUTPUT = ROOT / "index.html"
 ARTICLE_DIR = ROOT / "content" / "kien-thuc"
 
@@ -117,24 +124,25 @@ def render_articles():
 
 
 def data_uri(name):
-    path = ROOT / "assets" / name
+    path = ROOT / "public" / "img" / name
     if not path.is_file():
-        raise SystemExit(f"Thiếu tệp ảnh assets/{name}")
+        raise SystemExit(f"Thiếu tệp ảnh public/img/{name}")
     mime = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
     return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode('ascii')}"
 
 
 def build():
-    page = read(ROOT / "src" / "template.html")
+    page = read(ROOT / "views" / "index.html")
     parts = {
-        "styles": read(ROOT / "src" / "styles.css").strip("\n"),
-        "script": "\n".join(read(ROOT / "src" / f).strip("\n") for f in ("tiet-khi.js", "kymon.js", "app.js")),
+        "styles": read(ROOT / "public" / "css" / "style.css").strip("\n"),
+        "script": "\n".join([read(ROOT / "lib" / f).strip("\n") for f in LIB] +
+                             [read(ROOT / "public" / "js" / f).strip("\n") for f in GIAO_DIEN]),
         "kien-thuc": render_articles(),
     }
     for key, value in parts.items():
         token = "{{" + key + "}}"
         if page.count(token) != 1:
-            raise SystemExit(f"src/template.html phải chứa đúng một {token}")
+            raise SystemExit(f"views/index.html phải chứa đúng một {token}")
         page = page.replace(token, value)
     cache = {}
     page = re.sub(
@@ -173,7 +181,7 @@ def write_demo():
     """Bản chạy thử: bật nút "Luận giải bằng AI" ở chế độ minh họa, không gọi dịch vụ nào."""
     page, off, on = build(), "var AI_ENDPOINT='';", "var AI_ENDPOINT='demo';"
     if page.count(off) != 1:
-        raise SystemExit("Không tìm thấy đúng một dòng AI_ENDPOINT trống trong src/app.js để tạo bản demo")
+        raise SystemExit("Không tìm thấy đúng một dòng AI_ENDPOINT trống trong public/js/app.js để tạo bản demo")
     page = page.replace(off, on).replace("<title>", "<title>[Demo] ", 1)
     (ROOT / "demo.html").write_text(page, encoding="utf-8")
     print("Đã ghi demo.html (bản chạy thử, không đưa lên mạng thay cho index.html)")

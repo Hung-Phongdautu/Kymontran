@@ -1,6 +1,7 @@
 // Kiểm tra worker/worker.js mà không gọi OpenAI thật: thay fetch bằng bản giả.
-//     node tests/test_worker.mjs
+//     node --test test/*.test.mjs
 import assert from "node:assert/strict";
+import { test } from "node:test";
 import worker, { buildUserMessage } from "../worker/worker.js";
 
 const ORIGIN = "https://hung-phongdautu.github.io";
@@ -78,4 +79,4 @@ assert.equal((await post(good)).status, 502);
 res = await worker.fetch(new Request("https://worker.example/", { method: "POST", headers: { Origin: ORIGIN }, body: "{}" }), { ALLOWED_ORIGIN: ORIGIN });
 assert.equal(res.status, 500);
 
-console.log("Đạt: worker xử lý đúng 8 nhóm tình huống.");
+test("máy chủ trung gian xử lý đúng 8 nhóm tình huống", () => {});

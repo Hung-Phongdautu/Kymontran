@@ -169,40 +169,87 @@
 </div></section>
 
 <section class="alt" id="muc-tra-nhanh"><div class="wrap">
-  <div class="sec-head"><div class="kicker">Công cụ tương tác</div><h2>Tra cứu nhanh — Định cục</h2><p>Bốn tra cứu dùng hằng ngày khi lập trận, theo đúng các bước của quy trình: đổi giờ (Bước 1), tra Cục số (Bước 1 – 2), tìm Phù đầu (Bước 2), tìm Tuần thủ, Không Vong và Mã Tinh (Bước 4, 9, 10).</p></div>
-  <div class="lookup">
-    <div class="card" id="muc-doi-gio">
-      <h3 style="margin-top:0">⏰ A · Đổi giờ — Ngũ Tý Độn</h3>
-      <label class="fl" for="selCan">Thiên can của ngày</label>
-      <select id="selCan"><option>Giáp</option><option>Ất</option><option>Bính</option><option>Đinh</option><option>Mậu</option><option>Kỷ</option><option>Canh</option><option>Tân</option><option>Nhâm</option><option>Quý</option></select>
-      <label class="fl" for="selGio" style="margin-top:12px">Giờ cần tra</label>
-      <select id="selGio"></select>
-      <button type="button" class="btn btn-primary" id="btnGio" style="margin-top:14px;width:100%">Tra Can Chi giờ</button>
-      <div class="lookup-out" id="outGio"></div>
-    </div>
-    <div class="card" id="muc-cuc-so">
-      <h3 style="margin-top:0">🧮 B · Tra Cục số — Tiết khí &amp; Nguyên</h3>
-      <label class="fl" for="selTiet">Tiết khí</label>
-      <select id="selTiet"></select>
-      <label class="fl" for="selNguyen" style="margin-top:12px">Nguyên</label>
-      <select id="selNguyen"><option value="0">Thượng nguyên</option><option value="1">Trung nguyên</option><option value="2">Hạ nguyên</option></select>
-      <button type="button" class="btn btn-primary" id="btnCuc" style="margin-top:14px;width:100%">Tra Cục số</button>
-      <div class="lookup-out" id="outCuc"></div>
-    </div>
-    <div class="card" id="muc-phu-dau">
-      <h3 style="margin-top:0">📅 C · Phù đầu &amp; Tam nguyên</h3>
-      <label class="fl" for="selNgayCC">Can Chi của ngày</label>
-      <select id="selNgayCC"></select>
-      <button type="button" class="btn btn-primary" id="btnPhuDau" style="margin-top:14px;width:100%">Tìm Phù đầu</button>
-      <div class="lookup-out" id="outPhuDau"></div>
-    </div>
-    <div class="card" id="muc-tuan-thu">
-      <h3 style="margin-top:0">🚩 D · Tuần thủ, Cờ, Không Vong, Mã Tinh</h3>
-      <label class="fl" for="selGioCC">Can Chi của giờ</label>
-      <select id="selGioCC"></select>
-      <button type="button" class="btn btn-primary" id="btnTuan" style="margin-top:14px;width:100%">Tra Tuần thủ</button>
-      <div class="lookup-out" id="outTuan"></div>
-    </div>
+  <div class="sec-head"><div class="kicker">Bàn làm việc</div><h2>Mười hai mô-đun lập trận</h2><p>Mỗi thẻ là một bước của quy trình, chạy riêng bằng dữ liệu nhập vào thẻ đó và gọi đúng một mô-đun trong <code>lib/</code>. Đổi dữ liệu là thẻ tính lại ngay. Các thẻ mở sẵn ví dụ của tài liệu: Dương độn 3 cục, giờ Canh Ngọ.</p></div>
+  <div class="mod-bar"><button type="button" class="btn btn-ghost" id="modTuBan" disabled>Điền dữ liệu từ bàn vừa lập</button><button type="button" class="btn btn-ghost" id="modViDu">Đặt lại ví dụ của tài liệu</button><span class="note" id="modBarNote">Lập trận ở công cụ phía trên để điền dữ liệu của bàn đó vào cả 13 thẻ.</span></div>
+  <div class="mod-grid">
+    <article class="card mod-card" id="muc-mo-dun-b1" data-mo-dun="mo-dun-b1">
+      <div class="mod-head"><span class="mod-step">Bước 1</span><h3>Tứ trụ và tiết khí</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b01-tu-tru.js</code> · hàm <code>KM.B1.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b1-time">Thời điểm (giờ đồng hồ tại nơi lập trận)</label><input type="datetime-local" id="mo-dun-b1-time" data-vao="time"></div></div><p class="note">Dùng các tùy chọn trong mục Quy đổi giờ của công cụ lập trận ở trên.</p>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-doi-gio" data-mo-dun="doi-gio">
+      <div class="mod-head"><span class="mod-step">Bước 1</span><h3>Ngũ Tý Độn — đổi giờ</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b01-tu-tru.js</code> · hàm <code>KM.B1.nguTyDon</code></p>
+      <div class="mod-in"><div><label class="fl" for="doi-gio-can">Thiên can của ngày</label><select id="doi-gio-can" data-vao="can"></select></div><div><label class="fl" for="doi-gio-chi">Giờ</label><select id="doi-gio-chi" data-vao="chi"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-phu-dau" data-mo-dun="phu-dau">
+      <div class="mod-head"><span class="mod-step">Bước 2</span><h3>Phù đầu, Tam nguyên, Cục số</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b02-phu-dau.js</code> · hàm <code>KM.B2.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="phu-dau-ngay">Can Chi của ngày</label><select id="phu-dau-ngay" data-vao="ngay"></select></div><div id="muc-cuc-so"><label class="fl" for="phu-dau-tiet">Tiết khí</label><select id="phu-dau-tiet" data-vao="tiet"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b3" data-mo-dun="mo-dun-b3">
+      <div class="mod-head"><span class="mod-step">Bước 3</span><h3>An Thiên Can Địa bàn</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b03-dia-ban.js</code> · hàm <code>KM.B3.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b3-don">Độn</label><select id="mo-dun-b3-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b3-cuc">Cục số</label><select id="mo-dun-b3-cuc" data-vao="cuc"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-tuan-thu" data-mo-dun="tuan-thu">
+      <div class="mod-head"><span class="mod-step">Bước 4</span><h3>Tuần thủ và Cờ</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b04-tuan-thu.js</code> · hàm <code>KM.B4.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="tuan-thu-gio">Can Chi của giờ</label><select id="tuan-thu-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b5" data-mo-dun="mo-dun-b5">
+      <div class="mod-head"><span class="mod-step">Bước 5</span><h3>Đại Trực Phù và Trực Sử</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b05-truc-phu-su.js</code> · hàm <code>KM.B5.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b5-don">Độn</label><select id="mo-dun-b5-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b5-cuc">Cục số</label><select id="mo-dun-b5-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b5-gio">Can Chi của giờ</label><select id="mo-dun-b5-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b6" data-mo-dun="mo-dun-b6">
+      <div class="mod-head"><span class="mod-step">Bước 6</span><h3>Thiên bàn — Cửu Tinh và Can</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b06-thien-ban.js</code> · hàm <code>KM.B6.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b6-don">Độn</label><select id="mo-dun-b6-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b6-cuc">Cục số</label><select id="mo-dun-b6-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b6-gio">Can Chi của giờ</label><select id="mo-dun-b6-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b7" data-mo-dun="mo-dun-b7">
+      <div class="mod-head"><span class="mod-step">Bước 7</span><h3>Nhân bàn — Bát Môn</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b07-nhan-ban.js</code> · hàm <code>KM.B7.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b7-don">Độn</label><select id="mo-dun-b7-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b7-cuc">Cục số</label><select id="mo-dun-b7-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b7-gio">Can Chi của giờ</label><select id="mo-dun-b7-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b8" data-mo-dun="mo-dun-b8">
+      <div class="mod-head"><span class="mod-step">Bước 8</span><h3>Thần bàn — Bát Thần</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b08-than-ban.js</code> · hàm <code>KM.B8.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b8-don">Độn</label><select id="mo-dun-b8-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b8-cuc">Cục số</label><select id="mo-dun-b8-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b8-gio">Can Chi của giờ</label><select id="mo-dun-b8-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-ma-tinh" data-mo-dun="ma-tinh">
+      <div class="mod-head"><span class="mod-step">Bước 9</span><h3>Mã Tinh</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b09-ma-tinh.js</code> · hàm <code>KM.B9.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="ma-tinh-chi">Giờ</label><select id="ma-tinh-chi" data-vao="chi"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-khong-vong" data-mo-dun="khong-vong">
+      <div class="mod-head"><span class="mod-step">Bước 10</span><h3>Không Vong</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b10-khong-vong.js</code> · hàm <code>KM.B10.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="khong-vong-gio">Can Chi của giờ</label><select id="khong-vong-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b11" data-mo-dun="mo-dun-b11">
+      <div class="mod-head"><span class="mod-step">Bước 11</span><h3>Bát Thần Địa bàn (Ám thần)</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b11-than-dia-ban.js</code> · hàm <code>KM.B11.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b11-don">Độn</label><select id="mo-dun-b11-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b11-cuc">Cục số</label><select id="mo-dun-b11-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b11-gio">Can Chi của giờ</label><select id="mo-dun-b11-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b12" data-mo-dun="mo-dun-b12">
+      <div class="mod-head"><span class="mod-step">Bước 12</span><h3>Ám Can</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b12-am-can.js</code> · hàm <code>KM.B12.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b12-don">Độn</label><select id="mo-dun-b12-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b12-cuc">Cục số</label><select id="mo-dun-b12-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b12-gio">Can Chi của giờ</label><select id="mo-dun-b12-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
   </div>
 </div></section>
 </div>

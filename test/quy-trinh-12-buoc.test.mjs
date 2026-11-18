@@ -1,14 +1,15 @@
-// Kiểm thử bộ máy lập trận (src/kymon.js) bằng các ví dụ trong tài liệu
-// "Quy trình lập trận Kỳ Môn Độn Giáp" (12 bước).
-//     node tests/test_kymon.mjs
+// Kiểm thử bộ máy lập trận (lib/kymon.js) bằng các ví dụ trong tài liệu
+// "Quy trình lập trận Kỳ Môn Độn Giáp" 12 bước (docs/quy-trinh-lap-tran.md).
+//     node --test test/*.test.mjs
 import assert from "node:assert/strict";
+import { test } from "node:test";
 import { createRequire } from "node:module";
-const KyMon = createRequire(import.meta.url)("../src/kymon.js");
+const KyMon = createRequire(import.meta.url)("../lib/kymon.js");
 const { CAN, CHI, canChi, anBan, lapTran, buoc2, TIET } = KyMon;
 const can = (s) => CAN.indexOf(s), chi = (s) => CHI.indexOf(s);
 const name = (i) => CAN[i];
 const map9 = (m, f = (x) => x) => Object.fromEntries(Object.entries(m).map(([k, v]) => [k, f(v)]));
-let n = 0; const ok = (label, fn) => { fn(); n++; };
+const ok = test;
 
 // ----- Bước 1: ví dụ ngày 01/10/1949 lúc 15 giờ -----
 ok("Bước 1 — Tứ trụ 01/10/1949 15h", () => {
@@ -221,4 +222,3 @@ ok("Giờ Tý sớm và Tý muộn", () => {
   assert.equal(canChi(som.tuTru.ngay), "Đinh Dậu"); assert.equal(canChi(som.tuTru.gio), "Canh Tý");
   assert.equal(canChi(muon.tuTru.ngay), "Bính Thân"); assert.equal(canChi(muon.tuTru.gio), "Canh Tý"); // ngày cũ, Can giờ theo ngày hôm sau
 });
-console.log(`Đạt: bộ máy lập trận khớp ${n} nhóm ví dụ của tài liệu 12 bước.`);

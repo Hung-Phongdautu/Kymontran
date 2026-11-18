@@ -67,63 +67,6 @@ PALACES.forEach(function(p,i){
   grid.appendChild(d);
 });
 
-// Ngu Ty Don table: rows = 12 gio, cols = 5 nhom ngay
-var GIO=[["Tý","23h – 01h"],["Sửu","01h – 03h"],["Dần","03h – 05h"],["Mão","05h – 07h"],["Thìn","07h – 09h"],["Tỵ","09h – 11h"],["Ngọ","11h – 13h"],["Mùi","13h – 15h"],["Thân","15h – 17h"],["Dậu","17h – 19h"],["Tuất","19h – 21h"],["Hợi","21h – 23h"]];
-var NTD=[
- ["Giáp Tý","Bính Tý","Mậu Tý","Canh Tý","Nhâm Tý"],
- ["Ất Sửu","Đinh Sửu","Kỷ Sửu","Tân Sửu","Quý Sửu"],
- ["Bính Dần","Mậu Dần","Canh Dần","Nhâm Dần","Giáp Dần"],
- ["Đinh Mão","Kỷ Mão","Tân Mão","Quý Mão","Ất Mão"],
- ["Mậu Thìn","Canh Thìn","Nhâm Thìn","Giáp Thìn","Bính Thìn"],
- ["Kỷ Tỵ","Tân Tỵ","Quý Tỵ","Ất Tỵ","Đinh Tỵ"],
- ["Canh Ngọ","Nhâm Ngọ","Giáp Ngọ","Bính Ngọ","Mậu Ngọ"],
- ["Tân Mùi","Quý Mùi","Ất Mùi","Đinh Mùi","Kỷ Mùi"],
- ["Nhâm Thân","Giáp Thân","Bính Thân","Mậu Thân","Canh Thân"],
- ["Quý Dậu","Ất Dậu","Đinh Dậu","Kỷ Dậu","Tân Dậu"],
- ["Giáp Tuất","Bính Tuất","Mậu Tuất","Canh Tuất","Nhâm Tuất"],
- ["Ất Hợi","Đinh Hợi","Kỷ Hợi","Tân Hợi","Quý Hợi"]
-];
-var selGio=document.getElementById('selGio');
-GIO.forEach(function(g,i){var o=document.createElement('option');o.value=i;o.textContent='Giờ '+g[0]+' ('+g[1]+')';selGio.appendChild(o);});
-selGio.value=8; // Gio Than - vi du 1949
-var CAN_GROUP={"Giáp":0,"Kỷ":0,"Ất":1,"Canh":1,"Bính":2,"Tân":2,"Đinh":3,"Nhâm":3,"Mậu":4,"Quý":4};
-var GROUP_LABEL=["Giáp / Kỷ","Ất / Canh","Bính / Tân","Đinh / Nhâm","Mậu / Quý"];
-document.getElementById('btnGio').addEventListener('click',function(){
-  var can=document.getElementById('selCan').value, gi=parseInt(selGio.value,10);
-  var res=NTD[gi][CAN_GROUP[can]];
-  var out=document.getElementById('outGio'); out.classList.add('show');
-  out.innerHTML='Ngày <strong>'+can+'</strong> (nhóm '+GROUP_LABEL[CAN_GROUP[can]]+') — giờ <strong>'+GIO[gi][0]+'</strong> ('+GIO[gi][1]+') là: <span style="font-size:20px;font-weight:800;color:var(--red)">'+res+'</span><br><span style="font-size:13px;color:var(--muted)">Theo ca quyết: giờ Tý của nhóm này là '+NTD[0][CAN_GROUP[can]]+', đếm thuận Thiên can tới giờ '+GIO[gi][0]+' được '+res+'.</span>';
-});
-
-// B · Cục số 24 tiết khí (bảng nằm trong bộ máy KyMon.TIET)
-var selTiet=document.getElementById('selTiet');
-KyMon.TIET.forEach(function(r,i){var o=document.createElement('option');o.value=i;o.textContent=r.ten+' ('+(r.duong?'Dương độn':'Âm độn')+')';selTiet.appendChild(o);});
-document.getElementById('btnCuc').addEventListener('click',function(){
-  var r=KyMon.TIET[parseInt(selTiet.value,10)], ng=parseInt(document.getElementById('selNguyen').value,10);
-  var don=r.duong?'Dương độn':'Âm độn', cuc=r.cuc[ng];
-  var out=document.getElementById('outCuc'); out.classList.add('show');
-  out.innerHTML='Tiết khí <strong>'+r.ten+'</strong> thuộc <strong>'+don+'</strong> — '+KyMon.NGUYEN[ng]+' dùng: <span style="font-size:20px;font-weight:800;color:var(--red)">'+(r.duong?'Dương ':'Âm ')+cuc+' cục</span><br><span style="font-size:13px;color:var(--muted)">'+(r.duong?'Dương độn: Lục Nghi đi thuận cửu cung, Tam Kỳ đi nghịch.':'Âm độn: Lục Nghi đi nghịch cửu cung, Tam Kỳ đi thuận.')+' Ba số của tiết này — Thượng: '+r.cuc[0]+' · Trung: '+r.cuc[1]+' · Hạ: '+r.cuc[2]+'.</span>';
-});
-
-// C · Phù đầu & Tam nguyên theo Can Chi ngày (Bước 2)
-var selNgayCC=document.getElementById('selNgayCC');
-for(var k60=0;k60<60;k60++){var o60=document.createElement('option');o60.value=k60;o60.textContent=KyMon.canChi(k60);selNgayCC.appendChild(o60);}
-document.getElementById('btnPhuDau').addEventListener('click',function(){
-  var d=parseInt(selNgayCC.value,10), r=KyMon.buoc2(d,0), lui=(d%10)%5;
-  var out=document.getElementById('outPhuDau'); out.classList.add('show');
-  out.innerHTML='Ngày <strong>'+KyMon.canChi(d)+'</strong> '+(lui?'lùi '+lui+' ngày':'chính là ngày Phù đầu')+' → Phù đầu <span style="font-size:20px;font-weight:800;color:var(--red)">'+KyMon.canChi(r.phuDau)+'</span> thuộc <strong>'+r.nhomChi+'</strong> → <strong>'+KyMon.NGUYEN[r.nguyen]+'</strong>.<br><span style="font-size:13px;color:var(--muted)">Tứ Chính (Tý, Ngọ, Mão, Dậu) là Thượng nguyên; Tứ Sinh (Dần, Thân, Tỵ, Hợi) là Trung nguyên; Tứ Mộ (Thìn, Tuất, Sửu, Mùi) là Hạ nguyên. Ghép với tiết khí ở bảng B để ra Cục số.</span>';
-});
-
-// D · Tuần thủ, Cờ, Không Vong, Mã Tinh theo Can Chi giờ (Bước 4, 9, 10)
-var selGioCC=document.getElementById('selGioCC');
-for(var g60=0;g60<60;g60++){var og=document.createElement('option');og.value=g60;og.textContent=KyMon.canChi(g60);selGioCC.appendChild(og);}
-selGioCC.value=6; // Canh Ngọ — ví dụ của tài liệu
-document.getElementById('btnTuan').addEventListener('click',function(){
-  var g=parseInt(selGioCC.value,10), r=KyMon.anBan(true,1,g%10,g%12);
-  var out=document.getElementById('outTuan'); out.classList.add('show');
-  out.innerHTML='Giờ <strong>'+KyMon.canChi(g)+'</strong> thuộc tuần <span style="font-size:20px;font-weight:800;color:var(--red)">'+KyMon.canChi(r.tuanThu)+'</span>, mang cờ <strong>'+KyMon.CAN[r.co]+'</strong>.<br>Không Vong: <strong>'+r.khongVong.chi.map(function(c){return KyMon.CHI[c];}).join(', ')+'</strong> (cung '+r.khongVong.cung.map(function(p){return KyMon.CUNG[p].ten+' '+p;}).join(', ')+') · Mã Tinh tại <strong>'+KyMon.CHI[r.ma.chi]+'</strong> (cung '+KyMon.CUNG[r.ma.cung].ten+' '+r.ma.cung+').<br><span style="font-size:13px;color:var(--muted)">Tìm cung của cờ '+KyMon.CAN[r.co]+' trên Địa bàn để ra Đại Trực Phù và Trực Sử (Bước 5).</span>';
-});
-
 // Fields 11 — clicking a field opens the Tra Cuu page with that field selected
 var FIELDS=[["Bệnh tật","Sức khỏe, thời điểm thăm khám & hồi phục"],["Hôn nhân","Tình cảm, cưới hỏi, hòa hợp đôi lứa"],["Kinh doanh","Ký kết, mở bán, đối tác & dòng tiền"],["Công danh","Thi cử quan lộc, thăng tiến, bổ nhiệm"],["Tài vận","Đầu tư, vay mượn, thu hồi nợ"],["Gia trạch","Nhà đất, xây sửa, an cư"],["Pháp lý","Kiện tụng, hợp đồng, tranh chấp"],["Thất vật","Tìm đồ mất, giấy tờ thất lạc"],["Xuất hành","Đi xa, chuyển việc, khai trương"],["Học tập","Học hành, thi cử, chọn trường"],["Thể thao","Thi đấu, phong độ, kết quả trận đấu"]];
 var fw=document.getElementById('fields');
@@ -164,7 +107,7 @@ function nhapThoiDiem(str,tc){ // "YYYY-MM-DDTHH:MM" là giờ đồng hồ tạ
 }
 function chuoiGioDongHo(ms,mui){var g=KyMon.gioDongHo(ms,mui);return g.y+'-'+pad2(g.m)+'-'+pad2(g.d)+'T'+pad2(g.h)+':'+pad2(g.mi);}
 document.getElementById('fTime').value=chuoiGioDongHo(Date.now(),tuyChon().muiGio);
-// ===== Lập bàn: bộ máy 12 bước nằm trong src/kymon.js (biến KyMon) =====
+// ===== Lập bàn: bộ máy 12 bước nằm trong lib/ (KyMon điều phối, KM.B1 … KM.B12 từng bước) =====
 var CAN=KyMon.CAN, CHI=KyMon.CHI, CUNG=KyMon.CUNG, cc=KyMon.canChi;
 function tenCan(i){return CAN[i];}
 function huongCung(p){return CUNG[p].huong+' · '+CUNG[p].hanh;}
@@ -339,6 +282,7 @@ function cast(scroll){
   document.getElementById('palaceDetail').innerHTML='<h4>Chi tiết cung</h4><p>Bấm vào một cung trên bàn để xem Tinh, Môn, Thần, Thiên/Địa Can và ý nghĩa của cung đó trong bàn này.</p>';
   resetAI(date,field,q,t);
   document.getElementById('castResult').classList.add('show');
+  if(typeof moDunCoBan==='function')moDunCoBan();
   if(scroll)document.getElementById('castResult').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 document.getElementById('btnCast').addEventListener('click',function(){cast(true);});
@@ -401,33 +345,3 @@ document.getElementById('btnAI').addEventListener('click',function(){
     })
     .catch(function(){fail('Không kết nối được máy chủ luận giải.');});
 });
-
-// ===== Dang ky (registration-of-interest slip; nothing is sent automatically) =====
-// Dien email nhan dang ky vao day de bat nut "Gui qua email" (de trong = chi sao chep phieu).
-var CONTACT_EMAIL='agencylehung@gmail.com';
-var GOI={'que':'Theo quẻ — 49.000₫ / quẻ','thang':'Gói tháng — 199.000₫ / tháng','chuyen-gia':'Hiệu đính chuyên gia — 490.000₫ / quẻ'};
-var GOI_DESC={'que':'Theo quẻ: luận giải 4 phần đầy đủ cho một việc cụ thể, chọn 1 trong 11 lĩnh vực.','thang':'Gói tháng: không giới hạn lập bàn & tra cứu, 30 quẻ luận giải mỗi tháng, chọn ngày cho nhiều việc.','chuyen-gia':'Hiệu đính chuyên gia: người có kinh nghiệm rà soát thủ công, kiểm tra lại định cục & Dụng thần và nhận xét riêng.'};
-function applyDangKy(params){
-  var sel=document.getElementById('dkGoi'); if(GOI[params.goi])sel.value=params.goi;
-  document.getElementById('dkDesc').textContent=GOI_DESC[sel.value]+' Điền cách liên hệ thuận tiện nhất rồi tạo phiếu.';
-}
-document.getElementById('dkGoi').addEventListener('change',function(){applyDangKy({});document.getElementById('dkOut').classList.remove('show');});
-document.getElementById('dkForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  var goi=GOI[document.getElementById('dkGoi').value], name=document.getElementById('dkName').value.trim(), contact=document.getElementById('dkContact').value.trim(), note=document.getElementById('dkNote').value.trim();
-  var text='PHIẾU ĐĂNG KÝ — TRẬN PHÁP KỲ MÔN\nGói: '+goi+'\nHọ tên: '+name+'\nLiên hệ: '+contact+'\nGhi chú: '+(note||'(không có)')+'\nNgày lập: '+new Date().toLocaleDateString('vi-VN');
-  document.getElementById('dkText').textContent=text;
-  var mail=document.getElementById('dkMail');
-  if(CONTACT_EMAIL){mail.hidden=false;mail.href='mailto:'+CONTACT_EMAIL+'?subject='+encodeURIComponent('Đăng ký '+goi)+'&body='+encodeURIComponent(text);}else{mail.hidden=true;}
-  document.getElementById('dkHint').textContent=CONTACT_EMAIL?'Bấm “Gửi qua email” để mở ứng dụng thư với phiếu đã điền sẵn, hoặc sao chép phiếu.':'Phiếu chưa được gửi đi. Hãy sao chép và gửi cho quản trị trang qua kênh bạn đang liên hệ.';
-  document.getElementById('dkOut').classList.add('show');
-});
-document.getElementById('dkCopy').addEventListener('click',function(){
-  var btn=this, text=document.getElementById('dkText').textContent;
-  var done=function(ok){btn.textContent=ok?'Đã sao chép ✓':'Hãy bôi đen phiếu để sao chép';setTimeout(function(){btn.textContent='Sao chép phiếu';},2200);};
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){done(true);},function(){done(false);});}
-  else{var r=document.createRange();r.selectNodeContents(document.getElementById('dkText'));var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);var ok=false;try{ok=document.execCommand('copy');}catch(e){}done(ok);}
-});
-
-// Initial page (supports deep links like #/tra-cuu and the browser back button)
-showPage(parseHash());

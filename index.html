@@ -284,6 +284,30 @@ a.step:hover{border-color:var(--gold)}
  table{font-size:12.5px}th,td{padding:8px 6px}th{font-size:12px}tr td:first-child{white-space:normal}
  .hero-cta .btn{width:100%} .hero-logo-badge{width:64px;height:64px;right:8px} .hero-visual{padding-top:72px}
  .landscape figcaption{padding:36px 18px 16px}.landscape figcaption b{font-size:18px}}
+/* ===== Bàn làm việc 12 mô-đun ===== */
+.mod-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
+.mod-card{padding:20px;display:grid;gap:10px;min-width:0}
+.mod-card:hover{transform:none}
+.mod-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.mod-head h3{margin:0;font-size:17.5px}
+.mod-step{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);white-space:nowrap}
+.mod-src{margin:0;font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.mod-src code,.sec-head code{font-size:12px;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:1px 5px}
+.mod-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.mod-in label.fl{font-size:12.5px;margin-bottom:4px}
+.mod-in select,.mod-in input{padding:9px 10px;font-size:14px}
+.mod-out{border-top:1px dashed var(--line);padding-top:10px;display:grid;gap:4px;min-width:0}
+.mod-out p{margin:0;font-size:14px;color:var(--muted)}.mod-out p strong{color:var(--ink)}
+.mod-out p.note{font-size:12.5px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:6px}
+.mg-o{padding:6px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:54px;display:grid;align-content:start;gap:1px;min-width:0;background:var(--surface)}
+.mg-o:nth-child(3n){border-right:0}.mg-o:nth-child(n+7){border-bottom:0}
+.mg-o small{font-size:9.5px;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.mg-o b{font-size:12.5px;line-height:1.3;overflow-wrap:anywhere}.mg-o i{display:block;font-style:normal;font-size:11.5px;color:var(--red-dark);font-weight:700}
+.mg-o.mg-tt{background:var(--surface2)}
+.mg-o.hl{background:var(--red-soft);box-shadow:inset 0 0 0 2px var(--red)}
+.mg-o.kv{background:var(--surface2);box-shadow:inset 0 0 0 2px var(--muted)}
 </style>
 </head>
 <body>
@@ -415,40 +439,87 @@ a.step:hover{border-color:var(--gold)}
 </div></section>
 
 <section class="alt" id="muc-tra-nhanh"><div class="wrap">
-  <div class="sec-head"><div class="kicker">Công cụ tương tác</div><h2>Tra cứu nhanh — Định cục</h2><p>Bốn tra cứu dùng hằng ngày khi lập trận, theo đúng các bước của quy trình: đổi giờ (Bước 1), tra Cục số (Bước 1 – 2), tìm Phù đầu (Bước 2), tìm Tuần thủ, Không Vong và Mã Tinh (Bước 4, 9, 10).</p></div>
-  <div class="lookup">
-    <div class="card" id="muc-doi-gio">
-      <h3 style="margin-top:0">⏰ A · Đổi giờ — Ngũ Tý Độn</h3>
-      <label class="fl" for="selCan">Thiên can của ngày</label>
-      <select id="selCan"><option>Giáp</option><option>Ất</option><option>Bính</option><option>Đinh</option><option>Mậu</option><option>Kỷ</option><option>Canh</option><option>Tân</option><option>Nhâm</option><option>Quý</option></select>
-      <label class="fl" for="selGio" style="margin-top:12px">Giờ cần tra</label>
-      <select id="selGio"></select>
-      <button type="button" class="btn btn-primary" id="btnGio" style="margin-top:14px;width:100%">Tra Can Chi giờ</button>
-      <div class="lookup-out" id="outGio"></div>
-    </div>
-    <div class="card" id="muc-cuc-so">
-      <h3 style="margin-top:0">🧮 B · Tra Cục số — Tiết khí &amp; Nguyên</h3>
-      <label class="fl" for="selTiet">Tiết khí</label>
-      <select id="selTiet"></select>
-      <label class="fl" for="selNguyen" style="margin-top:12px">Nguyên</label>
-      <select id="selNguyen"><option value="0">Thượng nguyên</option><option value="1">Trung nguyên</option><option value="2">Hạ nguyên</option></select>
-      <button type="button" class="btn btn-primary" id="btnCuc" style="margin-top:14px;width:100%">Tra Cục số</button>
-      <div class="lookup-out" id="outCuc"></div>
-    </div>
-    <div class="card" id="muc-phu-dau">
-      <h3 style="margin-top:0">📅 C · Phù đầu &amp; Tam nguyên</h3>
-      <label class="fl" for="selNgayCC">Can Chi của ngày</label>
-      <select id="selNgayCC"></select>
-      <button type="button" class="btn btn-primary" id="btnPhuDau" style="margin-top:14px;width:100%">Tìm Phù đầu</button>
-      <div class="lookup-out" id="outPhuDau"></div>
-    </div>
-    <div class="card" id="muc-tuan-thu">
-      <h3 style="margin-top:0">🚩 D · Tuần thủ, Cờ, Không Vong, Mã Tinh</h3>
-      <label class="fl" for="selGioCC">Can Chi của giờ</label>
-      <select id="selGioCC"></select>
-      <button type="button" class="btn btn-primary" id="btnTuan" style="margin-top:14px;width:100%">Tra Tuần thủ</button>
-      <div class="lookup-out" id="outTuan"></div>
-    </div>
+  <div class="sec-head"><div class="kicker">Bàn làm việc</div><h2>Mười hai mô-đun lập trận</h2><p>Mỗi thẻ là một bước của quy trình, chạy riêng bằng dữ liệu nhập vào thẻ đó và gọi đúng một mô-đun trong <code>lib/</code>. Đổi dữ liệu là thẻ tính lại ngay. Các thẻ mở sẵn ví dụ của tài liệu: Dương độn 3 cục, giờ Canh Ngọ.</p></div>
+  <div class="mod-bar"><button type="button" class="btn btn-ghost" id="modTuBan" disabled>Điền dữ liệu từ bàn vừa lập</button><button type="button" class="btn btn-ghost" id="modViDu">Đặt lại ví dụ của tài liệu</button><span class="note" id="modBarNote">Lập trận ở công cụ phía trên để điền dữ liệu của bàn đó vào cả 13 thẻ.</span></div>
+  <div class="mod-grid">
+    <article class="card mod-card" id="muc-mo-dun-b1" data-mo-dun="mo-dun-b1">
+      <div class="mod-head"><span class="mod-step">Bước 1</span><h3>Tứ trụ và tiết khí</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b01-tu-tru.js</code> · hàm <code>KM.B1.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b1-time">Thời điểm (giờ đồng hồ tại nơi lập trận)</label><input type="datetime-local" id="mo-dun-b1-time" data-vao="time"></div></div><p class="note">Dùng các tùy chọn trong mục Quy đổi giờ của công cụ lập trận ở trên.</p>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-doi-gio" data-mo-dun="doi-gio">
+      <div class="mod-head"><span class="mod-step">Bước 1</span><h3>Ngũ Tý Độn — đổi giờ</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b01-tu-tru.js</code> · hàm <code>KM.B1.nguTyDon</code></p>
+      <div class="mod-in"><div><label class="fl" for="doi-gio-can">Thiên can của ngày</label><select id="doi-gio-can" data-vao="can"></select></div><div><label class="fl" for="doi-gio-chi">Giờ</label><select id="doi-gio-chi" data-vao="chi"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-phu-dau" data-mo-dun="phu-dau">
+      <div class="mod-head"><span class="mod-step">Bước 2</span><h3>Phù đầu, Tam nguyên, Cục số</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b02-phu-dau.js</code> · hàm <code>KM.B2.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="phu-dau-ngay">Can Chi của ngày</label><select id="phu-dau-ngay" data-vao="ngay"></select></div><div id="muc-cuc-so"><label class="fl" for="phu-dau-tiet">Tiết khí</label><select id="phu-dau-tiet" data-vao="tiet"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b3" data-mo-dun="mo-dun-b3">
+      <div class="mod-head"><span class="mod-step">Bước 3</span><h3>An Thiên Can Địa bàn</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b03-dia-ban.js</code> · hàm <code>KM.B3.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b3-don">Độn</label><select id="mo-dun-b3-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b3-cuc">Cục số</label><select id="mo-dun-b3-cuc" data-vao="cuc"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-tuan-thu" data-mo-dun="tuan-thu">
+      <div class="mod-head"><span class="mod-step">Bước 4</span><h3>Tuần thủ và Cờ</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b04-tuan-thu.js</code> · hàm <code>KM.B4.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="tuan-thu-gio">Can Chi của giờ</label><select id="tuan-thu-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b5" data-mo-dun="mo-dun-b5">
+      <div class="mod-head"><span class="mod-step">Bước 5</span><h3>Đại Trực Phù và Trực Sử</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b05-truc-phu-su.js</code> · hàm <code>KM.B5.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b5-don">Độn</label><select id="mo-dun-b5-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b5-cuc">Cục số</label><select id="mo-dun-b5-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b5-gio">Can Chi của giờ</label><select id="mo-dun-b5-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b6" data-mo-dun="mo-dun-b6">
+      <div class="mod-head"><span class="mod-step">Bước 6</span><h3>Thiên bàn — Cửu Tinh và Can</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b06-thien-ban.js</code> · hàm <code>KM.B6.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b6-don">Độn</label><select id="mo-dun-b6-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b6-cuc">Cục số</label><select id="mo-dun-b6-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b6-gio">Can Chi của giờ</label><select id="mo-dun-b6-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b7" data-mo-dun="mo-dun-b7">
+      <div class="mod-head"><span class="mod-step">Bước 7</span><h3>Nhân bàn — Bát Môn</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b07-nhan-ban.js</code> · hàm <code>KM.B7.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b7-don">Độn</label><select id="mo-dun-b7-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b7-cuc">Cục số</label><select id="mo-dun-b7-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b7-gio">Can Chi của giờ</label><select id="mo-dun-b7-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b8" data-mo-dun="mo-dun-b8">
+      <div class="mod-head"><span class="mod-step">Bước 8</span><h3>Thần bàn — Bát Thần</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b08-than-ban.js</code> · hàm <code>KM.B8.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b8-don">Độn</label><select id="mo-dun-b8-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b8-cuc">Cục số</label><select id="mo-dun-b8-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b8-gio">Can Chi của giờ</label><select id="mo-dun-b8-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-ma-tinh" data-mo-dun="ma-tinh">
+      <div class="mod-head"><span class="mod-step">Bước 9</span><h3>Mã Tinh</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b09-ma-tinh.js</code> · hàm <code>KM.B9.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="ma-tinh-chi">Giờ</label><select id="ma-tinh-chi" data-vao="chi"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-khong-vong" data-mo-dun="khong-vong">
+      <div class="mod-head"><span class="mod-step">Bước 10</span><h3>Không Vong</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b10-khong-vong.js</code> · hàm <code>KM.B10.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="khong-vong-gio">Can Chi của giờ</label><select id="khong-vong-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b11" data-mo-dun="mo-dun-b11">
+      <div class="mod-head"><span class="mod-step">Bước 11</span><h3>Bát Thần Địa bàn (Ám thần)</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b11-than-dia-ban.js</code> · hàm <code>KM.B11.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b11-don">Độn</label><select id="mo-dun-b11-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b11-cuc">Cục số</label><select id="mo-dun-b11-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b11-gio">Can Chi của giờ</label><select id="mo-dun-b11-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
+    <article class="card mod-card" id="muc-mo-dun-b12" data-mo-dun="mo-dun-b12">
+      <div class="mod-head"><span class="mod-step">Bước 12</span><h3>Ám Can</h3></div>
+      <p class="mod-src">Mô-đun <code>lib/b12-am-can.js</code> · hàm <code>KM.B12.tinh</code></p>
+      <div class="mod-in"><div><label class="fl" for="mo-dun-b12-don">Độn</label><select id="mo-dun-b12-don" data-vao="don"></select></div><div><label class="fl" for="mo-dun-b12-cuc">Cục số</label><select id="mo-dun-b12-cuc" data-vao="cuc"></select></div><div><label class="fl" for="mo-dun-b12-gio">Can Chi của giờ</label><select id="mo-dun-b12-gio" data-vao="gio"></select></div></div>
+      <div class="mod-out" aria-live="polite"></div>
+    </article>
   </div>
 </div></section>
 </div>
@@ -572,7 +643,7 @@ a.step:hover{border-color:var(--gold)}
       <p>Nghĩa là: ngày Giáp, Kỷ khởi giờ Giáp Tý; ngày Ất, Canh khởi Bính Tý; ngày Bính, Tân khởi Mậu Tý; ngày Đinh, Nhâm khởi Canh Tý; ngày Mậu, Quý khởi Nhâm Tý. Từ giờ Tý đếm thuận Thiên can sẽ ra các giờ còn lại — chẳng hạn ngày Giáp, giờ Thân (15h–17h) là Nhâm Thân.</p>
       <a class="more" href="#/tra-cuu/doi-gio">Đổi giờ bằng công cụ →</a></article>
     <article class="card" id="muc-quy-trinh-12-buoc"><h3>Quy trình 12 bước lập trận</h3>
-      <p>Mọi bàn trên trang được lập theo đúng thứ tự dưới đây. Khi lập bàn ở trang Tra Cứu, mở mục <strong>Trình tự 12 bước của bàn này</strong> ngay dưới bàn để xem kết quả của từng bước.</p>
+      <p>Mọi bàn trên trang được lập theo đúng thứ tự dưới đây. Khi lập bàn ở trang Tra Cứu, mở mục <strong>Trình tự 12 bước của bàn này</strong> ngay dưới bàn để xem kết quả của từng bước. Mỗi bước cũng có một thẻ riêng trong mục <strong>Mười hai mô-đun lập trận</strong> để thử với dữ liệu tùy ý.</p>
       <ul>
         <li><strong>Bước 1 · Đổi giờ và xác định tiết khí</strong> — lập Tứ trụ năm, tháng, ngày, giờ; Can giờ suy từ Can ngày bằng Ngũ Tý Độn. Tiết khí cho biết Dương độn (Đông chí đến Mang chủng) hay Âm độn (Hạ chí đến Đại tuyết).</li>
         <li><strong>Bước 2 · Phù đầu và Tam nguyên</strong> — lùi Can Chi ngày về ngày Giáp hoặc Kỷ; chi của Phù đầu cho Thượng, Trung hay Hạ nguyên; ghép với tiết khí ra Cục số 1 – 9.</li>
@@ -588,7 +659,7 @@ a.step:hover{border-color:var(--gold)}
         <li><strong>Bước 12 · Ám Can</strong> — giờ Lục Giáp, Phục ngâm hay Phản ngâm thì Can giờ nhập Trung cung; giờ thường thì Can giờ khởi tại cung Trực Sử; rồi phi qua Cửu Cung theo thứ tự Lục Nghi – Tam Kỳ.</li>
       </ul>
       <p>Ví dụ xuyên suốt của quy trình là bàn Dương độn 3 cục, giờ Canh Ngọ: Trực Phù Thiên Xung tới Khôn 2, Trực Sử Thương Môn tới Ly 9, Mã Tinh ở Khôn 2, Không Vong ở Càn 6.</p>
-      <a class="more" href="#/tra-cuu/cong-cu?mode=lapban">Lập bàn và xem 12 bước →</a><a class="more" href="#/tra-cuu/phu-dau">Tìm Phù đầu →</a><a class="more" href="#/tra-cuu/tuan-thu">Tra Tuần thủ, Không Vong →</a></article>
+      <a class="more" href="#/tra-cuu/cong-cu?mode=lapban">Lập bàn và xem 12 bước →</a><a class="more" href="#/tra-cuu/phu-dau">Tìm Phù đầu →</a><a class="more" href="#/tra-cuu/tra-nhanh">Mười hai mô-đun lập trận →</a><a class="more" href="#/tra-cuu/khong-vong">Mô-đun Không Vong →</a></article>
     <article class="card" id="muc-quy-doi-gio"><h3>Quy đổi giờ khi lập trận</h3>
       <p>Bước 1 của quy trình đòi hỏi ghi nhận chính xác thời điểm lập trận. Các trang và ứng dụng lập bàn Kỳ Môn thường có ba công cụ quy đổi giờ, và trang này cũng có đủ ba công cụ đó trong mục <strong>Quy đổi giờ</strong> của trang Tra Cứu.</p>
       <ul>
@@ -680,98 +751,162 @@ a.step:hover{border-color:var(--gold)}
 </div></footer>
 
 <script>
-// Bảng giờ giao 24 tiết khí 1900 – 2100, tạo bởi tools/tao_bang_tiet_khi.py — không sửa tay.
-// Nguồn: thư viện sxtwl (Thọ Tinh vạn niên lịch, giấy phép BSD). Giờ UTC, làm tròn tới phút.
-var KYMON_BANG_TIET = { dau: 23, phut0: -36852055, buoc: "0y70x00xk0z012115p1al1fi1l21pw1uq1y220t21m21i1zj1wl1sd1nj1i91cy18113o10c0y20x30xf0z411x15u1ah1fo1kx1q51uj1yb20k21w2181zq1wd1sj1nf1id1cw18413n10g0y00x70xc0z611u15w1ad1fo1kv1q31uj1y620n21n21g1zg1wn1s91np1i61d717y13x10a0yb0x00xm0yx12215m1ak1ff1l11pu1uo1y220q21o21e1zl1wi1sg1ni1ie1cx18613o10i0y10x90xd0z611t15v1ab1fo1kr1q51ue1yc20i21x21a1zq1wg1si1ni1ic1cz18213r10d0y50x50xh0z411x15t1ag1fk1ky1py1ul1y320p21l21i1zf1wo1s91no1i61d417y13v10a0y90x10xm0z112215q1al1fi1l01px1ul1y420l21p21a1zn1we1si1nf1ig1cw18813n10j0y00xa0xc0z811r15x1aa1fq1kq1q51ud1ya20i21s21b1zm1wj1sf1nn1ia1d518013w10b0y90x10xj0yz11z15o1ah1fh1kz1pv1uo1y120s21l21i1zh1wm1sb1nm1i91d218113t10d0y50x40xi0z211x15r1ag1fk1kx1q11ui1y920k21u2181zq1we1sj1nd1if1cw18613n10j0y10xa0xd0z811t15x1aa1fo1kr1q11uf1y620l21o21e1zi1wm1sb1np1i61d617y13y10a0yb0x10xm0yz12215n1aj1ff1kz1ps1un1xz20p21m21g1zj1wl1sg1nl1id1cz18513p10g0y10x60xe0z511u15t1ac1fn1ks1q31ue1ya20i21w2191zr1wg1sl1ni1if1cz18513p10f0y20x50xd0z411t15t1ad1fm1kv1q01uj1y320o21m21h1zg1wo1sa1nr1i71d717z13x10a0ya0x00xl0yx12115m1aj1ff1kz1pv1um1y220n21o21c1zm1wh1si1ni1ih1cy18a13p10l0y10xa0xc0z511q15t1a71fm1ko1q21ub1ya20h21v21a1zq1wj1si1nn1id1d518413v10f0y80x40xi0z011w15n1ae1ff1kv1pt1uk1y020q21m21j1zi1wq1sc1nq1i91d518113w10c0y80x30xk0z111z15o1ag1fh1kv1px1uh1y420j21s21a1zq1wg1sl1nh1ii1cy18913o10k0y10xa0xd0z811s15w1a91fn1ko1q11ub1y620h21o21b1zk1wm1se1nr1ia1d918213z10c0yb0x20xm0yy12015m1ai1fe1ky1pr1ul1xy20p21j21f1zi1wm1sg1nn1ie1d418713t10h0y50x60xf0z211v15q1ac1fk1ks1q01uf1y820i21v2181zr1wf1sm1nh1ih1d018813q10j0y30x90xd0z511s15t1aa1fm1kr1q01uh1y420n21n21f1zh1wo1sb1nq1i71d717z13z10b0yc0x20xn0yy12215m1aj1fd1kz1ps1ul1y020p21m21f1zl1wj1si1nk1if1d018813q10k0y20x90xd0z511s15s1a91fl1ko1q01ub1y920h21v21a1zs1wk1sl1nm1ig1d418513u10f0y40x50xe0z211t15p1ac1fh1ku1pv1ui1y220p21m21k1zj1ws1sd1nt1ia1d818113x10b0y80x00xj0yx11y15l1ag1fe1kx1pv1uj1y320m21r21c1zq1wi1sn1nj1ik1d018b13p10l0y10x90xa0z611p15t1a51fl1km1q01ua1y820g21s21b1zn1wm1si1nr1ie1d918614010f0ya0x40xj0yy11w15k1ad1fb1ku1pp1uj1xx20p21k21j1zi1wq1sg1ns1ie1d818613x10g0y80x50xi0yz11v15m1ab1ff1kq1pu1ud1y520h21u21a1zt1wi1sp1nj1il1d018b13r10l0y30xa0xc0z711q15t1a71fk1kn1py1uc1y320i21n21d1zk1wo1sf1ns1ib1da18214110c0yd0x20xm0yy12115l1ah1fb1kx1pp1uj1xw20n21j21e1zj1wl1si1no1ih1d518a13u10l0y40x90xd0z411r15q1a81fi1ko1py1u91y720e21u2171zs1wh1sn1nm1ik1d418b13v10j0y60x70xe0z211r15p1a91fg1kq1pv1ug1y120n21l21i1zi1wq1sd1nt1ia1da18214010c0yc0x10xm0yw11z15j1ag1fb1kw1ps1uj1y020n21o21d1zp1wi1sl1nk1ij1d018b13q10m0y20xb0xd0z711q15s1a61fk1kk1pz1u81y620f21s21a1zq1wk1sk1np1ig1d718713x10h0y80x50xi0z111v15m1ac1fc1ks1pq1uh1xx20o21k21j1zj1ws1sg1nu1ie1d918513x10e0y80x20xh0yx11w15k1ad1fd1ks1pt1uf1y420j21s21c1zt1wj1sr1nl1im1d218d13q10l0y10x90x90z511n15r1a51fk1km1q01ua1y620h21q21d1zm1wp1sh1nu1ie1dc18414110e0yc0x10xk0yw11x15i1ad1fa1ku1po1uj1xx20p21j21i1zk1wp1si1nr1ii1d918a13y10k0y70x70xf0yz11r15l1a61fd1km1pu1ua1y520f21v21b1zu1wk1sr1nn1io1d518e13u10n0y50xa0xc0z411o15o1a41ff1kk1pt1ub1y120k21o21i1zl1wu1sg1nx1ic1dd18414210d0yd0x10xm0yw11y15i1ae1f91kt1po1uh1xw20m21m21f1zo1wn1sn1np1il1d518d13u10m0y40xa0xd0z611q15q1a61fh1kj1pw1u61y420b21s2171zr1wk1so1nq1im1d918c13z10l0y90x70xg0z111s15n1a81fc1ko1pq1ue1xw20l21j21i1zi1ws1sg1nx1ie1de18714210g0yc0x20xk0yw11w15h1ad1f91ks1pq1uf1y020j21q21c1zr1wj1sq1nm1in1d318f13s10p0y30xb0xc0z511o15r1a31fj1kj1py1u71y520f21r21a1zo1wm1sj1ns1if1db18614110h0yc0x40xl0yz11w15l1ac1fa1kr1pn1uh1xv20n21j21i1zj1wq1sh1nu1ig1da18813z10i0y90x50xi0yy11u15k1a91fb1kn1ps1ua1y220g21t21a1zv1wk1ss1no1io1d518e13u10m0y30x90xa0z411n15p1a31fg1kk1pv1ua1y220j21o21g1zn1ws1sj1nx1ie1de18514210d0yb0x00xk0yu11w15g1ad1f81kt1po1ui1xw20o21l21h1zm1wp1sm1ns1il1d818d13w10l0y60x80xd0z111o15m1a41fd1kj1pu1u61y420d21t2191zt1wk1sr1nq1io1d918f13y10o0y70x90xe0z111p15l1a31fb1kj1pp1ua1xy20k21l21j1zk1wv1si1nz1if1dg18714410f0ye0x20xk0yv11w15e1ab1f51kq1pl1ue1xw20k21p21e1zs1wo1sr1nq1io1d618g13u10o0y30xb0xb0z511n15p1a21fh1kg1pv1u51y320c21r2191zr1wm1so1nt1ik1dc18b14110j0ya0x60xi0z011t15l1a81fa1kp1pm1ud1xu20l21h21i1zi1wt1si1nx1ii1df18b14310i0yc0x40xi0yw11t15g1a81f81kn1po1ua1xz20g21r21b1zt1wl1st1np1ir1d718i13w10q0y40xb0xa0z411l15n1a01ff1kg1pv1u71y320g21q21e1zo1wr1sk1nw1ih1de18814410g0yd0x30xl0yw11v15g1aa1f71kq1pl1ug1xv20n21k21j1zl1ws1sk1nu1ik1da18c13z10l0y90x70xg0z111r15l1a51fa1kj1pq1u61y120d21s2191zv1wl1st1nq1iq1d818h13x10p0y60xa0xd0z311o15n1a11fd1kh1pr1u71xy20i21m21h1zn1wv1sl1o01ii1dh18714510e0yd0x00xk0yt11v15e1ab1f51kq1pl1ue1xw20l21n21g1zr1wq1sr1nu1iq1d918g13w10o0y40x90xa0z111m15n1a11fe1kh1pu1u51y420c21t2191zs1wm1sr1nt1ip1dc18f14210m0y90x80xf0yz11q15i1a51f81kl1pm1ub1xv20l21j21j1zk1wu1sj1o01ij1di18b14710j0ye0x30xk0yu11t15c1a71f31kl1pk1ua1xw20i21q21d1zu1wo1sv1nr1it1d918j13x10s0y50xc0xb0z411k15n19y1fc1kd1ps1u31y220d21r21d1zr1wr1so1ny1ik1dg18a14410i0yd0x40xj0yx11u15h1a81f61kn1pk1uc1xs20m21h21j1zl1wu1sl1ny1il1df18d14210l0ya0x60xi0yy11s15h1a61f71kj1pn1u61xy20b21q2181zu1wl1su1nr1iu1da18k13z10s0y60xc0xb0z411l15m19z1fc1ke1pq1u51xy20f21m21f1zn1wt1sm1o01ij1dj18914710h0yf0x20xk0yt11u15d1a81f31ko1pj1ue1xt20m21l21h1zo1ws1so1nv1io1dc18f14010n0y80x90xd0z111n15l1a11fb1kg1pr1u41y120c21t2181zu1wl1ss1ns1iq1da18g14010o0y90xa0xe0z211o15k1a21fa1kh1pn1u71xv20j21k21i1zl1ww1sk1o11ij1di18a14710g0yf0x10xk0ys11u15c1a71f21km1pi1ub1xu20j21n21g1zt1wr1sv1nv1iu1da18k13x10q0y40xa0x90z111j15l19x1fc1kc1ps1u21y320c21t21c1zt1wr1ss1ny1ip1df18e14410k0ya0x40xf0yw11p15g1a31f61kk1pk1uc1xt20m21i21l1zl1ww1sm1o21im1dj18e14610k0ye0x40xi0yu11r15c1a41f21ki1pj1u61xw20e21p21b1zv1wo1sw1nt1ix1dc18n14010v0y70xe0xa0z311j15k19v1f81ka1po1u11xy20c21p21f1zr1wv1sp1o21in1dk18d14810j0yg0x30xk0yu11t15c1a61f01kl1pf1ub1xq20l21j21j1zo1ww1sq1o01iq1dg18h14210o0ya0x80xf0yz11p15i1a21f81kf1pn1u21xy20a21q2181zu1wm1sw1nt1iv1dd18l14110s0y80xc0xd0z311m15l1a01f91kf1pn1u31xv20f21j21f1zm1wv1sl1o31im1dm18d14b10j0yh0x30xk0ys11t15b1a61f01kl1pg1ub1xr20j21l21g1zq1ws1st1nw1iu1de18l14110s0y80xb0xc0z011l15i19y1f91kc1pp1u21y220b21t21a1zv1wo1ss1nw1iq1df18g14310o0yb0x90xf0yz11p15h1a21f61ki1pk1u81xu20k21j21k1zl1wx1sl1o21il1dj18b14810j0yg0x40xk0yu11u15c1a51f11ki1ph1u71xt20f21o21c1zv1wp1sx1nu1iw1dc18m13z10t0y60xd0xa0z311j15k19w1f91ka1pp1tz1y020b21q21d1zu1wt1st1o21ip1dj18e14610k0yc0x30xg0yu11p15d1a31f21kk1ph1ub1xr20l21j21l1zo1wy1sq1o31iq1dj18g14510l0yb0x40xf0yu11n15d1a21f41kg1pl1u41xx20c21r2191zw1wo1sx1nu1iy1dd18n14210t0y80xc0xa0z211i15i19v1f71ka1pn1u11xw20e21n21f1zq1ww1sp1o41io1dn18f14b10l0yh0x30xj0ys11q1581a21ew1ki1pc1u81xp20k21k21j1zr1wx1su1o11iv1dh18l14310r0ya0xa0xc0yz11k15g19w1f41ka1pl1tz1xy20a21s21a1zx1wq1sy1nx1iw1df18l14310q0ya0xa0xd0z011m15h19y1f61kd1pj1u41xr20g21i21i1zn1wy1so1o61in1do18f14b10k0yh0x30xl0ys11s1591a41ey1ki1pc1u61xp20f21j21d1zt1wr1sw1ny1iz1dg18p14410v0y90xd0xb0z111i15i19u1f71k71pn1tx1xy20921q21a1zu1ws1su1o11it1dk18j14810o0ye0x70xf0yw11n15d1a01f11kg1pg1u71xq20k21i21l1zm1wz1so1o51io1dm18g14910m0yf0x60xi0yu11q15c1a21f01kg1ph1u41xt20d21o21b1zv1wo1sy1nu1iy1dd18p14110v0y80xe0xb0z411j15k19u1f81k81pm1ty1xx20b21n21e1zr1ww1sr1o41iq1dn18g14a10l0yg0x30xi0yt11q1591a21ey1kh1pd1u81xo20k21j21l1zq1wz1su1o41iu1dl18k14510p0yb0x60xd0yw11l15d19x1f31kc1pk1u11xy20b21s21b1zy1wq1sz1ny1iz1dg18o14210t0y80xa0xb0yz11h15h19v1f51kb1pk1u31xv20f21l21i1zp1wz1sq1o71ip1dq18g14d10l0yi0x30xk0yr11q1561a21eu1kg1pa1u61xo20i21j21h1zt1wv1sx1o11iz1dj18p14610w0ya0xd0xc0z011i15f19s1f31k51pj1tv1xx20821s21b1zy1wt1sz1o21iw1dk18m14710q0yd0x90xe0yx11l15e19w1f11kb1pf1u31xq20h21i21l1zo1x21sq1o91iq1dp18h14b10m0yg0x40xj0yt11q1591a31ex1kg1pd1u31xq20c21l21b1zu1wr1sz1ny1j11dh18r14310x0y80xf0xa0z211h15j19s1f61k61pl1tw1xw20721o21b1zs1wu1su1o41iu1dp18k14c10o0yg0x60xh0ys11n15919z1ew1kf1pb1u61xo20i21i21k1zo1x01ss1o71iu1dn18l14a10q0yf0x70xf0yu11m15a19x1ey1kb1pg1u11xv20b21q21b1zy1wp1t01nx1iz1dg18q14310v0y90xd0xb0z111h15h19s1f51k71pk1ty1xv20c21n21g1zq1wy1ss1o61iq1dp18g14d10m0yi0x40xk0ys11r1571a11eu1ke1p91u51xl20h21h21j1zr1wy1sw1o41iy1dl18p14710t0yb0xa0xd0yx11j15d19t1f21k61ph1tw1xv20721s21a1zz1wt1t11o21j01dk18p14610s0ya0x90xb0yw11i15d19t1f21k91pg1u21xr20f21k21k1zp1x21ss1oa1it1ds18i14d10m0yi0x20xi0yq11o1561a01eu1ke1pb1u41xo20e21k21f1zt1wu1sz1o11j11dj18t14710x0yb0xe0xb0z011g15e19q1f21k41pi1tu1xv20721q21b1zw1wu1sy1o41ix1dp18n14d10r0yg0x90xg0yu11k15919v1ev1k91pa1u21xm20h21i21m1zp1x41st1ob1iu1dr18l14d10p0yh0x60xi0ys11o15719x1ew1ka1pc1u01xq20b21o21c1zy1ws1t21o01j31di18s14410x0y90xe0xa0z111h15h19r1f41k51pj1tv1xu20921n21d1zs1wy1su1o81iu1ds18k14e10p0yi0x50xj0ys11o15719z1eu1kd1p71u41xk20g21g21i1zp1x01sv1o81iy1dq18q14b10u0yf0xa0xe0yv11k15a19t1ey1k71pf1tw1xt20821q21a1zz1ws1t31o11j21dk18s14610w0yb0xc0xb0yz11g15e19q1f11k61ph1ty1xs20e21l21j1zr1x11st1oa1is1dt18i14e10n0yj0x40xk0yq11p1561a01es1ke1p81u41xm20f21j21g1zt1ww1sz1o31j01dl18r14710w0yb0xd0xc0yz11i15e19r1f21k31ph1tu1xu20621r21a1zz1wt1t21o41j11dn18q14910t0yd0x80xc0yv11i15a19s1ex1k81pc1u01xn20g21i21m1zr1x51sv1od1iw1du18k14f10n0yh0x30xh0yo11m15419w1et1kb1pa1u21xp20e21m21f1zx1wv1t31o31j41dk18v14610x0y90xd0x90yz11d15e19n1f21k21pi1tu1xv20821p21d1zw1wx1sy1o81iy1ds18o14f10r0yi0x70xh0ys11k15519t1er1k81p61u01xk20g21g21l1zq1x31sw1oc1iy1du18p14f10u0yi0x90xg0yt11k15619s1et1k41pa1tu1xp20821o21c2011wu1t61o31j51dm18u14710z0ya0xe0xa0z011e15e19n1f01k21pe1tt1xr20921l21g1zt1x21sw1oc1ix1dv18l14g10p0yj0x50xj0yq11o15519y1er1kc1p51u11xi20e21f21g1zq1wz1sy1o71j21dq18t14b10x0yf0xc0xe0yx11i15b19r1ey1k31pd1ts1xs20421p2181zx1wt1t21o41j41dp18u14b10x0ye0xc0xc0yw11f15a19p1ex1k41pc1tx1xn20e21i21j1zq1x41su1od1iw1dw18l14i10p0yl0x40xk0yp11n15219x1eq1ka1p71u11xn20e21k21g1zv1ww1t11o31j31dl18u14710y0yb0xf0xb0yz11g15d19p1f01k11pg1ts1xv20621q21c1zx1ww1t11o61j01dq18o14d10s0yh0x80xg0yu11k15719t1et1k61p71tz1xj20f21g21l1zr1x51sw1of1iy1dv18o14g10r0yi0x60xh0yq11l15419u1er1k71p81tw1xo20a21n21e2011ww1t71o51j81dm18w14710y0y90xd0x70yy11b15c19l1f01k11pf1tu1xt20821o21g1zw1x21sz1od1j01dw18o14h10q0yi0x50xg0yp11k15319u1eq1k91p41u21xi20g21f21k1zr1x21sz1ob1j21du18u14f10w0yi0xa0xf0yu11h15619p1et1k11pa1tr1xq20621p21b2011wu1t61o61j81dp18x14b1100yd0xe0xb0yx11d15919l1ev1jz1pa1tt1xn20b21k21j1zu1x61sy1og1iz1dz18n14k10q0yl0x50xk0yo11n15119v1eo1k81p31tz1xi20e21h21h1zu1x01t21o91j51dq18w14b10y0yd0xe0xb0yy11f15c19o1ex1k11pd1tq1xr20421p2191zy1wv1t41o81j41ds18v14e10x0yg0xb0xe0yv11h15719p1et1k31p71tv1xj20c21f21j1zq1x51sw1og1iz1dz18q14l10t0ym0x60xj0yp11l15119t1eo1k61p51tw1xl20a21l21e1zx1wx1t51o61j81dn18y14a1100yc0xf0x90yz11c15c19k1ey1jy1pe1tq1xs20721p21d1zx1x01t01ob1j11du18q14g10s0yj0x70xi0ys11k15419t1eq1k61p41ty1xh20e21f21k1zq1x41sx1od1j01dv18r14h10u0yj0x80xh0yt11k15519s1er1k31p71tt1xn20521o21b2001wv1t81o61j91dp18y14a1100ya0xe0x80yx11b15a19k1ex1jy1pb1tr1xp20921l21i1zv1x51t01oh1j11dz18p14j10r0yk0x30xh0yn11j15019t1em1k81p31u01xi20f21h21k1zt1x21t21ob1j61dt18v14e10x0yf0xb0xc0yu11e15619n1eu1jz1pb1tq1xr20521q21b2011wv1t71o71j81ds18x14e1100yf0xd0xc0yv11d15619k1er1jy1p61ts1xk20a21i21k1zt1x71sz1oi1j11e118q14n10t0yn0x60xj0yo11l14z19r1ek1k41p01tv1xh20b21j21h1zy1x11t71oa1ja1dr18z14b1100yc0xf0x90yy11c15919k1ew1jw1pb1tn1xr20321p21c2001x01t51od1j61dw18u14h10v0yh0x90xe0yt11h15419q1eq1k31p31tv1xg20c21d21k1zp1x61sy1oh1j21e018u14l10v0yl0x80xi0yq11j15219r1en1k31p41tt1xk20621l21c1zz1ww1t81o81jb1ds19214d1130yd0xf0x90yx11a15819h1ev1jv1pa1tp1xp20621n21f1zx1x31t31og1j31dz18s14l10u0yl0x70xh0yp11j15019q1em1k41p11ty1xh20e21g21l1zs1x51t01oe1j41dv18v14g10y0yh0xb0xf0yu11h15619o1er1jz1p81tq1xo20421p21b2021ww1t91o81j91dr18z14d1110ye0xf0xa0yx11c15819j1es1jw1p71tp1xl20721j21j1zu1x81t11ok1j21e318s14m10t0ym0x50xi0yn11k14y19r1ej1k51oz1tw1xg20c21h21j1zx1x41t71od1ja1dv18z14d1110yd0xc0x90yu11b15619j1et1jw1pa1to1xr20321r21b2021wz1t91oc1j91dx18y14g10z0yh0xa0xc0yt11d15319l1ep1jz1p31ts1xi20a21g21k1zr1x71sz1ok1j21e318u14o10w0yo0x80xj0yp11j14y19p1ej1k11oz1ts1xh20721k21e1zz1x01t91ob1jc1du19214e1140ye0xg0xa0yx11915819g1es1js1p71tl1xo20321n21e2001x31t71oh1j71e018v14k10w0yk0x80xg0yq11h15119p1el1k21oz1tv1xe20c21d21l1zr1x71t11oh1j61e018v14k10x0yk0x90xg0yr11h15319p1eo1k01p41tq1xk20321m21b2001ww1ta1o91jc1dt19314e1150ye0xg0x90yx11a15719g1es1jt1p71tm1xl20521j21f1zv1x61t21oj1j51e418u14o10w0yo0x60xj0yn11j14x19o1ei1k21oy1tv1xe20c21g21k1zu1x51t51oe1j91dx18y14h1100yg0xd0xc0yt11d15419j1eq1jv1p71tn1xo20421q21c2031wy1ta1oa1jb1dv18z14f1110yf0xd0xb0yv11c15519j1eq1jw1p41tp1xh20921g21k1zt1x81t01ol1j31e418t14o10u0yo0x60xj0yo11j14x19q1ei1k21ox1tt1xe20921h21h1zy1x31ta1od1je1dw19214f1130yd0xd0x80yv11815519f1er1js1p71tl1xp20221p21e2021x31tb1oh1jb1e118z14k10y0yi0x90xc0yp11d14z19k1el1jz1p01tt1xg20c21f21m1zs1x91t21ol1j61e418x14n10x0yn0x80xg0yo11g14y19m1ej1jz1p01tq1xj20621l21e2011x01tb1ob1jf1dv19614g1170yf0xi0x90yx11715619c1ep1jp1p41tj1xk20321l21g1zz1x61t71ol1j91e518x14p10y0yp0x80xj0yo11h14x19m1eg1jy1ou1ts1xb20b21e21m1zu1x91t61ok1ja1e119014k1100yj0xb0xe0ys11e15219k1en1jv1p31tm1xk20221n21b2041wz1tc1od1jg1dw19414h1140yf0xf0xa0yw11a15619h1eq1js1p41tm1xh20421g21g1zt1x71t31om1j61e618w14s10x0yq0x70xk0yo11i14x19o1eg1k11ov1tt1xc20921e21h1zw1x31t81of1jd1dz19414i1150yh0xe0xb0yu11915419f1eo1js1p51tk1xn20221p21c2031x01tb1of1jd1dz19114j1120yi0xc0xd0ys11c15119i1em1jv1p11tq1xg20a21g21l1zt1x91t11om1j41e418v14o10w0yo0x70xj0yn11j14x19o1ei1k01ox1tr1xg20721j21f2011x11tb1od1jf1dv19514f1150ye0xg0x90yw11715519d1ep1jp1p51ti1xl20121n21e2011x61ta1ol1jb1e518z14n10y0yl0x80xe0yn11e14w19k1eh1jx1ow1tr1xc20c21e21n1zv1xb1t61om1jb1e418z14n10y0yk0x80xd0yn11d14w19j1ej1jw1p01to1xj20421o21d2041x11tf1oe1ji1dx19714h1160yf0xf0x80yu11615319c1en1jo1p21tj1xi20421j21g1zx1x81t61on1j91e818y14t10y0yr0x80xj0yn11g14t19l1ec1jx1or1tq1xa20921d21k1zx1x81t91ok1jf1e219514l1140yj0xe0xc0ys11a15019e1ek1jp1p01th1xj20021o21c2051x31tf1oh1ji1e119514k1140yi0xd0xb0yt11915119f1el1jr1oz1tm1xe20621f21j1zu1xa1t41oo1j91e818y14s10y0yq0x70xj0ym11i14v19n1ef1jy1ou1tq1xc20621g21f1zy1x31tb1og1jh1e019714k1170yi0xh0xa0yv11715219c1em1jn1p21tg1xk1zz21m21c2021x31tc1ok1je1e619314p1130yn0xc0xf0yq11b14x19h1eg1jt1ov1to1xc20921e21n1zu1xb1t51oo1j91e718z14q10z0yo0x90xh0yo11f14v19k1eg1jw1ow1to1xf20521l21f2031x21te1of1ji1dx19714h1170yg0xh0x90yw11715519c1eo1jn1p21tg1xj20021l21e1zz1x71t81on1jb1e818z14r10z0yp0x90xi0yo11f14w19k1ef1jw1os1tq1x820921d21l1zv1xb1t81oo1je1e619314n1120yk0xa0xd0yo11a14y19f1ej1jr1oz1tk1xj20121o21d2061x31th1oh1jl1e119814k1160yg0xe0x80ys11515119b1el1jp1p11tk1xh20521i21j1zw1xb1t61op1ja1ea18z14u10y0yr0x70xj0yl11g14s19k1ec1jw1os1tq1xa20921f21j1zy1x71tb1oj1jh1e319714m1180yj0xg0xb0yt11715019a1ei1jl1oz1te1xi1zz21n21d2051x51tf1ol1jj1e519614o1160yl0xd0xd0yr11914y19d1eg1jp1ou1tk1xb20621e21m1zw1xe1t71os1jb1ea19014s10z0yp0x70xi0yl11f14u19j1ed1jv1ot1tn1xc20421i21f2021x41tf1oi1jl1e119914k1180yh0xg0x90yu11615319a1em1jl1p11td1xi1zy21k21b2001x61ta1on1jf1e919414t1130yq0xb0xg0yo11d14u19h1ed1js1or1tn1x820721c21k1zu1xb1t71oq1jd1e919414s1120yo0xb0xf0yn11b14u19f1ee1jq1ow1tj1xf20221m21d2061x31th1oh1jl1e019a14k1190yh0xh0x80yv1151511991ek1jm1oz1th1xh20221j21g1zz1x91t81op1jb1e919014t10z0yq0x80xj" };
-if (typeof module !== "undefined" && module.exports) module.exports = KYMON_BANG_TIET;
 // © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
-// ===== Bộ máy lập trận Kỳ Môn Độn Giáp =====
-// Viết theo tài liệu "Quy trình lập trận Kỳ Môn Độn Giáp" (12 bước) của Trận Pháp Kỳ Môn.
-// Mỗi hàm bên dưới ứng với một bước; số bước được ghi ở đầu hàm.
-//
-//   KyMon.lapTran(date, tuyChon)   lập trận cho một thời điểm (đủ 12 bước, có lịch Can Chi)
-//   KyMon.thoiDiemTuGioDongHo(...) đổi giờ đồng hồ tại một múi giờ sang thời điểm tuyệt đối
-//
-// Tùy chọn quy đổi giờ (giống các trang lập bàn Kỳ Môn thường dùng):
-//   muiGio      tên múi giờ IANA của nơi lập trận, ví dụ "Asia/Ho_Chi_Minh"; bỏ trống = múi giờ của máy
-//   kinhDo      kinh độ nơi lập trận (độ, phía Đông là dương) — cần cho giờ Mặt Trời thật
-//   gioMatTroi  true: đổi Can Chi giờ theo giờ Mặt Trời thật (chân thái dương thời) thay cho giờ đồng hồ
-//   doiNgay     "23" (mặc định, giờ Tý sớm): từ 23h tính sang ngày hôm sau;
-//               "0" (giờ Tý muộn / dạ Tý): 23h – 24h giữ Can Chi ngày cũ, Can giờ Tý lấy theo ngày hôm sau
-//   KyMon.anBan(duong, cuc, can, chi)  an bàn từ Bước 3 đến Bước 12 khi đã biết Cục và Can Chi giờ
-//
-// Không phụ thuộc trình duyệt: chạy được cả trong Node để kiểm thử (tests/test_kymon.mjs).
-var KyMon = (function () {
+// Không gian tên chung KM của bộ máy lập trận. Mỗi tệp trong lib/ gắn phần của mình vào đây:
+//   KM.CongCu   hàm dùng chung            (lib/cong-cu.js)
+//   KM.BangTra  bảng tra của quy trình    (lib/bang-tra.js)
+//   KM.Lich     lịch, tiết khí, quy đổi giờ (lib/lich.js, lib/tiet-khi-bang.js)
+//   KM.B1 … KM.B12  mười hai bước lập trận  (lib/b01-…js đến lib/b12-…js)
+//   KM.TrinhTu  diễn giải kết quả từng bước (lib/trinh-tu.js)
+// Trong trình duyệt các tệp được ghép theo thứ tự ở build.py; trong Node mỗi tệp tự require phần nó cần.
+var KM = typeof KM !== "undefined" ? KM : {};
+if (typeof module !== "undefined" && module.exports) module.exports = KM;
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Hàm dùng chung cho các bước: chia dư, Can Chi 60, phi Cửu Cung, gửi Trung cung.
+(function (KM) {
   "use strict";
-
   var CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
   var CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
-  var NGUYEN = ["Thượng nguyên", "Trung nguyên", "Hạ nguyên"];
-
-  // Lạc Thư Cửu Cung (Bước 3, mục 1)
-  var CUNG = {
-    1: { ten: "KHẢM", huong: "Bắc", hanh: "Thủy" },
-    2: { ten: "KHÔN", huong: "Tây Nam", hanh: "Thổ" },
-    3: { ten: "CHẤN", huong: "Đông", hanh: "Mộc" },
-    4: { ten: "TỐN", huong: "Đông Nam", hanh: "Mộc" },
-    5: { ten: "TRUNG", huong: "Trung tâm", hanh: "Thổ" },
-    6: { ten: "CÀN", huong: "Tây Bắc", hanh: "Kim" },
-    7: { ten: "ĐOÀI", huong: "Tây", hanh: "Kim" },
-    8: { ten: "CẤN", huong: "Đông Bắc", hanh: "Thổ" },
-    9: { ten: "LY", huong: "Nam", hanh: "Hỏa" }
-  };
-
-  // Tám cung ngoại vi theo chiều kim đồng hồ: Khảm 1 → Cấn 8 → Chấn 3 → Tốn 4 → Ly 9 → Khôn 2 → Đoài 7 → Càn 6
-  var VONG = [1, 8, 3, 4, 9, 2, 7, 6];
-
-  // Thứ tự bất biến của Lục Nghi – Tam Kỳ: Mậu, Kỷ, Canh, Tân, Nhâm, Quý, Đinh, Bính, Ất (chỉ số trong CAN)
-  var NGHI_KY = [4, 5, 6, 7, 8, 9, 3, 2, 1];
-
-  // Bản cung nguyên thủy của Cửu Tinh và Bát Môn (Bước 5, mục 2)
-  var TINH_GOC = { 1: "Thiên Bồng", 2: "Thiên Nhuế", 3: "Thiên Xung", 4: "Thiên Phụ", 5: "Thiên Cầm", 6: "Thiên Tâm", 7: "Thiên Trụ", 8: "Thiên Nhậm", 9: "Thiên Anh" };
-  // Trung cung không có môn riêng: Tuần thủ rơi vào cung 5 thì Trực Sử gửi theo Khôn 2 (Tử Môn).
-  var MON_GOC = { 1: "Hưu Môn", 2: "Tử Môn", 3: "Thương Môn", 4: "Đỗ Môn", 5: "Tử Môn", 6: "Khai Môn", 7: "Kinh Môn", 8: "Sinh Môn", 9: "Cảnh Môn" };
-
-  // Thứ tự bất biến của Bát Thần (Bước 8, mục 2)
-  var BAT_THAN = ["Trực Phù", "Đằng Xà", "Thái Âm", "Lục Hợp", "Bạch Hổ", "Huyền Vũ", "Cửu Địa", "Cửu Thiên"];
-
-  // Vị trí 12 Địa Chi trên Cửu Cung (Bước 9, mục 2)
-  var CHI_CUNG = [1, 8, 8, 3, 4, 4, 9, 2, 2, 7, 6, 6];
-
-  // 24 tiết khí bắt đầu từ Đông chí; kinhDo là kinh độ Mặt Trời lúc giao tiết; cuc là Thượng – Trung – Hạ nguyên
-  // (Bước 1, mục 4 — bảng tổng hợp Cục số 24 tiết khí). 12 tiết đầu là Dương độn, 12 tiết sau là Âm độn.
-  var TIET = [
-    ["Đông chí", 1, 7, 4], ["Tiểu hàn", 2, 8, 5], ["Đại hàn", 3, 9, 6], ["Lập xuân", 8, 5, 2],
-    ["Vũ thủy", 9, 6, 3], ["Kinh trập", 1, 7, 4], ["Xuân phân", 3, 9, 6], ["Thanh minh", 4, 1, 7],
-    ["Cốc vũ", 5, 2, 8], ["Lập hạ", 4, 1, 7], ["Tiểu mãn", 5, 2, 8], ["Mang chủng", 6, 3, 9],
-    ["Hạ chí", 9, 3, 6], ["Tiểu thử", 8, 2, 5], ["Đại thử", 7, 1, 4], ["Lập thu", 2, 5, 8],
-    ["Xử thử", 1, 4, 7], ["Bạch lộ", 9, 3, 6], ["Thu phân", 7, 1, 4], ["Hàn lộ", 6, 9, 3],
-    ["Sương giáng", 5, 8, 2], ["Lập đông", 6, 9, 3], ["Tiểu tuyết", 5, 8, 2], ["Đại tuyết", 4, 7, 1]
-  ].map(function (r, i) {
-    return { ten: r[0], duong: i < 12, kinhDo: (270 + 15 * i) % 360, cuc: [r[1], r[2], r[3]] };
-  });
-
   function mod(a, n) { return ((a % n) + n) % n; }
-  function canChi(i) { i = mod(i, 60); return CAN[i % 10] + " " + CHI[i % 12]; }
-  function chiSo60(can, chi) { for (var k = 0; k < 60; k++) if (k % 10 === can && k % 12 === chi) return k; return -1; }
-  function tenCung(p) { return CUNG[p].ten + " " + p; }
-  // Cung 5 không có phương vị riêng: khi phải đặt Sao, Môn hay Thần vào Trung cung thì gửi sang Khôn 2.
-  function gui(p) { return p === 5 ? 2 : p; }
-  // Đi qua Cửu Cung theo số Lạc Thư: Dương thuận (1→9), Âm nghịch (9→1)
-  function phiCung(batDau, buoc, duong) { return mod(batDau - 1 + (duong ? buoc : -buoc), 9) + 1; }
+  KM.CongCu = {
+    CAN: CAN, CHI: CHI, mod: mod,
+    canChi: function (i) { i = mod(i, 60); return CAN[i % 10] + " " + CHI[i % 12]; },
+    chiSo60: function (can, chi) { for (var k = 0; k < 60; k++) if (k % 10 === can && k % 12 === chi) return k; return -1; },
+    // Cung 5 không có phương vị riêng: khi đặt Sao, Môn hay Thần vào Trung cung thì gửi sang Khôn 2.
+    gui: function (p) { return p === 5 ? 2 : p; },
+    // Đi qua Cửu Cung theo số Lạc Thư: Dương thuận (1 → 9), Âm nghịch (9 → 1).
+    phiCung: function (batDau, buoc, duong) { return mod(batDau - 1 + (duong ? buoc : -buoc), 9) + 1; },
+    hai: function (n) { return (n < 10 ? "0" : "") + n; }
+  };
+})(typeof module !== "undefined" && module.exports ? (module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Thư viện tra cứu của quy trình 12 bước (docs/quy-trinh-lap-tran.md). Mỗi bảng ghi bước của tài liệu.
+// Chỉ số Can: 0 Giáp … 9 Quý; chỉ số Chi: 0 Tý … 11 Hợi; số cung theo Lạc Thư 1 – 9.
+(function (KM) {
+  "use strict";
+  KM.BangTra = {
+    NGUYEN: ["Thượng nguyên", "Trung nguyên", "Hạ nguyên"],
 
-  // ---------- Lịch: giờ giao tiết ----------
-  // Ưu tiên bảng giờ giao tiết 1900 – 2100 lấy từ Thọ Tinh vạn niên lịch (src/tiet-khi.js);
-  // ngoài khoảng đó mới dùng công thức kinh độ Mặt Trời bên dưới.
+    // Bước 3, mục 1 — Lạc Thư Cửu Cung (Hậu Thiên Bát Quái)
+    CUNG: {
+      1: { ten: "KHẢM", huong: "Bắc", hanh: "Thủy" },
+      2: { ten: "KHÔN", huong: "Tây Nam", hanh: "Thổ" },
+      3: { ten: "CHẤN", huong: "Đông", hanh: "Mộc" },
+      4: { ten: "TỐN", huong: "Đông Nam", hanh: "Mộc" },
+      5: { ten: "TRUNG", huong: "Trung tâm", hanh: "Thổ" },
+      6: { ten: "CÀN", huong: "Tây Bắc", hanh: "Kim" },
+      7: { ten: "ĐOÀI", huong: "Tây", hanh: "Kim" },
+      8: { ten: "CẤN", huong: "Đông Bắc", hanh: "Thổ" },
+      9: { ten: "LY", huong: "Nam", hanh: "Hỏa" }
+    },
+    // Bước 6 – 8 — tám cung ngoại vi theo chiều kim đồng hồ: Khảm 1 → Cấn 8 → Chấn 3 → Tốn 4 → Ly 9 → Khôn 2 → Đoài 7 → Càn 6
+    VONG: [1, 8, 3, 4, 9, 2, 7, 6],
+    // Bước 3, mục 2 — thứ tự bất biến Mậu, Kỷ, Canh, Tân, Nhâm, Quý, Đinh, Bính, Ất
+    NGHI_KY: [4, 5, 6, 7, 8, 9, 3, 2, 1],
+
+    // Bước 1, mục 4 — bảng tổng hợp Cục số 24 tiết khí (Thượng – Trung – Hạ nguyên), bắt đầu Đông chí.
+    TIET: [
+      ["Đông chí", 1, 7, 4], ["Tiểu hàn", 2, 8, 5], ["Đại hàn", 3, 9, 6], ["Lập xuân", 8, 5, 2],
+      ["Vũ thủy", 9, 6, 3], ["Kinh trập", 1, 7, 4], ["Xuân phân", 3, 9, 6], ["Thanh minh", 4, 1, 7],
+      ["Cốc vũ", 5, 2, 8], ["Lập hạ", 4, 1, 7], ["Tiểu mãn", 5, 2, 8], ["Mang chủng", 6, 3, 9],
+      ["Hạ chí", 9, 3, 6], ["Tiểu thử", 8, 2, 5], ["Đại thử", 7, 1, 4], ["Lập thu", 2, 5, 8],
+      ["Xử thử", 1, 4, 7], ["Bạch lộ", 9, 3, 6], ["Thu phân", 7, 1, 4], ["Hàn lộ", 6, 9, 3],
+      ["Sương giáng", 5, 8, 2], ["Lập đông", 6, 9, 3], ["Tiểu tuyết", 5, 8, 2], ["Đại tuyết", 4, 7, 1]
+    ].map(function (r, i) { return { ten: r[0], duong: i < 12, kinhDo: (270 + 15 * i) % 360, cuc: [r[1], r[2], r[3]] }; }),
+
+    // Bước 1, mục 1 — Ngũ Tý Độn: Can giờ Tý theo nhóm Can ngày (Giáp/Kỷ, Ất/Canh, Bính/Tân, Đinh/Nhâm, Mậu/Quý)
+    NGU_TY_DON: [0, 2, 4, 6, 8],
+    // Bước 1, mục 5 — Ngũ Hổ Độn: Can tháng Dần theo nhóm Can năm
+    NGU_HO_DON: [2, 4, 6, 8, 0],
+
+    // Bước 2, mục 2 — nhóm Địa Chi của Phù đầu → Tam nguyên
+    NHOM_PHU_DAU: [
+      { ten: "Tứ Chính", chi: [0, 6, 3, 9], nguyen: 0 },
+      { ten: "Tứ Sinh", chi: [2, 8, 5, 11], nguyen: 1 },
+      { ten: "Tứ Mộ", chi: [4, 10, 1, 7], nguyen: 2 }
+    ],
+
+    // Bước 4, mục 3 — Tuần thủ và Cờ (Lục Nghi), kèm tên vị thần quân chủ quản
+    TUAN_CO: [
+      { tuan: 0, co: 4, ky: "Chính hoàng kỳ", thanQuan: "Vương Văn Khanh" },
+      { tuan: 10, co: 5, ky: "Tương hoàng kỳ", thanQuan: "Từ Hà Lợi" },
+      { tuan: 20, co: 6, ky: "Chính bạch kỳ", thanQuan: "Cái Tân" },
+      { tuan: 30, co: 7, ky: "Tương bạch kỳ", thanQuan: "Linh Quang" },
+      { tuan: 40, co: 8, ky: "Chính hắc kỳ", thanQuan: "Hàm Chương" },
+      { tuan: 50, co: 9, ky: "Tương hắc kỳ", thanQuan: "Lâm Binh" }
+    ],
+
+    // Bước 5, mục 2 — bản cung nguyên thủy của Cửu Tinh và Bát Môn (kèm ngũ hành)
+    TINH_GOC: { 1: "Thiên Bồng", 2: "Thiên Nhuế", 3: "Thiên Xung", 4: "Thiên Phụ", 5: "Thiên Cầm", 6: "Thiên Tâm", 7: "Thiên Trụ", 8: "Thiên Nhậm", 9: "Thiên Anh" },
+    HANH_TINH: { "Thiên Bồng": "Thủy", "Thiên Nhuế": "Thổ", "Thiên Xung": "Mộc", "Thiên Phụ": "Mộc", "Thiên Cầm": "Thổ", "Thiên Tâm": "Kim", "Thiên Trụ": "Kim", "Thiên Nhậm": "Thổ", "Thiên Anh": "Hỏa" },
+    // Trung cung không có môn riêng: Tuần thủ rơi vào cung 5 thì Trực Sử gửi theo Khôn 2 (Tử Môn).
+    MON_GOC: { 1: "Hưu Môn", 2: "Tử Môn", 3: "Thương Môn", 4: "Đỗ Môn", 5: "Tử Môn", 6: "Khai Môn", 7: "Kinh Môn", 8: "Sinh Môn", 9: "Cảnh Môn" },
+    HANH_MON: { "Hưu Môn": "Thủy", "Sinh Môn": "Thổ", "Thương Môn": "Mộc", "Đỗ Môn": "Mộc", "Cảnh Môn": "Hỏa", "Tử Môn": "Thổ", "Kinh Môn": "Kim", "Khai Môn": "Kim" },
+
+    // Bước 8, mục 2 — thứ tự bất biến và thuộc tính của Bát Thần
+    BAT_THAN: ["Trực Phù", "Đằng Xà", "Thái Âm", "Lục Hợp", "Bạch Hổ", "Huyền Vũ", "Cửu Địa", "Cửu Thiên"],
+    TINH_CHAT_THAN: {
+      "Trực Phù": "Thủ lĩnh Bát Thần, cát lợi bậc nhất, giải trừ tai ách, bảo hộ quý nhân.",
+      "Đằng Xà": "Hỏa; chủ quái dị, kinh sợ, thị phi, dối trá.",
+      "Thái Âm": "Kim âm; chủ che giấu, tĩnh lặng, mật mưu kế sách.",
+      "Lục Hợp": "Mộc; chủ hòa hợp, hòa giải, giao dịch, hôn nhân.",
+      "Bạch Hổ": "Kim (Câu Trần); chủ tranh đấu, binh đao, tai nạn, tật bệnh.",
+      "Huyền Vũ": "Thủy (Chu Tước); chủ trộm cắp, khẩu thiệt, mưu mô, mất mát giấy tờ.",
+      "Cửu Địa": "Thổ; nhu thuận, trầm tĩnh, lợi phòng thủ, gieo trồng.",
+      "Cửu Thiên": "Kim; cương cường, chuyển động, lợi xuất hành, thăng tiến."
+    },
+
+    // Bước 9, mục 2 — 12 Địa Chi trên Cửu Cung (Tý 1, Sửu Dần 8, Mão 3, Thìn Tỵ 4, Ngọ 9, Mùi Thân 2, Dậu 7, Tuất Hợi 6)
+    CHI_CUNG: [1, 8, 8, 3, 4, 4, 9, 2, 2, 7, 6, 6],
+    // Bước 9, mục 1 — Mã Tinh theo Tam Hợp của chi giờ (chỉ số theo chi giờ mod 4)
+    MA_TINH: [2, 11, 8, 5], // Thân Tý Thìn → Dần; Tỵ Dậu Sửu → Hợi; Dần Ngọ Tuất → Thân; Hợi Mão Mùi → Tỵ
+
+    // Bước 11, 12 — cung đối xung 180° (để nhận Phản ngâm)
+    DOI_XUNG: { 1: 9, 9: 1, 8: 2, 2: 8, 3: 7, 7: 3, 4: 6, 6: 4 }
+  };
+})(typeof module !== "undefined" && module.exports ? (module.exports = require("./km.js")) : KM);
+// Bảng giờ giao 24 tiết khí 1900 – 2100, tạo bởi tools/tao_bang_tiet_khi.py — không sửa tay.
+// Nguồn: thư viện sxtwl (Thọ Tinh vạn niên lịch, giấy phép BSD). Giờ UTC, làm tròn tới phút.
+(function (KM) {
+  KM.BangTietKhi = { dau: 23, phut0: -36852055, buoc: "0y70x00xk0z012115p1al1fi1l21pw1uq1y220t21m21i1zj1wl1sd1nj1i91cy18113o10c0y20x30xf0z411x15u1ah1fo1kx1q51uj1yb20k21w2181zq1wd1sj1nf1id1cw18413n10g0y00x70xc0z611u15w1ad1fo1kv1q31uj1y620n21n21g1zg1wn1s91np1i61d717y13x10a0yb0x00xm0yx12215m1ak1ff1l11pu1uo1y220q21o21e1zl1wi1sg1ni1ie1cx18613o10i0y10x90xd0z611t15v1ab1fo1kr1q51ue1yc20i21x21a1zq1wg1si1ni1ic1cz18213r10d0y50x50xh0z411x15t1ag1fk1ky1py1ul1y320p21l21i1zf1wo1s91no1i61d417y13v10a0y90x10xm0z112215q1al1fi1l01px1ul1y420l21p21a1zn1we1si1nf1ig1cw18813n10j0y00xa0xc0z811r15x1aa1fq1kq1q51ud1ya20i21s21b1zm1wj1sf1nn1ia1d518013w10b0y90x10xj0yz11z15o1ah1fh1kz1pv1uo1y120s21l21i1zh1wm1sb1nm1i91d218113t10d0y50x40xi0z211x15r1ag1fk1kx1q11ui1y920k21u2181zq1we1sj1nd1if1cw18613n10j0y10xa0xd0z811t15x1aa1fo1kr1q11uf1y620l21o21e1zi1wm1sb1np1i61d617y13y10a0yb0x10xm0yz12215n1aj1ff1kz1ps1un1xz20p21m21g1zj1wl1sg1nl1id1cz18513p10g0y10x60xe0z511u15t1ac1fn1ks1q31ue1ya20i21w2191zr1wg1sl1ni1if1cz18513p10f0y20x50xd0z411t15t1ad1fm1kv1q01uj1y320o21m21h1zg1wo1sa1nr1i71d717z13x10a0ya0x00xl0yx12115m1aj1ff1kz1pv1um1y220n21o21c1zm1wh1si1ni1ih1cy18a13p10l0y10xa0xc0z511q15t1a71fm1ko1q21ub1ya20h21v21a1zq1wj1si1nn1id1d518413v10f0y80x40xi0z011w15n1ae1ff1kv1pt1uk1y020q21m21j1zi1wq1sc1nq1i91d518113w10c0y80x30xk0z111z15o1ag1fh1kv1px1uh1y420j21s21a1zq1wg1sl1nh1ii1cy18913o10k0y10xa0xd0z811s15w1a91fn1ko1q11ub1y620h21o21b1zk1wm1se1nr1ia1d918213z10c0yb0x20xm0yy12015m1ai1fe1ky1pr1ul1xy20p21j21f1zi1wm1sg1nn1ie1d418713t10h0y50x60xf0z211v15q1ac1fk1ks1q01uf1y820i21v2181zr1wf1sm1nh1ih1d018813q10j0y30x90xd0z511s15t1aa1fm1kr1q01uh1y420n21n21f1zh1wo1sb1nq1i71d717z13z10b0yc0x20xn0yy12215m1aj1fd1kz1ps1ul1y020p21m21f1zl1wj1si1nk1if1d018813q10k0y20x90xd0z511s15s1a91fl1ko1q01ub1y920h21v21a1zs1wk1sl1nm1ig1d418513u10f0y40x50xe0z211t15p1ac1fh1ku1pv1ui1y220p21m21k1zj1ws1sd1nt1ia1d818113x10b0y80x00xj0yx11y15l1ag1fe1kx1pv1uj1y320m21r21c1zq1wi1sn1nj1ik1d018b13p10l0y10x90xa0z611p15t1a51fl1km1q01ua1y820g21s21b1zn1wm1si1nr1ie1d918614010f0ya0x40xj0yy11w15k1ad1fb1ku1pp1uj1xx20p21k21j1zi1wq1sg1ns1ie1d818613x10g0y80x50xi0yz11v15m1ab1ff1kq1pu1ud1y520h21u21a1zt1wi1sp1nj1il1d018b13r10l0y30xa0xc0z711q15t1a71fk1kn1py1uc1y320i21n21d1zk1wo1sf1ns1ib1da18214110c0yd0x20xm0yy12115l1ah1fb1kx1pp1uj1xw20n21j21e1zj1wl1si1no1ih1d518a13u10l0y40x90xd0z411r15q1a81fi1ko1py1u91y720e21u2171zs1wh1sn1nm1ik1d418b13v10j0y60x70xe0z211r15p1a91fg1kq1pv1ug1y120n21l21i1zi1wq1sd1nt1ia1da18214010c0yc0x10xm0yw11z15j1ag1fb1kw1ps1uj1y020n21o21d1zp1wi1sl1nk1ij1d018b13q10m0y20xb0xd0z711q15s1a61fk1kk1pz1u81y620f21s21a1zq1wk1sk1np1ig1d718713x10h0y80x50xi0z111v15m1ac1fc1ks1pq1uh1xx20o21k21j1zj1ws1sg1nu1ie1d918513x10e0y80x20xh0yx11w15k1ad1fd1ks1pt1uf1y420j21s21c1zt1wj1sr1nl1im1d218d13q10l0y10x90x90z511n15r1a51fk1km1q01ua1y620h21q21d1zm1wp1sh1nu1ie1dc18414110e0yc0x10xk0yw11x15i1ad1fa1ku1po1uj1xx20p21j21i1zk1wp1si1nr1ii1d918a13y10k0y70x70xf0yz11r15l1a61fd1km1pu1ua1y520f21v21b1zu1wk1sr1nn1io1d518e13u10n0y50xa0xc0z411o15o1a41ff1kk1pt1ub1y120k21o21i1zl1wu1sg1nx1ic1dd18414210d0yd0x10xm0yw11y15i1ae1f91kt1po1uh1xw20m21m21f1zo1wn1sn1np1il1d518d13u10m0y40xa0xd0z611q15q1a61fh1kj1pw1u61y420b21s2171zr1wk1so1nq1im1d918c13z10l0y90x70xg0z111s15n1a81fc1ko1pq1ue1xw20l21j21i1zi1ws1sg1nx1ie1de18714210g0yc0x20xk0yw11w15h1ad1f91ks1pq1uf1y020j21q21c1zr1wj1sq1nm1in1d318f13s10p0y30xb0xc0z511o15r1a31fj1kj1py1u71y520f21r21a1zo1wm1sj1ns1if1db18614110h0yc0x40xl0yz11w15l1ac1fa1kr1pn1uh1xv20n21j21i1zj1wq1sh1nu1ig1da18813z10i0y90x50xi0yy11u15k1a91fb1kn1ps1ua1y220g21t21a1zv1wk1ss1no1io1d518e13u10m0y30x90xa0z411n15p1a31fg1kk1pv1ua1y220j21o21g1zn1ws1sj1nx1ie1de18514210d0yb0x00xk0yu11w15g1ad1f81kt1po1ui1xw20o21l21h1zm1wp1sm1ns1il1d818d13w10l0y60x80xd0z111o15m1a41fd1kj1pu1u61y420d21t2191zt1wk1sr1nq1io1d918f13y10o0y70x90xe0z111p15l1a31fb1kj1pp1ua1xy20k21l21j1zk1wv1si1nz1if1dg18714410f0ye0x20xk0yv11w15e1ab1f51kq1pl1ue1xw20k21p21e1zs1wo1sr1nq1io1d618g13u10o0y30xb0xb0z511n15p1a21fh1kg1pv1u51y320c21r2191zr1wm1so1nt1ik1dc18b14110j0ya0x60xi0z011t15l1a81fa1kp1pm1ud1xu20l21h21i1zi1wt1si1nx1ii1df18b14310i0yc0x40xi0yw11t15g1a81f81kn1po1ua1xz20g21r21b1zt1wl1st1np1ir1d718i13w10q0y40xb0xa0z411l15n1a01ff1kg1pv1u71y320g21q21e1zo1wr1sk1nw1ih1de18814410g0yd0x30xl0yw11v15g1aa1f71kq1pl1ug1xv20n21k21j1zl1ws1sk1nu1ik1da18c13z10l0y90x70xg0z111r15l1a51fa1kj1pq1u61y120d21s2191zv1wl1st1nq1iq1d818h13x10p0y60xa0xd0z311o15n1a11fd1kh1pr1u71xy20i21m21h1zn1wv1sl1o01ii1dh18714510e0yd0x00xk0yt11v15e1ab1f51kq1pl1ue1xw20l21n21g1zr1wq1sr1nu1iq1d918g13w10o0y40x90xa0z111m15n1a11fe1kh1pu1u51y420c21t2191zs1wm1sr1nt1ip1dc18f14210m0y90x80xf0yz11q15i1a51f81kl1pm1ub1xv20l21j21j1zk1wu1sj1o01ij1di18b14710j0ye0x30xk0yu11t15c1a71f31kl1pk1ua1xw20i21q21d1zu1wo1sv1nr1it1d918j13x10s0y50xc0xb0z411k15n19y1fc1kd1ps1u31y220d21r21d1zr1wr1so1ny1ik1dg18a14410i0yd0x40xj0yx11u15h1a81f61kn1pk1uc1xs20m21h21j1zl1wu1sl1ny1il1df18d14210l0ya0x60xi0yy11s15h1a61f71kj1pn1u61xy20b21q2181zu1wl1su1nr1iu1da18k13z10s0y60xc0xb0z411l15m19z1fc1ke1pq1u51xy20f21m21f1zn1wt1sm1o01ij1dj18914710h0yf0x20xk0yt11u15d1a81f31ko1pj1ue1xt20m21l21h1zo1ws1so1nv1io1dc18f14010n0y80x90xd0z111n15l1a11fb1kg1pr1u41y120c21t2181zu1wl1ss1ns1iq1da18g14010o0y90xa0xe0z211o15k1a21fa1kh1pn1u71xv20j21k21i1zl1ww1sk1o11ij1di18a14710g0yf0x10xk0ys11u15c1a71f21km1pi1ub1xu20j21n21g1zt1wr1sv1nv1iu1da18k13x10q0y40xa0x90z111j15l19x1fc1kc1ps1u21y320c21t21c1zt1wr1ss1ny1ip1df18e14410k0ya0x40xf0yw11p15g1a31f61kk1pk1uc1xt20m21i21l1zl1ww1sm1o21im1dj18e14610k0ye0x40xi0yu11r15c1a41f21ki1pj1u61xw20e21p21b1zv1wo1sw1nt1ix1dc18n14010v0y70xe0xa0z311j15k19v1f81ka1po1u11xy20c21p21f1zr1wv1sp1o21in1dk18d14810j0yg0x30xk0yu11t15c1a61f01kl1pf1ub1xq20l21j21j1zo1ww1sq1o01iq1dg18h14210o0ya0x80xf0yz11p15i1a21f81kf1pn1u21xy20a21q2181zu1wm1sw1nt1iv1dd18l14110s0y80xc0xd0z311m15l1a01f91kf1pn1u31xv20f21j21f1zm1wv1sl1o31im1dm18d14b10j0yh0x30xk0ys11t15b1a61f01kl1pg1ub1xr20j21l21g1zq1ws1st1nw1iu1de18l14110s0y80xb0xc0z011l15i19y1f91kc1pp1u21y220b21t21a1zv1wo1ss1nw1iq1df18g14310o0yb0x90xf0yz11p15h1a21f61ki1pk1u81xu20k21j21k1zl1wx1sl1o21il1dj18b14810j0yg0x40xk0yu11u15c1a51f11ki1ph1u71xt20f21o21c1zv1wp1sx1nu1iw1dc18m13z10t0y60xd0xa0z311j15k19w1f91ka1pp1tz1y020b21q21d1zu1wt1st1o21ip1dj18e14610k0yc0x30xg0yu11p15d1a31f21kk1ph1ub1xr20l21j21l1zo1wy1sq1o31iq1dj18g14510l0yb0x40xf0yu11n15d1a21f41kg1pl1u41xx20c21r2191zw1wo1sx1nu1iy1dd18n14210t0y80xc0xa0z211i15i19v1f71ka1pn1u11xw20e21n21f1zq1ww1sp1o41io1dn18f14b10l0yh0x30xj0ys11q1581a21ew1ki1pc1u81xp20k21k21j1zr1wx1su1o11iv1dh18l14310r0ya0xa0xc0yz11k15g19w1f41ka1pl1tz1xy20a21s21a1zx1wq1sy1nx1iw1df18l14310q0ya0xa0xd0z011m15h19y1f61kd1pj1u41xr20g21i21i1zn1wy1so1o61in1do18f14b10k0yh0x30xl0ys11s1591a41ey1ki1pc1u61xp20f21j21d1zt1wr1sw1ny1iz1dg18p14410v0y90xd0xb0z111i15i19u1f71k71pn1tx1xy20921q21a1zu1ws1su1o11it1dk18j14810o0ye0x70xf0yw11n15d1a01f11kg1pg1u71xq20k21i21l1zm1wz1so1o51io1dm18g14910m0yf0x60xi0yu11q15c1a21f01kg1ph1u41xt20d21o21b1zv1wo1sy1nu1iy1dd18p14110v0y80xe0xb0z411j15k19u1f81k81pm1ty1xx20b21n21e1zr1ww1sr1o41iq1dn18g14a10l0yg0x30xi0yt11q1591a21ey1kh1pd1u81xo20k21j21l1zq1wz1su1o41iu1dl18k14510p0yb0x60xd0yw11l15d19x1f31kc1pk1u11xy20b21s21b1zy1wq1sz1ny1iz1dg18o14210t0y80xa0xb0yz11h15h19v1f51kb1pk1u31xv20f21l21i1zp1wz1sq1o71ip1dq18g14d10l0yi0x30xk0yr11q1561a21eu1kg1pa1u61xo20i21j21h1zt1wv1sx1o11iz1dj18p14610w0ya0xd0xc0z011i15f19s1f31k51pj1tv1xx20821s21b1zy1wt1sz1o21iw1dk18m14710q0yd0x90xe0yx11l15e19w1f11kb1pf1u31xq20h21i21l1zo1x21sq1o91iq1dp18h14b10m0yg0x40xj0yt11q1591a31ex1kg1pd1u31xq20c21l21b1zu1wr1sz1ny1j11dh18r14310x0y80xf0xa0z211h15j19s1f61k61pl1tw1xw20721o21b1zs1wu1su1o41iu1dp18k14c10o0yg0x60xh0ys11n15919z1ew1kf1pb1u61xo20i21i21k1zo1x01ss1o71iu1dn18l14a10q0yf0x70xf0yu11m15a19x1ey1kb1pg1u11xv20b21q21b1zy1wp1t01nx1iz1dg18q14310v0y90xd0xb0z111h15h19s1f51k71pk1ty1xv20c21n21g1zq1wy1ss1o61iq1dp18g14d10m0yi0x40xk0ys11r1571a11eu1ke1p91u51xl20h21h21j1zr1wy1sw1o41iy1dl18p14710t0yb0xa0xd0yx11j15d19t1f21k61ph1tw1xv20721s21a1zz1wt1t11o21j01dk18p14610s0ya0x90xb0yw11i15d19t1f21k91pg1u21xr20f21k21k1zp1x21ss1oa1it1ds18i14d10m0yi0x20xi0yq11o1561a01eu1ke1pb1u41xo20e21k21f1zt1wu1sz1o11j11dj18t14710x0yb0xe0xb0z011g15e19q1f21k41pi1tu1xv20721q21b1zw1wu1sy1o41ix1dp18n14d10r0yg0x90xg0yu11k15919v1ev1k91pa1u21xm20h21i21m1zp1x41st1ob1iu1dr18l14d10p0yh0x60xi0ys11o15719x1ew1ka1pc1u01xq20b21o21c1zy1ws1t21o01j31di18s14410x0y90xe0xa0z111h15h19r1f41k51pj1tv1xu20921n21d1zs1wy1su1o81iu1ds18k14e10p0yi0x50xj0ys11o15719z1eu1kd1p71u41xk20g21g21i1zp1x01sv1o81iy1dq18q14b10u0yf0xa0xe0yv11k15a19t1ey1k71pf1tw1xt20821q21a1zz1ws1t31o11j21dk18s14610w0yb0xc0xb0yz11g15e19q1f11k61ph1ty1xs20e21l21j1zr1x11st1oa1is1dt18i14e10n0yj0x40xk0yq11p1561a01es1ke1p81u41xm20f21j21g1zt1ww1sz1o31j01dl18r14710w0yb0xd0xc0yz11i15e19r1f21k31ph1tu1xu20621r21a1zz1wt1t21o41j11dn18q14910t0yd0x80xc0yv11i15a19s1ex1k81pc1u01xn20g21i21m1zr1x51sv1od1iw1du18k14f10n0yh0x30xh0yo11m15419w1et1kb1pa1u21xp20e21m21f1zx1wv1t31o31j41dk18v14610x0y90xd0x90yz11d15e19n1f21k21pi1tu1xv20821p21d1zw1wx1sy1o81iy1ds18o14f10r0yi0x70xh0ys11k15519t1er1k81p61u01xk20g21g21l1zq1x31sw1oc1iy1du18p14f10u0yi0x90xg0yt11k15619s1et1k41pa1tu1xp20821o21c2011wu1t61o31j51dm18u14710z0ya0xe0xa0z011e15e19n1f01k21pe1tt1xr20921l21g1zt1x21sw1oc1ix1dv18l14g10p0yj0x50xj0yq11o15519y1er1kc1p51u11xi20e21f21g1zq1wz1sy1o71j21dq18t14b10x0yf0xc0xe0yx11i15b19r1ey1k31pd1ts1xs20421p2181zx1wt1t21o41j41dp18u14b10x0ye0xc0xc0yw11f15a19p1ex1k41pc1tx1xn20e21i21j1zq1x41su1od1iw1dw18l14i10p0yl0x40xk0yp11n15219x1eq1ka1p71u11xn20e21k21g1zv1ww1t11o31j31dl18u14710y0yb0xf0xb0yz11g15d19p1f01k11pg1ts1xv20621q21c1zx1ww1t11o61j01dq18o14d10s0yh0x80xg0yu11k15719t1et1k61p71tz1xj20f21g21l1zr1x51sw1of1iy1dv18o14g10r0yi0x60xh0yq11l15419u1er1k71p81tw1xo20a21n21e2011ww1t71o51j81dm18w14710y0y90xd0x70yy11b15c19l1f01k11pf1tu1xt20821o21g1zw1x21sz1od1j01dw18o14h10q0yi0x50xg0yp11k15319u1eq1k91p41u21xi20g21f21k1zr1x21sz1ob1j21du18u14f10w0yi0xa0xf0yu11h15619p1et1k11pa1tr1xq20621p21b2011wu1t61o61j81dp18x14b1100yd0xe0xb0yx11d15919l1ev1jz1pa1tt1xn20b21k21j1zu1x61sy1og1iz1dz18n14k10q0yl0x50xk0yo11n15119v1eo1k81p31tz1xi20e21h21h1zu1x01t21o91j51dq18w14b10y0yd0xe0xb0yy11f15c19o1ex1k11pd1tq1xr20421p2191zy1wv1t41o81j41ds18v14e10x0yg0xb0xe0yv11h15719p1et1k31p71tv1xj20c21f21j1zq1x51sw1og1iz1dz18q14l10t0ym0x60xj0yp11l15119t1eo1k61p51tw1xl20a21l21e1zx1wx1t51o61j81dn18y14a1100yc0xf0x90yz11c15c19k1ey1jy1pe1tq1xs20721p21d1zx1x01t01ob1j11du18q14g10s0yj0x70xi0ys11k15419t1eq1k61p41ty1xh20e21f21k1zq1x41sx1od1j01dv18r14h10u0yj0x80xh0yt11k15519s1er1k31p71tt1xn20521o21b2001wv1t81o61j91dp18y14a1100ya0xe0x80yx11b15a19k1ex1jy1pb1tr1xp20921l21i1zv1x51t01oh1j11dz18p14j10r0yk0x30xh0yn11j15019t1em1k81p31u01xi20f21h21k1zt1x21t21ob1j61dt18v14e10x0yf0xb0xc0yu11e15619n1eu1jz1pb1tq1xr20521q21b2011wv1t71o71j81ds18x14e1100yf0xd0xc0yv11d15619k1er1jy1p61ts1xk20a21i21k1zt1x71sz1oi1j11e118q14n10t0yn0x60xj0yo11l14z19r1ek1k41p01tv1xh20b21j21h1zy1x11t71oa1ja1dr18z14b1100yc0xf0x90yy11c15919k1ew1jw1pb1tn1xr20321p21c2001x01t51od1j61dw18u14h10v0yh0x90xe0yt11h15419q1eq1k31p31tv1xg20c21d21k1zp1x61sy1oh1j21e018u14l10v0yl0x80xi0yq11j15219r1en1k31p41tt1xk20621l21c1zz1ww1t81o81jb1ds19214d1130yd0xf0x90yx11a15819h1ev1jv1pa1tp1xp20621n21f1zx1x31t31og1j31dz18s14l10u0yl0x70xh0yp11j15019q1em1k41p11ty1xh20e21g21l1zs1x51t01oe1j41dv18v14g10y0yh0xb0xf0yu11h15619o1er1jz1p81tq1xo20421p21b2021ww1t91o81j91dr18z14d1110ye0xf0xa0yx11c15819j1es1jw1p71tp1xl20721j21j1zu1x81t11ok1j21e318s14m10t0ym0x50xi0yn11k14y19r1ej1k51oz1tw1xg20c21h21j1zx1x41t71od1ja1dv18z14d1110yd0xc0x90yu11b15619j1et1jw1pa1to1xr20321r21b2021wz1t91oc1j91dx18y14g10z0yh0xa0xc0yt11d15319l1ep1jz1p31ts1xi20a21g21k1zr1x71sz1ok1j21e318u14o10w0yo0x80xj0yp11j14y19p1ej1k11oz1ts1xh20721k21e1zz1x01t91ob1jc1du19214e1140ye0xg0xa0yx11915819g1es1js1p71tl1xo20321n21e2001x31t71oh1j71e018v14k10w0yk0x80xg0yq11h15119p1el1k21oz1tv1xe20c21d21l1zr1x71t11oh1j61e018v14k10x0yk0x90xg0yr11h15319p1eo1k01p41tq1xk20321m21b2001ww1ta1o91jc1dt19314e1150ye0xg0x90yx11a15719g1es1jt1p71tm1xl20521j21f1zv1x61t21oj1j51e418u14o10w0yo0x60xj0yn11j14x19o1ei1k21oy1tv1xe20c21g21k1zu1x51t51oe1j91dx18y14h1100yg0xd0xc0yt11d15419j1eq1jv1p71tn1xo20421q21c2031wy1ta1oa1jb1dv18z14f1110yf0xd0xb0yv11c15519j1eq1jw1p41tp1xh20921g21k1zt1x81t01ol1j31e418t14o10u0yo0x60xj0yo11j14x19q1ei1k21ox1tt1xe20921h21h1zy1x31ta1od1je1dw19214f1130yd0xd0x80yv11815519f1er1js1p71tl1xp20221p21e2021x31tb1oh1jb1e118z14k10y0yi0x90xc0yp11d14z19k1el1jz1p01tt1xg20c21f21m1zs1x91t21ol1j61e418x14n10x0yn0x80xg0yo11g14y19m1ej1jz1p01tq1xj20621l21e2011x01tb1ob1jf1dv19614g1170yf0xi0x90yx11715619c1ep1jp1p41tj1xk20321l21g1zz1x61t71ol1j91e518x14p10y0yp0x80xj0yo11h14x19m1eg1jy1ou1ts1xb20b21e21m1zu1x91t61ok1ja1e119014k1100yj0xb0xe0ys11e15219k1en1jv1p31tm1xk20221n21b2041wz1tc1od1jg1dw19414h1140yf0xf0xa0yw11a15619h1eq1js1p41tm1xh20421g21g1zt1x71t31om1j61e618w14s10x0yq0x70xk0yo11i14x19o1eg1k11ov1tt1xc20921e21h1zw1x31t81of1jd1dz19414i1150yh0xe0xb0yu11915419f1eo1js1p51tk1xn20221p21c2031x01tb1of1jd1dz19114j1120yi0xc0xd0ys11c15119i1em1jv1p11tq1xg20a21g21l1zt1x91t11om1j41e418v14o10w0yo0x70xj0yn11j14x19o1ei1k01ox1tr1xg20721j21f2011x11tb1od1jf1dv19514f1150ye0xg0x90yw11715519d1ep1jp1p51ti1xl20121n21e2011x61ta1ol1jb1e518z14n10y0yl0x80xe0yn11e14w19k1eh1jx1ow1tr1xc20c21e21n1zv1xb1t61om1jb1e418z14n10y0yk0x80xd0yn11d14w19j1ej1jw1p01to1xj20421o21d2041x11tf1oe1ji1dx19714h1160yf0xf0x80yu11615319c1en1jo1p21tj1xi20421j21g1zx1x81t61on1j91e818y14t10y0yr0x80xj0yn11g14t19l1ec1jx1or1tq1xa20921d21k1zx1x81t91ok1jf1e219514l1140yj0xe0xc0ys11a15019e1ek1jp1p01th1xj20021o21c2051x31tf1oh1ji1e119514k1140yi0xd0xb0yt11915119f1el1jr1oz1tm1xe20621f21j1zu1xa1t41oo1j91e818y14s10y0yq0x70xj0ym11i14v19n1ef1jy1ou1tq1xc20621g21f1zy1x31tb1og1jh1e019714k1170yi0xh0xa0yv11715219c1em1jn1p21tg1xk1zz21m21c2021x31tc1ok1je1e619314p1130yn0xc0xf0yq11b14x19h1eg1jt1ov1to1xc20921e21n1zu1xb1t51oo1j91e718z14q10z0yo0x90xh0yo11f14v19k1eg1jw1ow1to1xf20521l21f2031x21te1of1ji1dx19714h1170yg0xh0x90yw11715519c1eo1jn1p21tg1xj20021l21e1zz1x71t81on1jb1e818z14r10z0yp0x90xi0yo11f14w19k1ef1jw1os1tq1x820921d21l1zv1xb1t81oo1je1e619314n1120yk0xa0xd0yo11a14y19f1ej1jr1oz1tk1xj20121o21d2061x31th1oh1jl1e119814k1160yg0xe0x80ys11515119b1el1jp1p11tk1xh20521i21j1zw1xb1t61op1ja1ea18z14u10y0yr0x70xj0yl11g14s19k1ec1jw1os1tq1xa20921f21j1zy1x71tb1oj1jh1e319714m1180yj0xg0xb0yt11715019a1ei1jl1oz1te1xi1zz21n21d2051x51tf1ol1jj1e519614o1160yl0xd0xd0yr11914y19d1eg1jp1ou1tk1xb20621e21m1zw1xe1t71os1jb1ea19014s10z0yp0x70xi0yl11f14u19j1ed1jv1ot1tn1xc20421i21f2021x41tf1oi1jl1e119914k1180yh0xg0x90yu11615319a1em1jl1p11td1xi1zy21k21b2001x61ta1on1jf1e919414t1130yq0xb0xg0yo11d14u19h1ed1js1or1tn1x820721c21k1zu1xb1t71oq1jd1e919414s1120yo0xb0xf0yn11b14u19f1ee1jq1ow1tj1xf20221m21d2061x31th1oh1jl1e019a14k1190yh0xh0x80yv1151511991ek1jm1oz1th1xh20221j21g1zz1x91t81op1jb1e919014t10z0yq0x80xj" };
+})(typeof module !== "undefined" && module.exports ? (module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Lịch dùng cho Bước 1: giờ giao tiết, kinh độ Mặt Trời, phương trình thời gian, quy đổi múi giờ.
+(function (KM) {
+  "use strict";
+  var mod = KM.CongCu.mod, hai = KM.CongCu.hai, TIET = KM.BangTra.TIET;
+
+  // Bảng giờ giao tiết 1900 – 2100 (lib/tiet-khi-bang.js, từ Thọ Tinh vạn niên lịch); ngoài khoảng đó dùng công thức.
   var BANG = null;
   (function () {
-    var b = typeof KYMON_BANG_TIET !== "undefined" ? KYMON_BANG_TIET : null;
-    if (!b && typeof require === "function") { try { b = require("./tiet-khi.js"); } catch (e) { b = null; } }
+    var b = KM.BangTietKhi;
     if (!b) return;
     var t = [b.phut0 * 60000], m = b.phut0;
     for (var k = 0; k < b.buoc.length; k += 3) { m += parseInt(b.buoc.substr(k, 3), 36) + 20000; t.push(m * 60000); }
     BANG = { dau: b.dau, t: t };
   })();
+
+  // Kinh độ Mặt Trời biểu kiến — J. Meeus, Astronomical Algorithms, chương 25 (sai số khoảng 0,01°).
+  function kinhDoMatTroi(ms) {
+    var T = (ms / 86400000 + 2440587.5 + 69 / 86400 - 2451545) / 36525; // +69 giây: giờ TT so với UT
+    var rad = Math.PI / 180;
+    var L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+    var M = (357.52911 + 35999.05029 * T - 0.0001537 * T * T) * rad;
+    var C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M) + (0.019993 - 0.000101 * T) * Math.sin(2 * M) + 0.000289 * Math.sin(3 * M);
+    var omega = (125.04 - 1934.136 * T) * rad;
+    return mod(L0 + C - 0.00569 - 0.00478 * Math.sin(omega), 360);
+  }
+  function chiSoTiet(kinhDo) { return Math.floor(mod(kinhDo - 270, 360) / 15); }
+  function thoiDiemGiaoTiet(ms, i) { // dò thời điểm Mặt Trời tới kinh độ của tiết i
+    var t = ms;
+    for (var n = 0; n < 8; n++) {
+      var lech = mod(kinhDoMatTroi(t) - TIET[i].kinhDo + 180, 360) - 180;
+      t -= lech / 0.98564736 * 86400000;
+      if (Math.abs(lech) < 1e-6) break;
+    }
+    return new Date(t);
+  }
+  // Tiết khí đang hiệu lực tại thời điểm ms: chỉ số (0 = Đông chí), lúc giao tiết, tiết kế tiếp, nguồn số liệu.
   function tietTai(ms) {
     if (BANG && ms >= BANG.t[0] && ms < BANG.t[BANG.t.length - 1]) {
       var lo = 0, hi = BANG.t.length - 1;
@@ -781,31 +916,14 @@ var KyMon = (function () {
     var i = chiSoTiet(kinhDoMatTroi(ms));
     return { i: i, giao: thoiDiemGiaoTiet(ms, i), tiep: thoiDiemGiaoTiet(ms + 16 * 86400000, (i + 1) % 24), nguon: "congthuc" };
   }
-
-  // ---------- Lịch: kinh độ Mặt Trời và tiết khí ----------
-  // Công thức gần đúng của J. Meeus (Astronomical Algorithms, chương 25), sai số khoảng 0,01°
-  // tức khoảng 15 phút ở thời điểm giao tiết.
-  function ngayJulius(ms) { return ms / 86400000 + 2440587.5; }
-  function kinhDoMatTroi(ms) {
-    var T = (ngayJulius(ms) + 69 / 86400 - 2451545) / 36525; // +69 giây: chênh lệch giờ TT so với UT
-    var rad = Math.PI / 180;
-    var L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
-    var M = (357.52911 + 35999.05029 * T - 0.0001537 * T * T) * rad;
-    var C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M) + (0.019993 - 0.000101 * T) * Math.sin(2 * M) + 0.000289 * Math.sin(3 * M);
-    var omega = (125.04 - 1934.136 * T) * rad;
-    return mod(L0 + C - 0.00569 - 0.00478 * Math.sin(omega), 360);
-  }
-  function chiSoTiet(kinhDo) { return Math.floor(mod(kinhDo - 270, 360) / 15); }
-  // Phương trình thời gian (phút): giờ Mặt Trời thật trừ giờ Mặt Trời trung bình. Công thức của NOAA, sai số dưới 1 phút.
+  // Phương trình thời gian (phút): giờ Mặt Trời thật trừ giờ Mặt Trời trung bình — công thức NOAA, sai số dưới 1 phút.
   function phuongTrinhThoiGian(ms) {
     var d = new Date(ms), dauNam = Date.UTC(d.getUTCFullYear(), 0, 1);
     var soNgay = (Date.UTC(d.getUTCFullYear() + 1, 0, 1) - dauNam) / 86400000;
     var g = 2 * Math.PI / soNgay * ((ms - dauNam) / 86400000);
     return 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
   }
-
-  // ---------- Quy đổi giờ ----------
-  // Giờ đồng hồ (năm, tháng 1–12, ngày, giờ, phút) của thời điểm `ms` tại múi giờ `mui`; bỏ trống = múi giờ của máy.
+  // Giờ đồng hồ của thời điểm ms tại múi giờ IANA `mui` (bỏ trống = múi giờ của máy).
   function gioDongHo(ms, mui) {
     var d = new Date(ms);
     if (!mui) return { y: d.getFullYear(), m: d.getMonth() + 1, d: d.getDate(), h: d.getHours(), mi: d.getMinutes() };
@@ -818,186 +936,248 @@ var KyMon = (function () {
     var g = gioDongHo(ms, mui);
     return Math.round((Date.UTC(g.y, g.m - 1, g.d, g.h, g.mi) - Math.floor(ms / 60000) * 60000) / 60000);
   }
-  // Giờ đồng hồ người dùng nhập tại múi giờ `mui` → thời điểm tuyệt đối (mili giây UTC).
+  // Giờ đồng hồ tại múi giờ `mui` → thời điểm tuyệt đối (mili giây UTC).
   function thoiDiemTuGioDongHo(y, m, d, h, mi, mui) {
     if (!mui) return new Date(y, m - 1, d, h, mi).getTime();
     var dongHo = Date.UTC(y, m - 1, d, h, mi), ms = dongHo;
     for (var k = 0; k < 3; k++) ms = dongHo - lechMuiGio(ms, mui) * 60000;
     return ms;
   }
-  // Tìm thời điểm Mặt Trời tới kinh độ của tiết `i`, bắt đầu dò từ `ms` (đang ở trong tiết đó).
-  function thoiDiemGiaoTiet(ms, i) {
-    var t = ms;
-    for (var n = 0; n < 8; n++) {
-      var lech = mod(kinhDoMatTroi(t) - TIET[i].kinhDo + 180, 360) - 180;
-      t -= lech / 0.98564736 * 86400000;
-      if (Math.abs(lech) < 1e-6) break;
-    }
-    return new Date(t);
+  function dinhDangGio(d, mui) {
+    var g = gioDongHo(d.getTime(), mui);
+    return hai(g.h) + ":" + hai(g.mi) + " ngày " + hai(g.d) + "/" + hai(g.m) + "/" + g.y;
   }
 
-  // ---------- Bước 1: Tứ trụ, Ngũ Tý Độn, tiết khí ----------
-  // Ngày Can Chi tính theo số ngày Julius; ngày 01/10/1949 là Giáp Tý (ví dụ ở Bước 1 của tài liệu).
-  function chiSoNgay(nam, thang, ngay) { return mod(Math.floor(Date.UTC(nam, thang, ngay) / 86400000) + 17, 60); }
-  // Ngũ Tý Độn: Giáp Kỷ khởi Giáp Tý, Ất Canh khởi Bính Tý, Bính Tân khởi Mậu Tý, Đinh Nhâm khởi Canh Tý, Mậu Quý khởi Nhâm Tý.
-  function canGio(canNgay, chiGio) { return mod((canNgay % 5) * 2 + chiGio, 10); }
-  // Ngũ Hổ Độn: Giáp Kỷ khởi Bính Dần, Ất Canh khởi Mậu Dần, Bính Tân khởi Canh Dần, Đinh Nhâm khởi Nhâm Dần, Mậu Quý khởi Giáp Dần.
-  function canThang(canNam, chiThang) { return mod((canNam % 5) * 2 + 2 + mod(chiThang - 2, 12), 10); }
+  KM.Lich = {
+    kinhDoMatTroi: kinhDoMatTroi, tietTai: tietTai, phuongTrinhThoiGian: phuongTrinhThoiGian,
+    gioDongHo: gioDongHo, lechMuiGio: lechMuiGio, thoiDiemTuGioDongHo: thoiDiemTuGioDongHo,
+    dinhDangGio: dinhDangGio, coBangTiet: function () { return !!BANG; }
+  };
+})(typeof module !== "undefined" && module.exports
+  ? (require("./cong-cu.js"), require("./bang-tra.js"), require("./tiet-khi-bang.js"), module.exports = require("./km.js"))
+  : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 1 — Đổi giờ và xác định tiết khí: Tứ trụ năm, tháng, ngày, giờ (Ngũ Tý Độn), tiết khí, Âm/Dương độn.
+//   KM.B1.nguTyDon(canNgay, chiGio)  → Can giờ
+//   KM.B1.canChiNgay(nam, thang0, ngay) → chỉ số Can Chi ngày (0 – 59)
+//   KM.B1.tinh(date, tuyChon)        → Tứ trụ, tiết khí, quy đổi giờ
+// Tùy chọn: muiGio (IANA), kinhDo (độ Đông), gioMatTroi (true: đổi theo giờ Mặt Trời thật),
+//           doiNgay ("23" giờ Tý sớm — mặc định; "0" giờ Tý muộn: 23h – 24h giữ ngày cũ, Can giờ theo ngày hôm sau).
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra, L = KM.Lich, mod = C.mod;
 
-  function buoc1(date, tc) {
+  function nguTyDon(canNgay, chiGio) { return mod(T.NGU_TY_DON[canNgay % 5] + chiGio, 10); }
+  function nguHoDon(canNam, chiThang) { return mod(T.NGU_HO_DON[canNam % 5] + mod(chiThang - 2, 12), 10); }
+  // Ngày Can Chi theo số ngày Julius; 01/10/1949 là Giáp Tý (ví dụ ở Bước 1 của tài liệu).
+  function canChiNgay(nam, thang0, ngay) { return mod(Math.floor(Date.UTC(nam, thang0, ngay) / 86400000) + 17, 60); }
+
+  function tinh(date, tc) {
     tc = tc || {};
     var ms = date.getTime();
-    var dongHo = gioDongHo(ms, tc.muiGio);
-    // Giờ dùng để đổi Can Chi ngày, giờ: giờ đồng hồ, hoặc giờ Mặt Trời thật theo kinh độ nơi lập trận.
+    var dongHo = L.gioDongHo(ms, tc.muiGio);
     var dungMT = !!tc.gioMatTroi && typeof tc.kinhDo === "number";
-    var eot = phuongTrinhThoiGian(ms), gio = dongHo;
+    var eot = L.phuongTrinhThoiGian(ms), gio = dongHo;
     if (dungMT) {
       var mt = new Date(ms + (tc.kinhDo * 4 + eot) * 60000);
       gio = { y: mt.getUTCFullYear(), m: mt.getUTCMonth() + 1, d: mt.getUTCDate(), h: mt.getUTCHours(), mi: mt.getUTCMinutes() };
     }
     var doiLuc23 = tc.doiNgay !== "0";
-    // Giờ Tý bắt đầu lúc 23h; mặc định đó là giờ đầu tiên của ngày hôm sau (giờ Tý sớm).
-    var ngayAm = new Date(Date.UTC(gio.y, gio.m - 1, gio.d + (doiLuc23 && gio.h >= 23 ? 1 : 0)));
-    var ngay = chiSoNgay(ngayAm.getUTCFullYear(), ngayAm.getUTCMonth(), ngayAm.getUTCDate());
+    var ngayTinh = new Date(Date.UTC(gio.y, gio.m - 1, gio.d + (doiLuc23 && gio.h >= 23 ? 1 : 0)));
+    var ngay = canChiNgay(ngayTinh.getUTCFullYear(), ngayTinh.getUTCMonth(), ngayTinh.getUTCDate());
     var chiG = Math.floor(mod(gio.h + 1, 24) / 2);
     var canNgayChoGio = ngay % 10;
-    if (!doiLuc23 && gio.h >= 23) canNgayChoGio = (canNgayChoGio + 1) % 10; // dạ Tý: Can giờ theo ngày hôm sau
-    var canG = canGio(canNgayChoGio, chiG);
-    var tk = tietTai(ms), ti = tk.i;
-    // Tháng Can Chi đổi ở các "tiết" (Tiểu hàn mở tháng Sửu, Lập xuân mở tháng Dần, ...).
+    if (!doiLuc23 && gio.h >= 23) canNgayChoGio = (canNgayChoGio + 1) % 10;
+    var canG = nguTyDon(canNgayChoGio, chiG);
+    var tk = L.tietTai(ms), ti = tk.i;
+    // Tháng đổi ở các "tiết" (Tiểu hàn mở tháng Sửu, Lập xuân mở tháng Dần …); năm đổi ở Lập xuân.
     var chiT = mod(1 + Math.floor(mod(ti - 1, 24) / 2), 12);
-    // Năm Can Chi đổi ở Lập xuân: đầu năm dương lịch, trước Lập xuân vẫn thuộc năm trước.
     var namDL = dongHo.y;
     if (dongHo.m <= 6 && ti <= 2) namDL -= 1;
     var nam = mod(namDL - 4, 60);
-    var thang = chiSo60(canThang(nam % 10, chiT), chiT);
     return {
-      tuTru: { nam: nam, thang: thang, ngay: ngay, gio: chiSo60(canG, chiG) },
-      canGio: canG, chiGio: chiG, canNgay: ngay % 10,
-      tiet: ti, kinhDo: kinhDoMatTroi(ms), giaoTiet: tk.giao, tietTiep: tk.tiep, nguonTiet: tk.nguon,
-      ngayTinh: ngayAm,
-      quyDoi: { utc: ms, dongHo: dongHo, muiGio: tc.muiGio || "", lechMui: lechMuiGio(ms, tc.muiGio),
+      tuTru: { nam: nam, thang: C.chiSo60(nguHoDon(nam % 10, chiT), chiT), ngay: ngay, gio: C.chiSo60(canG, chiG) },
+      canGio: canG, chiGio: chiG,
+      tiet: ti, duong: T.TIET[ti].duong, giaoTiet: tk.giao, tietTiep: tk.tiep, nguonTiet: tk.nguon, ngayTinh: ngayTinh,
+      quyDoi: { utc: ms, dongHo: dongHo, muiGio: tc.muiGio || "", lechMui: L.lechMuiGio(ms, tc.muiGio),
         kinhDo: typeof tc.kinhDo === "number" ? tc.kinhDo : null, eot: eot, gioMatTroi: dungMT, gioDung: gio, doiNgay: doiLuc23 ? "23" : "0" }
     };
   }
-
-  // ---------- Bước 2: Phù đầu, Tam nguyên, Cục số ----------
-  function buoc2(chiSoNgayCC, tiet) {
-    // Đếm lùi Can Chi ngày tới ngày có can Giáp hoặc Kỷ gần nhất.
-    var phuDau = chiSoNgayCC - (chiSoNgayCC % 10) % 5;
-    var chi = phuDau % 12;
-    // Tứ Chính (Tý Ngọ Mão Dậu) → Thượng; Tứ Sinh (Dần Thân Tỵ Hợi) → Trung; Tứ Mộ (Thìn Tuất Sửu Mùi) → Hạ.
-    var nhom = [0, 6, 3, 9].indexOf(chi) >= 0 ? 0 : ([2, 8, 5, 11].indexOf(chi) >= 0 ? 1 : 2);
-    var t = TIET[tiet];
-    return { phuDau: phuDau, nguyen: nhom, nhomChi: ["Tứ Chính", "Tứ Sinh", "Tứ Mộ"][nhom], duong: t.duong, cuc: t.cuc[nhom] };
+  KM.B1 = { nguTyDon: nguTyDon, nguHoDon: nguHoDon, canChiNgay: canChiNgay, tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./lich.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 2 — Phù đầu và Tam nguyên, chốt Cục số.
+//   KM.B2.tinh(ngay60, tiet) → { phuDau, luiNgay, nhomChi, nguyen, duong, cuc }
+//   ngay60: Can Chi ngày (0 – 59); tiet: chỉ số tiết khí (0 = Đông chí … 23 = Đại tuyết)
+(function (KM) {
+  "use strict";
+  var T = KM.BangTra;
+  function tinh(ngay60, tiet) {
+    var lui = (ngay60 % 10) % 5;            // Giáp/Kỷ: 0 ngày; Ất/Canh: 1; Bính/Tân: 2; Đinh/Nhâm: 3; Mậu/Quý: 4
+    var phuDau = ngay60 - lui, chi = phuDau % 12;
+    var nhom = T.NHOM_PHU_DAU.filter(function (n) { return n.chi.indexOf(chi) >= 0; })[0];
+    var t = T.TIET[tiet];
+    return { phuDau: phuDau, luiNgay: lui, nhomChi: nhom.ten, nguyen: nhom.nguyen, duong: t.duong, cuc: t.cuc[nhom.nguyen] };
   }
-
-  // ---------- Bước 3 – 12: an bàn ----------
-  function anBan(duong, cuc, canG, chiG) {
-    var gio60 = chiSo60(canG, chiG);
-    if (gio60 < 0) throw new Error("Can Chi giờ không hợp lệ");
-
-    // Bước 3: an Lục Nghi – Tam Kỳ lên Địa bàn. Mậu khởi tại cung bằng Cục số.
+  KM.B2 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 3 — An Thiên Can Địa bàn (Lục Nghi, Tam Kỳ): Mậu khởi tại cung bằng Cục số, Dương thuận, Âm nghịch.
+//   KM.B3.tinh(duong, cuc) → { 1..9: chỉ số Can }
+//   KM.B3.cungCuaCan(dia, can) → số cung đang chứa Can đó
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(duong, cuc) {
     var dia = {};
-    for (var i = 0; i < 9; i++) dia[phiCung(cuc, i, duong)] = NGHI_KY[i];
-    var cungCuaCan = function (can) { for (var p = 1; p <= 9; p++) if (dia[p] === can) return p; return -1; };
-
-    // Bước 4: Tuần thủ và Cờ. Đếm lùi Can Chi giờ về can Giáp.
-    var tuanThu = gio60 - canG;
-    var co = 4 + tuanThu / 10; // Giáp Tý → Mậu, Giáp Tuất → Kỷ, ... Giáp Dần → Quý
-
-    // Bước 5: Đại Trực Phù và Trực Sử theo cung của Cờ trên Địa bàn.
-    var cungCo = cungCuaCan(co);
-    var trucPhu = TINH_GOC[cungCo], trucSu = MON_GOC[cungCo];
-    var cungGocTP = gui(cungCo); // Thiên Cầm ở Trung cung đi kèm Thiên Nhuế tại Khôn 2
-
-    // Bước 6: chuyển Thiên bàn. Trực Phù bay tới cung của Can giờ (giờ Giáp lấy cung của Cờ),
-    // các sao và Can Thiên bàn xoay thuận kim đồng hồ quanh 8 cung, không phân biệt Âm / Dương.
-    var cungCanGio = canG === 0 ? cungCo : cungCuaCan(canG);
-    var cungDenTP = gui(cungCanGio);
-    var dichTinh = mod(VONG.indexOf(cungDenTP) - VONG.indexOf(cungGocTP), 8);
+    for (var i = 0; i < 9; i++) dia[C.phiCung(cuc, i, duong)] = T.NGHI_KY[i];
+    return dia;
+  }
+  function cungCuaCan(dia, can) { for (var p = 1; p <= 9; p++) if (dia[p] === can) return p; return -1; }
+  KM.B3 = { tinh: tinh, cungCuaCan: cungCuaCan };
+})(typeof module !== "undefined" && module.exports ? (require("./cong-cu.js"), require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 4 — Tuần thủ và Cờ: đếm lùi Can Chi giờ về can Giáp; Giáp ẩn dưới một Nghi.
+//   KM.B4.tinh(canGio, chiGio) → { gio60, tuanThu, co, ky, thanQuan }
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(canG, chiG) {
+    var gio60 = C.chiSo60(canG, chiG);
+    if (gio60 < 0) throw new Error("Can Chi giờ không hợp lệ");
+    var tuanThu = gio60 - canG, dong = T.TUAN_CO[tuanThu / 10];
+    return { gio60: gio60, tuanThu: tuanThu, co: dong.co, ky: dong.ky, thanQuan: dong.thanQuan };
+  }
+  KM.B4 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./cong-cu.js"), require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 5 — Đại Trực Phù (Cửu Tinh) và Trực Sử (Bát Môn) theo cung của Cờ trên Địa bàn.
+//   KM.B5.tinh(dia, co) → { cungCo, trucPhu, trucSu, cungGocTP }
+//   Cờ ở Trung cung: Trực Phù là Thiên Cầm, Trực Sử là Tử Môn, cùng gửi Khôn 2.
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(dia, co) {
+    var cungCo = KM.B3.cungCuaCan(dia, co);
+    return { cungCo: cungCo, trucPhu: T.TINH_GOC[cungCo], trucSu: T.MON_GOC[cungCo], cungGocTP: C.gui(cungCo) };
+  }
+  KM.B5 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./b03-dia-ban.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 6 — An Đại Trực Phù và Thiên Can Thiên bàn: Trực Phù bay tới cung của Can giờ (giờ Giáp lấy cung của Cờ),
+// các sao và Can đi kèm xoay thuận kim đồng hồ, không phân biệt Âm / Dương. Thiên Cầm và can Trung cung đi cùng Thiên Nhuế.
+//   KM.B6.tinh(dia, b5, canGio) → { cungCanGio, cungDenTP, dichTinh, thien: { cung: { tinh: [...], can: [...], tu } } }
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(dia, b5, canG) {
+    var cungCanGio = canG === 0 ? b5.cungCo : KM.B3.cungCuaCan(dia, canG);
+    var cungDenTP = C.gui(cungCanGio);
+    var dichTinh = C.mod(T.VONG.indexOf(cungDenTP) - T.VONG.indexOf(b5.cungGocTP), 8);
     var thien = {};
-    VONG.forEach(function (p, k) {
-      var den = VONG[(k + dichTinh) % 8];
-      // Thiên Cầm và can của Trung cung luôn đi cùng Thiên Nhuế.
-      thien[den] = {
-        tinh: p === 2 ? [TINH_GOC[2], TINH_GOC[5]] : [TINH_GOC[p]],
+    T.VONG.forEach(function (p, k) {
+      thien[T.VONG[(k + dichTinh) % 8]] = {
+        tinh: p === 2 ? [T.TINH_GOC[2], T.TINH_GOC[5]] : [T.TINH_GOC[p]],
         can: p === 2 ? [dia[2], dia[5]] : [dia[p]],
         tu: p
       };
     });
-
-    // Bước 7: chuyển Nhân bàn. Từ cung của Cờ, đếm từ Giáp tới Can giờ theo số Cửu Cung
-    // (Dương thuận, Âm nghịch); dừng ở cung 5 thì mượn Khôn 2. Bát Môn xoay thuận kim đồng hồ.
-    var cungDemSu = phiCung(cungCo, canG, duong);
-    var cungDenTS = gui(cungDemSu);
-    var monVong = VONG.map(function (p) { return MON_GOC[p]; });
-    var dichMon = mod(VONG.indexOf(cungDenTS) - monVong.indexOf(trucSu), 8);
+    return { cungCanGio: cungCanGio, cungDenTP: cungDenTP, dichTinh: dichTinh, thien: thien };
+  }
+  KM.B6 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./b03-dia-ban.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 7 — An Trực Sử (Bát Môn): từ cung của Cờ đếm Giáp → Can giờ theo số Cửu Cung (Dương thuận, Âm nghịch);
+// dừng ở cung 5 thì mượn Khôn 2; các cửa còn lại xoay thuận kim đồng hồ.
+//   KM.B7.tinh(duong, b5, canGio) → { cungDemSu, cungDenTS, dichMon, mon: { cung: tên Môn } }
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(duong, b5, canG) {
+    var cungDemSu = C.phiCung(b5.cungCo, canG, duong);
+    var cungDenTS = C.gui(cungDemSu);
+    var monVong = T.VONG.map(function (p) { return T.MON_GOC[p]; });
+    var dichMon = C.mod(T.VONG.indexOf(cungDenTS) - monVong.indexOf(b5.trucSu), 8);
     var mon = {};
-    monVong.forEach(function (m, k) { mon[VONG[(k + dichMon) % 8]] = m; });
-
-    // Bước 8: Bát Thần Thiên bàn khởi Trực Phù tại cung Đại Trực Phù vừa tới;
-    // Dương độn thuận, Âm độn nghịch kim đồng hồ.
-    var anThan = function (cungKhoi) {
-      var out = {}, s = VONG.indexOf(cungKhoi);
-      BAT_THAN.forEach(function (t, g) { out[VONG[mod(s + (duong ? g : -g), 8)]] = t; });
-      return out;
-    };
-    var than = anThan(cungDenTP);
-
-    // Bước 9: Mã Tinh theo Tam Hợp của chi giờ.
-    var chiMa = [2, 11, 8, 5][chiG % 4]; // Thân Tý Thìn → Dần; Tỵ Dậu Sửu → Hợi; Dần Ngọ Tuất → Thân; Hợi Mão Mùi → Tỵ
-    var ma = { chi: chiMa, cung: CHI_CUNG[chiMa] };
-
-    // Bước 10: Không Vong là hai Địa Chi không có Can phối trong tuần.
-    var chiTuan = tuanThu % 12;
-    var kvChi = [mod(chiTuan + 10, 12), mod(chiTuan + 11, 12)];
-    var kvCung = [];
-    kvChi.forEach(function (c) { if (kvCung.indexOf(CHI_CUNG[c]) < 0) kvCung.push(CHI_CUNG[c]); });
-
-    // Trường hợp đặc biệt của Bước 11 và 12: giờ Lục Giáp, Phục ngâm hoặc Phản ngâm toàn trận
-    // (Thiên bàn không dịch hoặc dịch đúng nửa vòng so với Địa bàn).
-    var phucNgam = dichTinh === 0, phanNgam = dichTinh === 4;
+    monVong.forEach(function (m, k) { mon[T.VONG[(k + dichMon) % 8]] = m; });
+    return { cungDemSu: cungDemSu, cungDenTS: cungDenTS, dichMon: dichMon, mon: mon };
+  }
+  KM.B7 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./cong-cu.js"), require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 8 — An Bát Thần Thiên bàn: thần Trực Phù đóng cùng Đại Trực Phù; Dương độn thuận, Âm độn nghịch kim đồng hồ.
+//   KM.B8.tinh(duong, cungKhoi) → { cung: tên Thần }   (Bước 11 dùng lại hàm này với cung khởi khác)
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(duong, cungKhoi) {
+    var out = {}, s = T.VONG.indexOf(cungKhoi);
+    T.BAT_THAN.forEach(function (t, g) { out[T.VONG[C.mod(s + (duong ? g : -g), 8)]] = t; });
+    return out;
+  }
+  KM.B8 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./cong-cu.js"), require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 9 — Mã Tinh (Dịch Mã) theo Tam Hợp của chi giờ; luôn đóng ở cung góc Cấn 8, Tốn 4, Khôn 2 hoặc Càn 6.
+//   KM.B9.tinh(chiGio) → { chi, cung }
+(function (KM) {
+  "use strict";
+  var T = KM.BangTra;
+  function tinh(chiG) { var chi = T.MA_TINH[chiG % 4]; return { chi: chi, cung: T.CHI_CUNG[chi] }; }
+  KM.B9 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 10 — Không Vong (Tuần Không): hai Địa Chi không có Can phối trong tuần của giờ.
+//   KM.B10.tinh(tuanThu) → { chi: [a, b], cung: [một hoặc hai cung] }
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(tuanThu) {
+    var chiTuan = tuanThu % 12, chi = [C.mod(chiTuan + 10, 12), C.mod(chiTuan + 11, 12)], cung = [];
+    chi.forEach(function (c) { if (cung.indexOf(T.CHI_CUNG[c]) < 0) cung.push(T.CHI_CUNG[c]); });
+    return { chi: chi, cung: cung };
+  }
+  KM.B10 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./cong-cu.js"), require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 11 — An Bát Thần Địa bàn (Ám thần).
+//   Trường hợp 1 (giờ Lục Giáp, Phục ngâm hoặc Phản ngâm toàn trận): an trùng Bát Thần Thiên bàn.
+//   Trường hợp 2 (giờ thường): khởi Trực Phù tại cung gốc của Đại Trực Phù, cùng chiều với Thần bàn.
+//   KM.B11.tinh(duong, canGio, b5, b6) → { phucNgam, phanNgam, dacBiet, thanDia }
+(function (KM) {
+  "use strict";
+  function tinh(duong, canG, b5, b6) {
+    var phucNgam = b6.dichTinh === 0, phanNgam = b6.dichTinh === 4;
     var dacBiet = canG === 0 || phucNgam || phanNgam;
-
-    // Bước 11: Bát Thần Địa bàn (Ám thần).
-    var thanDia = dacBiet ? anThan(cungDenTP) : anThan(cungGocTP);
-
-    // Bước 12: Ám Can. Can giờ nhập cung khởi rồi phi qua Cửu Cung theo thứ tự Lục Nghi – Tam Kỳ.
-    var cungKhoiAm = dacBiet ? 5 : cungDenTS;
-    var canKhoiAm = canG === 0 ? co : canG; // giờ Giáp: Giáp ẩn dưới Cờ
-    var viTri = NGHI_KY.indexOf(canKhoiAm), amCan = {};
-    for (var j = 0; j < 9; j++) amCan[phiCung(cungKhoiAm, j, duong)] = NGHI_KY[(viTri + j) % 9];
-
-    return {
-      duong: duong, cuc: cuc, gio: gio60, canGio: canG, chiGio: chiG,
-      dia: dia,
-      tuanThu: tuanThu, co: co, cungCo: cungCo,
-      trucPhu: trucPhu, trucSu: trucSu, cungGocTP: cungGocTP,
-      cungCanGio: cungCanGio, cungDenTP: cungDenTP, thien: thien, dichTinh: dichTinh,
-      cungDemSu: cungDemSu, cungDenTS: cungDenTS, mon: mon, dichMon: dichMon,
-      than: than, ma: ma, khongVong: { chi: kvChi, cung: kvCung },
-      phucNgam: phucNgam, phanNgam: phanNgam, dacBiet: dacBiet,
-      thanDia: thanDia, cungKhoiAm: cungKhoiAm, amCan: amCan
-    };
+    return { phucNgam: phucNgam, phanNgam: phanNgam, dacBiet: dacBiet, thanDia: KM.B8.tinh(duong, dacBiet ? b6.cungDenTP : b5.cungGocTP) };
   }
-
-  // Lập trận đủ 12 bước cho một thời điểm (giờ địa phương của máy).
-  function lapTran(date, tuyChon) {
-    var b1 = buoc1(date, tuyChon);
-    var b2 = buoc2(b1.tuTru.ngay, b1.tiet);
-    var ban = anBan(b2.duong, b2.cuc, b1.canGio, b1.chiGio);
-    ban.thoiDiem = new Date(date.getTime());
-    ban.tuTru = b1.tuTru; ban.ngayTinh = b1.ngayTinh;
-    ban.tiet = b1.tiet; ban.tenTiet = TIET[b1.tiet].ten; ban.kinhDo = b1.kinhDo; ban.giaoTiet = b1.giaoTiet;
-    ban.tietTiep = b1.tietTiep; ban.nguonTiet = b1.nguonTiet; ban.quyDoi = b1.quyDoi;
-    ban.phuDau = b2.phuDau; ban.nguyen = b2.nguyen; ban.nhomChi = b2.nhomChi;
-    return ban;
+  KM.B11 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./b08-than-ban.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Bước 12 — An Ám Can theo Can giờ: trường hợp đặc biệt (giờ Lục Giáp, Phục / Phản ngâm) Can giờ nhập Trung cung 5,
+// giờ thường khởi tại cung Trực Sử; rồi phi qua Cửu Cung (Dương thuận, Âm nghịch) theo thứ tự Lục Nghi – Tam Kỳ.
+// Giờ Giáp: Giáp ẩn dưới Cờ nên lấy can của Cờ.
+//   KM.B12.tinh(duong, dacBiet, cungDenTS, canGio, co) → { cungKhoiAm, canKhoiAm, amCan: { 1..9: chỉ số Can } }
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra;
+  function tinh(duong, dacBiet, cungDenTS, canG, co) {
+    var cungKhoi = dacBiet ? 5 : cungDenTS, canKhoi = canG === 0 ? co : canG;
+    var viTri = T.NGHI_KY.indexOf(canKhoi), amCan = {};
+    for (var j = 0; j < 9; j++) amCan[C.phiCung(cungKhoi, j, duong)] = T.NGHI_KY[(viTri + j) % 9];
+    return { cungKhoiAm: cungKhoi, canKhoiAm: canKhoi, amCan: amCan };
   }
-
-  // Tóm tắt kết quả từng bước bằng lời, để hiển thị "Trình tự 12 bước" dưới bàn.
+  KM.B12 = { tinh: tinh };
+})(typeof module !== "undefined" && module.exports ? (require("./cong-cu.js"), require("./bang-tra.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Diễn giải kết quả từng bước bằng lời ("Trình tự 12 bước của bàn này" dưới bàn).
+//   KM.TrinhTu.tomTat(ban) → [{ buoc, ten, ketQua }]
+(function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra, CAN = C.CAN, CHI = C.CHI, VONG = T.VONG, CUNG = T.CUNG, TIET = T.TIET, NGUYEN = T.NGUYEN, hai = C.hai;
+  function tenCung(p) { return CUNG[p].ten + " " + p; }
   function trinhTu(b) {
-    var c = function (i) { return CAN[i]; }, cc = canChi;
+    var c = function (i) { return CAN[i]; }, cc = C.canChi;
     var dan = function (map, ten) {
       return VONG.map(function (p) { return tenCung(p) + ": " + ten(map[p]); }).join(" · ");
     };
@@ -1013,7 +1193,7 @@ var KyMon = (function () {
       steps.push(["Đổi giờ và xác định tiết khí",
         "Tứ trụ: năm " + cc(b.tuTru.nam) + ", tháng " + cc(b.tuTru.thang) + ", ngày " + cc(b.tuTru.ngay) + ", giờ " + cc(b.tuTru.gio) +
         (b.quyDoi && b.quyDoi.gioMatTroi ? " (đổi theo giờ Mặt Trời thật " + hai(b.quyDoi.gioDung.h) + ":" + hai(b.quyDoi.gioDung.mi) + ")" : "") +
-        ". Tiết " + TIET[b.tiet].ten + " (" + (b.duong ? "Dương độn" : "Âm độn") + "), giao tiết lúc " + dinhDangGio(b.giaoTiet, b.quyDoi && b.quyDoi.muiGio) +
+        ". Tiết " + TIET[b.tiet].ten + " (" + (b.duong ? "Dương độn" : "Âm độn") + "), giao tiết lúc " + KM.Lich.dinhDangGio(b.giaoTiet, b.quyDoi && b.quyDoi.muiGio) +
         (b.nguonTiet === "bang" ? " theo bảng Thọ Tinh vạn niên lịch" : " theo công thức thiên văn") + "."]);
       steps.push(["Phù đầu và Tam nguyên",
         "Ngày " + cc(b.tuTru.ngay) + " lùi về Phù đầu " + cc(b.phuDau) + " (" + b.nhomChi + ") → " + NGUYEN[b.nguyen] +
@@ -1043,22 +1223,68 @@ var KyMon = (function () {
     return steps.map(function (s, k) { return { buoc: dau + k, ten: s[0], ketQua: s[1] }; });
   }
 
-  function hai(n) { return (n < 10 ? "0" : "") + n; }
-  // Hiển thị một thời điểm theo giờ đồng hồ của múi giờ `mui` (bỏ trống = múi giờ của máy).
-  function dinhDangGio(d, mui) {
-    var g = gioDongHo(d.getTime(), mui);
-    return hai(g.h) + ":" + hai(g.mi) + " ngày " + hai(g.d) + "/" + hai(g.m) + "/" + g.y;
+  KM.TrinhTu = { tomTat: trinhTu };
+})(typeof module !== "undefined" && module.exports ? (require("./lich.js"), module.exports = require("./km.js")) : KM);
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Điều phối 12 bước lập trận theo tài liệu "Quy trình lập trận Kỳ Môn Độn Giáp" (docs/quy-trinh-lap-tran.md).
+//   KyMon.lapTran(date, tuyChon)          lập trận đủ 12 bước cho một thời điểm (Bước 1 → 12)
+//   KyMon.anBan(duong, cuc, canGio, chiGio)  an bàn Bước 3 → 12 khi đã biết Cục và Can Chi giờ
+// Từng bước nằm ở lib/b01-…js đến lib/b12-…js và dùng được riêng (KM.B1 … KM.B12).
+// KyMon giữ nguyên các tên cũ (CAN, CHI, TIET, canChi, tietTai, …) để giao diện và kiểm thử dùng tiếp.
+var KyMon = (function (KM) {
+  "use strict";
+  var C = KM.CongCu, T = KM.BangTra, L = KM.Lich;
+
+  function anBan(duong, cuc, canG, chiG) {
+    var dia = KM.B3.tinh(duong, cuc);
+    var b4 = KM.B4.tinh(canG, chiG);
+    var b5 = KM.B5.tinh(dia, b4.co);
+    var b6 = KM.B6.tinh(dia, b5, canG);
+    var b7 = KM.B7.tinh(duong, b5, canG);
+    var than = KM.B8.tinh(duong, b6.cungDenTP);
+    var ma = KM.B9.tinh(chiG);
+    var kv = KM.B10.tinh(b4.tuanThu);
+    var b11 = KM.B11.tinh(duong, canG, b5, b6);
+    var b12 = KM.B12.tinh(duong, b11.dacBiet, b7.cungDenTS, canG, b4.co);
+    return {
+      duong: duong, cuc: cuc, gio: b4.gio60, canGio: canG, chiGio: chiG,
+      dia: dia,
+      tuanThu: b4.tuanThu, co: b4.co, cungCo: b5.cungCo,
+      trucPhu: b5.trucPhu, trucSu: b5.trucSu, cungGocTP: b5.cungGocTP,
+      cungCanGio: b6.cungCanGio, cungDenTP: b6.cungDenTP, thien: b6.thien, dichTinh: b6.dichTinh,
+      cungDemSu: b7.cungDemSu, cungDenTS: b7.cungDenTS, mon: b7.mon, dichMon: b7.dichMon,
+      than: than, ma: ma, khongVong: kv,
+      phucNgam: b11.phucNgam, phanNgam: b11.phanNgam, dacBiet: b11.dacBiet, thanDia: b11.thanDia,
+      cungKhoiAm: b12.cungKhoiAm, amCan: b12.amCan
+    };
+  }
+
+  function lapTran(date, tuyChon) {
+    var b1 = KM.B1.tinh(date, tuyChon);
+    var b2 = KM.B2.tinh(b1.tuTru.ngay, b1.tiet);
+    var ban = anBan(b2.duong, b2.cuc, b1.canGio, b1.chiGio);
+    ban.thoiDiem = new Date(date.getTime());
+    ban.tuTru = b1.tuTru; ban.ngayTinh = b1.ngayTinh;
+    ban.tiet = b1.tiet; ban.tenTiet = T.TIET[b1.tiet].ten; ban.kinhDo = L.kinhDoMatTroi(date.getTime()); ban.giaoTiet = b1.giaoTiet;
+    ban.tietTiep = b1.tietTiep; ban.nguonTiet = b1.nguonTiet; ban.quyDoi = b1.quyDoi;
+    ban.phuDau = b2.phuDau; ban.nguyen = b2.nguyen; ban.nhomChi = b2.nhomChi;
+    return ban;
   }
 
   return {
-    CAN: CAN, CHI: CHI, NGUYEN: NGUYEN, CUNG: CUNG, VONG: VONG, TIET: TIET, BAT_THAN: BAT_THAN,
-    TINH_GOC: TINH_GOC, MON_GOC: MON_GOC, CHI_CUNG: CHI_CUNG,
-    canChi: canChi, chiSo60: chiSo60, canGio: canGio, kinhDoMatTroi: kinhDoMatTroi,
-    tietTai: tietTai, phuongTrinhThoiGian: phuongTrinhThoiGian, gioDongHo: gioDongHo, lechMuiGio: lechMuiGio,
-    thoiDiemTuGioDongHo: thoiDiemTuGioDongHo, coBangTiet: function () { return !!BANG; },
-    buoc1: buoc1, buoc2: buoc2, anBan: anBan, lapTran: lapTran, trinhTu: trinhTu, dinhDangGio: dinhDangGio
+    KM: KM,
+    CAN: C.CAN, CHI: C.CHI, NGUYEN: T.NGUYEN, CUNG: T.CUNG, VONG: T.VONG, TIET: T.TIET, BAT_THAN: T.BAT_THAN,
+    TINH_GOC: T.TINH_GOC, MON_GOC: T.MON_GOC, CHI_CUNG: T.CHI_CUNG,
+    canChi: C.canChi, chiSo60: C.chiSo60, canGio: KM.B1.nguTyDon, kinhDoMatTroi: L.kinhDoMatTroi,
+    tietTai: L.tietTai, phuongTrinhThoiGian: L.phuongTrinhThoiGian, gioDongHo: L.gioDongHo, lechMuiGio: L.lechMuiGio,
+    thoiDiemTuGioDongHo: L.thoiDiemTuGioDongHo, coBangTiet: L.coBangTiet, dinhDangGio: L.dinhDangGio,
+    buoc1: KM.B1.tinh, buoc2: KM.B2.tinh, anBan: anBan, lapTran: lapTran, trinhTu: KM.TrinhTu.tomTat
   };
-})();
+})(typeof module !== "undefined" && module.exports
+  ? ["./b01-tu-tru.js", "./b02-phu-dau.js", "./b03-dia-ban.js", "./b04-tuan-thu.js", "./b05-truc-phu-su.js", "./b06-thien-ban.js",
+     "./b07-nhan-ban.js", "./b08-than-ban.js", "./b09-ma-tinh.js", "./b10-khong-vong.js", "./b11-than-dia-ban.js", "./b12-am-can.js",
+     "./trinh-tu.js"].reduce(function (km, f) { require(f); return km; }, require("./km.js"))
+  : KM);
 if (typeof module !== "undefined" && module.exports) module.exports = KyMon;
 // © 2026 Trận Pháp Kỳ Môn — mã do Trận Pháp Kỳ Môn tự viết (xem ghi chú đầu tệp).
 // ===== Page router =====
@@ -1129,63 +1355,6 @@ PALACES.forEach(function(p,i){
   grid.appendChild(d);
 });
 
-// Ngu Ty Don table: rows = 12 gio, cols = 5 nhom ngay
-var GIO=[["Tý","23h – 01h"],["Sửu","01h – 03h"],["Dần","03h – 05h"],["Mão","05h – 07h"],["Thìn","07h – 09h"],["Tỵ","09h – 11h"],["Ngọ","11h – 13h"],["Mùi","13h – 15h"],["Thân","15h – 17h"],["Dậu","17h – 19h"],["Tuất","19h – 21h"],["Hợi","21h – 23h"]];
-var NTD=[
- ["Giáp Tý","Bính Tý","Mậu Tý","Canh Tý","Nhâm Tý"],
- ["Ất Sửu","Đinh Sửu","Kỷ Sửu","Tân Sửu","Quý Sửu"],
- ["Bính Dần","Mậu Dần","Canh Dần","Nhâm Dần","Giáp Dần"],
- ["Đinh Mão","Kỷ Mão","Tân Mão","Quý Mão","Ất Mão"],
- ["Mậu Thìn","Canh Thìn","Nhâm Thìn","Giáp Thìn","Bính Thìn"],
- ["Kỷ Tỵ","Tân Tỵ","Quý Tỵ","Ất Tỵ","Đinh Tỵ"],
- ["Canh Ngọ","Nhâm Ngọ","Giáp Ngọ","Bính Ngọ","Mậu Ngọ"],
- ["Tân Mùi","Quý Mùi","Ất Mùi","Đinh Mùi","Kỷ Mùi"],
- ["Nhâm Thân","Giáp Thân","Bính Thân","Mậu Thân","Canh Thân"],
- ["Quý Dậu","Ất Dậu","Đinh Dậu","Kỷ Dậu","Tân Dậu"],
- ["Giáp Tuất","Bính Tuất","Mậu Tuất","Canh Tuất","Nhâm Tuất"],
- ["Ất Hợi","Đinh Hợi","Kỷ Hợi","Tân Hợi","Quý Hợi"]
-];
-var selGio=document.getElementById('selGio');
-GIO.forEach(function(g,i){var o=document.createElement('option');o.value=i;o.textContent='Giờ '+g[0]+' ('+g[1]+')';selGio.appendChild(o);});
-selGio.value=8; // Gio Than - vi du 1949
-var CAN_GROUP={"Giáp":0,"Kỷ":0,"Ất":1,"Canh":1,"Bính":2,"Tân":2,"Đinh":3,"Nhâm":3,"Mậu":4,"Quý":4};
-var GROUP_LABEL=["Giáp / Kỷ","Ất / Canh","Bính / Tân","Đinh / Nhâm","Mậu / Quý"];
-document.getElementById('btnGio').addEventListener('click',function(){
-  var can=document.getElementById('selCan').value, gi=parseInt(selGio.value,10);
-  var res=NTD[gi][CAN_GROUP[can]];
-  var out=document.getElementById('outGio'); out.classList.add('show');
-  out.innerHTML='Ngày <strong>'+can+'</strong> (nhóm '+GROUP_LABEL[CAN_GROUP[can]]+') — giờ <strong>'+GIO[gi][0]+'</strong> ('+GIO[gi][1]+') là: <span style="font-size:20px;font-weight:800;color:var(--red)">'+res+'</span><br><span style="font-size:13px;color:var(--muted)">Theo ca quyết: giờ Tý của nhóm này là '+NTD[0][CAN_GROUP[can]]+', đếm thuận Thiên can tới giờ '+GIO[gi][0]+' được '+res+'.</span>';
-});
-
-// B · Cục số 24 tiết khí (bảng nằm trong bộ máy KyMon.TIET)
-var selTiet=document.getElementById('selTiet');
-KyMon.TIET.forEach(function(r,i){var o=document.createElement('option');o.value=i;o.textContent=r.ten+' ('+(r.duong?'Dương độn':'Âm độn')+')';selTiet.appendChild(o);});
-document.getElementById('btnCuc').addEventListener('click',function(){
-  var r=KyMon.TIET[parseInt(selTiet.value,10)], ng=parseInt(document.getElementById('selNguyen').value,10);
-  var don=r.duong?'Dương độn':'Âm độn', cuc=r.cuc[ng];
-  var out=document.getElementById('outCuc'); out.classList.add('show');
-  out.innerHTML='Tiết khí <strong>'+r.ten+'</strong> thuộc <strong>'+don+'</strong> — '+KyMon.NGUYEN[ng]+' dùng: <span style="font-size:20px;font-weight:800;color:var(--red)">'+(r.duong?'Dương ':'Âm ')+cuc+' cục</span><br><span style="font-size:13px;color:var(--muted)">'+(r.duong?'Dương độn: Lục Nghi đi thuận cửu cung, Tam Kỳ đi nghịch.':'Âm độn: Lục Nghi đi nghịch cửu cung, Tam Kỳ đi thuận.')+' Ba số của tiết này — Thượng: '+r.cuc[0]+' · Trung: '+r.cuc[1]+' · Hạ: '+r.cuc[2]+'.</span>';
-});
-
-// C · Phù đầu & Tam nguyên theo Can Chi ngày (Bước 2)
-var selNgayCC=document.getElementById('selNgayCC');
-for(var k60=0;k60<60;k60++){var o60=document.createElement('option');o60.value=k60;o60.textContent=KyMon.canChi(k60);selNgayCC.appendChild(o60);}
-document.getElementById('btnPhuDau').addEventListener('click',function(){
-  var d=parseInt(selNgayCC.value,10), r=KyMon.buoc2(d,0), lui=(d%10)%5;
-  var out=document.getElementById('outPhuDau'); out.classList.add('show');
-  out.innerHTML='Ngày <strong>'+KyMon.canChi(d)+'</strong> '+(lui?'lùi '+lui+' ngày':'chính là ngày Phù đầu')+' → Phù đầu <span style="font-size:20px;font-weight:800;color:var(--red)">'+KyMon.canChi(r.phuDau)+'</span> thuộc <strong>'+r.nhomChi+'</strong> → <strong>'+KyMon.NGUYEN[r.nguyen]+'</strong>.<br><span style="font-size:13px;color:var(--muted)">Tứ Chính (Tý, Ngọ, Mão, Dậu) là Thượng nguyên; Tứ Sinh (Dần, Thân, Tỵ, Hợi) là Trung nguyên; Tứ Mộ (Thìn, Tuất, Sửu, Mùi) là Hạ nguyên. Ghép với tiết khí ở bảng B để ra Cục số.</span>';
-});
-
-// D · Tuần thủ, Cờ, Không Vong, Mã Tinh theo Can Chi giờ (Bước 4, 9, 10)
-var selGioCC=document.getElementById('selGioCC');
-for(var g60=0;g60<60;g60++){var og=document.createElement('option');og.value=g60;og.textContent=KyMon.canChi(g60);selGioCC.appendChild(og);}
-selGioCC.value=6; // Canh Ngọ — ví dụ của tài liệu
-document.getElementById('btnTuan').addEventListener('click',function(){
-  var g=parseInt(selGioCC.value,10), r=KyMon.anBan(true,1,g%10,g%12);
-  var out=document.getElementById('outTuan'); out.classList.add('show');
-  out.innerHTML='Giờ <strong>'+KyMon.canChi(g)+'</strong> thuộc tuần <span style="font-size:20px;font-weight:800;color:var(--red)">'+KyMon.canChi(r.tuanThu)+'</span>, mang cờ <strong>'+KyMon.CAN[r.co]+'</strong>.<br>Không Vong: <strong>'+r.khongVong.chi.map(function(c){return KyMon.CHI[c];}).join(', ')+'</strong> (cung '+r.khongVong.cung.map(function(p){return KyMon.CUNG[p].ten+' '+p;}).join(', ')+') · Mã Tinh tại <strong>'+KyMon.CHI[r.ma.chi]+'</strong> (cung '+KyMon.CUNG[r.ma.cung].ten+' '+r.ma.cung+').<br><span style="font-size:13px;color:var(--muted)">Tìm cung của cờ '+KyMon.CAN[r.co]+' trên Địa bàn để ra Đại Trực Phù và Trực Sử (Bước 5).</span>';
-});
-
 // Fields 11 — clicking a field opens the Tra Cuu page with that field selected
 var FIELDS=[["Bệnh tật","Sức khỏe, thời điểm thăm khám & hồi phục"],["Hôn nhân","Tình cảm, cưới hỏi, hòa hợp đôi lứa"],["Kinh doanh","Ký kết, mở bán, đối tác & dòng tiền"],["Công danh","Thi cử quan lộc, thăng tiến, bổ nhiệm"],["Tài vận","Đầu tư, vay mượn, thu hồi nợ"],["Gia trạch","Nhà đất, xây sửa, an cư"],["Pháp lý","Kiện tụng, hợp đồng, tranh chấp"],["Thất vật","Tìm đồ mất, giấy tờ thất lạc"],["Xuất hành","Đi xa, chuyển việc, khai trương"],["Học tập","Học hành, thi cử, chọn trường"],["Thể thao","Thi đấu, phong độ, kết quả trận đấu"]];
 var fw=document.getElementById('fields');
@@ -1226,7 +1395,7 @@ function nhapThoiDiem(str,tc){ // "YYYY-MM-DDTHH:MM" là giờ đồng hồ tạ
 }
 function chuoiGioDongHo(ms,mui){var g=KyMon.gioDongHo(ms,mui);return g.y+'-'+pad2(g.m)+'-'+pad2(g.d)+'T'+pad2(g.h)+':'+pad2(g.mi);}
 document.getElementById('fTime').value=chuoiGioDongHo(Date.now(),tuyChon().muiGio);
-// ===== Lập bàn: bộ máy 12 bước nằm trong src/kymon.js (biến KyMon) =====
+// ===== Lập bàn: bộ máy 12 bước nằm trong lib/ (KyMon điều phối, KM.B1 … KM.B12 từng bước) =====
 var CAN=KyMon.CAN, CHI=KyMon.CHI, CUNG=KyMon.CUNG, cc=KyMon.canChi;
 function tenCan(i){return CAN[i];}
 function huongCung(p){return CUNG[p].huong+' · '+CUNG[p].hanh;}
@@ -1401,6 +1570,7 @@ function cast(scroll){
   document.getElementById('palaceDetail').innerHTML='<h4>Chi tiết cung</h4><p>Bấm vào một cung trên bàn để xem Tinh, Môn, Thần, Thiên/Địa Can và ý nghĩa của cung đó trong bàn này.</p>';
   resetAI(date,field,q,t);
   document.getElementById('castResult').classList.add('show');
+  if(typeof moDunCoBan==='function')moDunCoBan();
   if(scroll)document.getElementById('castResult').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 document.getElementById('btnCast').addEventListener('click',function(){cast(true);});
@@ -1463,7 +1633,162 @@ document.getElementById('btnAI').addEventListener('click',function(){
     })
     .catch(function(){fail('Không kết nối được máy chủ luận giải.');});
 });
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// ===== Bàn làm việc 12 mô-đun =====
+// Mỗi thẻ <article data-mo-dun="..."> ở trang Tra Cứu là một bước của quy trình. Thẻ chỉ đọc ô nhập của chính nó
+// (data-vao), gọi đúng mô-đun trong lib/ (KM.B1 … KM.B12) và tự tính lại khi ô nhập thay đổi.
+(function () {
+  var C = KM.CongCu, T = KM.BangTra, CAN = C.CAN, CHI = C.CHI, cc = C.canChi;
+  var THU_TU = [4, 9, 2, 3, 5, 7, 8, 1, 6]; // thứ tự đọc 3 × 3 của Lạc Thư
+  var GIO_KHOANG = ["23h – 01h", "01h – 03h", "03h – 05h", "05h – 07h", "07h – 09h", "09h – 11h", "11h – 13h", "13h – 15h", "15h – 17h", "17h – 19h", "19h – 21h", "21h – 23h"];
+  var LUA_CHON = {
+    can: CAN.map(function (c, i) { return [i, c]; }),
+    chi: CHI.map(function (c, i) { return [i, 'Giờ ' + c + ' (' + GIO_KHOANG[i] + ')']; }),
+    ngay: Array.apply(null, Array(60)).map(function (_, i) { return [i, cc(i)]; }),
+    gio: Array.apply(null, Array(60)).map(function (_, i) { return [i, cc(i)]; }),
+    tiet: T.TIET.map(function (t, i) { return [i, t.ten + ' (' + (t.duong ? 'Dương độn' : 'Âm độn') + ')']; }),
+    don: [[1, 'Dương độn'], [0, 'Âm độn']],
+    cuc: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (n) { return [n, 'Cục ' + n]; })
+  };
+  // Ví dụ xuyên suốt của tài liệu: ngày 01/10/1949 15h; bàn Dương độn 3 cục, giờ Canh Ngọ.
+  var VI_DU = { time: '1949-10-01T15:00', can: 0, chi: 8, ngay: 0, tiet: 18, don: 1, cuc: 3, gio: 6 };
+  var VI_DU_RIENG = { 'ma-tinh': { chi: 6 } };
 
+  function tenCung(p) { return T.CUNG[p].ten + ' ' + p; }
+  function luoi(o, noiBat) {
+    noiBat = noiBat || {};
+    return '<div class="mg">' + THU_TU.map(function (p) {
+      var cls = noiBat[p] ? ' ' + noiBat[p] : '';
+      return '<div class="mg-o' + (p === 5 ? ' mg-tt' : '') + cls + '"><small>' + tenCung(p) + '</small><b>' + (o[p] === undefined ? '—' : o[p]) + '</b></div>';
+    }).join('') + '</div>';
+  }
+  function dong(nhan, gt) { return '<p><span>' + nhan + '</span> <strong>' + gt + '</strong></p>'; }
+  function vao(the) {
+    var v = {};
+    the.querySelectorAll('[data-vao]').forEach(function (el) { v[el.getAttribute('data-vao')] = el.type === 'datetime-local' ? el.value : parseInt(el.value, 10); });
+    return v;
+  }
+  // Các bước 3 – 12 cần độn, cục và Can Chi giờ; mỗi thẻ tự gọi chuỗi mô-đun nó cần từ đầu vào của chính nó.
+  function tran(v) {
+    var duong = v.don === 1, canG = v.gio % 10, chiG = v.gio % 12;
+    var dia = KM.B3.tinh(duong, v.cuc), b4 = KM.B4.tinh(canG, chiG), b5 = KM.B5.tinh(dia, b4.co);
+    return { duong: duong, canG: canG, chiG: chiG, dia: dia, b4: b4, b5: b5 };
+  }
+
+  var MO_DUN = {
+    'mo-dun-b1': function (v) {
+      var tc = typeof tuyChon === 'function' ? tuyChon() : {};
+      var ms = typeof nhapThoiDiem === 'function' ? nhapThoiDiem(v.time, tc) : Date.parse(v.time);
+      var r = KM.B1.tinh(new Date(ms), tc), t = T.TIET[r.tiet];
+      return dong('Năm', cc(r.tuTru.nam)) + dong('Tháng', cc(r.tuTru.thang)) + dong('Ngày', cc(r.tuTru.ngay)) + dong('Giờ', cc(r.tuTru.gio)) +
+        dong('Tiết khí', t.ten + ' — ' + (t.duong ? 'Dương độn' : 'Âm độn')) +
+        dong('Giao tiết', KM.Lich.dinhDangGio(r.giaoTiet, tc.muiGio) + (r.nguonTiet === 'bang' ? ' (bảng Thọ Tinh)' : ' (công thức)')) +
+        (r.quyDoi.gioMatTroi ? dong('Giờ Mặt Trời thật', C.hai(r.quyDoi.gioDung.h) + ':' + C.hai(r.quyDoi.gioDung.mi)) : '');
+    },
+    'doi-gio': function (v) {
+      var can = KM.B1.nguTyDon(v.can, v.chi), dau = KM.B1.nguTyDon(v.can, 0);
+      return dong('Giờ ' + CHI[v.chi] + ' của ngày ' + CAN[v.can], CAN[can] + ' ' + CHI[v.chi]) +
+        '<p class="note">Nhóm ngày ' + ['Giáp / Kỷ', 'Ất / Canh', 'Bính / Tân', 'Đinh / Nhâm', 'Mậu / Quý'][v.can % 5] + ' khởi giờ Tý là ' + CAN[dau] + ' Tý, đếm thuận Thiên can tới giờ ' + CHI[v.chi] + '.</p>';
+    },
+    'phu-dau': function (v) {
+      var r = KM.B2.tinh(v.ngay, v.tiet), t = T.TIET[v.tiet];
+      return dong('Phù đầu', cc(r.phuDau) + (r.luiNgay ? ' (lùi ' + r.luiNgay + ' ngày)' : ' (chính ngày này)')) +
+        dong('Nhóm chi', r.nhomChi) + dong('Tam nguyên', T.NGUYEN[r.nguyen]) +
+        dong('Tiết ' + t.ten, t.cuc.join(' – ')) + dong('Cục số', (r.duong ? 'Dương ' : 'Âm ') + r.cuc + ' cục');
+    },
+    'mo-dun-b3': function (v) {
+      var dia = KM.B3.tinh(v.don === 1, v.cuc), o = {};
+      for (var p = 1; p <= 9; p++) o[p] = CAN[dia[p]];
+      var noi = {}; noi[v.cuc] = 'hl';
+      return '<p class="note">Mậu khởi tại cung ' + v.cuc + ', ' + (v.don === 1 ? 'thuận' : 'nghịch') + ' Cửu Cung.</p>' + luoi(o, noi);
+    },
+    'tuan-thu': function (v) {
+      var r = KM.B4.tinh(v.gio % 10, v.gio % 12);
+      return dong('Giờ ' + cc(v.gio) + ' thuộc tuần', cc(r.tuanThu)) + dong('Cờ (Giáp ẩn dưới)', CAN[r.co] + ' — ' + r.ky) +
+        dong('Thần quân chủ quản', r.thanQuan) + '<p class="note">Lùi ' + (v.gio % 10) + ' bậc về can Giáp.</p>';
+    },
+    'mo-dun-b5': function (v) {
+      var x = tran(v);
+      return dong('Cờ ' + CAN[x.b4.co] + ' ở cung', tenCung(x.b5.cungCo)) + dong('Đại Trực Phù', x.b5.trucPhu) + dong('Trực Sử', x.b5.trucSu) +
+        (x.b5.cungCo === 5 ? '<p class="note">Cờ ở Trung cung: Thiên Cầm và Tử Môn, gửi Khôn 2.</p>' : '');
+    },
+    'mo-dun-b6': function (v) {
+      var x = tran(v), r = KM.B6.tinh(x.dia, x.b5, x.canG), o = {}, noi = {};
+      T.VONG.forEach(function (p) { o[p] = r.thien[p].tinh.join(' · ') + '<i>' + r.thien[p].can.map(function (c) { return CAN[c]; }).join(' · ') + '</i>'; });
+      noi[r.cungDenTP] = 'hl';
+      return '<p class="note">' + (x.canG === 0 ? 'Giờ Giáp lấy cung của Cờ' : 'Can giờ ' + CAN[x.canG] + ' ở cung ' + r.cungCanGio + (r.cungCanGio === 5 ? ' (gửi Khôn 2)' : '')) +
+        ' → ' + x.b5.trucPhu + ' tới ' + tenCung(r.cungDenTP) + ', xoay thuận kim đồng hồ ' + r.dichTinh + ' cung.</p>' + luoi(o, noi);
+    },
+    'mo-dun-b7': function (v) {
+      var x = tran(v), r = KM.B7.tinh(x.duong, x.b5, x.canG), noi = {};
+      noi[r.cungDenTS] = 'hl';
+      return '<p class="note">' + x.b5.trucSu + ': đếm từ Giáp tại cung ' + x.b5.cungCo + ' tới ' + CAN[x.canG] + ' (' + x.canG + ' bước, ' + (x.duong ? 'thuận' : 'nghịch') + ') dừng ở cung ' + r.cungDemSu +
+        (r.cungDemSu === 5 ? ', mượn Khôn 2' : '') + '.</p>' + luoi(r.mon, noi);
+    },
+    'mo-dun-b8': function (v) {
+      var x = tran(v), b6 = KM.B6.tinh(x.dia, x.b5, x.canG), than = KM.B8.tinh(x.duong, b6.cungDenTP), noi = {};
+      noi[b6.cungDenTP] = 'hl';
+      return '<p class="note">Trực Phù tại ' + tenCung(b6.cungDenTP) + ', ' + (x.duong ? 'thuận' : 'nghịch') + ' kim đồng hồ.</p>' + luoi(than, noi);
+    },
+    'ma-tinh': function (v) {
+      var r = KM.B9.tinh(v.chi), o = {}, noi = {};
+      o[r.cung] = 'Mã · ' + CHI[r.chi]; noi[r.cung] = 'hl';
+      return dong('Giờ ' + CHI[v.chi] + ' → Mã tại', CHI[r.chi] + ', cung ' + tenCung(r.cung) + ' (' + T.CUNG[r.cung].huong + ')') + luoi(o, noi);
+    },
+    'khong-vong': function (v) {
+      var b4 = KM.B4.tinh(v.gio % 10, v.gio % 12), r = KM.B10.tinh(b4.tuanThu), o = {}, noi = {};
+      r.chi.forEach(function (c) { var p = T.CHI_CUNG[c]; o[p] = (o[p] ? o[p] + ', ' : 'KV · ') + CHI[c]; noi[p] = 'kv'; });
+      return dong('Tuần ' + cc(b4.tuanThu) + ' thiếu', r.chi.map(function (c) { return CHI[c]; }).join(', ')) +
+        dong('Cung Không Vong', r.cung.map(tenCung).join(' và ')) + luoi(o, noi);
+    },
+    'mo-dun-b11': function (v) {
+      var x = tran(v), b6 = KM.B6.tinh(x.dia, x.b5, x.canG), r = KM.B11.tinh(x.duong, x.canG, x.b5, b6), noi = {};
+      var th = x.canG === 0 ? 'giờ Lục Giáp' : (r.phucNgam ? 'Phục ngâm toàn trận' : (r.phanNgam ? 'Phản ngâm toàn trận' : ''));
+      noi[r.dacBiet ? b6.cungDenTP : x.b5.cungGocTP] = 'hl';
+      return '<p class="note">' + (r.dacBiet ? 'Trường hợp 1 (' + th + '): an trùng Bát Thần Thiên bàn.' : 'Trường hợp 2: khởi Trực Phù tại cung gốc của ' + x.b5.trucPhu + ' (' + tenCung(x.b5.cungGocTP) + ').') + '</p>' + luoi(r.thanDia, noi);
+    },
+    'mo-dun-b12': function (v) {
+      var x = tran(v), b6 = KM.B6.tinh(x.dia, x.b5, x.canG), b7 = KM.B7.tinh(x.duong, x.b5, x.canG), b11 = KM.B11.tinh(x.duong, x.canG, x.b5, b6);
+      var r = KM.B12.tinh(x.duong, b11.dacBiet, b7.cungDenTS, x.canG, x.b4.co), o = {}, noi = {};
+      for (var p = 1; p <= 9; p++) o[p] = CAN[r.amCan[p]];
+      noi[r.cungKhoiAm] = 'hl';
+      return '<p class="note">' + (b11.dacBiet ? 'Trường hợp 1: ' + CAN[r.canKhoiAm] + ' nhập Trung cung 5' : 'Trường hợp 2: ' + CAN[r.canKhoiAm] + ' khởi tại cung Trực Sử ' + tenCung(r.cungKhoiAm)) +
+        ', phi ' + (x.duong ? 'thuận' : 'nghịch') + ' Cửu Cung.</p>' + luoi(o, noi);
+    }
+  };
+
+  function tinhThe(the) {
+    var ra = the.querySelector('.mod-out');
+    try { ra.innerHTML = MO_DUN[the.getAttribute('data-mo-dun')](vao(the)); }
+    catch (e) { ra.innerHTML = '<p class="note">Chưa tính được: ' + e.message + '. Kiểm tra lại dữ liệu nhập.</p>'; }
+  }
+  function dat(the, gt) {
+    the.querySelectorAll('[data-vao]').forEach(function (el) { var k = el.getAttribute('data-vao'); if (gt[k] !== undefined) el.value = String(gt[k]); });
+    tinhThe(the);
+  }
+  var cacThe = [].slice.call(document.querySelectorAll('[data-mo-dun]'));
+  cacThe.forEach(function (the) {
+    the.querySelectorAll('select[data-vao]').forEach(function (sel) {
+      LUA_CHON[sel.getAttribute('data-vao')].forEach(function (o) { var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op); });
+    });
+    the.addEventListener('change', function () { tinhThe(the); });
+    the.addEventListener('input', function (e) { if (e.target.type === 'datetime-local') tinhThe(the); });
+  });
+  function datViDu() { cacThe.forEach(function (the) { var k = the.getAttribute('data-mo-dun'), g = {}; for (var x in VI_DU) g[x] = VI_DU[x]; for (var y in (VI_DU_RIENG[k] || {})) g[y] = VI_DU_RIENG[k][y]; dat(the, g); }); }
+  datViDu();
+  document.getElementById('modViDu').addEventListener('click', function () {
+    datViDu(); document.getElementById('modBarNote').textContent = 'Đã đặt lại ví dụ của tài liệu: ngày 01/10/1949 15h; bàn Dương độn 3 cục, giờ Canh Ngọ.';
+  });
+  document.getElementById('modTuBan').addEventListener('click', function () {
+    var b = lastBoard; if (!b) return;
+    var gt = { time: document.getElementById('fTime').value, can: b.tuTru.ngay % 10, chi: b.chiGio, ngay: b.tuTru.ngay, tiet: b.tiet, don: b.duong ? 1 : 0, cuc: b.cuc, gio: b.gio };
+    cacThe.forEach(function (the) { dat(the, gt); });
+    document.getElementById('modBarNote').textContent = 'Đã điền dữ liệu của bàn ' + (b.duong ? 'Dương' : 'Âm') + ' ' + b.cuc + ' cục, giờ ' + cc(b.gio) + ' vào cả 13 thẻ.';
+  });
+  // Gọi sau mỗi lần lập trận ở công cụ phía trên.
+  window.moDunCoBan = function () { document.getElementById('modTuBan').disabled = !lastBoard; };
+})();
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
 // ===== Dang ky (registration-of-interest slip; nothing is sent automatically) =====
 // Dien email nhan dang ky vao day de bat nut "Gui qua email" (de trong = chi sao chep phieu).
 var CONTACT_EMAIL='agencylehung@gmail.com';
@@ -1490,7 +1815,8 @@ document.getElementById('dkCopy').addEventListener('click',function(){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){done(true);},function(){done(false);});}
   else{var r=document.createRange();r.selectNodeContents(document.getElementById('dkText'));var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);var ok=false;try{ok=document.execCommand('copy');}catch(e){}done(ok);}
 });
-
+// © 2026 Trận Pháp Kỳ Môn. Bảo lưu mọi quyền — xem tệp LICENSE.
+// Chạy sau cùng, khi mọi tệp giao diện đã nạp xong.
 // Initial page (supports deep links like #/tra-cuu and the browser back button)
 showPage(parseHash());
 </script>

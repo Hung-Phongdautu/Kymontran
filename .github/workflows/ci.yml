@@ -15,9 +15,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Kiểm thử mô-đun lập trận, bảng tra data/ và máy chủ trung gian
+        run: node --test test/*.test.mjs
       - name: index.html khớp với nguồn và mọi liên kết nội bộ hợp lệ
-        run: python3 tests/check_site.py
-      - name: Bộ máy lập trận khớp các ví dụ của quy trình 12 bước
-        run: node tests/test_kymon.mjs
-      - name: Máy chủ trung gian xử lý đúng (không gọi OpenAI thật)
-        run: node tests/test_worker.mjs
+        run: python3 test/check_site.py

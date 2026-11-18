@@ -6,38 +6,68 @@ Toàn bộ trang là một tệp `index.html` chạy thẳng trên trình duyệ
 
 ## Cấu trúc kho mã
 
-| Đường dẫn | Vai trò |
-| --- | --- |
-| `index.html` | Trang hoàn chỉnh — **sản phẩm dựng ra, không sửa tay** |
-| `build.py` | Ghép nguồn thành `index.html` |
-| `server.py` | Chạy thử trang trên máy tại http://localhost:8000 |
-| `src/template.html` | Khung trang và nội dung các trang con |
-| `src/styles.css` | Giao diện |
-| `src/tiet-khi.js` | Bảng giờ giao tiết 1900 – 2100 (tạo tự động, không sửa tay) |
-| `tools/tao_bang_tiet_khi.py` | Tạo lại `src/tiet-khi.js` từ thư viện sxtwl (`pip install sxtwl`) |
-| `src/kymon.js` | Bộ máy lập trận theo quy trình 12 bước (lịch Can Chi, tiết khí, Phù đầu, an bàn, Mã Tinh, Không Vong, Ám thần, Ám Can) |
-| `src/app.js` | Bộ định tuyến, hiển thị bàn, công cụ tra cứu, phiếu đăng ký |
-| `assets/` | Logo ĐL và tranh sơn thủy (được nhúng thẳng vào trang) |
-| `content/kien-thuc/*.md` | Bài viết của trang Kiến Thức |
-| `worker/` | Máy chủ trung gian (Cloudflare Workers) giữ khóa OpenAI cho phần "Luận giải bằng AI" — tùy chọn |
-| `tests/check_site.py` | Kiểm tra mọi liên kết nội bộ dẫn tới trang và mục có thật |
-| `tests/test_kymon.mjs` | Kiểm thử bộ máy lập trận bằng các ví dụ của tài liệu 12 bước |
-| `tests/test_worker.mjs` | Kiểm thử máy chủ trung gian bằng OpenAI giả |
-| `.github/workflows/` | Kiểm tra tự động khi đẩy mã; đưa trang lên GitHub Pages khi `main` thay đổi |
+Bố cục chia theo vai trò, giống các dự án lập bàn Kỳ Môn mã nguồn mở: `lib/` tính toán, `views/` khung trang, `public/` giao diện, `test/` kiểm thử theo mô-đun.
+
+```
+docs/                     Phương pháp
+  quy-trinh-lap-tran.md     tài liệu "Quy trình lập trận Kỳ Môn Độn Giáp" 12 bước (gốc của mọi tính toán)
+  giay-phep-thanh-phan.md   giấy phép của từng thành phần và các kho đã tham khảo
+lib/                      Bộ máy lập trận — mỗi bước một mô-đun, dùng được riêng
+  km.js                     không gian tên chung KM
+  cong-cu.js                hàm dùng chung (Can Chi 60, phi Cửu Cung, gửi Trung cung)
+  bang-tra.js               thư viện tra cứu của quy trình (Cục số, Phù đầu, Tuần thủ – Cờ, bản cung gốc, Bát Thần, Mã Tinh…)
+  tiet-khi-bang.js          bảng giờ giao tiết 1900 – 2100 (tạo tự động, không sửa tay)
+  lich.js                   lịch: tiết khí, kinh độ Mặt Trời, phương trình thời gian, múi giờ
+  b01-tu-tru.js             Bước 1  Tứ trụ, Ngũ Tý Độn, tiết khí, quy đổi giờ
+  b02-phu-dau.js            Bước 2  Phù đầu, Tam nguyên, Cục số
+  b03-dia-ban.js            Bước 3  Địa bàn (Lục Nghi, Tam Kỳ)
+  b04-tuan-thu.js           Bước 4  Tuần thủ và Cờ
+  b05-truc-phu-su.js        Bước 5  Đại Trực Phù và Trực Sử
+  b06-thien-ban.js          Bước 6  Thiên bàn (Cửu Tinh, Can Thiên bàn)
+  b07-nhan-ban.js           Bước 7  Nhân bàn (Bát Môn)
+  b08-than-ban.js           Bước 8  Thần bàn (Bát Thần)
+  b09-ma-tinh.js            Bước 9  Mã Tinh
+  b10-khong-vong.js         Bước 10 Không Vong
+  b11-than-dia-ban.js       Bước 11 Bát Thần Địa bàn (Ám thần)
+  b12-am-can.js             Bước 12 Ám Can
+  trinh-tu.js               diễn giải kết quả từng bước bằng lời
+  kymon.js                  điều phối 12 bước (KyMon.lapTran, KyMon.anBan)
+data/                     Bảng tra dạng CSV (mở bằng Excel), xuất từ lib/ bằng tools/xuat_bang_tra.mjs
+views/index.html          Khung trang và nội dung các trang con
+public/css/style.css      Giao diện
+public/js/app.js          Định tuyến, công cụ lập trận tổng hợp, hiển thị bàn, luận giải, quy đổi giờ
+public/js/mo-dun.js       Bàn làm việc 12 mô-đun (mỗi thẻ gọi một mô-đun của lib/)
+public/js/dang-ky.js      Phiếu đăng ký
+public/js/khoi-dong.js    Mở trang đầu tiên khi mọi tệp đã nạp
+public/img/               Logo ĐL và tranh sơn thủy (được nhúng thẳng vào trang)
+content/kien-thuc/*.md    Bài viết của trang Kiến Thức
+test/                     Kiểm thử: quy trình 12 bước, từng mô-đun, bảng tra, máy chủ trung gian, liên kết nội bộ
+tools/                    Tạo bảng giờ giao tiết (sxtwl) và xuất bảng tra CSV
+worker/                   Máy chủ trung gian (Cloudflare Workers) giữ khóa OpenAI — tùy chọn
+build.py, server.py       Dựng index.html; chạy thử tại http://localhost:8000
+index.html                Trang hoàn chỉnh — sản phẩm dựng ra, không sửa tay
+```
+
+### Cách các phần liên kết với nhau
+
+- Mỗi tệp trong `lib/` gắn phần của mình vào không gian tên `KM` (ví dụ `KM.B6.tinh(...)`). Trong Node mỗi tệp tự `require` các tệp nó cần; trong trình duyệt `build.py` ghép các tệp theo thứ tự ở danh sách `LIB`.
+- `lib/kymon.js` gọi lần lượt `KM.B1` → `KM.B12` để lập một bàn trọn vẹn; trang dùng nó qua biến `KyMon`.
+- Mỗi thẻ ở mục **Mười hai mô-đun lập trận** (trang Tra Cứu) đọc ô nhập của chính nó rồi gọi đúng mô-đun của bước đó, nên dùng được độc lập.
+- Bảng tra trong `data/` được xuất từ `lib/bang-tra.js`; kiểm thử báo lỗi nếu hai nơi không khớp.
 
 ## Cách làm việc
 
-Chỉ cần Python 3, không cài thêm gói nào.
+Chỉ cần Python 3 và Node.js 18 trở lên, không cài thêm gói nào.
 
 ```bash
-python3 server.py             # dựng lại và chạy thử tại http://localhost:8000
-python3 build.py              # chỉ dựng lại index.html sau khi sửa nguồn
-python3 tests/check_site.py   # kiểm tra trước khi đẩy mã
-node tests/test_kymon.mjs     # kiểm tra bộ máy lập trận (cần Node.js)
-python3 build.py --demo       # ghi demo.html: bản chạy thử, nút AI trả về nội dung minh họa
+npm start                      # = python3 server.py — dựng lại và chạy thử tại http://localhost:8000
+npm run build                  # = python3 build.py — dựng lại index.html sau khi sửa nguồn
+npm test                       # kiểm thử mô-đun, bảng tra, máy chủ trung gian và liên kết nội bộ
+npm run bang-tra               # xuất lại data/*.csv sau khi sửa lib/bang-tra.js
+npm run demo                   # ghi demo.html: bản chạy thử, nút AI trả về nội dung minh họa
 ```
 
-Hướng dẫn từng bước để chạy trên máy và đưa lên mạng: [KHOI-CHAY.md](KHOI-CHAY.md).
+Hướng dẫn chạy trên máy, để kho riêng tư và đưa lên mạng khi cần: [KHOI-CHAY.md](KHOI-CHAY.md).
 
 ## Thêm một bài Kiến Thức
 
@@ -58,7 +88,7 @@ link: Lập bàn để xem Bát Thần → | #/tra-cuu/cong-cu?mode=lapban
 - `link`: nút dẫn ở cuối bài, dạng `chữ hiển thị | địa chỉ`; có thể khai báo nhiều dòng.
 - Khối thơ, ca quyết: mở bằng dòng ```` ```verse Tiêu đề ```` và đóng bằng ```` ``` ````.
 
-Chạy `python3 build.py` rồi `python3 tests/check_site.py`.
+Chạy `npm run build` rồi `npm test`.
 
 ## Địa chỉ trong trang
 
@@ -71,7 +101,9 @@ Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
 ## Tài liệu khác
 
 - [MO-TA-NOI-DUNG.md](MO-TA-NOI-DUNG.md) — mô tả toàn bộ nội dung trang: các trang, mục, nút bấm, công cụ và dữ liệu
-- [KHOI-CHAY.md](KHOI-CHAY.md) — khởi chạy trên máy và đưa lên GitHub Pages
+- [docs/quy-trinh-lap-tran.md](docs/quy-trinh-lap-tran.md) — quy trình 12 bước lập trận (phương pháp gốc)
+- [docs/giay-phep-thanh-phan.md](docs/giay-phep-thanh-phan.md) — giấy phép từng thành phần
+- [KHOI-CHAY.md](KHOI-CHAY.md) — chạy trên máy, để kho riêng tư, đưa lên mạng khi cần
 - [worker/README.md](worker/README.md) — bật "Luận giải bằng AI" bằng khóa OpenAI của bạn
 - [CHANGELOG.md](CHANGELOG.md) — nhật ký thay đổi
 - [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md) — việc cần làm trước khi đưa trang lên mạng
@@ -86,7 +118,8 @@ Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
 - Tri thức cổ pháp (ca quyết Ngũ Tý Độn, bảng 24 tiết khí – Cục số, Cửu Tinh, Bát Môn, Bát Thần, Tam Kỳ – Lục Nghi, Can Chi, Ngũ hành) thuộc phạm vi công cộng; lời diễn giải do Trận Pháp Kỳ Môn tự viết.
 - [winvu88888888-maker/cuongtan66666666](https://github.com/winvu88888888-maker/cuongtan66666666): chỉ xem để đối chiếu ý tưởng chức năng.
 - [masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code](https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code): chỉ xem để học cách tổ chức tài liệu và quy trình của kho mã.
-- Không có mã nguồn, văn bản hay hình ảnh nào được lấy từ hai kho trên.
+- Không có mã nguồn, văn bản hay hình ảnh nào được lấy từ các kho trên (xem [docs/giay-phep-thanh-phan.md](docs/giay-phep-thanh-phan.md)).
 - Phần "Luận giải bằng AI" dùng dịch vụ của OpenAI; lời nhắc và mã gọi dịch vụ do Trận Pháp Kỳ Môn tự viết.
 - Bảng giờ giao tiết 1900 – 2100 tính từ thư viện [sxtwl](https://github.com/yuangu/sxtwl_cpp) (Thọ Tinh vạn niên lịch, giấy phép BSD); kho chỉ lưu kết quả tính.
+- [qfdk/qimen](https://github.com/qfdk/qimen) (MIT): chỉ xem để học cách chia mô-đun và bố cục thư mục; không lấy mã.
 - Phông chữ Be Vietnam Pro và Noto Serif: SIL Open Font License 1.1 (Google Fonts).

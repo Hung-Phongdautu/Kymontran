@@ -6,7 +6,7 @@
 - Dữ liệu thật của người dùng: họ tên, liên hệ, câu hỏi, phiếu đăng ký.
 - Tài khoản quản trị và thông tin triển khai.
 
-Khóa OpenAI chỉ được đặt ở phần Secrets của Cloudflare Worker (xem [worker/README.md](worker/README.md)), không đặt trong `src/`, `index.html`, `wrangler.toml` hay tài liệu.
+Khóa OpenAI chỉ được đặt ở phần Secrets của Cloudflare Worker (xem [worker/README.md](worker/README.md)), không đặt trong `lib/`, `public/`, `views/`, `index.html`, `wrangler.toml` hay tài liệu.
 
 ## Dữ liệu rời khỏi trình duyệt khi nào
 

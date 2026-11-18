@@ -1,2 +1,2 @@
 # Trận Pháp Kỳ Môn không cần cài thêm gói nào.
-# build.py, server.py và tests/check_site.py chỉ dùng thư viện chuẩn của Python 3.9 trở lên.
+# build.py, server.py và test/check_site.py chỉ dùng thư viện chuẩn của Python 3.9 trở lên.

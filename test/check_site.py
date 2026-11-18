@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Kiểm tra tĩnh index.html: mọi liên kết nội bộ phải dẫn tới trang và mục có thật.
 
-    python3 tests/check_site.py
+    python3 test/check_site.py
 
 Kiểm tra:
   1. index.html khớp với nguồn (python3 build.py --check).

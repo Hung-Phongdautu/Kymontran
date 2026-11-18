@@ -112,12 +112,28 @@ Tài liệu này mô tả toàn bộ nội dung của `index.html`: các trang, 
 
 - Ghi chú cuối kết quả: bàn an theo lối Chuyển bàn, đúng 12 bước; giờ giao tiết theo bảng Thọ Tinh vạn niên lịch, Nguyên theo Phù đầu; nơi lập trận, giờ Mặt Trời thật và quy ước giờ Tý chọn trong mục Quy đổi giờ; chưa áp dụng phép Đặt nhuận.
 
-**Mục Tra cứu nhanh — Định cục** (`#/tra-cuu/tra-nhanh`)
+**Mục Mười hai mô-đun lập trận** (`#/tra-cuu/tra-nhanh`)
 
-- **A · Đổi giờ — Ngũ Tý Độn** (`#/tra-cuu/doi-gio`): chọn Thiên can ngày và một trong 12 giờ → ra Can Chi giờ, kèm lời giải theo ca quyết. Mặc định giờ Thân.
-- **B · Tra Cục số — Tiết khí & Nguyên** (`#/tra-cuu/cuc-so`): chọn một trong 24 tiết khí và Thượng/Trung/Hạ nguyên → ra Âm/Dương độn và Cục số, kèm ba số của tiết đó.
-- **C · Phù đầu & Tam nguyên** (`#/tra-cuu/phu-dau`): chọn một trong 60 Can Chi ngày → số ngày phải lùi, Phù đầu, nhóm chi và Nguyên.
-- **D · Tuần thủ, Cờ, Không Vong, Mã Tinh** (`#/tra-cuu/tuan-thu`): chọn một trong 60 Can Chi giờ → tuần thủ, cờ, hai chi và cung Không Vong, chi và cung Mã Tinh. Mặc định giờ Canh Ngọ.
+Bàn làm việc gồm 13 thẻ. Mỗi thẻ là một bước của quy trình, có ô nhập riêng, gọi đúng một mô-đun trong `lib/` và tự tính lại khi đổi dữ liệu. Khi mở trang, các thẻ hiện sẵn ví dụ của tài liệu (ngày 01/10/1949 15h; bàn Dương độn 3 cục, giờ Canh Ngọ). Hai nút trên đầu:
+
+- **Điền dữ liệu từ bàn vừa lập** (bật sau khi lập trận): đưa Can Chi, tiết khí, độn, cục và giờ của bàn đó vào cả 13 thẻ.
+- **Đặt lại ví dụ của tài liệu**.
+
+| Thẻ | Địa chỉ | Mô-đun | Đầu vào | Đầu ra |
+| --- | --- | --- | --- | --- |
+| Bước 1 · Tứ trụ và tiết khí | `#/tra-cuu/mo-dun-b1` | `b01-tu-tru.js` | Thời điểm (theo tùy chọn Quy đổi giờ) | Năm, tháng, ngày, giờ Can Chi; tiết khí, độn, giờ giao tiết |
+| Bước 1 · Ngũ Tý Độn | `#/tra-cuu/doi-gio` | `b01-tu-tru.js` | Can ngày, giờ | Can Chi giờ và lời giải ca quyết |
+| Bước 2 · Phù đầu, Tam nguyên, Cục số | `#/tra-cuu/phu-dau`, `#/tra-cuu/cuc-so` | `b02-phu-dau.js` | Can Chi ngày, tiết khí | Phù đầu, số ngày lùi, nhóm chi, Nguyên, Cục số |
+| Bước 3 · Địa bàn | `#/tra-cuu/mo-dun-b3` | `b03-dia-ban.js` | Độn, cục | Lưới 9 cung Can Địa bàn |
+| Bước 4 · Tuần thủ và Cờ | `#/tra-cuu/tuan-thu` | `b04-tuan-thu.js` | Can Chi giờ | Tuần thủ, cờ, nghi trượng, thần quân |
+| Bước 5 · Trực Phù, Trực Sử | `#/tra-cuu/mo-dun-b5` | `b05-truc-phu-su.js` | Độn, cục, Can Chi giờ | Cung của cờ, Đại Trực Phù, Trực Sử |
+| Bước 6 · Thiên bàn | `#/tra-cuu/mo-dun-b6` | `b06-thien-ban.js` | Độn, cục, Can Chi giờ | Lưới Cửu Tinh và Can Thiên bàn |
+| Bước 7 · Nhân bàn | `#/tra-cuu/mo-dun-b7` | `b07-nhan-ban.js` | Độn, cục, Can Chi giờ | Lưới Bát Môn, đường đếm Trực Sử |
+| Bước 8 · Thần bàn | `#/tra-cuu/mo-dun-b8` | `b08-than-ban.js` | Độn, cục, Can Chi giờ | Lưới Bát Thần |
+| Bước 9 · Mã Tinh | `#/tra-cuu/ma-tinh` | `b09-ma-tinh.js` | Giờ | Chi và cung Mã Tinh |
+| Bước 10 · Không Vong | `#/tra-cuu/khong-vong` | `b10-khong-vong.js` | Can Chi giờ | Hai chi và cung Không Vong |
+| Bước 11 · Bát Thần Địa bàn | `#/tra-cuu/mo-dun-b11` | `b11-than-dia-ban.js` | Độn, cục, Can Chi giờ | Trường hợp áp dụng, lưới Ám thần |
+| Bước 12 · Ám Can | `#/tra-cuu/mo-dun-b12` | `b12-am-can.js` | Độn, cục, Can Chi giờ | Trường hợp áp dụng, lưới Ám Can |
 
 **Tham số địa chỉ của trang này**
 
@@ -202,12 +218,12 @@ Ghi chú dưới bảng: giá là mức tham khảo, thanh toán chỉ mở khi 
 
 ### 5.1. Lập bàn
 
-Bàn được lập theo giờ (Thời gia Kỳ Môn), lối Chuyển bàn, đúng 12 bước của tài liệu “Quy trình lập trận Kỳ Môn Độn Giáp”. Mã nằm trong `src/kymon.js`, mỗi bước một đoạn.
+Bàn được lập theo giờ (Thời gia Kỳ Môn), lối Chuyển bàn, đúng 12 bước của tài liệu “Quy trình lập trận Kỳ Môn Độn Giáp”. Mỗi bước là một mô-đun trong `lib/` (`b01-tu-tru.js` … `b12-am-can.js`); `lib/kymon.js` gọi lần lượt từng bước. Tài liệu gốc ở `docs/quy-trinh-lap-tran.md`.
 
 1. **Đổi giờ, tiết khí:**
    - Lập Tứ trụ. Ngày Can Chi tính theo số ngày Julius (01/10/1949 là Giáp Tý). Giờ Tý từ 23h tính sang ngày hôm sau. Can giờ theo Ngũ Tý Độn.
    - Tháng đổi theo các “tiết” (Lập xuân mở tháng Dần…), Can tháng theo Ngũ Hổ Độn. Năm đổi ở Lập xuân.
-   - Tiết khí và giờ giao tiết tra từ bảng Thọ Tinh vạn niên lịch 1900 – 2100 (`src/tiet-khi.js`, chính xác tới phút); ngoài khoảng đó tính theo kinh độ Mặt Trời (công thức Meeus, sai số khoảng 15 phút).
+   - Tiết khí và giờ giao tiết tra từ bảng Thọ Tinh vạn niên lịch 1900 – 2100 (`lib/tiet-khi-bang.js`, chính xác tới phút); ngoài khoảng đó tính theo kinh độ Mặt Trời (công thức Meeus, sai số khoảng 15 phút).
    - Quy đổi giờ: giờ nhập là giờ đồng hồ tại nơi lập trận. Nếu chọn giờ Mặt Trời thật, Can Chi ngày và giờ đổi theo giờ = UTC + 4 phút × kinh độ + phương trình thời gian. Nếu chọn đổi ngày lúc 0h, 23h – 24h giữ ngày cũ, Can giờ Tý lấy theo ngày hôm sau.
 2. **Phù đầu, Tam nguyên:** lùi Can Chi ngày về ngày Giáp hoặc Kỷ; chi của Phù đầu thuộc Tứ Chính, Tứ Sinh hay Tứ Mộ cho Thượng, Trung hay Hạ nguyên; tra bảng 5.4 ra Cục số.
 3. **Địa bàn:** Mậu khởi tại cung bằng Cục số, an tiếp Kỷ, Canh, Tân, Nhâm, Quý, Đinh, Bính, Ất; Dương độn thuận, Âm độn nghịch số Cửu Cung.
@@ -319,7 +335,7 @@ Các điểm sau được ghi ngay trên trang (ghi chú dưới kết quả và
 - Nguyên tính theo Phù đầu của ngày (đúng Bước 2) nhưng chưa áp dụng phép Đặt nhuận khi Siêu thần quá 9 ngày.
 - Phần luận giải soạn sẵn chỉ có ba mức theo Môn tại cung Dụng thần.
 
-Bộ máy được kiểm thử bằng chính các ví dụ trong tài liệu 12 bước (`tests/test_kymon.mjs`). Tài liệu có một chỗ tự mâu thuẫn ở ví dụ 2 của Bước 6 (Dương độn 1 cục, giờ Tân Mão):
+Bộ máy được kiểm thử bằng chính các ví dụ trong tài liệu 12 bước (`test/quy-trinh-12-buoc.test.mjs`, `test/mo-dun.test.mjs`). Tài liệu có một chỗ tự mâu thuẫn ở ví dụ 2 của Bước 6 (Dương độn 1 cục, giờ Tân Mão):
 
 - Tài liệu ghi Thiên Trụ mang can Quý và Thiên Tâm mang can Đinh.
 - Theo nguyên tắc “can đi theo sao” của chính bước đó, Thiên Trụ (gốc Đoài 7, can Đinh) mang Đinh, Thiên Tâm (gốc Càn 6, can Quý) mang Quý.
@@ -347,14 +363,18 @@ Hai lỗi ghi ở bản trước đã được sửa khi viết lại bộ máy:
 
 | Muốn sửa | Tệp |
 | --- | --- |
-| Chữ trên các trang, bảng giá, FAQ, bảng tra, phiếu đăng ký | `src/template.html` |
-| Bảy bài Kiến Thức (thêm, bớt, đổi thứ tự) | `content/kien-thuc/*.md` (cách viết: [README.md](README.md)) |
-| Màu, chữ, bố cục | `src/styles.css` |
-| Cách lập bàn 12 bước, lịch Can Chi, quy đổi giờ | `src/kymon.js` (kiểm thử: `node tests/test_kymon.mjs`) |
-| Bảng giờ giao tiết | tạo lại bằng `tools/tao_bang_tiet_khi.py`, không sửa tay `src/tiet-khi.js` |
-| Danh sách nơi lập trận, các tùy chọn quy đổi giờ | `src/template.html` (ô chọn) và `src/app.js` |
-| Dụng thần, câu luận giải soạn sẵn, quy tắc chọn ngày, giá trong phiếu, email nhận phiếu, địa chỉ AI | `src/app.js` |
-| Logo, tranh sơn thủy | `assets/` |
+| Chữ trên các trang, bảng giá, FAQ, bảng tra, phiếu đăng ký, khung các thẻ mô-đun | `views/index.html` |
+| Bài Kiến Thức (thêm, bớt, đổi thứ tự) | `content/kien-thuc/*.md` (cách viết: [README.md](README.md)) |
+| Màu, chữ, bố cục | `public/css/style.css` |
+| Phương pháp lập trận 12 bước | `docs/quy-trinh-lap-tran.md` (tài liệu), `lib/b01-…js` đến `lib/b12-…js` (mã) |
+| Bảng tra của quy trình (Cục số, Phù đầu, Tuần thủ – Cờ, bản cung gốc, Bát Thần, Mã Tinh) | `lib/bang-tra.js`, rồi chạy `node tools/xuat_bang_tra.mjs` để cập nhật `data/*.csv` |
+| Lịch, tiết khí, quy đổi giờ | `lib/lich.js`, `lib/b01-tu-tru.js` |
+| Bảng giờ giao tiết | tạo lại bằng `tools/tao_bang_tiet_khi.py`, không sửa tay `lib/tiet-khi-bang.js` |
+| Cách tính và hiển thị của từng thẻ mô-đun | `public/js/mo-dun.js` |
+| Danh sách nơi lập trận, các tùy chọn quy đổi giờ | `views/index.html` (ô chọn) và `public/js/app.js` |
+| Dụng thần, câu luận giải soạn sẵn, quy tắc chọn ngày, địa chỉ AI | `public/js/app.js` |
+| Giá trong phiếu, email nhận phiếu | `public/js/dang-ky.js` |
+| Logo, tranh sơn thủy | `public/img/` |
 | Lời nhắc và giới hạn của phần AI | `worker/worker.js` |
 
-Sau khi sửa: `python3 build.py`, `python3 tests/check_site.py` và `node tests/test_kymon.mjs`.
+Sau khi sửa: `npm run build` rồi `npm test`.

@@ -245,3 +245,27 @@ a.step:hover{border-color:var(--gold)}
  table{font-size:12.5px}th,td{padding:8px 6px}th{font-size:12px}tr td:first-child{white-space:normal}
  .hero-cta .btn{width:100%} .hero-logo-badge{width:64px;height:64px;right:8px} .hero-visual{padding-top:72px}
  .landscape figcaption{padding:36px 18px 16px}.landscape figcaption b{font-size:18px}}
+/* ===== Bàn làm việc 12 mô-đun ===== */
+.mod-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
+.mod-card{padding:20px;display:grid;gap:10px;min-width:0}
+.mod-card:hover{transform:none}
+.mod-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.mod-head h3{margin:0;font-size:17.5px}
+.mod-step{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);white-space:nowrap}
+.mod-src{margin:0;font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.mod-src code,.sec-head code{font-size:12px;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:1px 5px}
+.mod-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.mod-in label.fl{font-size:12.5px;margin-bottom:4px}
+.mod-in select,.mod-in input{padding:9px 10px;font-size:14px}
+.mod-out{border-top:1px dashed var(--line);padding-top:10px;display:grid;gap:4px;min-width:0}
+.mod-out p{margin:0;font-size:14px;color:var(--muted)}.mod-out p strong{color:var(--ink)}
+.mod-out p.note{font-size:12.5px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:6px}
+.mg-o{padding:6px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:54px;display:grid;align-content:start;gap:1px;min-width:0;background:var(--surface)}
+.mg-o:nth-child(3n){border-right:0}.mg-o:nth-child(n+7){border-bottom:0}
+.mg-o small{font-size:9.5px;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.mg-o b{font-size:12.5px;line-height:1.3;overflow-wrap:anywhere}.mg-o i{display:block;font-style:normal;font-size:11.5px;color:var(--red-dark);font-weight:700}
+.mg-o.mg-tt{background:var(--surface2)}
+.mg-o.hl{background:var(--red-soft);box-shadow:inset 0 0 0 2px var(--red)}
+.mg-o.kv{background:var(--surface2);box-shadow:inset 0 0 0 2px var(--muted)}

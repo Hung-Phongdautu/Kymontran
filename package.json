@@ -1,0 +1,16 @@
+{
+  "name": "kymontran",
+  "version": "1.0.0",
+  "description": "Trận Pháp Kỳ Môn — lập trận Kỳ Môn Độn Giáp theo quy trình 12 bước",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "Trận Pháp Kỳ Môn (Đỗ Lê)",
+  "scripts": {
+    "build": "python3 build.py",
+    "demo": "python3 build.py --demo",
+    "start": "python3 server.py",
+    "test": "node --test test/*.test.mjs && python3 test/check_site.py",
+    "bang-tra": "node tools/xuat_bang_tra.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

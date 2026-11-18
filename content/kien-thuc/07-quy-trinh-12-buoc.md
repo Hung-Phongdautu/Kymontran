@@ -3,9 +3,10 @@ id: quy-trinh-12-buoc
 title: Quy trình 12 bước lập trận
 link: Lập bàn và xem 12 bước → | #/tra-cuu/cong-cu?mode=lapban
 link: Tìm Phù đầu → | #/tra-cuu/phu-dau
-link: Tra Tuần thủ, Không Vong → | #/tra-cuu/tuan-thu
+link: Mười hai mô-đun lập trận → | #/tra-cuu/tra-nhanh
+link: Mô-đun Không Vong → | #/tra-cuu/khong-vong
 ---
-Mọi bàn trên trang được lập theo đúng thứ tự dưới đây. Khi lập bàn ở trang Tra Cứu, mở mục **Trình tự 12 bước của bàn này** ngay dưới bàn để xem kết quả của từng bước.
+Mọi bàn trên trang được lập theo đúng thứ tự dưới đây. Khi lập bàn ở trang Tra Cứu, mở mục **Trình tự 12 bước của bàn này** ngay dưới bàn để xem kết quả của từng bước. Mỗi bước cũng có một thẻ riêng trong mục **Mười hai mô-đun lập trận** để thử với dữ liệu tùy ý.
 
 - **Bước 1 · Đổi giờ và xác định tiết khí** — lập Tứ trụ năm, tháng, ngày, giờ; Can giờ suy từ Can ngày bằng Ngũ Tý Độn. Tiết khí cho biết Dương độn (Đông chí đến Mang chủng) hay Âm độn (Hạ chí đến Đại tuyết).
 - **Bước 2 · Phù đầu và Tam nguyên** — lùi Can Chi ngày về ngày Giáp hoặc Kỷ; chi của Phù đầu cho Thượng, Trung hay Hạ nguyên; ghép với tiết khí ra Cục số 1 – 9.

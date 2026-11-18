@@ -1,11 +1,9 @@
-# Đưa trang lên GitHub Pages mỗi khi nhánh main thay đổi, hoặc khi bấm tay
-# (Actions → Run workflow). Cần bật Pages với nguồn "GitHub Actions" trong
-# Settings của kho trước — xem KHOI-CHAY.md.
+# Đưa trang lên GitHub Pages — chỉ chạy khi bấm tay (Actions → Run workflow), để kho giữ
+# riêng tư và trang chỉ lên mạng khi có nhu cầu. Cần bật Pages với nguồn "GitHub Actions"
+# trong Settings của kho trước; kho riêng tư cần gói GitHub có hỗ trợ Pages — xem KHOI-CHAY.md.
 name: Đưa trang lên GitHub Pages
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -28,10 +26,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Dựng và kiểm tra trang
         run: |
           python3 build.py --site _site
-          python3 tests/check_site.py
+          node --test test/*.test.mjs
+          python3 test/check_site.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

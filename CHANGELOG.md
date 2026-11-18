@@ -1,5 +1,16 @@
 # Nhật ký thay đổi
 
+## 2026-11-18 (tổ chức lại kho)
+
+- Bố cục kho theo vai trò, tham khảo cách chia của qfdk/qimen (không lấy mã):
+  - `lib/`: bộ máy tách thành 12 mô-đun bước (`b01` … `b12`), thư viện tra cứu `bang-tra.js`, lịch `lich.js`, điều phối `kymon.js`.
+  - `views/`, `public/`: khung trang, CSS, JS, ảnh; `test/`: kiểm thử theo mô-đun bằng `node --test`.
+  - `docs/quy-trinh-lap-tran.md`: tài liệu quy trình 12 bước; `docs/giay-phep-thanh-phan.md`: kiểm tra giấy phép.
+  - `data/*.csv`: 8 bảng tra xuất từ `lib/` (Cục số, Phù đầu, Tuần thủ, Địa bàn 18 cục, Ngũ Tý Độn, bản cung gốc, Bát Thần, giờ giao tiết 1900 – 2100).
+  - `package.json` với các lệnh `npm start`, `npm test`, `npm run build`, `npm run bang-tra`, `npm run demo`.
+- Trang Tra Cứu: thay bốn tra cứu nhanh bằng bàn làm việc 13 thẻ, mỗi thẻ là một mô-đun độc lập theo dữ liệu nhập; có nút điền dữ liệu từ bàn vừa lập.
+- Quy trình GitHub Pages chỉ chạy khi bấm tay; hướng dẫn để kho riêng tư trong `KHOI-CHAY.md`.
+
 ## 2026-11-19
 
 - Quy đổi giờ như các trang lập bàn Kỳ Môn thường dùng:

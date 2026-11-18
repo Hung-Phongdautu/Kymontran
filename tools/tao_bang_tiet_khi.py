@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tạo src/tiet-khi.js: bảng giờ giao 24 tiết khí năm 1900 – 2100.
+"""Tạo lib/tiet-khi-bang.js: bảng giờ giao 24 tiết khí năm 1900 – 2100.
 
     pip install sxtwl
     python3 tools/tao_bang_tiet_khi.py
@@ -55,11 +55,12 @@ def main():
     noi_dung = (
         "// Bảng giờ giao 24 tiết khí " + f"{NAM_DAU} – {NAM_CUOI}" + ", tạo bởi tools/tao_bang_tiet_khi.py — không sửa tay.\n"
         "// Nguồn: thư viện sxtwl (Thọ Tinh vạn niên lịch, giấy phép BSD). Giờ UTC, làm tròn tới phút.\n"
-        f"var KYMON_BANG_TIET = {{ dau: {moc[0][1]}, phut0: {moc[0][0]}, buoc: \"{''.join(buoc)}\" }};\n"
-        "if (typeof module !== \"undefined\" && module.exports) module.exports = KYMON_BANG_TIET;\n"
+        "(function (KM) {\n"
+        f"  KM.BangTietKhi = {{ dau: {moc[0][1]}, phut0: {moc[0][0]}, buoc: \"{''.join(buoc)}\" }};\n"
+        "})(typeof module !== \"undefined\" && module.exports ? (module.exports = require(\"./km.js\")) : KM);\n"
     )
-    (ROOT / "src" / "tiet-khi.js").write_text(noi_dung, encoding="utf-8")
-    print(f"Đã ghi src/tiet-khi.js: {len(moc)} lần giao tiết, {len(noi_dung) // 1024} KB")
+    (ROOT / "lib" / "tiet-khi-bang.js").write_text(noi_dung, encoding="utf-8")
+    print(f"Đã ghi lib/tiet-khi-bang.js: {len(moc)} lần giao tiết, {len(noi_dung) // 1024} KB")
 
 
 if __name__ == "__main__":
