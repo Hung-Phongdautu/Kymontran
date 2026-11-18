@@ -15,6 +15,7 @@
     chỉ được xem để học cách tổ chức tài liệu và quy trình của kho mã; không dùng mã nguồn, văn bản hay hình ảnh.
 
   Tệp này do build.py dựng ra từ src/, assets/ và content/ — hãy sửa ở nguồn rồi chạy: python3 build.py
+  - Bảng giờ giao tiết 1900 – 2100 tính từ thư viện sxtwl (Thọ Tinh vạn niên lịch, giấy phép BSD).
   - Phông chữ Be Vietnam Pro, Noto Serif: giấy phép SIL Open Font License 1.1 (Google Fonts).
 -->
 <html lang="vi">
@@ -131,6 +132,14 @@
       <div><label class="fl" for="fField">Lĩnh vực</label><select id="fField">
         <option>Kinh doanh</option><option>Bệnh tật</option><option>Hôn nhân</option><option>Công danh</option><option>Tài vận</option><option>Gia trạch</option><option>Pháp lý</option><option>Thất vật</option><option>Xuất hành</option><option>Học tập</option><option>Thể thao</option>
       </select></div>
+      <details class="full qd-opts" id="qdOpts"><summary>Quy đổi giờ — nơi lập trận, giờ Mặt Trời thật, giờ Tý</summary>
+        <div class="form-grid qd-grid">
+          <div><label class="fl" for="fNoi">Nơi lập trận</label><select id="fNoi"><option value="|" selected>Theo múi giờ của máy (không có kinh độ)</option><option value="Asia/Ho_Chi_Minh|105.85">Hà Nội — 105,85° Đ</option><option value="Asia/Ho_Chi_Minh|106.68">Hải Phòng — 106,68° Đ</option><option value="Asia/Ho_Chi_Minh|107.59">Huế — 107,59° Đ</option><option value="Asia/Ho_Chi_Minh|108.22">Đà Nẵng — 108,22° Đ</option><option value="Asia/Ho_Chi_Minh|109.19">Nha Trang — 109,19° Đ</option><option value="Asia/Ho_Chi_Minh|108.44">Đà Lạt — 108,44° Đ</option><option value="Asia/Ho_Chi_Minh|108.04">Buôn Ma Thuột — 108,04° Đ</option><option value="Asia/Ho_Chi_Minh|106.70">TP. Hồ Chí Minh — 106,70° Đ</option><option value="Asia/Ho_Chi_Minh|106.65">Thủ Dầu Một (Bình Dương) — 106,65° Đ</option><option value="Asia/Ho_Chi_Minh|106.82">Biên Hòa — 106,82° Đ</option><option value="Asia/Ho_Chi_Minh|105.78">Cần Thơ — 105,78° Đ</option><option value="Asia/Shanghai|116.40">Bắc Kinh (UTC+8) — 116,40° Đ</option></select></div>
+          <div><label class="fl" for="fGioDung">Giờ dùng để đổi Can Chi</label><select id="fGioDung"><option value="dh" selected>Giờ đồng hồ</option><option value="mt">Giờ Mặt Trời thật (theo kinh độ nơi lập trận)</option></select></div>
+          <div><label class="fl" for="fDoiNgay">Đổi ngày lúc</label><select id="fDoiNgay"><option value="23" selected>23h — giờ Tý sớm (mặc định)</option><option value="0">0h — giờ Tý muộn (dạ Tý)</option></select></div>
+          <p class="note qd-note">Giờ ở ô “Thời gian” là giờ đồng hồ tại nơi lập trận. Giờ Mặt Trời thật cộng phần chênh kinh độ (4 phút mỗi độ) và phương trình thời gian. Giờ giao tiết lấy từ bảng Thọ Tinh vạn niên lịch.</p>
+        </div>
+      </details>
       <div class="full"><label class="fl" for="fQ">Câu hỏi của bạn</label><textarea id="fQ" maxlength="500" placeholder="Ví dụ: Tôi định ký hợp đồng phân phối vào tuần tới, việc này có thuận lợi không? Nên chú ý điều gì?"></textarea><div class="hint"><span id="qCount">0</span>/500 ký tự</div></div>
     </div>
     <button type="button" class="btn btn-primary" id="btnCast" style="margin-top:8px">Lập trận &amp; xem kết quả</button>
@@ -139,6 +148,7 @@
       <h3 id="castTitle" style="margin-top:6px"></h3>
       <p class="note" id="castMeta"></p>
       <div class="km-meta" id="kmMeta"></div>
+      <details class="rbox km-qd" id="kmQuyDoi"><summary>Quy đổi giờ của bàn này</summary><div id="kmQuyDoiBody"></div></details>
       <div class="km-board" aria-label="Bàn Kỳ Môn đầy đủ 9 cung"><div class="km-grid" id="kmGrid"></div></div>
       <div class="km-legend"><span><strong>Thần</strong> = Bát Thần</span><span><strong>Tinh</strong> = Cửu Tinh (Thiên bàn)</span><span><strong>Môn</strong> = Bát Môn</span><span><strong>Thiên Can</strong> đi theo Tinh · <strong>Địa Can</strong> cố định theo Cục</span><span><strong>Ám can</strong>, <strong>Ám thần</strong> = Ám Can và Bát Thần Địa bàn</span><span><strong>Mã</strong> = Mã Tinh · <strong>KV</strong> = Không Vong</span><span>Viền đỏ = cung Dụng thần · Bấm vào cung để xem chi tiết</span></div>
       <details class="rbox km-steps" id="kmSteps"><summary>Trình tự 12 bước của bàn này</summary><ol id="kmStepList"></ol></details>
@@ -153,7 +163,7 @@
         <div class="rbox"><h4>Dụng thần &amp; cách cục</h4><p id="rDung"></p></div>
         <div class="rbox"><h4>Đọc bàn nhanh</h4><p id="rRead"></p></div>
       </div>
-      <p class="note" style="margin-top:12px">Bàn được an theo lối Chuyển bàn, đúng 12 bước của tài liệu Quy trình lập trận. Tiết khí tính theo vị trí Mặt Trời (sai số khoảng 15 phút quanh lúc giao tiết), Nguyên theo Phù đầu của ngày; giờ Tý (từ 23h) tính sang ngày hôm sau; thời gian lấy theo múi giờ của máy bạn. Trang chưa áp dụng phép Đặt nhuận khi Siêu thần quá 9 ngày — khi luận việc hệ trọng nên đối chiếu thêm lịch vạn niên.</p>
+      <p class="note" style="margin-top:12px">Bàn được an theo lối Chuyển bàn, đúng 12 bước của tài liệu Quy trình lập trận. Giờ giao tiết lấy từ bảng Thọ Tinh vạn niên lịch (1900 – 2100, chính xác tới phút), Nguyên theo Phù đầu của ngày. Nơi lập trận, giờ Mặt Trời thật và quy ước giờ Tý chọn trong mục Quy đổi giờ; mở “Quy đổi giờ của bàn này” để xem giờ đã dùng. Trang chưa áp dụng phép Đặt nhuận khi Siêu thần quá 9 ngày — khi luận việc hệ trọng nên đối chiếu thêm lịch vạn niên.</p>
     </div>
   </div>
 </div></section>
@@ -285,6 +295,7 @@
   <details><summary>Ngũ Tý Độn dùng để làm gì?</summary><p>Để suy ra Thiên can của giờ từ Thiên can của ngày. Biết ngày là Giáp Tý chẳng hạn, ca quyết “Giáp Kỷ hoàn gia Giáp” cho giờ Tý là Giáp Tý, đếm thuận sẽ ra mọi giờ trong ngày — ví dụ 15h (giờ Thân) là Nhâm Thân.</p></details>
   <details><summary>Dương độn và Âm độn khác nhau thế nào?</summary><p>Dương độn chạy từ Đông chí đến Mang chủng, Lục Nghi đi thuận — Tam Kỳ đi nghịch. Âm độn chạy từ Hạ chí đến Đại tuyết, chiều an bài ngược lại. Tiết khí tại thời điểm lập trận quyết định đang ở độn nào.</p></details>
   <details><summary>Siêu thần, Tiếp khí, Chính thụ là gì?</summary><p>Là ba trạng thái lệch nhau giữa Phù đầu (ngày Giáp/Kỷ đầu nguyên) và thời điểm giao tiết khí: trùng ngày là Chính thụ, Phù đầu đến trước là Siêu thần, tiết khí đến trước là Tiếp khí. Siêu quá 9 ngày thì dùng phép Đặt nhuận ở Mang chủng hoặc Đại tuyết.</p></details>
+  <details id="muc-hoi-gio"><summary>Nên dùng giờ đồng hồ hay giờ Mặt Trời thật?</summary><p>Mặc định trang dùng giờ đồng hồ, như phần lớn sách và ứng dụng Kỳ Môn. Một số phái đổi Can Chi giờ theo giờ Mặt Trời thật của nơi lập trận; khi đó chọn nơi lập trận và “Giờ Mặt Trời thật” trong mục Quy đổi giờ ở trang Tra Cứu. Hai cách chỉ cho bàn khác nhau khi thời điểm nằm sát ranh giới giữa hai giờ, ví dụ 23:10 ở Hà Nội giữa tháng 2 theo giờ Mặt Trời thật vẫn còn giờ Hợi. Xem thêm bài <a href="#/kien-thuc/quy-doi-gio">Quy đổi giờ khi lập trận</a>.</p></details>
   <details id="muc-hoi-phi"><summary>Lập bàn và tra cứu định cục có mất phí không?</summary><p>Không. Lập bàn 9 cung và hai công cụ tra cứu định cục trên website này miễn phí. Chỉ luận giải chuyên sâu theo quẻ, gói tháng hoặc hiệu đính chuyên gia mới thuộc các mức tham khảo ở <a href="#/bang-gia">Bảng giá</a>.</p></details>
   <details><summary>Kết quả luận giải có phải quyết định thay cho tôi không?</summary><p>Không. Kỳ Môn là công cụ tham khảo để nhìn cục diện và thời điểm rõ hơn. Với việc hệ trọng về sức khỏe, pháp lý hay tài chính, hãy đối chiếu thêm ý kiến chuyên môn tương ứng.</p></details>
   <div class="card" id="muc-ban-quyen" style="margin-top:26px"><h3 style="margin-top:0">Bản quyền &amp; nguồn tham khảo</h3>
@@ -295,6 +306,7 @@
       <li>Kho mã công khai <a href="https://github.com/winvu88888888-maker/cuongtan66666666" target="_blank" rel="noopener">winvu88888888-maker/cuongtan66666666</a> (ứng dụng “Kỳ Môn Độn Giáp” của tác giả Vũ Việt Cường) được xem để đối chiếu ý tưởng chức năng. Trang này không sao chép mã nguồn, văn bản hay hình ảnh từ kho đó.</li>
       <li>Kho mã công khai <a href="https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code" target="_blank" rel="noopener">masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code</a> được xem để học cách tổ chức tài liệu và quy trình của một kho mã (các tệp hướng dẫn, kiểm tra tự động). Trang này không dùng mã nguồn, văn bản hay hình ảnh từ kho đó.</li>
       <li>Phần “Luận giải bằng AI” (khi được bật) dùng dịch vụ của OpenAI qua máy chủ trung gian của trang; lời nhắc và mã gọi dịch vụ do Trận Pháp Kỳ Môn tự viết.</li>
+      <li>Bảng giờ giao tiết năm 1900 – 2100 được tính từ thư viện <a href="https://github.com/yuangu/sxtwl_cpp" target="_blank" rel="noopener">sxtwl</a> (Thọ Tinh vạn niên lịch, giấy phép BSD); trang chỉ lưu kết quả tính, không chứa mã của thư viện.</li>
       <li>Phông chữ Be Vietnam Pro và Noto Serif dùng theo giấy phép SIL Open Font License 1.1, tải qua Google Fonts.</li>
       <li>Logo ĐL và tranh sơn thủy do chủ trang cung cấp; tranh sơn thủy được tạo bằng công cụ AI.</li>
     </ul>

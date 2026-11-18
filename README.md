@@ -13,6 +13,8 @@ Toàn bộ trang là một tệp `index.html` chạy thẳng trên trình duyệ
 | `server.py` | Chạy thử trang trên máy tại http://localhost:8000 |
 | `src/template.html` | Khung trang và nội dung các trang con |
 | `src/styles.css` | Giao diện |
+| `src/tiet-khi.js` | Bảng giờ giao tiết 1900 – 2100 (tạo tự động, không sửa tay) |
+| `tools/tao_bang_tiet_khi.py` | Tạo lại `src/tiet-khi.js` từ thư viện sxtwl (`pip install sxtwl`) |
 | `src/kymon.js` | Bộ máy lập trận theo quy trình 12 bước (lịch Can Chi, tiết khí, Phù đầu, an bàn, Mã Tinh, Không Vong, Ám thần, Ám Can) |
 | `src/app.js` | Bộ định tuyến, hiển thị bàn, công cụ tra cứu, phiếu đăng ký |
 | `assets/` | Logo ĐL và tranh sơn thủy (được nhúng thẳng vào trang) |
@@ -86,4 +88,5 @@ Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
 - [masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code](https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code): chỉ xem để học cách tổ chức tài liệu và quy trình của kho mã.
 - Không có mã nguồn, văn bản hay hình ảnh nào được lấy từ hai kho trên.
 - Phần "Luận giải bằng AI" dùng dịch vụ của OpenAI; lời nhắc và mã gọi dịch vụ do Trận Pháp Kỳ Môn tự viết.
+- Bảng giờ giao tiết 1900 – 2100 tính từ thư viện [sxtwl](https://github.com/yuangu/sxtwl_cpp) (Thọ Tinh vạn niên lịch, giấy phép BSD); kho chỉ lưu kết quả tính.
 - Phông chữ Be Vietnam Pro và Noto Serif: SIL Open Font License 1.1 (Google Fonts).

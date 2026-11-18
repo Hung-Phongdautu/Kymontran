@@ -9,7 +9,7 @@
 Nguồn:
     src/template.html          khung trang, chứa các chỗ giữ chỗ {{...}}
     src/styles.css             toàn bộ CSS            -> {{styles}}
-    src/kymon.js + src/app.js  bộ máy lập trận rồi tới mã giao diện -> {{script}}
+    src/tiet-khi.js, src/kymon.js, src/app.js  bảng giao tiết, bộ máy lập trận, mã giao diện -> {{script}}
     assets/<tên tệp>           ảnh, nhúng dạng data URI -> {{asset:<tên tệp>}}
     content/kien-thuc/*.md     bài viết Kiến Thức     -> {{kien-thuc}}
 
@@ -128,7 +128,7 @@ def build():
     page = read(ROOT / "src" / "template.html")
     parts = {
         "styles": read(ROOT / "src" / "styles.css").strip("\n"),
-        "script": read(ROOT / "src" / "kymon.js").strip("\n") + "\n" + read(ROOT / "src" / "app.js").strip("\n"),
+        "script": "\n".join(read(ROOT / "src" / f).strip("\n") for f in ("tiet-khi.js", "kymon.js", "app.js")),
         "kien-thuc": render_articles(),
     }
     for key, value in parts.items():

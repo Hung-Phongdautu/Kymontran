@@ -193,6 +193,12 @@ summary{cursor:pointer;font-weight:700;padding:10px 0} details p{color:var(--mut
 .km-chip{font-size:10px;font-weight:800;letter-spacing:.04em;padding:2px 7px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);white-space:nowrap}
 .km-chip.tp{border-color:var(--gold);color:var(--gold-ink)}.km-chip.ts{border-color:var(--red);color:var(--red-dark)}
 .km-chip.ma{background:var(--gold-soft);color:var(--sand-ink);border-color:transparent}.km-chip.kv{background:var(--surface2);color:var(--muted);border-style:dashed}
+.qd-opts{border:1px solid var(--line);border-radius:14px;padding:10px 14px;background:var(--surface2)}
+.qd-opts summary{font-weight:700;cursor:pointer;color:var(--red-dark)}
+.qd-grid{margin-top:12px}.qd-note{grid-column:1/-1;margin:0}
+.km-qd{margin-top:12px}.km-qd summary{font-weight:700;color:var(--red);cursor:pointer}
+.km-qd table{margin-top:10px;font-size:13.5px}.km-qd td{padding:6px 10px}.km-qd td:first-child{white-space:normal;color:var(--muted);font-weight:600;width:42%}
+.km-qd .table-wrap{overflow-x:auto}
 .km-steps{margin-top:14px}.km-steps summary{font-weight:700;color:var(--red);cursor:pointer}
 .km-steps ol{margin:10px 0 0;padding-left:0;list-style:none;display:grid;gap:10px}
 .km-steps li{display:grid;gap:2px;font-size:13.5px;color:var(--muted);min-width:0;overflow-wrap:anywhere}.km-steps li b{color:var(--ink);font-size:14px}

@@ -1,5 +1,15 @@
 # Nhật ký thay đổi
 
+## 2026-11-19
+
+- Quy đổi giờ như các trang lập bàn Kỳ Môn thường dùng:
+  - Giờ giao tiết lấy từ bảng Thọ Tinh vạn niên lịch 1900 – 2100 (`src/tiet-khi.js`, chính xác tới phút), thay cho công thức sai số khoảng 15 phút. Ngoài khoảng năm đó vẫn dùng công thức.
+  - Chọn nơi lập trận (11 thành phố Việt Nam và Bắc Kinh); giờ nhập là giờ đồng hồ tại nơi đó, kể cả múi giờ lịch sử.
+  - Tùy chọn đổi Can Chi giờ theo giờ Mặt Trời thật (kinh độ và phương trình thời gian).
+  - Tùy chọn đổi ngày lúc 23h (giờ Tý sớm) hoặc 0h (giờ Tý muộn).
+  - Mục "Quy đổi giờ của bàn này" dưới bàn: giờ đồng hồ, UTC, giờ Bắc Kinh, giờ Mặt Trời trung bình và thật, giờ giao tiết hiện tại và kế tiếp.
+- Thêm bài Kiến Thức "Quy đổi giờ khi lập trận" và câu hỏi FAQ "Nên dùng giờ đồng hồ hay giờ Mặt Trời thật?".
+
 ## 2026-11-18
 
 - Viết lại bộ máy lập trận theo tài liệu "Quy trình lập trận Kỳ Môn Độn Giáp" 12 bước, tách riêng thành `src/kymon.js`:

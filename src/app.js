@@ -145,8 +145,25 @@ function setMode(m){
 document.querySelectorAll('.tab[data-mode]').forEach(function(t){t.addEventListener('click',function(){setMode(t.getAttribute('data-mode'));});});
 var fQ=document.getElementById('fQ');
 fQ.addEventListener('input',function(){document.getElementById('qCount').textContent=fQ.value.length;});
-var now=new Date(); now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
-document.getElementById('fTime').value=now.toISOString().slice(0,16);
+// ===== Quy đổi giờ: nơi lập trận (múi giờ, kinh độ), giờ Mặt Trời thật, quy ước giờ Tý =====
+var QD_IDS=['fNoi','fGioDung','fDoiNgay'];
+QD_IDS.forEach(function(id){
+  var el=document.getElementById(id);
+  try{var v=localStorage.getItem('kymon.'+id); if(v!==null&&[].some.call(el.options,function(o){return o.value===v;}))el.value=v;}catch(e){}
+  el.addEventListener('change',function(){try{localStorage.setItem('kymon.'+id,el.value);}catch(e){} if(document.getElementById('castResult').classList.contains('show'))cast(false);});
+});
+function tuyChon(){
+  var noi=document.getElementById('fNoi').value.split('|'), kd=noi[1]?parseFloat(noi[1]):null;
+  return {muiGio:noi[0]||'', kinhDo:kd, gioMatTroi:document.getElementById('fGioDung').value==='mt'&&kd!==null, doiNgay:document.getElementById('fDoiNgay').value,
+    tenNoi:document.getElementById('fNoi').selectedOptions[0].textContent.split(' — ')[0], muonMT:document.getElementById('fGioDung').value==='mt'};
+}
+function nhapThoiDiem(str,tc){ // "YYYY-MM-DDTHH:MM" là giờ đồng hồ tại nơi lập trận
+  var m=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(str||'');
+  if(!m)return Date.now();
+  return KyMon.thoiDiemTuGioDongHo(+m[1],+m[2],+m[3],+m[4],+m[5],tc.muiGio);
+}
+function chuoiGioDongHo(ms,mui){var g=KyMon.gioDongHo(ms,mui);return g.y+'-'+pad2(g.m)+'-'+pad2(g.d)+'T'+pad2(g.h)+':'+pad2(g.mi);}
+document.getElementById('fTime').value=chuoiGioDongHo(Date.now(),tuyChon().muiGio);
 // ===== Lập bàn: bộ máy 12 bước nằm trong src/kymon.js (biến KyMon) =====
 var CAN=KyMon.CAN, CHI=KyMon.CHI, CUNG=KyMon.CUNG, cc=KyMon.canChi;
 function tenCan(i){return CAN[i];}
@@ -167,7 +184,7 @@ var FIELD_DUNG={
  "Xuất hành":{tim:[["mon","Khai Môn"],["tinh","Thiên Xung"]],label:"Khai Môn + Thiên Xung (xuất hành, khai trương)"},
  "Học tập":{tim:[["tinh","Thiên Phụ"],["mon","Cảnh Môn"]],label:"Thiên Phụ + Cảnh Môn (học hành, thi cử)"},
  "Thể thao":{tim:[["tinh","Thiên Xung"],["mon","Thương Môn"]],label:"Thiên Xung + Thương Môn (thi đấu, tốc độ)"}};
-function buildBoard(date){return KyMon.lapTran(date);}
+function buildBoard(date){return KyMon.lapTran(date,tuyChon());}
 // Ký hiệu của một cung, đã đổi sang chữ để hiển thị.
 function oCung(b,p){
   var t=b.thien[p];
@@ -190,7 +207,7 @@ function findDungPal(b,dung){
   return {pal:b.cungDenTP,theo:b.trucPhu};
 }
 function pad2(n){return (n<10?'0':'')+n;}
-function toLocalInput(d){return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+pad2(d.getHours())+':'+pad2(d.getMinutes());}
+function toLocalInput(d){return chuoiGioDongHo(d.getTime(),tuyChon().muiGio);}
 var lastBoard=null;
 // "Chon ngay": xét 10 ngày tới cùng khung giờ, giữ ngày mà cung Dụng thần hội ít nhất hai dấu hiệu tốt
 // (Tam Kỳ, Thần cát, Tinh cát) và không rơi vào Không Vong (Bước 10: "Cát phùng Không tắc bất cát").
@@ -199,7 +216,7 @@ function renderDays(date,field){
   var dung=FIELD_DUNG[field]||FIELD_DUNG["Kinh doanh"], wrap=document.getElementById('rDays'), found=0;
   wrap.innerHTML='';
   for(var i=1;i<=10;i++){
-    var d=new Date(date.getTime()); d.setDate(d.getDate()+i);
+    var d=new Date(date.getTime()+i*86400000); // cùng giờ đồng hồ, sau i ngày
     var b=buildBoard(d), pal=findDungPal(b,dung).pal, o=oCung(b,pal), why=[];
     if(o.kv)continue;
     var ky=o.thienCanDs.filter(laTamKy); if(ky.length)why.push('Tam Kỳ '+ky.map(tenCan).join(', '));
@@ -214,17 +231,41 @@ function renderDays(date,field){
   }
   document.getElementById('rDaysNote').textContent=found?('Có '+found+' ngày mà cung Dụng thần của lĩnh vực "'+field+'" hội được ít nhất hai yếu tố tốt (Tam Kỳ, Thần cát, Tinh cát) và không gặp Không Vong vào giờ này. Đây là gợi ý rút gọn — bấm một ngày để lập lại bàn cho đúng ngày đó.'):('Trong 10 ngày tới, vào khung giờ này chưa có ngày nào cung Dụng thần của lĩnh vực "'+field+'" hội đủ hai yếu tố tốt mà không gặp Không Vong. Hãy thử đổi sang khung giờ khác rồi tìm lại.');
 }
+function hhmm(g){return pad2(g.h)+':'+pad2(g.mi);}
+function ngayGio(g){return hhmm(g)+' ngày '+pad2(g.d)+'/'+pad2(g.m)+'/'+g.y;}
+function lechTxt(phut){var s=phut<0?'−':'+';phut=Math.abs(Math.round(phut));return s+Math.floor(phut/60)+':'+pad2(phut%60);}
+function renderQuyDoi(b){
+  var q=b.quyDoi, tc=tuyChon(), rows=[], utc=q.utc;
+  rows.push(['Nơi lập trận',tc.tenNoi+(q.kinhDo!==null?' (kinh độ '+String(q.kinhDo).replace('.',',')+'° Đông)':'')]);
+  rows.push(['Giờ đồng hồ tại nơi lập trận',ngayGio(q.dongHo)+' (UTC'+lechTxt(q.lechMui)+')']);
+  rows.push(['Giờ quốc tế (UTC)',ngayGio(KyMon.gioDongHo(utc,'UTC'))]);
+  rows.push(['Giờ Bắc Kinh — để đối chiếu với ứng dụng Trung Quốc',ngayGio(KyMon.gioDongHo(utc,'Asia/Shanghai'))]);
+  if(q.kinhDo!==null){
+    var tb=new Date(utc+q.kinhDo*4*60000), th=new Date(utc+(q.kinhDo*4+q.eot)*60000);
+    var g=function(d){return {y:d.getUTCFullYear(),m:d.getUTCMonth()+1,d:d.getUTCDate(),h:d.getUTCHours(),mi:d.getUTCMinutes()};};
+    rows.push(['Giờ Mặt Trời trung bình (theo kinh độ)',ngayGio(g(tb))+' — chênh '+((q.kinhDo*4-q.lechMui)>=0?'+':'−')+Math.abs(q.kinhDo*4-q.lechMui).toFixed(1).replace('.',',')+' phút so với giờ đồng hồ']);
+    rows.push(['Phương trình thời gian',(q.eot>=0?'+':'−')+Math.abs(q.eot).toFixed(1).replace('.',',')+' phút']);
+    rows.push(['Giờ Mặt Trời thật',ngayGio(g(th))]);
+  }
+  rows.push(['Giờ dùng để đổi Can Chi',q.gioMatTroi?'Giờ Mặt Trời thật — '+hhmm(q.gioDung)+', giờ '+CHI[b.chiGio]:(tc.muonMT?'Giờ đồng hồ (chưa chọn nơi có kinh độ nên chưa dùng được giờ Mặt Trời thật)':'Giờ đồng hồ — '+hhmm(q.gioDung)+', giờ '+CHI[b.chiGio])]);
+  rows.push(['Quy ước giờ Tý',q.doiNgay==='23'?'Đổi ngày lúc 23h (giờ Tý sớm)':'Đổi ngày lúc 0h (giờ Tý muộn: 23h – 24h giữ ngày cũ, Can giờ theo ngày hôm sau)']);
+  rows.push(['Giao tiết '+b.tenTiet,KyMon.dinhDangGio(b.giaoTiet,q.muiGio)+' (giờ Bắc Kinh '+KyMon.dinhDangGio(b.giaoTiet,'Asia/Shanghai')+')']);
+  rows.push(['Giao tiết kế tiếp — '+KyMon.TIET[(b.tiet+1)%24].ten,KyMon.dinhDangGio(b.tietTiep,q.muiGio)]);
+  rows.push(['Nguồn giờ giao tiết',b.nguonTiet==='bang'?'Bảng Thọ Tinh vạn niên lịch (1900 – 2100), chính xác tới phút':'Công thức kinh độ Mặt Trời (ngoài 1900 – 2100), sai số khoảng 15 phút']);
+  document.getElementById('kmQuyDoiBody').innerHTML='<div class="table-wrap"><table><tbody>'+rows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>';}).join('')+'</tbody></table></div>';
+}
 function chip(on,cls,text){return on?'<span class="km-chip '+cls+'">'+text+'</span>':'';}
 function renderBoard(board,field){
   lastBoard=board;
   var dung=FIELD_DUNG[field]||FIELD_DUNG["Kinh doanh"];
   var found=findDungPal(board,dung), dungPal=found.pal;
   board.dungPal=dungPal; board.dung=dung; board.dungTheo=found.theo;
-  var tt=board.tuTru, gioTy=board.thoiDiem.getHours()>=23;
+  var tt=board.tuTru, gioTy=board.quyDoi.gioDung.h>=23&&board.quyDoi.doiNgay==='23';
+  renderQuyDoi(board);
   var dacBiet=board.canGio===0?'Giờ Lục Giáp':(board.phucNgam?'Phục ngâm toàn trận':(board.phanNgam?'Phản ngâm toàn trận':''));
   document.getElementById('kmMeta').innerHTML=
    '<div class="mbox"><small>Tứ trụ</small><b>Ngày '+cc(tt.ngay)+' · giờ '+cc(tt.gio)+'</b><span>Năm '+cc(tt.nam)+' · tháng '+cc(tt.thang)+(gioTy?' · sau 23h tính sang ngày hôm sau':'')+'</span></div>'+
-   '<div class="mbox"><small>Tiết khí · Cục</small><b>'+board.tenTiet+' — '+(board.duong?'Dương':'Âm')+' '+board.cuc+' cục</b><span>Phù đầu '+cc(board.phuDau)+' ('+board.nhomChi+') → '+KyMon.NGUYEN[board.nguyen]+' · giao tiết '+KyMon.dinhDangGio(board.giaoTiet)+'</span></div>'+
+   '<div class="mbox"><small>Tiết khí · Cục</small><b>'+board.tenTiet+' — '+(board.duong?'Dương':'Âm')+' '+board.cuc+' cục</b><span>Phù đầu '+cc(board.phuDau)+' ('+board.nhomChi+') → '+KyMon.NGUYEN[board.nguyen]+' · giao tiết '+KyMon.dinhDangGio(board.giaoTiet,board.quyDoi.muiGio)+'</span></div>'+
    '<div class="mbox"><small>Trực Phù · Trực Sử</small><b>'+board.trucPhu+' · '+board.trucSu+'</b><span>Tuần '+cc(board.tuanThu)+', cờ '+tenCan(board.co)+' ở cung '+board.cungCo+' · Trực Phù tới '+CUNG[board.cungDenTP].ten+' '+board.cungDenTP+', Trực Sử tới '+CUNG[board.cungDenTS].ten+' '+board.cungDenTS+'</span></div>'+
    '<div class="mbox"><small>Mã Tinh · Không Vong</small><b>Mã '+CUNG[board.ma.cung].ten+' '+board.ma.cung+' · KV '+board.khongVong.cung.map(function(p){return CUNG[p].ten+' '+p;}).join(', ')+'</b><span>Mã tại '+CHI[board.ma.chi]+' · Không Vong '+board.khongVong.chi.map(function(c){return CHI[c];}).join(', ')+(dacBiet?' · '+dacBiet:'')+'</span></div>';
   var order=[4,9,2,3,5,7,8,1,6]; var grid=document.getElementById('kmGrid'); grid.innerHTML='';
@@ -267,11 +308,11 @@ function cast(scroll){
   var field=document.getElementById('fField').value;
   var q=fQ.value.trim()||'(Chưa nhập câu hỏi cụ thể — luận giải theo cục diện chung của lĩnh vực đã chọn.)';
   var t=document.getElementById('fTime').value;
-  var date=t?new Date(t):new Date(); if(isNaN(date.getTime()))date=new Date();
+  var tc=tuyChon(), date=new Date(t?nhapThoiDiem(t,tc):Date.now()); if(isNaN(date.getTime()))date=new Date();
   var board=buildBoard(date); var info=renderBoard(board,field);
   var tone=info.dungNature==="cat"?1:(info.dungNature==="hung"?2:0);
   document.getElementById('castTitle').textContent=modeName[mode]+' · '+field+' — '+(board.duong?'Dương độn':'Âm độn')+' '+board.cuc+' cục';
-  document.getElementById('castMeta').textContent='Thời điểm: '+(t?t.replace('T',' lúc '):'hiện tại')+' · Tiết '+board.tenTiet+' · Câu hỏi: “'+q+'”';
+  document.getElementById('castMeta').textContent='Thời điểm: '+(t?t.replace('T',' lúc '):'hiện tại')+(tc.muiGio?' (giờ tại '+tc.tenNoi+')':'')+(board.quyDoi.gioMatTroi?' · giờ Mặt Trời thật '+hhmm(board.quyDoi.gioDung):'')+' · Tiết '+board.tenTiet+' · Câu hỏi: “'+q+'”';
   var NOW=[
     'Cục diện hiện tại còn đang chuyển động: Dụng thần chưa gặp Môn cát, việc "'+field.toLowerCase()+'" đang ở thế thăm dò, chưa nên chốt vội.',
     'Hiện trạng cho thấy nền việc đã có sẵn, Dụng thần đứng ở cung có sinh khí — bạn đang có một điểm tựa thực tế để bắt đầu.',

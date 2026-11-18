@@ -3,7 +3,15 @@
 // Viết theo tài liệu "Quy trình lập trận Kỳ Môn Độn Giáp" (12 bước) của Trận Pháp Kỳ Môn.
 // Mỗi hàm bên dưới ứng với một bước; số bước được ghi ở đầu hàm.
 //
-//   KyMon.lapTran(date)            lập trận cho một thời điểm (đủ 12 bước, có lịch Can Chi)
+//   KyMon.lapTran(date, tuyChon)   lập trận cho một thời điểm (đủ 12 bước, có lịch Can Chi)
+//   KyMon.thoiDiemTuGioDongHo(...) đổi giờ đồng hồ tại một múi giờ sang thời điểm tuyệt đối
+//
+// Tùy chọn quy đổi giờ (giống các trang lập bàn Kỳ Môn thường dùng):
+//   muiGio      tên múi giờ IANA của nơi lập trận, ví dụ "Asia/Ho_Chi_Minh"; bỏ trống = múi giờ của máy
+//   kinhDo      kinh độ nơi lập trận (độ, phía Đông là dương) — cần cho giờ Mặt Trời thật
+//   gioMatTroi  true: đổi Can Chi giờ theo giờ Mặt Trời thật (chân thái dương thời) thay cho giờ đồng hồ
+//   doiNgay     "23" (mặc định, giờ Tý sớm): từ 23h tính sang ngày hôm sau;
+//               "0" (giờ Tý muộn / dạ Tý): 23h – 24h giữ Can Chi ngày cũ, Can giờ Tý lấy theo ngày hôm sau
 //   KyMon.anBan(duong, cuc, can, chi)  an bàn từ Bước 3 đến Bước 12 khi đã biết Cục và Can Chi giờ
 //
 // Không phụ thuộc trình duyệt: chạy được cả trong Node để kiểm thử (tests/test_kymon.mjs).
@@ -66,6 +74,28 @@ var KyMon = (function () {
   // Đi qua Cửu Cung theo số Lạc Thư: Dương thuận (1→9), Âm nghịch (9→1)
   function phiCung(batDau, buoc, duong) { return mod(batDau - 1 + (duong ? buoc : -buoc), 9) + 1; }
 
+  // ---------- Lịch: giờ giao tiết ----------
+  // Ưu tiên bảng giờ giao tiết 1900 – 2100 lấy từ Thọ Tinh vạn niên lịch (src/tiet-khi.js);
+  // ngoài khoảng đó mới dùng công thức kinh độ Mặt Trời bên dưới.
+  var BANG = null;
+  (function () {
+    var b = typeof KYMON_BANG_TIET !== "undefined" ? KYMON_BANG_TIET : null;
+    if (!b && typeof require === "function") { try { b = require("./tiet-khi.js"); } catch (e) { b = null; } }
+    if (!b) return;
+    var t = [b.phut0 * 60000], m = b.phut0;
+    for (var k = 0; k < b.buoc.length; k += 3) { m += parseInt(b.buoc.substr(k, 3), 36) + 20000; t.push(m * 60000); }
+    BANG = { dau: b.dau, t: t };
+  })();
+  function tietTai(ms) {
+    if (BANG && ms >= BANG.t[0] && ms < BANG.t[BANG.t.length - 1]) {
+      var lo = 0, hi = BANG.t.length - 1;
+      while (hi - lo > 1) { var mid = (lo + hi) >> 1; if (BANG.t[mid] <= ms) lo = mid; else hi = mid; }
+      return { i: (BANG.dau + lo) % 24, giao: new Date(BANG.t[lo]), tiep: new Date(BANG.t[lo + 1]), nguon: "bang" };
+    }
+    var i = chiSoTiet(kinhDoMatTroi(ms));
+    return { i: i, giao: thoiDiemGiaoTiet(ms, i), tiep: thoiDiemGiaoTiet(ms + 16 * 86400000, (i + 1) % 24), nguon: "congthuc" };
+  }
+
   // ---------- Lịch: kinh độ Mặt Trời và tiết khí ----------
   // Công thức gần đúng của J. Meeus (Astronomical Algorithms, chương 25), sai số khoảng 0,01°
   // tức khoảng 15 phút ở thời điểm giao tiết.
@@ -80,6 +110,35 @@ var KyMon = (function () {
     return mod(L0 + C - 0.00569 - 0.00478 * Math.sin(omega), 360);
   }
   function chiSoTiet(kinhDo) { return Math.floor(mod(kinhDo - 270, 360) / 15); }
+  // Phương trình thời gian (phút): giờ Mặt Trời thật trừ giờ Mặt Trời trung bình. Công thức của NOAA, sai số dưới 1 phút.
+  function phuongTrinhThoiGian(ms) {
+    var d = new Date(ms), dauNam = Date.UTC(d.getUTCFullYear(), 0, 1);
+    var soNgay = (Date.UTC(d.getUTCFullYear() + 1, 0, 1) - dauNam) / 86400000;
+    var g = 2 * Math.PI / soNgay * ((ms - dauNam) / 86400000);
+    return 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+  }
+
+  // ---------- Quy đổi giờ ----------
+  // Giờ đồng hồ (năm, tháng 1–12, ngày, giờ, phút) của thời điểm `ms` tại múi giờ `mui`; bỏ trống = múi giờ của máy.
+  function gioDongHo(ms, mui) {
+    var d = new Date(ms);
+    if (!mui) return { y: d.getFullYear(), m: d.getMonth() + 1, d: d.getDate(), h: d.getHours(), mi: d.getMinutes() };
+    var f = new Intl.DateTimeFormat("en-US", { timeZone: mui, hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" });
+    var o = {};
+    f.formatToParts(d).forEach(function (p) { o[p.type] = parseInt(p.value, 10); });
+    return { y: o.year, m: o.month, d: o.day, h: o.hour % 24, mi: o.minute };
+  }
+  function lechMuiGio(ms, mui) { // phút, giờ đồng hồ trừ UTC
+    var g = gioDongHo(ms, mui);
+    return Math.round((Date.UTC(g.y, g.m - 1, g.d, g.h, g.mi) - Math.floor(ms / 60000) * 60000) / 60000);
+  }
+  // Giờ đồng hồ người dùng nhập tại múi giờ `mui` → thời điểm tuyệt đối (mili giây UTC).
+  function thoiDiemTuGioDongHo(y, m, d, h, mi, mui) {
+    if (!mui) return new Date(y, m - 1, d, h, mi).getTime();
+    var dongHo = Date.UTC(y, m - 1, d, h, mi), ms = dongHo;
+    for (var k = 0; k < 3; k++) ms = dongHo - lechMuiGio(ms, mui) * 60000;
+    return ms;
+  }
   // Tìm thời điểm Mặt Trời tới kinh độ của tiết `i`, bắt đầu dò từ `ms` (đang ở trong tiết đó).
   function thoiDiemGiaoTiet(ms, i) {
     var t = ms;
@@ -99,26 +158,40 @@ var KyMon = (function () {
   // Ngũ Hổ Độn: Giáp Kỷ khởi Bính Dần, Ất Canh khởi Mậu Dần, Bính Tân khởi Canh Dần, Đinh Nhâm khởi Nhâm Dần, Mậu Quý khởi Giáp Dần.
   function canThang(canNam, chiThang) { return mod((canNam % 5) * 2 + 2 + mod(chiThang - 2, 12), 10); }
 
-  function buoc1(date) {
-    var ms = date.getTime(), gio = date.getHours();
-    // Giờ Tý bắt đầu lúc 23h và là giờ đầu tiên của ngày hôm sau.
-    var ngayAm = new Date(date.getFullYear(), date.getMonth(), date.getDate() + (gio >= 23 ? 1 : 0));
-    var ngay = chiSoNgay(ngayAm.getFullYear(), ngayAm.getMonth(), ngayAm.getDate());
-    var chiG = Math.floor(mod(gio + 1, 24) / 2);
-    var canG = canGio(ngay % 10, chiG);
-    var kd = kinhDoMatTroi(ms), ti = chiSoTiet(kd);
-    // Tháng Can Chi đổi ở các "tiết" (Lập xuân mở tháng Dần, Kinh trập mở tháng Mão, ...).
-    var chiT = mod(Math.floor(mod(kd - 315, 360) / 30) + 2, 12);
-    // Năm Can Chi đổi ở Lập xuân: tháng 1 – 2 trước Lập xuân vẫn thuộc năm trước.
-    var namDL = date.getFullYear();
-    if (date.getMonth() < 6 && kd >= 270 && kd < 315) namDL -= 1;
+  function buoc1(date, tc) {
+    tc = tc || {};
+    var ms = date.getTime();
+    var dongHo = gioDongHo(ms, tc.muiGio);
+    // Giờ dùng để đổi Can Chi ngày, giờ: giờ đồng hồ, hoặc giờ Mặt Trời thật theo kinh độ nơi lập trận.
+    var dungMT = !!tc.gioMatTroi && typeof tc.kinhDo === "number";
+    var eot = phuongTrinhThoiGian(ms), gio = dongHo;
+    if (dungMT) {
+      var mt = new Date(ms + (tc.kinhDo * 4 + eot) * 60000);
+      gio = { y: mt.getUTCFullYear(), m: mt.getUTCMonth() + 1, d: mt.getUTCDate(), h: mt.getUTCHours(), mi: mt.getUTCMinutes() };
+    }
+    var doiLuc23 = tc.doiNgay !== "0";
+    // Giờ Tý bắt đầu lúc 23h; mặc định đó là giờ đầu tiên của ngày hôm sau (giờ Tý sớm).
+    var ngayAm = new Date(Date.UTC(gio.y, gio.m - 1, gio.d + (doiLuc23 && gio.h >= 23 ? 1 : 0)));
+    var ngay = chiSoNgay(ngayAm.getUTCFullYear(), ngayAm.getUTCMonth(), ngayAm.getUTCDate());
+    var chiG = Math.floor(mod(gio.h + 1, 24) / 2);
+    var canNgayChoGio = ngay % 10;
+    if (!doiLuc23 && gio.h >= 23) canNgayChoGio = (canNgayChoGio + 1) % 10; // dạ Tý: Can giờ theo ngày hôm sau
+    var canG = canGio(canNgayChoGio, chiG);
+    var tk = tietTai(ms), ti = tk.i;
+    // Tháng Can Chi đổi ở các "tiết" (Tiểu hàn mở tháng Sửu, Lập xuân mở tháng Dần, ...).
+    var chiT = mod(1 + Math.floor(mod(ti - 1, 24) / 2), 12);
+    // Năm Can Chi đổi ở Lập xuân: đầu năm dương lịch, trước Lập xuân vẫn thuộc năm trước.
+    var namDL = dongHo.y;
+    if (dongHo.m <= 6 && ti <= 2) namDL -= 1;
     var nam = mod(namDL - 4, 60);
     var thang = chiSo60(canThang(nam % 10, chiT), chiT);
     return {
       tuTru: { nam: nam, thang: thang, ngay: ngay, gio: chiSo60(canG, chiG) },
       canGio: canG, chiGio: chiG, canNgay: ngay % 10,
-      tiet: ti, kinhDo: kd, giaoTiet: thoiDiemGiaoTiet(ms, ti),
-      ngayTinh: ngayAm
+      tiet: ti, kinhDo: kinhDoMatTroi(ms), giaoTiet: tk.giao, tietTiep: tk.tiep, nguonTiet: tk.nguon,
+      ngayTinh: ngayAm,
+      quyDoi: { utc: ms, dongHo: dongHo, muiGio: tc.muiGio || "", lechMui: lechMuiGio(ms, tc.muiGio),
+        kinhDo: typeof tc.kinhDo === "number" ? tc.kinhDo : null, eot: eot, gioMatTroi: dungMT, gioDung: gio, doiNgay: doiLuc23 ? "23" : "0" }
     };
   }
 
@@ -224,13 +297,14 @@ var KyMon = (function () {
   }
 
   // Lập trận đủ 12 bước cho một thời điểm (giờ địa phương của máy).
-  function lapTran(date) {
-    var b1 = buoc1(date);
+  function lapTran(date, tuyChon) {
+    var b1 = buoc1(date, tuyChon);
     var b2 = buoc2(b1.tuTru.ngay, b1.tiet);
     var ban = anBan(b2.duong, b2.cuc, b1.canGio, b1.chiGio);
     ban.thoiDiem = new Date(date.getTime());
     ban.tuTru = b1.tuTru; ban.ngayTinh = b1.ngayTinh;
     ban.tiet = b1.tiet; ban.tenTiet = TIET[b1.tiet].ten; ban.kinhDo = b1.kinhDo; ban.giaoTiet = b1.giaoTiet;
+    ban.tietTiep = b1.tietTiep; ban.nguonTiet = b1.nguonTiet; ban.quyDoi = b1.quyDoi;
     ban.phuDau = b2.phuDau; ban.nguyen = b2.nguyen; ban.nhomChi = b2.nhomChi;
     return ban;
   }
@@ -252,7 +326,9 @@ var KyMon = (function () {
     if (b.tuTru) {
       steps.push(["Đổi giờ và xác định tiết khí",
         "Tứ trụ: năm " + cc(b.tuTru.nam) + ", tháng " + cc(b.tuTru.thang) + ", ngày " + cc(b.tuTru.ngay) + ", giờ " + cc(b.tuTru.gio) +
-        ". Tiết " + TIET[b.tiet].ten + " (" + (b.duong ? "Dương độn" : "Âm độn") + "), giao tiết lúc " + dinhDangGio(b.giaoTiet) + "."]);
+        (b.quyDoi && b.quyDoi.gioMatTroi ? " (đổi theo giờ Mặt Trời thật " + hai(b.quyDoi.gioDung.h) + ":" + hai(b.quyDoi.gioDung.mi) + ")" : "") +
+        ". Tiết " + TIET[b.tiet].ten + " (" + (b.duong ? "Dương độn" : "Âm độn") + "), giao tiết lúc " + dinhDangGio(b.giaoTiet, b.quyDoi && b.quyDoi.muiGio) +
+        (b.nguonTiet === "bang" ? " theo bảng Thọ Tinh vạn niên lịch" : " theo công thức thiên văn") + "."]);
       steps.push(["Phù đầu và Tam nguyên",
         "Ngày " + cc(b.tuTru.ngay) + " lùi về Phù đầu " + cc(b.phuDau) + " (" + b.nhomChi + ") → " + NGUYEN[b.nguyen] +
         ". Tiết " + TIET[b.tiet].ten + " " + TIET[b.tiet].cuc.join(" – ") + " → " + (b.duong ? "Dương " : "Âm ") + b.cuc + " cục."]);
@@ -282,14 +358,18 @@ var KyMon = (function () {
   }
 
   function hai(n) { return (n < 10 ? "0" : "") + n; }
-  function dinhDangGio(d) {
-    return hai(d.getHours()) + ":" + hai(d.getMinutes()) + " ngày " + hai(d.getDate()) + "/" + hai(d.getMonth() + 1) + "/" + d.getFullYear();
+  // Hiển thị một thời điểm theo giờ đồng hồ của múi giờ `mui` (bỏ trống = múi giờ của máy).
+  function dinhDangGio(d, mui) {
+    var g = gioDongHo(d.getTime(), mui);
+    return hai(g.h) + ":" + hai(g.mi) + " ngày " + hai(g.d) + "/" + hai(g.m) + "/" + g.y;
   }
 
   return {
     CAN: CAN, CHI: CHI, NGUYEN: NGUYEN, CUNG: CUNG, VONG: VONG, TIET: TIET, BAT_THAN: BAT_THAN,
     TINH_GOC: TINH_GOC, MON_GOC: MON_GOC, CHI_CUNG: CHI_CUNG,
     canChi: canChi, chiSo60: chiSo60, canGio: canGio, kinhDoMatTroi: kinhDoMatTroi,
+    tietTai: tietTai, phuongTrinhThoiGian: phuongTrinhThoiGian, gioDongHo: gioDongHo, lechMuiGio: lechMuiGio,
+    thoiDiemTuGioDongHo: thoiDiemTuGioDongHo, coBangTiet: function () { return !!BANG; },
     buoc1: buoc1, buoc2: buoc2, anBan: anBan, lapTran: lapTran, trinhTu: trinhTu, dinhDangGio: dinhDangGio
   };
 })();

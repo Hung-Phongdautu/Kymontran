@@ -180,4 +180,45 @@ ok("Trình tự 12 bước", () => {
   assert.equal(s.length, 12); assert.equal(s[0].buoc, 1); assert.equal(s[11].buoc, 12);
   assert.match(s[0].ketQua, /Kỷ Sửu.*Quý Dậu.*Giáp Tý.*Nhâm Thân/);
 });
+// ----- Quy đổi giờ -----
+ok("Bảng giờ giao tiết (Thọ Tinh vạn niên lịch)", () => {
+  assert.ok(KyMon.coBangTiet());
+  const t = KyMon.tietTai(Date.parse("2024-02-04T10:00Z"));
+  assert.equal(TIET[t.i].ten, "Lập xuân"); assert.equal(t.giao.toISOString(), "2024-02-04T08:27:00.000Z"); assert.equal(t.nguon, "bang");
+  assert.equal(KyMon.tietTai(Date.parse("2025-02-04T00:00Z")).giao.toISOString(), "2025-02-03T14:10:00.000Z");
+  // Ngoài 1900 – 2100 thì dùng công thức thiên văn
+  const x = KyMon.tietTai(Date.parse("1850-06-30T00:00Z")); assert.equal(x.nguon, "congthuc"); assert.equal(TIET[x.i].ten, "Hạ chí");
+});
+ok("Múi giờ nơi lập trận", () => {
+  assert.equal(KyMon.lechMuiGio(Date.UTC(2026, 0, 1), "Asia/Ho_Chi_Minh"), 420);
+  assert.equal(KyMon.lechMuiGio(Date.UTC(2026, 0, 1), "Asia/Shanghai"), 480);
+  // Múi giờ lịch sử của Việt Nam: UTC+8 từ cuối 1942 đến 3/1945, UTC+9 từ 3/1945 đến 9/1945
+  assert.equal(KyMon.lechMuiGio(Date.UTC(1944, 3, 28), "Asia/Ho_Chi_Minh"), 480);
+  assert.equal(KyMon.lechMuiGio(Date.UTC(1945, 5, 1), "Asia/Ho_Chi_Minh"), 540);
+  const ms = KyMon.thoiDiemTuGioDongHo(2026, 11, 18, 15, 0, "Asia/Ho_Chi_Minh");
+  assert.equal(new Date(ms).toISOString(), "2026-11-18T08:00:00.000Z");
+  // Cùng một thời điểm: giờ Hà Nội 15:00 và giờ Bắc Kinh 16:00 cho cùng một bàn
+  const a = lapTran(new Date(ms), { muiGio: "Asia/Ho_Chi_Minh" }), b = lapTran(new Date(ms), { muiGio: "Asia/Shanghai" });
+  assert.equal(a.tuTru.ngay, b.tuTru.ngay); assert.equal(a.cuc, b.cuc); assert.equal(CHI[a.chiGio], "Thân"); assert.equal(CHI[b.chiGio], "Thân");
+});
+ok("Giờ Mặt Trời thật", () => {
+  // Đầu tháng 11 phương trình thời gian khoảng +16 phút; giữa tháng 2 khoảng −14 phút.
+  assert.ok(Math.abs(KyMon.phuongTrinhThoiGian(Date.UTC(2026, 10, 3, 5)) - 16.4) < 0.5);
+  assert.ok(Math.abs(KyMon.phuongTrinhThoiGian(Date.UTC(2026, 1, 11, 5)) + 14.2) < 0.5);
+  // TP.HCM (106,70° Đông) 12:00 ngày 03/11: giờ Mặt Trời thật ≈ 12:00 + 6,8 + 16,4 phút ≈ 12:23
+  const ms = KyMon.thoiDiemTuGioDongHo(2026, 11, 3, 12, 0, "Asia/Ho_Chi_Minh");
+  const q = lapTran(new Date(ms), { muiGio: "Asia/Ho_Chi_Minh", kinhDo: 106.70, gioMatTroi: true }).quyDoi;
+  assert.equal(q.gioDung.h, 12); assert.ok(Math.abs(q.gioDung.mi - 23) <= 1, String(q.gioDung.mi));
+  // Hà Nội 23:10 ngày 11/02: giờ Mặt Trời thật ≈ 22:55 → còn giờ Hợi, chưa sang ngày hôm sau
+  const h = KyMon.thoiDiemTuGioDongHo(2026, 2, 11, 23, 10, "Asia/Ho_Chi_Minh");
+  const dh = lapTran(new Date(h), { muiGio: "Asia/Ho_Chi_Minh" }), mt = lapTran(new Date(h), { muiGio: "Asia/Ho_Chi_Minh", kinhDo: 105.85, gioMatTroi: true });
+  assert.equal(CHI[dh.chiGio], "Tý"); assert.equal(CHI[mt.chiGio], "Hợi"); assert.equal((mt.tuTru.ngay + 1) % 60, dh.tuTru.ngay);
+});
+ok("Giờ Tý sớm và Tý muộn", () => {
+  const ms = KyMon.thoiDiemTuGioDongHo(2026, 11, 18, 23, 30, "Asia/Ho_Chi_Minh");
+  const som = lapTran(new Date(ms), { muiGio: "Asia/Ho_Chi_Minh" });
+  const muon = lapTran(new Date(ms), { muiGio: "Asia/Ho_Chi_Minh", doiNgay: "0" });
+  assert.equal(canChi(som.tuTru.ngay), "Đinh Dậu"); assert.equal(canChi(som.tuTru.gio), "Canh Tý");
+  assert.equal(canChi(muon.tuTru.ngay), "Bính Thân"); assert.equal(canChi(muon.tuTru.gio), "Canh Tý"); // ngày cũ, Can giờ theo ngày hôm sau
+});
 console.log(`Đạt: bộ máy lập trận khớp ${n} nhóm ví dụ của tài liệu 12 bước.`);

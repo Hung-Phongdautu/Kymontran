@@ -79,6 +79,10 @@ Tài liệu này mô tả toàn bộ nội dung của `index.html`: các trang, 
   - Thời gian lập trận (mặc định là lúc mở trang).
   - Lĩnh vực: một trong 11 lĩnh vực.
   - Câu hỏi: tối đa 500 ký tự, có bộ đếm.
+  - Mục mở/đóng **Quy đổi giờ** (lựa chọn được nhớ trên trình duyệt):
+    - Nơi lập trận: theo múi giờ của máy, 11 thành phố Việt Nam hoặc Bắc Kinh, kèm kinh độ.
+    - Giờ dùng để đổi Can Chi: giờ đồng hồ hoặc giờ Mặt Trời thật.
+    - Đổi ngày lúc 23h (giờ Tý sớm) hoặc 0h (giờ Tý muộn).
 - Kết quả hiện ra sau khi bấm nút chính:
   - Tiêu đề, ví dụ “Dự đoán · Kinh doanh — Âm độn 6 cục”, và dòng thời điểm, tiết khí, câu hỏi.
   - Bốn ô tóm tắt:
@@ -86,6 +90,7 @@ Tài liệu này mô tả toàn bộ nội dung của `index.html`: các trang, 
     - Tiết khí · Cục: tên tiết, Âm/Dương và Cục số, Phù đầu, Tam nguyên, thời điểm giao tiết.
     - Trực Phù · Trực Sử: tuần thủ, cờ, cung của cờ, cung Trực Phù và Trực Sử bay tới.
     - Mã Tinh · Không Vong: cung và chi của Mã Tinh, Không Vong; ghi rõ khi là giờ Lục Giáp, Phục ngâm hoặc Phản ngâm.
+  - **Quy đổi giờ của bàn này** (mục mở/đóng): giờ đồng hồ tại nơi lập trận, UTC, giờ Bắc Kinh, giờ Mặt Trời trung bình, phương trình thời gian, giờ Mặt Trời thật, giờ thực sự dùng để đổi Can Chi, quy ước giờ Tý, giờ giao tiết hiện tại và tiết kế tiếp, nguồn giờ giao tiết.
   - **Bàn đầy đủ 9 cung.** Mỗi ô ghi:
     - Bát Thần, nhãn CÁT/HUNG/TRUNG, tên cung và hướng;
     - Cửu Tinh (ô có Thiên Nhuế ghi kèm Thiên Cầm) và Bát Môn;
@@ -105,7 +110,7 @@ Tài liệu này mô tả toàn bộ nội dung của `index.html`: các trang, 
 | Luận giải sâu bằng AI | có (khi đã bật) | có (khi đã bật) | — |
 | Dụng thần & cách cục · Đọc bàn nhanh | có | có | có |
 
-- Ghi chú cuối kết quả: bàn an theo lối Chuyển bàn, đúng 12 bước; tiết khí theo vị trí Mặt Trời, Nguyên theo Phù đầu, giờ Tý từ 23h tính sang ngày hôm sau, thời gian theo múi giờ của máy; chưa áp dụng phép Đặt nhuận.
+- Ghi chú cuối kết quả: bàn an theo lối Chuyển bàn, đúng 12 bước; giờ giao tiết theo bảng Thọ Tinh vạn niên lịch, Nguyên theo Phù đầu; nơi lập trận, giờ Mặt Trời thật và quy ước giờ Tý chọn trong mục Quy đổi giờ; chưa áp dụng phép Đặt nhuận.
 
 **Mục Tra cứu nhanh — Định cục** (`#/tra-cuu/tra-nhanh`)
 
@@ -148,7 +153,7 @@ Ghi chú dưới bảng: giá là mức tham khảo, thanh toán chỉ mở khi 
 ### 4.5. Kiến Thức (`#/kien-thuc`)
 
 1. **Ba thẻ dẫn bài:** Kỳ Môn Độn Giáp là gì?; Một bàn Kỳ Môn gồm những gì?; Định cục & Cục số. Mỗi thẻ cuộn tới bài tương ứng.
-2. **Bảy bài viết** theo thứ tự học, mỗi bài có địa chỉ riêng `#/kien-thuc/<id>` và nút dẫn tiếp ở cuối:
+2. **Tám bài viết** theo thứ tự học, mỗi bài có địa chỉ riêng `#/kien-thuc/<id>` và nút dẫn tiếp ở cuối:
 
 | # | Bài | Địa chỉ | Nội dung chính | Nút dẫn tiếp |
 | --- | --- | --- | --- | --- |
@@ -159,6 +164,7 @@ Ghi chú dưới bảng: giá là mức tham khảo, thanh toán chỉ mở khi 
 | 5 | Định cục & Cục số | `dinh-cuc` | Bốn bước đổi giờ, tiết khí, Nguyên theo Phù đầu, Cục số; Chính thụ, Siêu thần, Tiếp khí, Đặt nhuận | Tìm Phù đầu; Tra Cục số; Hỏi đáp Siêu thần |
 | 6 | Ngũ Tý Độn | `ngu-ty-don` | Khung ca quyết sáu câu và lời giải; ví dụ ngày Giáp giờ Thân là Nhâm Thân | Đổi giờ bằng công cụ |
 | 7 | Quy trình 12 bước lập trận | `quy-trinh-12-buoc` | Tóm tắt từng bước từ Tứ trụ tới Ám Can; ví dụ Dương độn 3 cục giờ Canh Ngọ | Lập bàn và xem 12 bước; Tìm Phù đầu; Tra Tuần thủ |
+| 8 | Quy đổi giờ khi lập trận | `quy-doi-gio` | Bảng giờ giao tiết, nơi lập trận và múi giờ, giờ Mặt Trời thật, giờ Tý sớm và muộn | Mục Quy đổi giờ; Nên dùng giờ nào? |
 
 3. **Hai bảng tra** (`#/kien-thuc/bang-tra`): Cửu Tinh (tính chất, chủ về) và Bát Môn / Bát Thần (tính chất, chủ về), kèm ghi chú không đọc riêng lẻ một yếu tố.
 4. Dải kêu gọi: “Thực hành định cục ngay” → `#/tra-cuu/tra-nhanh`.
@@ -166,13 +172,14 @@ Ghi chú dưới bảng: giá là mức tham khảo, thanh toán chỉ mở khi 
 ### 4.6. Giới Thiệu & FAQ (`#/faq`)
 
 - **Về Trận Pháp Kỳ Môn** (`#/faq/gioi-thieu`): giới thiệu trang, ý nghĩa logo, phần định cục do trang tự biên soạn; liên kết tới Tra Cứu, Hướng Dẫn, Bản quyền.
-- **Câu hỏi thường gặp** (`#/faq/hoi-dap`), sáu câu dạng mở/đóng:
+- **Câu hỏi thường gặp** (`#/faq/hoi-dap`), bảy câu dạng mở/đóng:
   1. Vì sao phải định cục trước khi luận quẻ? (mặc định mở)
   2. Ngũ Tý Độn dùng để làm gì?
   3. Dương độn và Âm độn khác nhau thế nào?
   4. Siêu thần, Tiếp khí, Chính thụ là gì?
-  5. Lập bàn và tra cứu định cục có mất phí không? (`#/faq/hoi-phi`, tự mở khi được dẫn tới)
-  6. Kết quả luận giải có phải quyết định thay cho tôi không?
+  5. Nên dùng giờ đồng hồ hay giờ Mặt Trời thật? (`#/faq/hoi-gio`)
+  6. Lập bàn và tra cứu định cục có mất phí không? (`#/faq/hoi-phi`, tự mở khi được dẫn tới)
+  7. Kết quả luận giải có phải quyết định thay cho tôi không?
 - **Bản quyền & nguồn tham khảo** (`#/faq/ban-quyen`):
   - © 2026 và tuyên bố bảo lưu mọi quyền, kèm email xin phép.
   - Tri thức cổ pháp thuộc phạm vi công cộng.
@@ -200,7 +207,8 @@ Bàn được lập theo giờ (Thời gia Kỳ Môn), lối Chuyển bàn, đú
 1. **Đổi giờ, tiết khí:**
    - Lập Tứ trụ. Ngày Can Chi tính theo số ngày Julius (01/10/1949 là Giáp Tý). Giờ Tý từ 23h tính sang ngày hôm sau. Can giờ theo Ngũ Tý Độn.
    - Tháng đổi theo các “tiết” (Lập xuân mở tháng Dần…), Can tháng theo Ngũ Hổ Độn. Năm đổi ở Lập xuân.
-   - Tiết khí xác định theo kinh độ Mặt Trời tại thời điểm lập trận (công thức Meeus, sai số khoảng 15 phút).
+   - Tiết khí và giờ giao tiết tra từ bảng Thọ Tinh vạn niên lịch 1900 – 2100 (`src/tiet-khi.js`, chính xác tới phút); ngoài khoảng đó tính theo kinh độ Mặt Trời (công thức Meeus, sai số khoảng 15 phút).
+   - Quy đổi giờ: giờ nhập là giờ đồng hồ tại nơi lập trận. Nếu chọn giờ Mặt Trời thật, Can Chi ngày và giờ đổi theo giờ = UTC + 4 phút × kinh độ + phương trình thời gian. Nếu chọn đổi ngày lúc 0h, 23h – 24h giữ ngày cũ, Can giờ Tý lấy theo ngày hôm sau.
 2. **Phù đầu, Tam nguyên:** lùi Can Chi ngày về ngày Giáp hoặc Kỷ; chi của Phù đầu thuộc Tứ Chính, Tứ Sinh hay Tứ Mộ cho Thượng, Trung hay Hạ nguyên; tra bảng 5.4 ra Cục số.
 3. **Địa bàn:** Mậu khởi tại cung bằng Cục số, an tiếp Kỷ, Canh, Tân, Nhâm, Quý, Đinh, Bính, Ất; Dương độn thuận, Âm độn nghịch số Cửu Cung.
 4. **Tuần thủ, Cờ:** lùi Can Chi giờ về can Giáp; Giáp Tý cờ Mậu, Giáp Tuất cờ Kỷ, Giáp Thân cờ Canh, Giáp Ngọ cờ Tân, Giáp Thìn cờ Nhâm, Giáp Dần cờ Quý.
@@ -306,8 +314,8 @@ Từ giờ Tý đếm thuận Thiên can ra 11 giờ còn lại (Sửu 1–3h, D
 
 Các điểm sau được ghi ngay trên trang (ghi chú dưới kết quả và trong bài Định cục):
 
-- Tiết khí tính theo vị trí Mặt Trời với sai số khoảng 15 phút: bàn lập trong khoảng 15 phút quanh lúc giao tiết có thể rơi nhầm sang tiết bên cạnh.
-- Thời gian lấy theo múi giờ của máy người dùng; Can Chi ngày đổi lúc 23h (đầu giờ Tý).
+- Giờ giao tiết chính xác tới phút trong năm 1900 – 2100; ngoài khoảng đó sai số khoảng 15 phút.
+- Giờ Mặt Trời thật dùng công thức phương trình thời gian của NOAA, lệch dưới 2 phút so với tính toán thiên văn đầy đủ.
 - Nguyên tính theo Phù đầu của ngày (đúng Bước 2) nhưng chưa áp dụng phép Đặt nhuận khi Siêu thần quá 9 ngày.
 - Phần luận giải soạn sẵn chỉ có ba mức theo Môn tại cung Dụng thần.
 
@@ -342,7 +350,9 @@ Hai lỗi ghi ở bản trước đã được sửa khi viết lại bộ máy:
 | Chữ trên các trang, bảng giá, FAQ, bảng tra, phiếu đăng ký | `src/template.html` |
 | Bảy bài Kiến Thức (thêm, bớt, đổi thứ tự) | `content/kien-thuc/*.md` (cách viết: [README.md](README.md)) |
 | Màu, chữ, bố cục | `src/styles.css` |
-| Cách lập bàn 12 bước, lịch Can Chi, tiết khí | `src/kymon.js` (kiểm thử: `node tests/test_kymon.mjs`) |
+| Cách lập bàn 12 bước, lịch Can Chi, quy đổi giờ | `src/kymon.js` (kiểm thử: `node tests/test_kymon.mjs`) |
+| Bảng giờ giao tiết | tạo lại bằng `tools/tao_bang_tiet_khi.py`, không sửa tay `src/tiet-khi.js` |
+| Danh sách nơi lập trận, các tùy chọn quy đổi giờ | `src/template.html` (ô chọn) và `src/app.js` |
 | Dụng thần, câu luận giải soạn sẵn, quy tắc chọn ngày, giá trong phiếu, email nhận phiếu, địa chỉ AI | `src/app.js` |
 | Logo, tranh sơn thủy | `assets/` |
 | Lời nhắc và giới hạn của phần AI | `worker/worker.js` |
