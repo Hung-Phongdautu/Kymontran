@@ -65,6 +65,7 @@ Mọi nút và liên kết dùng dạng `#/<trang>/<mục>?<tham số>`:
 
 ## Tài liệu khác
 
+- [MO-TA-NOI-DUNG.md](MO-TA-NOI-DUNG.md) — mô tả toàn bộ nội dung trang: các trang, mục, nút bấm, công cụ và dữ liệu
 - [KHOI-CHAY.md](KHOI-CHAY.md) — khởi chạy trên máy và đưa lên GitHub Pages
 - [worker/README.md](worker/README.md) — bật "Luận giải bằng AI" bằng khóa OpenAI của bạn
 - [CHANGELOG.md](CHANGELOG.md) — nhật ký thay đổi

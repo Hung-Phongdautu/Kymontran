@@ -1,5 +1,9 @@
 # Nhật ký thay đổi
 
+## 2026-11-18
+
+- Thêm `MO-TA-NOI-DUNG.md`: mô tả nội dung `index.html` theo từng trang, công cụ, dữ liệu tra và các điểm cần rà lại.
+
 ## 2026-11-16
 
 - Thêm `server.py` để chạy thử trang trên máy.
