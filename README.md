@@ -8,3 +8,9 @@ Hệ 283 agent ([agency-agents](https://github.com/msitarzewski/agency-agents)) 
 - `scripts/install-n8n.sh` — cài n8n + Node 24 (n8n 2.x cần Node ≥ 24), tạo lệnh `n8n24`.
 - `n8n24 start` — chạy n8n tại http://localhost:5678.
 - `.mcp.json` — MCP server [`n8n-mcp`](https://github.com/czlonkowski/n8n-mcp) cung cấp cho Claude/agent tài liệu và schema của toàn bộ node n8n để dựng workflow chính xác. Muốn agent tạo/sửa workflow trực tiếp trên n8n, thêm `N8N_API_URL` và `N8N_API_KEY` (tạo trong n8n: Settings → n8n API) vào `env`.
+
+## Giao việc cho hệ agent
+
+- `/giao-viec <mô tả việc>` — tự chọn agent chủ trì + hỗ trợ từ danh bạ, chia mức quyền (🟢 tự làm / 🟡 báo trước / 🔴 phải duyệt), chạy song song các việc độc lập và báo cáo. Thêm `--xem` để chỉ xem kế hoạch.
+- `/tim-agent <từ khóa>` — tìm agent phù hợp.
+- `scripts/build-agent-index.sh` — tạo lại danh bạ `.claude/agents-index.md` khi bộ agent thay đổi.
