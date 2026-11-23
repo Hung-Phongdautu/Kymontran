@@ -1,0 +1,159 @@
+<title>Canvas Kiểm tra quyết toán</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: thanh tiêu đề gọn, canvas chiếm phần lớn màn hình, bảng chi tiết node bên phải (xuống dưới trên điện thoại) */
+:root{
+  --bg:#f3f4f7; --panel:#ffffff; --fg:#1d2230; --muted:#626a7d; --line:#d5d9e2;
+  --grid:#c9ceda; --edge:#8d95a8; --accent:#1f6feb; --ok:#1a8f4c; --okbg:#e6f5ec;
+  --warn:#b26a00; --warnbg:#fff4e0; --node:#ffffff; --nodeline:#bfc5d2; --note:#fff6c9; --notefg:#4a3f00;
+  --font:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#161922; --panel:#1e222d; --fg:#e7e9ef; --muted:#9aa1b2; --line:#323848;
+  --grid:#2c3241; --edge:#6c7488; --accent:#5b9bff; --ok:#4cc982; --okbg:#173325;
+  --warn:#f0b35a; --warnbg:#3a2c13; --node:#252a36; --nodeline:#3e4558; --note:#4a4318; --notefg:#f6eab0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161922; --panel:#1e222d; --fg:#e7e9ef; --muted:#9aa1b2; --line:#323848;
+  --grid:#2c3241; --edge:#6c7488; --accent:#5b9bff; --ok:#4cc982; --okbg:#173325;
+  --warn:#f0b35a; --warnbg:#3a2c13; --node:#252a36; --nodeline:#3e4558; --note:#4a4318; --notefg:#f6eab0; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px}
+.wrap{display:flex;flex-direction:column;height:100%;box-sizing:border-box;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px;gap:12px}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+h1{font-size:1.15rem;font-weight:700;margin:0;text-wrap:balance}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;padding:4px 10px;border-radius:999px;background:var(--okbg);color:var(--ok);font-weight:600}
+.pill.off{background:var(--warnbg);color:var(--warn)}
+.sub{color:var(--muted);font-size:.85rem}
+.tools{margin-left:auto;display:flex;gap:6px}
+button{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:8px;padding:6px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.main{flex:1;min-height:0;display:grid;grid-template-columns:1fr 300px;gap:12px}
+.canvas{position:relative;min-width:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);touch-action:none;cursor:grab}
+.canvas.drag{cursor:grabbing}
+svg{display:block;width:100%;height:100%}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;min-width:0;display:flex;flex-direction:column;gap:12px}
+.side h2{font-size:1rem;margin:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:.85rem}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-family:var(--mono);font-size:.8rem;overflow-wrap:anywhere}
+.side p{margin:0;line-height:1.55}
+.legend{display:flex;flex-direction:column;gap:6px;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+.legend span{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:6px}
+.node rect.body{fill:var(--node);stroke:var(--nodeline);stroke-width:1.5}
+.node.ran rect.body{stroke:var(--ok);stroke-width:2}
+.node.disabled{opacity:.55} .node.disabled rect.body{stroke-dasharray:5 4}
+.node.sel rect.body{stroke:var(--accent);stroke-width:2.5}
+.node{cursor:pointer}
+.node text{font-family:var(--font);fill:var(--fg)}
+.node .type{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.node .badge{fill:var(--accent)} .node .badgetx{fill:#fff;font-size:11px;font-weight:700;font-family:var(--mono)}
+.node .chk{fill:var(--ok)} .node .items{font-family:var(--mono);font-size:10px;fill:var(--ok)}
+.edge{fill:none;stroke:var(--edge);stroke-width:2}
+.edge.ran{stroke:var(--ok)}
+.elab{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.elabbg{fill:var(--bg)}
+.handle{fill:var(--node);stroke:var(--edge);stroke-width:1.5}
+.note rect{fill:var(--note)} .note div{color:var(--notefg);font-family:var(--font);font-size:12px;line-height:1.45;padding:10px 12px;white-space:pre-wrap}
+.gridpat circle{fill:var(--grid)}
+@media (max-width:760px){.main{grid-template-columns:1fr;grid-template-rows:62vh auto}.wrap{height:auto}html,body{height:auto}.tools{margin-left:0}}
+@media (prefers-reduced-motion:no-preference){.edge.ran{stroke-dasharray:6 6;animation:flow 1.2s linear infinite}@keyframes flow{to{stroke-dashoffset:-12}}}
+</style>
+<div class="wrap">
+  <header>
+    <h1 id="wfname"></h1>
+    <span class="pill" id="runpill"></span>
+    <span class="sub">Bản xem trước canvas, vẽ từ file workflow và kết quả lần chạy thử. Kéo để xem tiếp, bấm “Vừa khung” để thấy toàn bộ.</span>
+    <div class="tools">
+      <button id="zin" aria-label="Phóng to">+</button>
+      <button id="zout" aria-label="Thu nhỏ">−</button>
+      <button id="fit">Vừa khung</button>
+    </div>
+  </header>
+  <div class="main">
+    <div class="canvas" id="cv"><svg id="svg" xmlns="http://www.w3.org/2000/svg"><defs>
+      <pattern id="dots" class="gridpat" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1.1"/></pattern>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker>
+    </defs><g id="world"><rect x="-5000" y="-5000" width="15000" height="10000" fill="url(#dots)"/><g id="edges"></g><g id="nodes"></g></g></svg></div>
+    <aside class="side" id="side">
+      <h2 id="dname">Bấm vào một node</h2>
+      <p id="ddesc" class="sub">Kéo để di chuyển canvas, cuộn hoặc dùng nút +/− để phóng to. Viền xanh lá là các node đã chạy trong lần Execute Workflow vừa rồi.</p>
+      <dl class="kv" id="dkv"></dl>
+      <div class="legend">
+        <div><span style="background:var(--ok)"></span>Đã chạy, có dữ liệu ra</div>
+        <div><span style="background:var(--node);border:1.5px solid var(--nodeline)"></span>Không chạy ở kịch bản này</div>
+        <div><span style="background:var(--node);border:1.5px dashed var(--nodeline);opacity:.6"></span>Node đang tắt</div>
+        <div><span style="background:var(--note)"></span>Ghi chú</div>
+      </div>
+    </aside>
+  </div>
+</div>
+<script>
+const D={"name": "Biwase – Kiểm tra hồ sơ quyết toán công trình", "nodes": [{"name": "Webhook nhận hồ sơ", "type": "webhook", "x": 0, "y": 0, "disabled": false, "desc": "Nhận hồ sơ quyết toán dạng JSON qua POST biwase/kiem-tra-quyet-toan.", "run": null}, {"name": "Chạy thử thủ công", "type": "manualTrigger", "x": 0, "y": 300, "disabled": false, "desc": "Điểm bắt đầu khi bấm Execute Workflow.", "run": {"ok": true, "items": 1, "ms": 1}}, {"name": "Dữ liệu mẫu", "type": "code", "x": 240, "y": 300, "disabled": false, "desc": "Sinh hồ sơ mẫu theo 6 kịch bản (trường kich_ban).", "run": {"ok": true, "items": 1, "ms": 694}}, {"name": "Chuẩn hóa đầu vào", "type": "code", "x": 480, "y": 150, "disabled": false, "desc": "Gom dữ liệu từ webhook hoặc dữ liệu mẫu về một khuôn chung.", "run": {"ok": true, "items": 1, "ms": 18}}, {"name": "Kiểm tra cấu trúc", "type": "code", "x": 720, "y": 150, "disabled": false, "desc": "Kiểm tra đủ trường, đúng kiểu; danh sách hạng mục không rỗng.", "run": {"ok": true, "items": 1, "ms": 15}}, {"name": "Hợp lệ?", "type": "if", "x": 960, "y": 150, "disabled": false, "desc": "Hợp lệ → kiểm tra nghiệp vụ; không hợp lệ → trả lỗi 400/422.", "run": {"ok": true, "items": 1, "ms": 26}}, {"name": "Kiểm tra hồ sơ căn cứ", "type": "code", "x": 1200, "y": 0, "disabled": false, "desc": "Đủ hồ sơ pháp lý: chủ trương, dự toán duyệt, QĐ chỉ định thầu, hợp đồng, BBNT, hoàn công, hóa đơn…", "run": {"ok": true, "items": 1, "ms": 12}}, {"name": "Đối chiếu ba chiều", "type": "code", "x": 1440, "y": 0, "disabled": false, "desc": "Bản vẽ hoàn công ↔ khối lượng nghiệm thu ↔ dự toán quyết toán; nêu hạng mục lệch và thành tiền.", "run": {"ok": true, "items": 1, "ms": 11}}, {"name": "Kiểm tra hợp đồng", "type": "code", "x": 1680, "y": 0, "disabled": false, "desc": "Vượt giá hợp đồng, chép 100% số hợp đồng, chi phí giám sát không giao ai.", "run": {"ok": true, "items": 1, "ms": 10}}, {"name": "Tổng hợp checklist GĐ5", "type": "code", "x": 1920, "y": 0, "disabled": false, "desc": "Checklist bản vẽ hoàn công và bảng quyết toán (định mức, đơn giá, căn cứ pháp lý, cộng dồn).", "run": {"ok": true, "items": 1, "ms": 11}}, {"name": "Đánh giá 15 tiêu chí", "type": "code", "x": 2160, "y": 0, "disabled": false, "desc": "Phù hợp / Không phù hợp / Chưa đủ căn cứ; máy tự hạ tiêu chí 13, 14 khi số liệu cho thấy.", "run": {"ok": true, "items": 1, "ms": 11}}, {"name": "Áp quy tắc kết luận", "type": "code", "x": 2400, "y": 0, "disabled": false, "desc": "13/14 → dừng; 5/6/8/9/11 → điều chỉnh TK–DT; chưa đủ căn cứ → chưa kết luận; còn lại → đạt.", "run": {"ok": true, "items": 1, "ms": 10}}, {"name": "Phân loại kết luận", "type": "switch", "x": 2640, "y": 0, "disabled": false, "desc": "Rẽ nhánh theo mã kết luận.", "run": {"ok": true, "items": 1, "ms": 9}}, {"name": "Lập phiếu YCBS", "type": "code", "x": 2880, "y": -150, "disabled": false, "desc": "Phiếu yêu cầu bổ sung hồ sơ, mục I–IV, 11 nhóm góp ý.", "run": null}, {"name": "Lập tờ trình chuyển ký", "type": "code", "x": 2880, "y": 150, "disabled": false, "desc": "Tờ trình đề xuất trình ký quyết toán.", "run": {"ok": true, "items": 1, "ms": 30}}, {"name": "Tạo dòng báo cáo tổng hợp", "type": "code", "x": 3120, "y": 0, "disabled": false, "desc": "Một dòng 23 cột cho Báo cáo tổng hợp (CSV + Markdown).", "run": {"ok": true, "items": 1, "ms": 11}}, {"name": "Đóng gói đầu ra", "type": "code", "x": 3360, "y": 0, "disabled": false, "desc": "Gom kết quả thành một gói trả về.", "run": {"ok": true, "items": 1, "ms": 10}}, {"name": "Nguồn là webhook?", "type": "if", "x": 3600, "y": 0, "disabled": false, "desc": "Gọi qua webhook → phản hồi HTTP; chạy tay → dừng ở Kết quả chạy thử.", "run": {"ok": true, "items": 1, "ms": 4}}, {"name": "Phản hồi webhook", "type": "respondToWebhook", "x": 3840, "y": -100, "disabled": false, "desc": "Trả kết quả cho bên gọi webhook.", "run": null}, {"name": "Kết quả chạy thử", "type": "noOp", "x": 3840, "y": 100, "disabled": false, "desc": "Xem kết quả khi chạy bằng tay.", "run": {"ok": true, "items": 1, "ms": 1}}, {"name": "Soạn thông báo", "type": "code", "x": 3600, "y": 300, "disabled": false, "desc": "Soạn nội dung email; chỉ có dữ liệu khi cần gửi.", "run": {"ok": true, "items": 0, "ms": 7}}, {"name": "Gửi email chi nhánh/nhà thầu", "type": "emailSend", "x": 3840, "y": 300, "disabled": true, "desc": "Đang TẮT. Cần lãnh đạo duyệt và cấu hình SMTP trước khi bật.", "run": null}, {"name": "Tạo phản hồi lỗi", "type": "code", "x": 1200, "y": 350, "disabled": false, "desc": "Tạo phản hồi lỗi 400/422/500.", "run": null}], "edges": [{"s": "Webhook nhận hồ sơ", "t": "Chuẩn hóa đầu vào", "i": 0, "n": 1, "label": ""}, {"s": "Chạy thử thủ công", "t": "Dữ liệu mẫu", "i": 0, "n": 1, "label": ""}, {"s": "Dữ liệu mẫu", "t": "Chuẩn hóa đầu vào", "i": 0, "n": 1, "label": ""}, {"s": "Chuẩn hóa đầu vào", "t": "Kiểm tra cấu trúc", "i": 0, "n": 1, "label": ""}, {"s": "Kiểm tra cấu trúc", "t": "Hợp lệ?", "i": 0, "n": 1, "label": ""}, {"s": "Hợp lệ?", "t": "Kiểm tra hồ sơ căn cứ", "i": 0, "n": 2, "label": "true"}, {"s": "Hợp lệ?", "t": "Tạo phản hồi lỗi", "i": 1, "n": 2, "label": "false"}, {"s": "Kiểm tra hồ sơ căn cứ", "t": "Đối chiếu ba chiều", "i": 0, "n": 1, "label": ""}, {"s": "Đối chiếu ba chiều", "t": "Kiểm tra hợp đồng", "i": 0, "n": 1, "label": ""}, {"s": "Kiểm tra hợp đồng", "t": "Tổng hợp checklist GĐ5", "i": 0, "n": 1, "label": ""}, {"s": "Tổng hợp checklist GĐ5", "t": "Đánh giá 15 tiêu chí", "i": 0, "n": 1, "label": ""}, {"s": "Đánh giá 15 tiêu chí", "t": "Áp quy tắc kết luận", "i": 0, "n": 1, "label": ""}, {"s": "Áp quy tắc kết luận", "t": "Phân loại kết luận", "i": 0, "n": 1, "label": ""}, {"s": "Phân loại kết luận", "t": "Lập phiếu YCBS", "i": 0, "n": 5, "label": "Dừng quyết toán"}, {"s": "Phân loại kết luận", "t": "Lập phiếu YCBS", "i": 1, "n": 5, "label": "Điều chỉnh TK-DT"}, {"s": "Phân loại kết luận", "t": "Lập phiếu YCBS", "i": 2, "n": 5, "label": "Chưa kết luận"}, {"s": "Phân loại kết luận", "t": "Lập tờ trình chuyển ký", "i": 3, "n": 5, "label": "Đạt"}, {"s": "Phân loại kết luận", "t": "Tạo phản hồi lỗi", "i": 4, "n": 5, "label": "Ngoài dự kiến"}, {"s": "Lập phiếu YCBS", "t": "Tạo dòng báo cáo tổng hợp", "i": 0, "n": 1, "label": ""}, {"s": "Lập tờ trình chuyển ký", "t": "Tạo dòng báo cáo tổng hợp", "i": 0, "n": 1, "label": ""}, {"s": "Tạo dòng báo cáo tổng hợp", "t": "Đóng gói đầu ra", "i": 0, "n": 1, "label": ""}, {"s": "Đóng gói đầu ra", "t": "Nguồn là webhook?", "i": 0, "n": 1, "label": ""}, {"s": "Đóng gói đầu ra", "t": "Soạn thông báo", "i": 0, "n": 1, "label": ""}, {"s": "Nguồn là webhook?", "t": "Phản hồi webhook", "i": 0, "n": 2, "label": "true"}, {"s": "Nguồn là webhook?", "t": "Kết quả chạy thử", "i": 1, "n": 2, "label": "false"}, {"s": "Soạn thông báo", "t": "Gửi email chi nhánh/nhà thầu", "i": 0, "n": 1, "label": ""}, {"s": "Tạo phản hồi lỗi", "t": "Nguồn là webhook?", "i": 0, "n": 1, "label": ""}], "note": {"x": 3560, "y": 460, "w": 360, "h": 200, "text": "## CẦN NGƯỜI DUYỆT\nNode gửi email đang TẮT. Trước khi bật: (1) lãnh đạo duyệt phiếu YCBS; (2) cấu hình SMTP credential; (3) điền fromEmail; (4) kiểm tra danh sách người nhận.\n\nWebhook đang không xác thực – bật Header Auth trước khi đưa ra ngoài mạng nội bộ."}, "exec": {"status": "success", "kich_ban": "DAT", "ket_luan": "Đạt — chuyển trình ký"}}
+;
+const W=190,H=66,NS="http://www.w3.org/2000/svg";
+const TYPE={webhook:"Webhook",manualTrigger:"Manual Trigger",code:"Code",if:"IF",switch:"Switch",respondToWebhook:"Respond to Webhook",noOp:"No Operation",emailSend:"Send Email"};
+const ICON={webhook:"⇢",manualTrigger:"▶",code:"{}",if:"?",switch:"⑂",respondToWebhook:"↩",noOp:"■",emailSend:"✉"};
+document.getElementById("wfname").textContent=D.name;
+const pill=document.getElementById("runpill");
+pill.textContent=(D.exec.status==="success"?"✓ Chạy thử thành công · ":"Lỗi · ")+D.exec.ket_luan;
+const byName={};D.nodes.forEach(n=>byName[n.name]=n);
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+const gE=document.getElementById("edges"),gN=document.getElementById("nodes");
+// sticky note
+if(D.note){const g=el("g",{class:"note"},gN);el("rect",{x:D.note.x,y:D.note.y,width:D.note.w,height:D.note.h,rx:8},g);
+ const fo=el("foreignObject",{x:D.note.x,y:D.note.y,width:D.note.w,height:D.note.h},g);const dv=document.createElement("div");
+ dv.textContent=D.note.text.replace(/^## /,"");fo.appendChild(dv);}
+// edges
+D.edges.forEach(e=>{const a=byName[e.s],b=byName[e.t];if(!a||!b)return;
+ const sy=a.y+H/2+(e.n>1?(e.i-(e.n-1)/2)*(H/(e.n)):0), sx=a.x+W, tx=b.x-2, ty=b.y+H/2;
+ const dx=Math.max(60,Math.abs(tx-sx)/2);
+ const back=tx<sx; const d=back?`M${sx},${sy} C${sx+80},${sy} ${sx+80},${sy+120} ${(sx+tx)/2},${sy+120} S${tx-80},${ty} ${tx},${ty}`:`M${sx},${sy} C${sx+dx},${sy} ${tx-dx},${ty} ${tx},${ty}`;
+ const ran=a.run&&b.run&&a.run.items>0&&(e.n===1||ranOut(a,e));
+ el("path",{d,class:"edge"+(ran?" ran":""),"marker-end":"url(#arr)"},gE);
+ el("circle",{cx:sx,cy:sy,r:4,class:"handle"},gE);
+ if(e.label){const lx=sx+14,ly=sy-5;const t=el("text",{x:lx,y:ly,class:"elab"},gE);t.textContent=e.label;
+   const bb=t.getBBox();const r=el("rect",{x:bb.x-3,y:bb.y-1,width:bb.width+6,height:bb.height+2,rx:3,class:"elabbg"});gE.insertBefore(r,t);}
+});
+function ranOut(a,e){ // với nhánh IF/Switch: coi là đã chạy nếu node đích có chạy và chỉ có nhánh này dẫn tới nó từ a
+ const b=byName[e.t];return !!b.run}
+// nodes
+let sel=null;
+D.nodes.forEach(n=>{const g=el("g",{class:"node"+(n.run&&n.run.items>0?" ran":"")+(n.disabled?" disabled":""),transform:`translate(${n.x},${n.y})`,tabindex:0,role:"button","aria-label":n.name},gN);
+ el("rect",{class:"body",width:W,height:H,rx:10},g);
+ el("rect",{class:"badge",x:10,y:16,width:34,height:34,rx:8},g);
+ const ic=el("text",{class:"badgetx",x:27,y:38,"text-anchor":"middle"},g);ic.textContent=ICON[n.type]||"•";
+ const lines=wrap(n.name,17);lines.forEach((l,i)=>{const t=el("text",{x:54,y:(lines.length>1?26:33)+i*15,"font-size":12.5,"font-weight":600},g);t.textContent=l});
+ const ty=el("text",{class:"type",x:54,y:H-9},g);ty.textContent=(TYPE[n.type]||n.type)+(n.disabled?" · tắt":"");
+ if(n.run&&n.run.items>0){el("circle",{class:"chk",cx:W-10,cy:10,r:8},g);const c=el("text",{x:W-10,y:14,"text-anchor":"middle","font-size":11,fill:"#fff","font-weight":700},g);c.textContent="✓";
+   const it=el("text",{class:"items",x:W,y:H+14,"text-anchor":"end"},g);it.textContent=n.run.items+" item";}
+ g.addEventListener("click",ev=>{ev.stopPropagation();pick(n,g)});
+ g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();pick(n,g)}});
+});
+function wrap(s,m){const w=s.split(" ");const out=[];let cur="";w.forEach(x=>{if((cur+" "+x).trim().length>m&&cur){out.push(cur);cur=x}else cur=(cur+" "+x).trim()});if(cur)out.push(cur);return out.slice(0,2)}
+function pick(n,g){if(sel)sel.classList.remove("sel");sel=g;g.classList.add("sel");
+ document.getElementById("dname").textContent=n.name;document.getElementById("ddesc").textContent=n.desc;document.getElementById("ddesc").className="";
+ const kv=document.getElementById("dkv");kv.innerHTML="";
+ const ins=D.edges.filter(e=>e.t===n.name).map(e=>e.s+(e.label?` (${e.label})`:""));
+ const outs=D.edges.filter(e=>e.s===n.name).map(e=>(e.label?e.label+" → ":"")+e.t);
+ const rows=[["Loại node",TYPE[n.type]||n.type],["Trạng thái",n.disabled?"Đang tắt":"Bật"],["Lần chạy thử",n.run?(n.run.items>0?`Đã chạy · ${n.run.items} item · ${n.run.ms} ms`:`Đã chạy · 0 item`):"Không chạy ở kịch bản Đạt"],["Nhận từ",ins.join("\n")||"—"],["Chuyển tới",outs.join("\n")||"—"]];
+ rows.forEach(([k,v])=>{const dt=document.createElement("dt");dt.textContent=k;const dd=document.createElement("dd");dd.style.whiteSpace="pre-line";dd.textContent=v;kv.append(dt,dd)});}
+// pan & zoom
+const svg=document.getElementById("svg"),world=document.getElementById("world"),cv=document.getElementById("cv");
+let s=1,tx=0,ty=0;const apply=()=>world.setAttribute("transform",`translate(${tx},${ty}) scale(${s})`);
+function fit(){const xs=D.nodes.map(n=>n.x),ys=D.nodes.map(n=>n.y);if(D.note){xs.push(D.note.x+D.note.w-W);ys.push(D.note.y+D.note.h-H)}
+ const x0=Math.min(...xs)-40,x1=Math.max(...xs)+W+40,y0=Math.min(...ys)-60,y1=Math.max(...ys)+H+60;
+ const r=cv.getBoundingClientRect();s=Math.min(r.width/(x1-x0),r.height/(y1-y0));tx=(r.width-(x1-x0)*s)/2-x0*s;ty=(r.height-(y1-y0)*s)/2-y0*s;apply()}
+function zoomAt(f,cx,cy){const ns=Math.min(2.5,Math.max(.12,s*f));tx=cx-(cx-tx)*ns/s;ty=cy-(cy-ty)*ns/s;s=ns;apply()}
+cv.addEventListener("wheel",e=>{e.preventDefault();const r=cv.getBoundingClientRect();zoomAt(e.deltaY<0?1.12:1/1.12,e.clientX-r.left,e.clientY-r.top)},{passive:false});
+let drag=null;cv.addEventListener("pointerdown",e=>{if(e.target.closest(".node"))return;drag={x:e.clientX-tx,y:e.clientY-ty};cv.classList.add("drag");cv.setPointerCapture(e.pointerId)});
+cv.addEventListener("pointermove",e=>{if(!drag)return;tx=e.clientX-drag.x;ty=e.clientY-drag.y;apply()});
+const end=()=>{drag=null;cv.classList.remove("drag")};cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
+const mid=()=>{const r=cv.getBoundingClientRect();return[r.width/2,r.height/2]};
+document.getElementById("zin").onclick=()=>zoomAt(1.2,...mid());document.getElementById("zout").onclick=()=>zoomAt(1/1.2,...mid());document.getElementById("fit").onclick=fit;
+function start(){fit();if(s<0.62){const r=cv.getBoundingClientRect();const ns=0.62;const cy=r.height/2;ty=cy-(cy-ty)*ns/s;s=ns;tx=24-(-40)*s+(-0)*0;tx=24+40*s;apply()}}
+window.addEventListener("resize",start);start();
+pick(byName["Áp quy tắc kết luận"],[...gN.querySelectorAll(".node")].find(g=>g.getAttribute("aria-label")==="Áp quy tắc kết luận"));
+</script>
