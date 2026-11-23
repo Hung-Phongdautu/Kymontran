@@ -1,0 +1,86 @@
+{
+  "phien_ban_schema": "1.0",
+  "cong_trinh": {
+    "ma_cong_trinh": "MAU-TU-2026-014",
+    "ten_cong_trinh": "Lắp đặt tuyến ống cấp nước HDPE D110 hẻm mẫu số 14 (dữ liệu mẫu)",
+    "dia_diem": "Phường mẫu, TP. Tân Uyên, TP. Hồ Chí Minh",
+    "chi_nhanh": "Tân Uyên",
+    "email_chi_nhanh": "chinhanh.mau@example.invalid",
+    "nha_thau": { "ten": "Công ty TNHH Xây dựng Mẫu", "email": "nhathau.mau@example.invalid" },
+    "loai_ho_so": "Quyết toán",
+    "ngay_nhan": "2026-11-20",
+    "ngay_lap_du_toan": "2026-08-12",
+    "nguoi_kiem_tra": "Chuyên viên mẫu",
+    "thoi_han_bo_sung_ngay": 7
+  },
+  "hop_dong": {
+    "so_hop_dong": "HĐ-MAU/2026",
+    "ngay_ky": "2026-08-25",
+    "loai_gia": "don_gia_co_dinh",
+    "gia_tri_hop_dong": 200820000,
+    "gia_tri_sau_phu_luc": null
+  },
+  "ho_so": [
+    { "ma": "CV_CHU_TRUONG", "co": true, "so_hieu": "CV-MAU-01", "ngay": "2026-06-10" },
+    { "ma": "HS_THIET_KE", "co": true },
+    { "ma": "HS_THIET_KE_DIEU_CHINH", "co": false },
+    { "ma": "DU_TOAN_PHE_DUYET", "co": true },
+    { "ma": "DU_TOAN_DIEU_CHINH", "co": false },
+    { "ma": "DE_XUAT_GIA", "co": true },
+    { "ma": "QD_CHI_DINH_THAU", "co": true },
+    { "ma": "HOP_DONG", "co": true },
+    { "ma": "PHU_LUC_HOP_DONG", "co": false },
+    { "ma": "BB_NGHIEM_THU_HIEN_TRUONG", "co": true },
+    { "ma": "BBNT_KHOI_LUONG", "co": true },
+    { "ma": "BBNT_HOAN_THANH", "co": true },
+    { "ma": "BAN_VE_HOAN_CONG", "co": true },
+    { "ma": "BANG_QUYET_TOAN", "co": true },
+    { "ma": "HOA_DON_GTGT", "co": true, "so_hieu": "0000123" }
+  ],
+  "hang_muc": [
+    { "stt": 1, "ma_hieu_dinh_muc": "MINH_HOA.01", "ten": "Lắp đặt ống HDPE D110 PN10 nối hàn nhiệt", "don_vi": "m", "loai": "ong",
+      "kl_thiet_ke": 450, "kl_thiet_ke_dieu_chinh": null, "kl_hoan_cong": 446, "kl_nghiem_thu_hien_truong": 446, "kl_nghiem_thu_bbnt": 446,
+      "kl_quyet_toan": 446, "kl_hop_dong": 450, "don_gia_hop_dong": 210000, "don_gia_quyet_toan": 210000, "co_so_do_hien_truong": true },
+    { "stt": 2, "ma_hieu_dinh_muc": "MINH_HOA.02", "ten": "Đào đất mương đặt ống bằng máy, đất cấp II", "don_vi": "m3", "loai": "dao_dap",
+      "kl_thiet_ke": 162, "kl_thiet_ke_dieu_chinh": null, "kl_hoan_cong": 160.6, "kl_nghiem_thu_hien_truong": 160.6, "kl_nghiem_thu_bbnt": 160.6,
+      "kl_quyet_toan": 160.6, "kl_hop_dong": 162, "don_gia_hop_dong": 95000, "don_gia_quyet_toan": 95000, "co_so_do_hien_truong": true },
+    { "stt": 3, "ma_hieu_dinh_muc": "MINH_HOA.03", "ten": "Đắp cát đệm ống", "don_vi": "m3", "loai": "cat_dem",
+      "kl_thiet_ke": 49.5, "kl_thiet_ke_dieu_chinh": null, "kl_hoan_cong": 49.1, "kl_nghiem_thu_hien_truong": 49.1, "kl_nghiem_thu_bbnt": 49.1,
+      "kl_quyet_toan": 49.1, "kl_hop_dong": 49.5, "don_gia_hop_dong": 380000, "don_gia_quyet_toan": 380000, "co_so_do_hien_truong": true },
+    { "stt": 4, "ma_hieu_dinh_muc": "MINH_HOA.04", "ten": "Tái lập mặt đường bê tông nhựa dày 7cm", "don_vi": "m2", "loai": "tai_lap",
+      "kl_thiet_ke": 135, "kl_thiet_ke_dieu_chinh": null, "kl_hoan_cong": 133.8, "kl_nghiem_thu_hien_truong": 133.8, "kl_nghiem_thu_bbnt": 133.8,
+      "kl_quyet_toan": 133.8, "kl_hop_dong": 135, "don_gia_hop_dong": 520000, "don_gia_quyet_toan": 520000, "co_so_do_hien_truong": true },
+    { "stt": 5, "ma_hieu_dinh_muc": "MINH_HOA.05", "ten": "Tê HDPE D110x63 hàn nhiệt", "don_vi": "cái", "loai": "phu_kien",
+      "kl_thiet_ke": 3, "kl_thiet_ke_dieu_chinh": null, "kl_hoan_cong": 3, "kl_nghiem_thu_hien_truong": 3, "kl_nghiem_thu_bbnt": 3,
+      "kl_quyet_toan": 3, "kl_hop_dong": 3, "don_gia_hop_dong": 640000, "don_gia_quyet_toan": 640000, "co_so_do_hien_truong": true }
+  ],
+  "tong_hop_khai_bao": {
+    "tong_quyet_toan_truoc_thue": 199071000,
+    "thue_suat_gtgt": 10,
+    "tong_quyet_toan_sau_thue": 218978100
+  },
+  "hoa_don_gtgt": { "so": "0000123", "ngay": "2026-11-15", "gia_tri_truoc_thue": 199071000, "thue_suat": 10, "gia_tri_sau_thue": 218978100 },
+  "chi_phi_giam_sat": { "co_trong_du_toan": false, "gia_tri": 0, "da_giao_don_vi": false, "don_vi_giam_sat": null, "co_trong_quyet_toan": false },
+  "checklist_ban_ve_hoan_cong": {
+    "chieu_dai_tuyen": { "ket_qua": "dat", "so_lieu": { "chieu_dai_ban_ve": 446 } },
+    "ky_thuat_lap_dat": { "ket_qua": "dat" },
+    "boc_tach_coc_vs_thong_ke_vat_tu": { "ket_qua": "dat", "so_lieu": { "so_muc_lech": 0 } },
+    "loi_trinh_bay": { "ket_qua": "dat" }
+  },
+  "checklist_du_toan_quyet_toan": {
+    "ma_hieu_dinh_muc_tt38": { "ket_qua": "dat" },
+    "don_gia_nhan_cong_ca_may_bd": { "ket_qua": "dat" },
+    "can_cu_phap_ly_theo_moc": { "ket_qua": "dat", "so_lieu": { "moc_ap_dung": "tu_01072026" } },
+    "kl_dao_dap_cat_dem_tai_lap_khop_mat_cat": { "ket_qua": "dat" },
+    "don_gia_vat_tu_biwase": { "ket_qua": "dat", "so_lieu": { "so_muc_khong_khop": 0 } },
+    "cong_don_tong": { "ket_qua": "dat" }
+  },
+  "danh_gia_tieu_chi": [
+    { "so": 1, "ket_qua": "phu_hop" }, { "so": 2, "ket_qua": "phu_hop" }, { "so": 3, "ket_qua": "phu_hop" },
+    { "so": 4, "ket_qua": "phu_hop" }, { "so": 5, "ket_qua": "phu_hop" }, { "so": 6, "ket_qua": "phu_hop" },
+    { "so": 7, "ket_qua": "phu_hop" }, { "so": 8, "ket_qua": "phu_hop" }, { "so": 9, "ket_qua": "phu_hop" },
+    { "so": 10, "ket_qua": "phu_hop" }, { "so": 11, "ket_qua": "phu_hop" }, { "so": 12, "ket_qua": "phu_hop", "nhan_xet": "Giảm 1.749.000 đ so với HĐ do khối lượng thực tế" },
+    { "so": 13, "ket_qua": "phu_hop" }, { "so": 14, "ket_qua": "phu_hop" }
+  ],
+  "ghi_chu_nguoi_kiem_tra": ""
+}

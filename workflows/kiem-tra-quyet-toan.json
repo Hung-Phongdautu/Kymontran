@@ -1,0 +1,803 @@
+{
+  "name": "Biwase – Kiểm tra hồ sơ quyết toán công trình",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "biwase/kiem-tra-quyet-toan",
+        "authentication": "none",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "id": "4de6e68f-158d-40e9-8898-4397dde1ceee",
+      "name": "Webhook nhận hồ sơ",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "d0ba6183-f411-4d1b-aac1-48686bd1bfca"
+    },
+    {
+      "parameters": {},
+      "id": "ac05d81f-0223-47d7-bd79-ad3f346ac1cd",
+      "name": "Chạy thử thủ công",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N03 – Dữ liệu mẫu: sinh hồ sơ mẫu theo kịch bản để chạy thử không cần gửi HTTP.\n// Đổi KICH_BAN rồi bấm \"Execute workflow\".\nconst KICH_BAN = \"DAT\"; // DAT | DIEU_CHINH_TK_DT | DUNG_QUYET_TOAN | CHUA_KET_LUAN | CONG_SO_LIEU | LOI_HANG_MUC_RONG\nconst goc = {\n  \"phien_ban_schema\": \"1.0\",\n  \"cong_trinh\": {\n    \"ma_cong_trinh\": \"MAU-TU-2026-014\",\n    \"ten_cong_trinh\": \"Lắp đặt tuyến ống cấp nước HDPE D110 hẻm mẫu số 14 (dữ liệu mẫu)\",\n    \"dia_diem\": \"Phường mẫu, TP. Tân Uyên, TP. Hồ Chí Minh\",\n    \"chi_nhanh\": \"Tân Uyên\",\n    \"email_chi_nhanh\": \"chinhanh.mau@example.invalid\",\n    \"nha_thau\": {\n      \"ten\": \"Công ty TNHH Xây dựng Mẫu\",\n      \"email\": \"nhathau.mau@example.invalid\"\n    },\n    \"loai_ho_so\": \"Quyết toán\",\n    \"ngay_nhan\": \"2026-11-20\",\n    \"ngay_lap_du_toan\": \"2026-08-12\",\n    \"nguoi_kiem_tra\": \"Chuyên viên mẫu\",\n    \"thoi_han_bo_sung_ngay\": 7\n  },\n  \"hop_dong\": {\n    \"so_hop_dong\": \"HĐ-MAU/2026\",\n    \"ngay_ky\": \"2026-08-25\",\n    \"loai_gia\": \"don_gia_co_dinh\",\n    \"gia_tri_hop_dong\": 200820000,\n    \"gia_tri_sau_phu_luc\": null\n  },\n  \"ho_so\": [\n    {\n      \"ma\": \"CV_CHU_TRUONG\",\n      \"co\": true,\n      \"so_hieu\": \"CV-MAU-01\",\n      \"ngay\": \"2026-06-10\"\n    },\n    {\n      \"ma\": \"HS_THIET_KE\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"HS_THIET_KE_DIEU_CHINH\",\n      \"co\": false\n    },\n    {\n      \"ma\": \"DU_TOAN_PHE_DUYET\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"DU_TOAN_DIEU_CHINH\",\n      \"co\": false\n    },\n    {\n      \"ma\": \"DE_XUAT_GIA\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"QD_CHI_DINH_THAU\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"HOP_DONG\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"PHU_LUC_HOP_DONG\",\n      \"co\": false\n    },\n    {\n      \"ma\": \"BB_NGHIEM_THU_HIEN_TRUONG\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"BBNT_KHOI_LUONG\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"BBNT_HOAN_THANH\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"BAN_VE_HOAN_CONG\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"BANG_QUYET_TOAN\",\n      \"co\": true\n    },\n    {\n      \"ma\": \"HOA_DON_GTGT\",\n      \"co\": true,\n      \"so_hieu\": \"0000123\"\n    }\n  ],\n  \"hang_muc\": [\n    {\n      \"stt\": 1,\n      \"ma_hieu_dinh_muc\": \"MINH_HOA.01\",\n      \"ten\": \"Lắp đặt ống HDPE D110 PN10 nối hàn nhiệt\",\n      \"don_vi\": \"m\",\n      \"loai\": \"ong\",\n      \"kl_thiet_ke\": 450,\n      \"kl_thiet_ke_dieu_chinh\": null,\n      \"kl_hoan_cong\": 446,\n      \"kl_nghiem_thu_hien_truong\": 446,\n      \"kl_nghiem_thu_bbnt\": 446,\n      \"kl_quyet_toan\": 446,\n      \"kl_hop_dong\": 450,\n      \"don_gia_hop_dong\": 210000,\n      \"don_gia_quyet_toan\": 210000,\n      \"co_so_do_hien_truong\": true\n    },\n    {\n      \"stt\": 2,\n      \"ma_hieu_dinh_muc\": \"MINH_HOA.02\",\n      \"ten\": \"Đào đất mương đặt ống bằng máy, đất cấp II\",\n      \"don_vi\": \"m3\",\n      \"loai\": \"dao_dap\",\n      \"kl_thiet_ke\": 162,\n      \"kl_thiet_ke_dieu_chinh\": null,\n      \"kl_hoan_cong\": 160.6,\n      \"kl_nghiem_thu_hien_truong\": 160.6,\n      \"kl_nghiem_thu_bbnt\": 160.6,\n      \"kl_quyet_toan\": 160.6,\n      \"kl_hop_dong\": 162,\n      \"don_gia_hop_dong\": 95000,\n      \"don_gia_quyet_toan\": 95000,\n      \"co_so_do_hien_truong\": true\n    },\n    {\n      \"stt\": 3,\n      \"ma_hieu_dinh_muc\": \"MINH_HOA.03\",\n      \"ten\": \"Đắp cát đệm ống\",\n      \"don_vi\": \"m3\",\n      \"loai\": \"cat_dem\",\n      \"kl_thiet_ke\": 49.5,\n      \"kl_thiet_ke_dieu_chinh\": null,\n      \"kl_hoan_cong\": 49.1,\n      \"kl_nghiem_thu_hien_truong\": 49.1,\n      \"kl_nghiem_thu_bbnt\": 49.1,\n      \"kl_quyet_toan\": 49.1,\n      \"kl_hop_dong\": 49.5,\n      \"don_gia_hop_dong\": 380000,\n      \"don_gia_quyet_toan\": 380000,\n      \"co_so_do_hien_truong\": true\n    },\n    {\n      \"stt\": 4,\n      \"ma_hieu_dinh_muc\": \"MINH_HOA.04\",\n      \"ten\": \"Tái lập mặt đường bê tông nhựa dày 7cm\",\n      \"don_vi\": \"m2\",\n      \"loai\": \"tai_lap\",\n      \"kl_thiet_ke\": 135,\n      \"kl_thiet_ke_dieu_chinh\": null,\n      \"kl_hoan_cong\": 133.8,\n      \"kl_nghiem_thu_hien_truong\": 133.8,\n      \"kl_nghiem_thu_bbnt\": 133.8,\n      \"kl_quyet_toan\": 133.8,\n      \"kl_hop_dong\": 135,\n      \"don_gia_hop_dong\": 520000,\n      \"don_gia_quyet_toan\": 520000,\n      \"co_so_do_hien_truong\": true\n    },\n    {\n      \"stt\": 5,\n      \"ma_hieu_dinh_muc\": \"MINH_HOA.05\",\n      \"ten\": \"Tê HDPE D110x63 hàn nhiệt\",\n      \"don_vi\": \"cái\",\n      \"loai\": \"phu_kien\",\n      \"kl_thiet_ke\": 3,\n      \"kl_thiet_ke_dieu_chinh\": null,\n      \"kl_hoan_cong\": 3,\n      \"kl_nghiem_thu_hien_truong\": 3,\n      \"kl_nghiem_thu_bbnt\": 3,\n      \"kl_quyet_toan\": 3,\n      \"kl_hop_dong\": 3,\n      \"don_gia_hop_dong\": 640000,\n      \"don_gia_quyet_toan\": 640000,\n      \"co_so_do_hien_truong\": true\n    }\n  ],\n  \"tong_hop_khai_bao\": {\n    \"tong_quyet_toan_truoc_thue\": 199071000,\n    \"thue_suat_gtgt\": 10,\n    \"tong_quyet_toan_sau_thue\": 218978100\n  },\n  \"hoa_don_gtgt\": {\n    \"so\": \"0000123\",\n    \"ngay\": \"2026-11-15\",\n    \"gia_tri_truoc_thue\": 199071000,\n    \"thue_suat\": 10,\n    \"gia_tri_sau_thue\": 218978100\n  },\n  \"chi_phi_giam_sat\": {\n    \"co_trong_du_toan\": false,\n    \"gia_tri\": 0,\n    \"da_giao_don_vi\": false,\n    \"don_vi_giam_sat\": null,\n    \"co_trong_quyet_toan\": false\n  },\n  \"checklist_ban_ve_hoan_cong\": {\n    \"chieu_dai_tuyen\": {\n      \"ket_qua\": \"dat\",\n      \"so_lieu\": {\n        \"chieu_dai_ban_ve\": 446\n      }\n    },\n    \"ky_thuat_lap_dat\": {\n      \"ket_qua\": \"dat\"\n    },\n    \"boc_tach_coc_vs_thong_ke_vat_tu\": {\n      \"ket_qua\": \"dat\",\n      \"so_lieu\": {\n        \"so_muc_lech\": 0\n      }\n    },\n    \"loi_trinh_bay\": {\n      \"ket_qua\": \"dat\"\n    }\n  },\n  \"checklist_du_toan_quyet_toan\": {\n    \"ma_hieu_dinh_muc_tt38\": {\n      \"ket_qua\": \"dat\"\n    },\n    \"don_gia_nhan_cong_ca_may_bd\": {\n      \"ket_qua\": \"dat\"\n    },\n    \"can_cu_phap_ly_theo_moc\": {\n      \"ket_qua\": \"dat\",\n      \"so_lieu\": {\n        \"moc_ap_dung\": \"tu_01072026\"\n      }\n    },\n    \"kl_dao_dap_cat_dem_tai_lap_khop_mat_cat\": {\n      \"ket_qua\": \"dat\"\n    },\n    \"don_gia_vat_tu_biwase\": {\n      \"ket_qua\": \"dat\",\n      \"so_lieu\": {\n        \"so_muc_khong_khop\": 0\n      }\n    },\n    \"cong_don_tong\": {\n      \"ket_qua\": \"dat\"\n    }\n  },\n  \"danh_gia_tieu_chi\": [\n    {\n      \"so\": 1,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 2,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 3,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 4,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 5,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 6,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 7,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 8,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 9,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 10,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 11,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 12,\n      \"ket_qua\": \"phu_hop\",\n      \"nhan_xet\": \"Giảm 1.749.000 đ so với HĐ do khối lượng thực tế\"\n    },\n    {\n      \"so\": 13,\n      \"ket_qua\": \"phu_hop\"\n    },\n    {\n      \"so\": 14,\n      \"ket_qua\": \"phu_hop\"\n    }\n  ],\n  \"ghi_chu_nguoi_kiem_tra\": \"\"\n};\nconst hs = JSON.parse(JSON.stringify(goc));      // bản sao sâu\nconst tc = (so) => hs.danh_gia_tieu_chi.find(t => t.so === so);\n\nswitch (KICH_BAN) {\n  case \"DAT\":\n    break;\n  case \"DIEU_CHINH_TK_DT\":\n    tc(9).ket_qua = \"khong_phu_hop\";\n    tc(9).nhan_xet = \"Phát sinh 01 van chặn D100 so với dự toán duyệt, cần lập dự toán điều chỉnh\";\n    break;\n  case \"DUNG_QUYET_TOAN\":\n    Object.assign(hs.hang_muc[0], { kl_hoan_cong: 520, kl_nghiem_thu_hien_truong: 520, kl_nghiem_thu_bbnt: 520, kl_quyet_toan: 520 });\n    hs.checklist_ban_ve_hoan_cong.chieu_dai_tuyen.so_lieu.chieu_dai_ban_ve = 520;\n    tc(5).ket_qua = \"khong_phu_hop\";                       // người kiểm tra thấy đổi tuyến\n    // tc(13), tc(14) vẫn \"phu_hop\" (nhập sai) -> máy phải hạ\n    break;\n  case \"CHUA_KET_LUAN\":\n    hs.ho_so.find(h => h.ma === \"HOA_DON_GTGT\").co = false;\n    hs.hoa_don_gtgt = null;\n    hs.checklist_ban_ve_hoan_cong.loi_trinh_bay.ket_qua = \"chua_kiem_tra\";\n    tc(10).ket_qua = \"chua_du_can_cu\";\n    break;\n  case \"CONG_SO_LIEU\":\n    Object.assign(hs.hang_muc[3], { kl_nghiem_thu_bbnt: 135, kl_quyet_toan: 135, co_so_do_hien_truong: false });\n    break;\n  case \"LOI_HANG_MUC_RONG\":\n    hs.hang_muc = [];\n    break;\n  default:\n    throw new Error(`KICH_BAN không hợp lệ: ${KICH_BAN}`);\n}\nhs.__nguon_thu_cong = { kich_ban: KICH_BAN };   // dấu hiệu nguồn chạy thử\nreturn [{ json: hs }];\n"
+      },
+      "id": "5ab06433-1904-49ff-8b0c-95fa9db6f0bb",
+      "name": "Dữ liệu mẫu",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "notes": "Đổi hằng KICH_BAN ở dòng đầu để chọn kịch bản chạy thử",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N04 – Chuẩn hóa đầu vào. Nguồn: N01 (webhook: {headers, body, ...}) hoặc N03 (hồ sơ trực tiếp).\n// CAU_HINH là nơi DUY NHẤT khai báo ngưỡng; node sau đọc d.cau_hinh. cau_hinh gửi lên bị bỏ.\nconst CAU_HINH = {\n  PHIEN_BAN_QUY_TAC: \"2026.11-1\",\n  DUNG_SAI_KL: 0.001,              // hai khối lượng coi là khớp nếu |a-b| <= 0.001\n  NGUONG_KHAC_THIET_KE: 0.05,      // > 5% => \"khác thiết kế\" (CẦN DUYỆT – D2)\n  DUNG_SAI_TIEN: 1,                // đồng\n  MOC_PHAP_LY: \"2026-07-01\",\n  THOI_HAN_BO_SUNG_MAC_DINH: 7,    // ngày lịch (D7)\n  CHI_NHANH: [\"Khu Liên Hợp\", \"Tân Uyên\", \"Dĩ An\", \"Bàu Bàng\"],\n  EMAIL_PHONG_DAU_TU: \"\",          // để trống; người duyệt điền\n};\n\nconst x = $input.first().json;\nconst laWebhook = !!x && typeof x === \"object\" && x.headers !== undefined && \"body\" in x;\nlet raw = laWebhook ? x.body : x;\nconst loi = [];\n\n// 1. body dạng chuỗi -> thử parse\nif (typeof raw === \"string\") {\n  try { raw = JSON.parse(raw); }\n  catch (e) { loi.push({ truong: \"(body)\", ma: \"JSON_KHONG_HOP_LE\", thong_bao: \"Body không phải JSON hợp lệ\" }); raw = {}; }\n}\n// 2. body phải là object, không phải mảng/null\nif (raw === null || typeof raw !== \"object\" || Array.isArray(raw)) {\n  loi.push({ truong: \"(body)\", ma: \"BODY_KHONG_PHAI_OBJECT\", thong_bao: \"Body phải là 1 object hồ sơ (mỗi lần gửi 1 hồ sơ)\" });\n  raw = {};\n}\nraw = JSON.parse(JSON.stringify(raw));             // không sửa trực tiếp dữ liệu node trước\n\nconst nguonThuCong = laWebhook ? null : raw.__nguon_thu_cong;\ndelete raw.__nguon_thu_cong;\ndelete raw.cau_hinh;                               // không cho ghi đè ngưỡng\ndelete raw.meta;                                   // khóa nội bộ, không nhận từ ngoài\ndelete raw.kiem_tra_cau_truc;\ndelete raw.phat_hien;\n\n// 3. Đổi chuỗi số -> number cho các trường số đã biết\nfunction toSo(v, duongDan) {\n  if (v === null || v === undefined || typeof v === \"number\") return v;\n  if (typeof v === \"string\") {\n    const s = v.trim();\n    if (/^-?\\d+(\\.\\d+)?$/.test(s)) return Number(s);\n    loi.push({ truong: duongDan, ma: \"SO_SAI_DINH_DANG\",\n      thong_bao: `Giá trị \"${v}\" không phải số. Dùng dấu chấm thập phân, không dùng dấu phân cách nghìn (vd 1234.5)` });\n    return v;\n  }\n  return v;   // kiểu khác để N05 báo lỗi kiểu\n}\nconst laObj = o => o !== null && typeof o === \"object\" && !Array.isArray(o);\nfunction doiSo(obj, khoa, tienTo) {\n  if (!laObj(obj)) return;\n  for (const k of khoa) if (k in obj) obj[k] = toSo(obj[k], `${tienTo}.${k}`);\n}\nconst SO_HANG_MUC = [\"stt\",\"kl_thiet_ke\",\"kl_thiet_ke_dieu_chinh\",\"kl_hoan_cong\",\"kl_nghiem_thu_hien_truong\",\n  \"kl_nghiem_thu_bbnt\",\"kl_quyet_toan\",\"kl_hop_dong\",\"don_gia_hop_dong\",\"don_gia_quyet_toan\"];\nif (Array.isArray(raw.hang_muc)) raw.hang_muc.forEach((h, i) => doiSo(h, SO_HANG_MUC, `hang_muc[${i}]`));\ndoiSo(raw.hop_dong, [\"gia_tri_hop_dong\", \"gia_tri_sau_phu_luc\"], \"hop_dong\");\ndoiSo(raw.tong_hop_khai_bao, [\"tong_quyet_toan_truoc_thue\", \"thue_suat_gtgt\", \"tong_quyet_toan_sau_thue\"], \"tong_hop_khai_bao\");\ndoiSo(raw.hoa_don_gtgt, [\"gia_tri_truoc_thue\", \"thue_suat\", \"gia_tri_sau_thue\"], \"hoa_don_gtgt\");\ndoiSo(raw.chi_phi_giam_sat, [\"gia_tri\"], \"chi_phi_giam_sat\");\ndoiSo(raw.cong_trinh, [\"thoi_han_bo_sung_ngay\"], \"cong_trinh\");\n\n// 4. Trim chuỗi ở cong_trinh; chuẩn hóa chi_nhanh về đúng chính tả (không phân biệt hoa thường, phân biệt dấu)\nif (laObj(raw.cong_trinh)) {\n  const ct = raw.cong_trinh;\n  for (const k of Object.keys(ct)) if (typeof ct[k] === \"string\") ct[k] = ct[k].trim();\n  if (laObj(ct.nha_thau)) for (const k of Object.keys(ct.nha_thau)) if (typeof ct.nha_thau[k] === \"string\") ct.nha_thau[k] = ct.nha_thau[k].trim();\n  if (typeof ct.chi_nhanh === \"string\") {\n    const chuan = s => s.normalize(\"NFC\").toLowerCase();\n    const cn = CAU_HINH.CHI_NHANH.find(c => chuan(c) === chuan(ct.chi_nhanh));\n    if (cn) ct.chi_nhanh = cn;\n  }\n  // 5. Mặc định\n  if (ct.loai_ho_so === undefined || ct.loai_ho_so === null || ct.loai_ho_so === \"\") ct.loai_ho_so = \"Quyết toán\";\n  if (ct.thoi_han_bo_sung_ngay === undefined || ct.thoi_han_bo_sung_ngay === null) ct.thoi_han_bo_sung_ngay = CAU_HINH.THOI_HAN_BO_SUNG_MAC_DINH;\n}\nif (raw.phien_ban_schema === undefined || raw.phien_ban_schema === null) raw.phien_ban_schema = \"1.0\";\nconst gsMacDinh = { co_trong_du_toan: false, gia_tri: 0, da_giao_don_vi: false, don_vi_giam_sat: null, co_trong_quyet_toan: false };\nraw.chi_phi_giam_sat = laObj(raw.chi_phi_giam_sat) ? { ...gsMacDinh, ...raw.chi_phi_giam_sat }\n  : (raw.chi_phi_giam_sat == null ? gsMacDinh : raw.chi_phi_giam_sat);   // kiểu sai -> N05 báo\nif (raw.ghi_chu_nguoi_kiem_tra === undefined || raw.ghi_chu_nguoi_kiem_tra === null) raw.ghi_chu_nguoi_kiem_tra = \"\";\n\nconst bayGio = DateTime.now().setZone(\"Asia/Ho_Chi_Minh\");\nconst maCT = (laObj(raw.cong_trinh) && typeof raw.cong_trinh.ma_cong_trinh === \"string\" && raw.cong_trinh.ma_cong_trinh) || \"KHONG_RO\";\nreturn [{ json: {\n  ...raw,\n  meta: {\n    nguon: laWebhook ? \"webhook\" : \"thu_cong\",\n    kich_ban: nguonThuCong && nguonThuCong.kich_ban ? nguonThuCong.kich_ban : null,\n    ma_phien: `KTQT-${maCT}-${bayGio.toFormat(\"yyyyLLddHHmmss\")}`,\n    thoi_diem: bayGio.toISO(),\n    phien_ban_quy_tac: CAU_HINH.PHIEN_BAN_QUY_TAC,\n    workflow: \"Biwase – Kiểm tra hồ sơ quyết toán công trình\",\n  },\n  cau_hinh: CAU_HINH,\n  loi_chuan_hoa: loi,\n}}];\n"
+      },
+      "id": "cfb9bc8f-bb0f-4814-b29b-eb5012b1dd65",
+      "name": "Chuẩn hóa đầu vào",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N05 – Kiểm tra cấu trúc. Gom TẤT CẢ lỗi (không dừng ở lỗi đầu), trừ khi body hỏng hoàn toàn.\nconst d = $input.first().json;\nconst C = d.cau_hinh;\nconst loi = [...(d.loi_chuan_hoa || [])];\nconst canhBao = [];\nconst them = (truong, ma, thong_bao) => loi.push({ truong, ma, thong_bao });\nconst laNgay = s => typeof s === \"string\" && /^\\d{4}-\\d{2}-\\d{2}$/.test(s) && DateTime.fromISO(s).isValid;\nconst chuoiKhongRong = s => typeof s === \"string\" && s.trim() !== \"\";\nconst soKhongAm = v => typeof v === \"number\" && Number.isFinite(v) && v >= 0;\nconst laObj = o => o !== null && typeof o === \"object\" && !Array.isArray(o);\n\n// Body hỏng (không phải JSON / không phải object): trả đúng lỗi đó, không liệt kê hàng loạt THIEU_TRUONG gây nhiễu.\nconst loiBody = loi.filter(l => l.ma === \"JSON_KHONG_HOP_LE\" || l.ma === \"BODY_KHONG_PHAI_OBJECT\");\nif (loiBody.length) {\n  return [{ json: { ...d, kiem_tra_cau_truc: { hop_le: false, loi: loiBody, canh_bao: [] } } }];\n}\n\nif (d.phien_ban_schema !== \"1.0\") them(\"phien_ban_schema\", \"SAI_PHIEN_BAN\", \"Chỉ hỗ trợ phiên bản 1.0\");\n\n// cong_trinh\nconst ct = d.cong_trinh;\nif (!laObj(ct)) them(\"cong_trinh\", \"THIEU_TRUONG\", \"Thiếu thông tin công trình\");\nelse {\n  for (const k of [\"ma_cong_trinh\",\"ten_cong_trinh\",\"dia_diem\",\"nguoi_kiem_tra\"]) if (!chuoiKhongRong(ct[k])) them(`cong_trinh.${k}`, \"THIEU_TRUONG\", \"Bắt buộc, không được rỗng\");\n  if (typeof ct.ma_cong_trinh === \"string\" && ct.ma_cong_trinh.length > 50) them(\"cong_trinh.ma_cong_trinh\", \"GIA_TRI_KHONG_HOP_LE\", \"Tối đa 50 ký tự\");\n  if (!C.CHI_NHANH.includes(ct.chi_nhanh)) them(\"cong_trinh.chi_nhanh\", \"GIA_TRI_KHONG_HOP_LE\", `Phải là một trong: ${C.CHI_NHANH.join(\", \")}`);\n  if (!laObj(ct.nha_thau) || !chuoiKhongRong(ct.nha_thau.ten)) them(\"cong_trinh.nha_thau.ten\", \"THIEU_TRUONG\", \"Bắt buộc\");\n  if (ct.loai_ho_so !== \"Quyết toán\") them(\"cong_trinh.loai_ho_so\", \"GIA_TRI_KHONG_HOP_LE\", \"Workflow này chỉ xử lý loại hồ sơ Quyết toán\");\n  for (const k of [\"ngay_nhan\",\"ngay_lap_du_toan\"]) if (!laNgay(ct[k])) them(`cong_trinh.${k}`, \"NGAY_KHONG_HOP_LE\", \"Định dạng YYYY-MM-DD\");\n  const thb = ct.thoi_han_bo_sung_ngay;\n  if (!(Number.isInteger(thb) && thb >= 1 && thb <= 60)) them(\"cong_trinh.thoi_han_bo_sung_ngay\", \"GIA_TRI_KHONG_HOP_LE\", \"Số nguyên 1–60\");\n}\n\n// hop_dong\nconst hd = d.hop_dong;\nif (!laObj(hd)) them(\"hop_dong\", \"THIEU_TRUONG\", \"Thiếu thông tin hợp đồng\");\nelse {\n  if (!chuoiKhongRong(hd.so_hop_dong)) them(\"hop_dong.so_hop_dong\", \"THIEU_TRUONG\", \"Bắt buộc\");\n  if (![\"don_gia_co_dinh\",\"tron_goi\",\"don_gia_dieu_chinh\"].includes(hd.loai_gia)) them(\"hop_dong.loai_gia\", \"GIA_TRI_KHONG_HOP_LE\", \"don_gia_co_dinh | tron_goi | don_gia_dieu_chinh\");\n  if (!soKhongAm(hd.gia_tri_hop_dong)) them(\"hop_dong.gia_tri_hop_dong\", \"SO_KHONG_HOP_LE\", \"Số ≥ 0\");\n  if (hd.gia_tri_sau_phu_luc != null && !soKhongAm(hd.gia_tri_sau_phu_luc)) them(\"hop_dong.gia_tri_sau_phu_luc\", \"SO_KHONG_HOP_LE\", \"Số ≥ 0 hoặc null\");\n}\n\n// ho_so\nconst MA_HO_SO = [\"CV_CHU_TRUONG\",\"HS_THIET_KE\",\"HS_THIET_KE_DIEU_CHINH\",\"DU_TOAN_PHE_DUYET\",\"DU_TOAN_DIEU_CHINH\",\"DE_XUAT_GIA\",\n  \"QD_CHI_DINH_THAU\",\"HOP_DONG\",\"PHU_LUC_HOP_DONG\",\"BB_NGHIEM_THU_HIEN_TRUONG\",\"BBNT_KHOI_LUONG\",\"BBNT_HOAN_THANH\",\n  \"BAN_VE_HOAN_CONG\",\"BANG_QUYET_TOAN\",\"HOA_DON_GTGT\"];\nif (!Array.isArray(d.ho_so)) them(\"ho_so\", \"THIEU_TRUONG\", \"Phải là mảng danh mục hồ sơ\");\nelse {\n  const daGap = new Set();\n  d.ho_so.forEach((h, i) => {\n    if (!laObj(h) || !MA_HO_SO.includes(h.ma)) them(`ho_so[${i}].ma`, \"MA_HO_SO_LA\", `Mã hồ sơ không hợp lệ: ${h && h.ma}`);\n    else if (daGap.has(h.ma)) them(`ho_so[${i}].ma`, \"MA_HO_SO_TRUNG\", `Trùng mã ${h.ma}`);\n    else daGap.add(h.ma);\n    if (laObj(h) && typeof h.co !== \"boolean\") them(`ho_so[${i}].co`, \"KIEU_SAI\", \"Phải là true/false\");\n  });\n  MA_HO_SO.filter(m => !daGap.has(m)).forEach(m => canhBao.push(`Không khai báo hồ sơ ${m} – coi như không có`));\n}\n\n// hang_muc\nif (!Array.isArray(d.hang_muc)) them(\"hang_muc\", \"THIEU_TRUONG\", \"Phải là mảng hạng mục\");\nelse if (d.hang_muc.length === 0) them(\"hang_muc\", \"HANG_MUC_RONG\", \"Danh sách hạng mục rỗng – không có gì để đối chiếu\");\nelse {\n  const sttGap = new Set();\n  d.hang_muc.forEach((h, i) => {\n    const p = `hang_muc[${i}]`;\n    if (!laObj(h)) { them(p, \"KIEU_SAI\", \"Phải là object\"); return; }\n    if (!Number.isInteger(h.stt)) them(`${p}.stt`, \"KIEU_SAI\", \"Số nguyên\");\n    else if (sttGap.has(h.stt)) them(`${p}.stt`, \"STT_TRUNG\", `Trùng stt ${h.stt}`); else sttGap.add(h.stt);\n    for (const k of [\"ten\",\"don_vi\"]) if (!chuoiKhongRong(h[k])) them(`${p}.${k}`, \"THIEU_TRUONG\", \"Bắt buộc\");\n    if (![\"ong\",\"phu_kien\",\"dao_dap\",\"cat_dem\",\"tai_lap\",\"khac\"].includes(h.loai)) them(`${p}.loai`, \"GIA_TRI_KHONG_HOP_LE\", \"ong|phu_kien|dao_dap|cat_dem|tai_lap|khac\");\n    for (const k of [\"kl_thiet_ke\",\"kl_hoan_cong\",\"kl_quyet_toan\",\"kl_hop_dong\",\"don_gia_quyet_toan\"]) if (!soKhongAm(h[k])) them(`${p}.${k}`, \"SO_KHONG_HOP_LE\", \"Số ≥ 0, bắt buộc\");\n    for (const k of [\"kl_thiet_ke_dieu_chinh\",\"kl_nghiem_thu_hien_truong\",\"kl_nghiem_thu_bbnt\",\"don_gia_hop_dong\"]) if (h[k] != null && !soKhongAm(h[k])) them(`${p}.${k}`, \"SO_KHONG_HOP_LE\", \"Số ≥ 0 hoặc null\");\n    if (!(\"kl_nghiem_thu_hien_truong\" in h)) them(`${p}.kl_nghiem_thu_hien_truong`, \"THIEU_TRUONG\", \"Bắt buộc khai báo (được null nếu không có số đo)\");\n    if (soKhongAm(h.kl_hop_dong) && h.kl_hop_dong > 0 && h.don_gia_hop_dong == null) them(`${p}.don_gia_hop_dong`, \"THIEU_TRUONG\", \"Bắt buộc khi hạng mục có trong hợp đồng\");\n    if (typeof h.co_so_do_hien_truong !== \"boolean\") them(`${p}.co_so_do_hien_truong`, \"KIEU_SAI\", \"true/false\");\n  });\n}\n\n// tong_hop_khai_bao\nconst thkb = d.tong_hop_khai_bao;\nif (!laObj(thkb)) them(\"tong_hop_khai_bao\", \"THIEU_TRUONG\", \"Bắt buộc\");\nelse for (const k of [\"tong_quyet_toan_truoc_thue\",\"thue_suat_gtgt\",\"tong_quyet_toan_sau_thue\"]) if (!soKhongAm(thkb[k])) them(`tong_hop_khai_bao.${k}`, \"SO_KHONG_HOP_LE\", \"Số ≥ 0\");\n\n// hoa_don_gtgt (bổ sung so với đặc tả: nếu có thì phải đủ số liệu, tránh NaN ở N09)\nconst hdg = d.hoa_don_gtgt;\nif (hdg != null) {\n  if (!laObj(hdg)) them(\"hoa_don_gtgt\", \"KIEU_SAI\", \"Phải là object hoặc null\");\n  else {\n    if (!chuoiKhongRong(hdg.so)) them(\"hoa_don_gtgt.so\", \"THIEU_TRUONG\", \"Bắt buộc\");\n    if (!laNgay(hdg.ngay)) them(\"hoa_don_gtgt.ngay\", \"NGAY_KHONG_HOP_LE\", \"Định dạng YYYY-MM-DD\");\n    for (const k of [\"gia_tri_truoc_thue\",\"thue_suat\",\"gia_tri_sau_thue\"]) if (!soKhongAm(hdg[k])) them(`hoa_don_gtgt.${k}`, \"SO_KHONG_HOP_LE\", \"Số ≥ 0\");\n  }\n}\n\n// chi_phi_giam_sat (bổ sung: kiểm kiểu)\nconst gs = d.chi_phi_giam_sat;\nif (!laObj(gs)) them(\"chi_phi_giam_sat\", \"KIEU_SAI\", \"Phải là object\");\nelse {\n  for (const k of [\"co_trong_du_toan\",\"da_giao_don_vi\",\"co_trong_quyet_toan\"]) if (typeof gs[k] !== \"boolean\") them(`chi_phi_giam_sat.${k}`, \"KIEU_SAI\", \"true/false\");\n  if (!soKhongAm(gs.gia_tri)) them(\"chi_phi_giam_sat.gia_tri\", \"SO_KHONG_HOP_LE\", \"Số ≥ 0\");\n}\n\n// checklist: chỉ kiểm enum nếu có mặt; thiếu thì N10 coi là chua_kiem_tra\nconst KQ_CL = [\"dat\",\"khong_dat\",\"chua_kiem_tra\",\"khong_ap_dung\"];\nfor (const nhom of [\"checklist_ban_ve_hoan_cong\",\"checklist_du_toan_quyet_toan\"]) {\n  const o = d[nhom];\n  if (o == null) { canhBao.push(`Thiếu ${nhom} – mọi mục coi là chưa kiểm tra`); continue; }\n  if (!laObj(o)) { them(nhom, \"KIEU_SAI\", \"Phải là object\"); continue; }\n  for (const [k, v] of Object.entries(o)) {\n    if (!laObj(v) || !KQ_CL.includes(v.ket_qua)) them(`${nhom}.${k}.ket_qua`, \"GIA_TRI_KHONG_HOP_LE\", KQ_CL.join(\"|\"));\n    else if (v.so_lieu != null && !laObj(v.so_lieu)) them(`${nhom}.${k}.so_lieu`, \"KIEU_SAI\", \"Phải là object\");\n  }\n}\n\n// danh_gia_tieu_chi\nif (d.danh_gia_tieu_chi != null) {\n  if (!Array.isArray(d.danh_gia_tieu_chi)) them(\"danh_gia_tieu_chi\", \"KIEU_SAI\", \"Phải là mảng\");\n  else {\n    const soGap = new Set();\n    d.danh_gia_tieu_chi.forEach((t, i) => {\n      if (!laObj(t) || !Number.isInteger(t.so) || t.so < 1 || t.so > 15) { them(`danh_gia_tieu_chi[${i}].so`, \"GIA_TRI_KHONG_HOP_LE\", \"1..15\"); return; }\n      if (soGap.has(t.so)) them(`danh_gia_tieu_chi[${i}].so`, \"TIEU_CHI_TRUNG\", `Trùng tiêu chí ${t.so}`);\n      soGap.add(t.so);\n      if (t.so === 15) { canhBao.push(\"Tiêu chí 15 do máy tự lập – giá trị gửi lên bị bỏ qua\"); return; }\n      if (![\"phu_hop\",\"khong_phu_hop\",\"chua_du_can_cu\"].includes(t.ket_qua)) them(`danh_gia_tieu_chi[${i}].ket_qua`, \"GIA_TRI_KHONG_HOP_LE\", \"phu_hop|khong_phu_hop|chua_du_can_cu\");\n      if (t.nhom_ycbs != null && !(Number.isInteger(t.nhom_ycbs) && t.nhom_ycbs >= 1 && t.nhom_ycbs <= 11)) them(`danh_gia_tieu_chi[${i}].nhom_ycbs`, \"GIA_TRI_KHONG_HOP_LE\", \"1..11\");\n    });\n  }\n} else canhBao.push(\"Không có đánh giá tiêu chí – tiêu chí 1–14 coi là chưa đủ căn cứ\");\n\nreturn [{ json: { ...d, kiem_tra_cau_truc: { hop_le: loi.length === 0, loi, canh_bao: canhBao } } }];\n"
+      },
+      "id": "692d5989-fc7a-4f25-9a43-790505596e07",
+      "name": "Kiểm tra cấu trúc",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bd4afbdc-93e5-4655-96f2-8153ae54e4af",
+              "leftValue": "={{ $json.kiem_tra_cau_truc.hop_le }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": false,
+        "options": {}
+      },
+      "id": "1de82ebc-d787-4c6e-a720-3e528875979e",
+      "name": "Hợp lệ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N07 – Kiểm tra hồ sơ căn cứ (chuỗi Dự toán → Đề xuất giá → QĐ chỉ định thầu → Hợp đồng → BBNT → Quyết toán).\nconst d = $input.first().json;\nconst co = ma => (d.ho_so.find(h => h && h.ma === ma) || {}).co === true;\nconst BAT_BUOC = [\"CV_CHU_TRUONG\",\"DU_TOAN_PHE_DUYET\",\"DE_XUAT_GIA\",\"QD_CHI_DINH_THAU\",\"HOP_DONG\",\n  \"BB_NGHIEM_THU_HIEN_TRUONG\",\"BBNT_KHOI_LUONG\",\"BBNT_HOAN_THANH\",\"BAN_VE_HOAN_CONG\",\"BANG_QUYET_TOAN\",\"HOA_DON_GTGT\"];\nconst TEN = {\n  CV_CHU_TRUONG: \"Công văn chấp thuận chủ trương\",\n  HS_THIET_KE: \"Hồ sơ thiết kế\",\n  HS_THIET_KE_DIEU_CHINH: \"Hồ sơ thiết kế điều chỉnh\",\n  DU_TOAN_PHE_DUYET: \"Dự toán được phê duyệt\",\n  DU_TOAN_DIEU_CHINH: \"Dự toán điều chỉnh được phê duyệt\",\n  DE_XUAT_GIA: \"Đề xuất giá\",\n  QD_CHI_DINH_THAU: \"Quyết định chỉ định thầu\",\n  HOP_DONG: \"Hợp đồng\",\n  PHU_LUC_HOP_DONG: \"Phụ lục/điều chỉnh hợp đồng\",\n  BB_NGHIEM_THU_HIEN_TRUONG: \"Biên bản nghiệm thu hiện trường (khối lượng chốt tại hiện trường)\",\n  BBNT_KHOI_LUONG: \"BBNT khối lượng\",\n  BBNT_HOAN_THANH: \"BBNT hoàn thành\",\n  BAN_VE_HOAN_CONG: \"Bản vẽ hoàn công\",\n  BANG_QUYET_TOAN: \"Dự toán/bảng quyết toán\",\n  HOA_DON_GTGT: \"Hóa đơn GTGT\",\n};\nconst NHOM = {\n  CV_CHU_TRUONG: 1, DE_XUAT_GIA: 1, QD_CHI_DINH_THAU: 1, HOP_DONG: 1, PHU_LUC_HOP_DONG: 1,\n  HS_THIET_KE: 5, HS_THIET_KE_DIEU_CHINH: 5,\n  DU_TOAN_PHE_DUYET: 6, DU_TOAN_DIEU_CHINH: 6, BANG_QUYET_TOAN: 6, BB_NGHIEM_THU_HIEN_TRUONG: 6, BBNT_KHOI_LUONG: 6,\n  BAN_VE_HOAN_CONG: 9, BBNT_HOAN_THANH: 10, HOA_DON_GTGT: 11,\n};\nconst ph = [];\nconst danhSach = [];\n\nfor (const ma of BAT_BUOC) {\n  const dat = co(ma);\n  danhSach.push({ ma, ten: TEN[ma], muc: \"bat_buoc\", co: dat, dat });\n  if (!dat) ph.push({ ma: \"THIEU_HO_SO\", muc_do: \"thieu_can_cu\", nhom_ycbs: NHOM[ma], yeu_cau: \"Bổ sung\",\n    noi_dung: `Thiếu ${TEN[ma]}`, hang_muc_stt: null, tien_anh_huong: null, nguon: \"N07\" });\n}\n// Thiết kế: TK gốc hoặc TK điều chỉnh\nconst coTK = co(\"HS_THIET_KE\") || co(\"HS_THIET_KE_DIEU_CHINH\");\ndanhSach.push({ ma: \"HS_THIET_KE\", ten: TEN.HS_THIET_KE, muc: \"bat_buoc\", co: co(\"HS_THIET_KE\"), dat: coTK });\ndanhSach.push({ ma: \"HS_THIET_KE_DIEU_CHINH\", ten: TEN.HS_THIET_KE_DIEU_CHINH, muc: \"dieu_kien\", co: co(\"HS_THIET_KE_DIEU_CHINH\"), dat: true });\ndanhSach.push({ ma: \"DU_TOAN_DIEU_CHINH\", ten: TEN.DU_TOAN_DIEU_CHINH, muc: \"dieu_kien\", co: co(\"DU_TOAN_DIEU_CHINH\"),\n  dat: !co(\"HS_THIET_KE_DIEU_CHINH\") || co(\"DU_TOAN_DIEU_CHINH\") });\ndanhSach.push({ ma: \"PHU_LUC_HOP_DONG\", ten: TEN.PHU_LUC_HOP_DONG, muc: \"dieu_kien\", co: co(\"PHU_LUC_HOP_DONG\"), dat: null }); // đánh giá ở N09\nif (!coTK) ph.push({ ma: \"THIEU_HO_SO\", muc_do: \"thieu_can_cu\", nhom_ycbs: 5, yeu_cau: \"Bổ sung\",\n  noi_dung: \"Thiếu hồ sơ thiết kế (hoặc thiết kế điều chỉnh)\", hang_muc_stt: null, tien_anh_huong: null, nguon: \"N07\" });\n// Điều chỉnh: TK điều chỉnh mà không có DT điều chỉnh\nif (co(\"HS_THIET_KE_DIEU_CHINH\") && !co(\"DU_TOAN_DIEU_CHINH\")) ph.push({ ma: \"THIEU_DU_TOAN_DIEU_CHINH\", muc_do: \"thieu_can_cu\",\n  nhom_ycbs: 6, yeu_cau: \"Bổ sung\", noi_dung: \"Có thiết kế điều chỉnh nhưng thiếu dự toán điều chỉnh được phê duyệt\",\n  hang_muc_stt: null, tien_anh_huong: null, nguon: \"N07\" });\n// Hóa đơn: khai có nhưng không có chi tiết\nif (co(\"HOA_DON_GTGT\") && !d.hoa_don_gtgt) ph.push({ ma: \"THIEU_HO_SO\", muc_do: \"thieu_can_cu\", nhom_ycbs: 11, yeu_cau: \"Bổ sung\",\n  noi_dung: \"Khai có hóa đơn GTGT nhưng không cung cấp số, ngày, giá trị hóa đơn\", hang_muc_stt: null, tien_anh_huong: null, nguon: \"N07\" });\n\nconst thieu = ph.filter(p => p.ma === \"THIEU_HO_SO\" || p.ma === \"THIEU_DU_TOAN_DIEU_CHINH\").map(p => p.noi_dung);\nreturn [{ json: { ...d,\n  kiem_tra_ho_so: { danh_sach: danhSach, thieu,\n    co_dieu_chinh_day_du: co(\"HS_THIET_KE_DIEU_CHINH\") && co(\"DU_TOAN_DIEU_CHINH\"),\n    co_phu_luc: co(\"PHU_LUC_HOP_DONG\") },\n  phat_hien: [...(d.phat_hien || []), ...ph] } }];\n"
+      },
+      "id": "25f31037-d3f6-4002-9889-23ac1306c396",
+      "name": "Kiểm tra hồ sơ căn cứ",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N08 – Đối chiếu ba chiều: hoàn công ↔ nghiệm thu hiện trường (SỐ GỐC) ↔ quyết toán.\n// --- Hàm dùng chung (chèn lúc build; Code node n8n không chia sẻ hàm) ---\nfunction fmtTien(n) {\n  if (n === null || n === undefined || !Number.isFinite(Number(n))) return String(n);\n  const v = Math.round(Number(n));\n  const s = String(Math.abs(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \".\");\n  return (v < 0 ? \"-\" : \"\") + s;\n}\nfunction escMd(s) { return String(s == null ? \"\" : s).replace(/\\|/g, \"\\\\|\").replace(/\\r?\\n/g, \"<br>\"); }\nfunction escHtml(s) {\n  return String(s == null ? \"\" : s).replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\")\n    .replace(/\"/g, \"&quot;\").replace(/'/g, \"&#39;\");\n}\n// --- Hết hàm dùng chung ---\nconst d = $input.first().json; const C = d.cau_hinh;\nconst khop = (a, b) => Math.abs(a - b) <= C.DUNG_SAI_KL;\nconst r3 = v => Math.round(v * 1000) / 1000;\nconst ph = [];\nconst dc = d.kiem_tra_ho_so.co_dieu_chinh_day_du;\n\nfunction khacThietKe(kl, tk) {\n  if (tk === 0) return kl > 0;          // hạng mục phát sinh không có trong thiết kế\n  if (kl === 0) return tk > 0;          // hạng mục thiết kế bị bỏ\n  return Math.abs(kl - tk) / tk > C.NGUONG_KHAC_THIET_KE;\n}\n\nconst ds = d.hang_muc.map(h => {\n  const tk = (dc && h.kl_thiet_ke_dieu_chinh != null) ? h.kl_thiet_ke_dieu_chinh : h.kl_thiet_ke;\n  const nt = h.kl_nghiem_thu_hien_truong;\n  const r = { stt: h.stt, ten: h.ten, don_vi: h.don_vi, loai: h.loai, kl_tk_tham_chieu: tk,\n    kl_hoan_cong: h.kl_hoan_cong, kl_nghiem_thu_hien_truong: nt, kl_nghiem_thu_bbnt: h.kl_nghiem_thu_bbnt,\n    kl_quyet_toan: h.kl_quyet_toan, kl_hop_dong: h.kl_hop_dong, don_gia_quyet_toan: h.don_gia_quyet_toan,\n    thanh_tien_quyet_toan: Math.round(h.kl_quyet_toan * h.don_gia_quyet_toan),\n    ty_le_khac_thiet_ke: tk > 0 ? r3((h.kl_hoan_cong - tk) / tk) : null,\n    khac_thiet_ke_hc: khacThietKe(h.kl_hoan_cong, tk),\n    khac_thiet_ke_nt: nt != null && khacThietKe(nt, tk),\n    lech_qt_hc: r3(h.kl_quyet_toan - h.kl_hoan_cong) };\n\n  if (nt == null) {\n    Object.assign(r, { lech_hc_nt: null, lech_qt_nt: null, lech_bbnt_nt: null, thanh_tien_anh_huong: null, trang_thai: \"thieu_so_goc\" });\n    ph.push({ ma: \"THIEU_SO_GOC\", muc_do: \"thieu_can_cu\", nhom_ycbs: 6, yeu_cau: \"Bổ sung\", hang_muc_stt: h.stt, tien_anh_huong: null, nguon: \"N08\",\n      noi_dung: `Hạng mục ${h.stt} \"${h.ten}\": không có khối lượng nghiệm thu hiện trường (số gốc) để đối chiếu` });\n    return r;\n  }\n  r.lech_hc_nt = r3(h.kl_hoan_cong - nt);\n  r.lech_qt_nt = r3(h.kl_quyet_toan - nt);\n  r.lech_bbnt_nt = h.kl_nghiem_thu_bbnt == null ? null : r3(h.kl_nghiem_thu_bbnt - nt);\n  r.thanh_tien_anh_huong = Math.round(r.lech_qt_nt * h.don_gia_quyet_toan);\n  const lech = !khop(h.kl_hoan_cong, nt) || !khop(h.kl_quyet_toan, nt) || (r.lech_bbnt_nt != null && !khop(h.kl_nghiem_thu_bbnt, nt));\n  r.trang_thai = lech ? \"lech\" : \"khop\";\n\n  if (!khop(h.kl_quyet_toan, nt)) ph.push({ ma: \"QT_LECH_NGHIEM_THU\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Điều chỉnh\", hang_muc_stt: h.stt,\n    tien_anh_huong: r.thanh_tien_anh_huong, nguon: \"N08\",\n    noi_dung: `Hạng mục ${h.stt} \"${h.ten}\": quyết toán ${h.kl_quyet_toan} ${h.don_vi} ≠ nghiệm thu hiện trường ${nt} ${h.don_vi} (lệch ${r.lech_qt_nt}); thành tiền ảnh hưởng ${fmtTien(r.thanh_tien_anh_huong)} đ` });\n  if (!khop(h.kl_hoan_cong, nt)) ph.push({ ma: \"HC_LECH_NGHIEM_THU\", muc_do: \"chan\", nhom_ycbs: 9, yeu_cau: \"Điều chỉnh\", hang_muc_stt: h.stt,\n    tien_anh_huong: null, nguon: \"N08\",\n    noi_dung: `Hạng mục ${h.stt} \"${h.ten}\": bản vẽ hoàn công ${h.kl_hoan_cong} ≠ nghiệm thu hiện trường ${nt} ${h.don_vi}` });\n  if (r.lech_bbnt_nt != null && !khop(h.kl_nghiem_thu_bbnt, nt)) ph.push({ ma: \"BBNT_LECH_SO_GOC\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Điều chỉnh\",\n    hang_muc_stt: h.stt, tien_anh_huong: null, nguon: \"N08\",\n    noi_dung: `Hạng mục ${h.stt} \"${h.ten}\": BBNT ghi ${h.kl_nghiem_thu_bbnt} ≠ khối lượng chốt hiện trường ${nt} ${h.don_vi}` });\n  return r;\n});\n\nconst tt = ds.map(x => x.thanh_tien_anh_huong).filter(v => v != null);\nreturn [{ json: { ...d,\n  doi_chieu: {\n    hang_muc: ds,\n    tong_qt_tinh_lai: ds.reduce((s, x) => s + x.thanh_tien_quyet_toan, 0),\n    tong_thanh_toan_du: tt.filter(v => v > 0).reduce((s, v) => s + v, 0),\n    tong_thanh_toan_thieu: -tt.filter(v => v < 0).reduce((s, v) => s + v, 0),\n    so_hang_muc_lech: ds.filter(x => x.trang_thai !== \"khop\").length,\n    so_hang_muc_khac_thiet_ke: ds.filter(x => x.khac_thiet_ke_hc || x.khac_thiet_ke_nt).length },\n  phat_hien: [...d.phat_hien, ...ph] } }];\n"
+      },
+      "id": "8eee5cbe-2629-4678-a3d3-d7309a60737a",
+      "name": "Đối chiếu ba chiều",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N09 – Kiểm tra hợp đồng: chép HĐ không số đo, hạng mục ngoài HĐ, đơn giá cố định, vượt giá HĐ, giám sát, hóa đơn GTGT.\n// --- Hàm dùng chung (chèn lúc build; Code node n8n không chia sẻ hàm) ---\nfunction fmtTien(n) {\n  if (n === null || n === undefined || !Number.isFinite(Number(n))) return String(n);\n  const v = Math.round(Number(n));\n  const s = String(Math.abs(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \".\");\n  return (v < 0 ? \"-\" : \"\") + s;\n}\nfunction escMd(s) { return String(s == null ? \"\" : s).replace(/\\|/g, \"\\\\|\").replace(/\\r?\\n/g, \"<br>\"); }\nfunction escHtml(s) {\n  return String(s == null ? \"\" : s).replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\")\n    .replace(/\"/g, \"&quot;\").replace(/'/g, \"&#39;\");\n}\n// --- Hết hàm dùng chung ---\nconst d = $input.first().json; const C = d.cau_hinh; const hd = d.hop_dong;\nconst ph = []; const khop = (a, b) => Math.abs(a - b) <= C.DUNG_SAI_KL;\nconst coPL = d.kiem_tra_ho_so.co_phu_luc;\nconst giaHieuLuc = (coPL && hd.gia_tri_sau_phu_luc != null) ? hd.gia_tri_sau_phu_luc : hd.gia_tri_hop_dong;\nconst tongQT = d.doi_chieu.tong_qt_tinh_lai;\nconst chep = [], ngoai = [], donGiaKhac = [];\n\nfor (const h of d.hang_muc) {\n  // (a) Chép 100% hợp đồng mà không có số đo\n  const bbntBangHD = h.kl_nghiem_thu_bbnt != null && khop(h.kl_nghiem_thu_bbnt, h.kl_hop_dong);\n  const qtBangHD = khop(h.kl_quyet_toan, h.kl_hop_dong);\n  if (h.kl_hop_dong > 0 && qtBangHD && (bbntBangHD || h.kl_nghiem_thu_bbnt == null) && (!h.co_so_do_hien_truong || h.kl_nghiem_thu_hien_truong == null)) {\n    chep.push(h.stt);\n    ph.push({ ma: \"CHEP_HOP_DONG_KHONG_SO_DO\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Bổ sung-điều chỉnh\", hang_muc_stt: h.stt,\n      tien_anh_huong: null, nguon: \"N09\",\n      noi_dung: `Hạng mục ${h.stt} \"${h.ten}\": BBNT/quyết toán chép đúng khối lượng hợp đồng (${h.kl_hop_dong} ${h.don_vi}) nhưng không có số đo hiện trường – rủi ro thanh toán dư. Bổ sung số đo và điều chỉnh theo khối lượng thực tế` });\n  }\n  // (b) Hạng mục ngoài hợp đồng\n  if (h.kl_hop_dong === 0 && h.kl_quyet_toan > 0 && !coPL) {\n    ngoai.push(h.stt);\n    const tien = Math.round(h.kl_quyet_toan * h.don_gia_quyet_toan);\n    ph.push({ ma: \"HANG_MUC_NGOAI_HOP_DONG\", muc_do: \"chan\", nhom_ycbs: 1, yeu_cau: \"Bổ sung\", hang_muc_stt: h.stt,\n      tien_anh_huong: tien, nguon: \"N09\",\n      noi_dung: `Hạng mục ${h.stt} \"${h.ten}\" không có trong hợp đồng nhưng được quyết toán ${fmtTien(tien)} đ – cần phụ lục hợp đồng` });\n  }\n  // (c) Đơn giá cố định -> đơn giá quyết toán phải bằng đơn giá hợp đồng\n  if (hd.loai_gia === \"don_gia_co_dinh\" && h.kl_hop_dong > 0 && h.don_gia_hop_dong != null && h.don_gia_quyet_toan !== h.don_gia_hop_dong) {\n    donGiaKhac.push(h.stt);\n    const tien = Math.round(h.kl_quyet_toan * (h.don_gia_quyet_toan - h.don_gia_hop_dong));\n    ph.push({ ma: \"DON_GIA_KHAC_HOP_DONG\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Điều chỉnh\", hang_muc_stt: h.stt, tien_anh_huong: tien, nguon: \"N09\",\n      noi_dung: `Hạng mục ${h.stt} \"${h.ten}\": HĐ đơn giá cố định ${fmtTien(h.don_gia_hop_dong)} đ nhưng quyết toán ${fmtTien(h.don_gia_quyet_toan)} đ; ảnh hưởng ${fmtTien(tien)} đ` });\n  }\n}\n// (d) Vượt giá hợp đồng\nconst vuot = tongQT - giaHieuLuc;\nif (vuot > C.DUNG_SAI_TIEN && !coPL) ph.push({ ma: \"VUOT_GIA_HOP_DONG\", muc_do: \"chan\", nhom_ycbs: 1, yeu_cau: \"Bổ sung\",\n  hang_muc_stt: null, tien_anh_huong: vuot, nguon: \"N09\",\n  noi_dung: `Giá trị quyết toán tính lại ${fmtTien(tongQT)} đ vượt giá hợp đồng ${fmtTien(giaHieuLuc)} đ là ${fmtTien(vuot)} đ nhưng không có phụ lục/điều chỉnh hợp đồng` });\nif (vuot > C.DUNG_SAI_TIEN && coPL && hd.gia_tri_sau_phu_luc == null) ph.push({ ma: \"VUOT_GIA_HOP_DONG\", muc_do: \"thieu_can_cu\", nhom_ycbs: 1, yeu_cau: \"Bổ sung\",\n  hang_muc_stt: null, tien_anh_huong: vuot, nguon: \"N09\", noi_dung: \"Có phụ lục hợp đồng nhưng không khai báo giá trị sau phụ lục để đối chiếu\" });\nif (vuot > C.DUNG_SAI_TIEN && coPL && hd.gia_tri_sau_phu_luc != null) ph.push({ ma: \"VUOT_GIA_HOP_DONG\", muc_do: \"chan\", nhom_ycbs: 1, yeu_cau: \"Bổ sung\",\n  hang_muc_stt: null, tien_anh_huong: vuot, nguon: \"N09\",\n  noi_dung: `Giá trị quyết toán tính lại ${fmtTien(tongQT)} đ vượt cả giá hợp đồng sau phụ lục ${fmtTien(giaHieuLuc)} đ là ${fmtTien(vuot)} đ` });\n// (e) Giám sát\nconst gs = d.chi_phi_giam_sat; let kqGS = \"hop_le\";\nif (gs.co_trong_du_toan && !gs.da_giao_don_vi && gs.co_trong_quyet_toan) {\n  kqGS = \"khong_quyet_toan\";\n  ph.push({ ma: \"GIAM_SAT_KHONG_GIAO\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Điều chỉnh\", hang_muc_stt: null, tien_anh_huong: gs.gia_tri, nguon: \"N09\",\n    noi_dung: `Chi phí giám sát ${fmtTien(gs.gia_tri)} đ có trong dự toán nhưng không giao đơn vị thực hiện – không được quyết toán, đề nghị loại khỏi giá trị quyết toán` });\n} else if (gs.co_trong_du_toan && !gs.da_giao_don_vi) {\n  kqGS = \"luu_y\";\n  ph.push({ ma: \"GIAM_SAT_KHONG_GIAO_LUU_Y\", muc_do: \"luu_y\", nhom_ycbs: 6, yeu_cau: \"Không\", hang_muc_stt: null, tien_anh_huong: null, nguon: \"N09\",\n    noi_dung: \"Chi phí giám sát có trong dự toán nhưng không giao đơn vị – đã không đưa vào quyết toán (đúng)\" });\n}\n// (f) Hóa đơn GTGT so với tổng tính lại (sau thuế)\nlet hoaDon = { co: !!d.hoa_don_gtgt, khop: null, chenh_lech_sau_thue: null };\nif (d.hoa_don_gtgt) {\n  const sauThueTinhLai = Math.round(tongQT * (1 + d.tong_hop_khai_bao.thue_suat_gtgt / 100));\n  const cl = d.hoa_don_gtgt.gia_tri_sau_thue - sauThueTinhLai;\n  hoaDon = { co: true, khop: Math.abs(cl) <= C.DUNG_SAI_TIEN, chenh_lech_sau_thue: cl };\n  if (!hoaDon.khop) ph.push({ ma: \"HOA_DON_KHONG_KHOP\", muc_do: \"chan\", nhom_ycbs: 11, yeu_cau: \"Điều chỉnh\", hang_muc_stt: null, tien_anh_huong: cl, nguon: \"N09\",\n    noi_dung: `Hóa đơn GTGT số ${d.hoa_don_gtgt.so} giá trị ${fmtTien(d.hoa_don_gtgt.gia_tri_sau_thue)} đ ≠ giá trị quyết toán sau thuế tính lại ${fmtTien(sauThueTinhLai)} đ` });\n}\nreturn [{ json: { ...d, kiem_tra_hop_dong: { loai_gia: hd.loai_gia, gia_tri_hop_dong: hd.gia_tri_hop_dong, gia_tri_hieu_luc: giaHieuLuc,\n  co_phu_luc: coPL, tong_qt_tinh_lai: tongQT, vuot_hop_dong: Math.max(0, vuot),\n  hang_muc_chep_hop_dong: chep, hang_muc_ngoai_hop_dong: ngoai, hang_muc_don_gia_khac: donGiaKhac,\n  giam_sat: { ...gs, ket_qua: kqGS }, hoa_don: hoaDon },\n  phat_hien: [...d.phat_hien, ...ph] } }];\n"
+      },
+      "id": "97239245-afca-4c68-961e-e72dae168d73",
+      "name": "Kiểm tra hợp đồng",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N10 – Tổng hợp checklist GĐ5 (bản vẽ hoàn công + bảng quyết toán). Máy CHỈ HẠ, không nâng\n// (ngoại lệ duy nhất: \"Cộng dồn tổng\" chua_kiem_tra -> dat khi máy cộng khớp, vì đây là phép tính thuần).\n// --- Hàm dùng chung (chèn lúc build; Code node n8n không chia sẻ hàm) ---\nfunction fmtTien(n) {\n  if (n === null || n === undefined || !Number.isFinite(Number(n))) return String(n);\n  const v = Math.round(Number(n));\n  const s = String(Math.abs(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \".\");\n  return (v < 0 ? \"-\" : \"\") + s;\n}\nfunction escMd(s) { return String(s == null ? \"\" : s).replace(/\\|/g, \"\\\\|\").replace(/\\r?\\n/g, \"<br>\"); }\nfunction escHtml(s) {\n  return String(s == null ? \"\" : s).replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\")\n    .replace(/\"/g, \"&quot;\").replace(/'/g, \"&#39;\");\n}\n// --- Hết hàm dùng chung ---\nconst d = $input.first().json; const C = d.cau_hinh; const ph = [];\nconst BANG = [\n  { nhom: \"checklist_ban_ve_hoan_cong\", khoa: \"chieu_dai_tuyen\", ten: \"Chiều dài tuyến\", nhom_ycbs: 9 },\n  { nhom: \"checklist_ban_ve_hoan_cong\", khoa: \"ky_thuat_lap_dat\", ten: \"Kỹ thuật lắp đặt\", nhom_ycbs: 4 },\n  { nhom: \"checklist_ban_ve_hoan_cong\", khoa: \"boc_tach_coc_vs_thong_ke_vat_tu\", ten: \"Bóc tách KL chi tiết cọc so với bảng thống kê vật tư\", nhom_ycbs: 9 },\n  { nhom: \"checklist_ban_ve_hoan_cong\", khoa: \"loi_trinh_bay\", ten: \"Lỗi trình bày\", nhom_ycbs: 9 },\n  { nhom: \"checklist_du_toan_quyet_toan\", khoa: \"ma_hieu_dinh_muc_tt38\", ten: \"Mã hiệu định mức TT38\", nhom_ycbs: 6 },\n  { nhom: \"checklist_du_toan_quyet_toan\", khoa: \"don_gia_nhan_cong_ca_may_bd\", ten: \"Đơn giá nhân công/ca máy Bình Dương\", nhom_ycbs: 6 },\n  { nhom: \"checklist_du_toan_quyet_toan\", khoa: \"can_cu_phap_ly_theo_moc\", ten: \"Căn cứ pháp lý theo mốc 01/7/2026\", nhom_ycbs: 6 },\n  { nhom: \"checklist_du_toan_quyet_toan\", khoa: \"kl_dao_dap_cat_dem_tai_lap_khop_mat_cat\", ten: \"KL đào đắp – cát đệm – tái lập khớp mặt cắt\", nhom_ycbs: 6 },\n  { nhom: \"checklist_du_toan_quyet_toan\", khoa: \"don_gia_vat_tu_biwase\", ten: \"Đơn giá vật tư Biwase (đường kính + vật liệu + kiểu đấu nối + góc + kiểu nối)\", nhom_ycbs: 6 },\n  { nhom: \"checklist_du_toan_quyet_toan\", khoa: \"cong_don_tong\", ten: \"Cộng dồn tổng\", nhom_ycbs: 6 },\n];\nconst lay = (nhom, khoa) => (d[nhom] && d[nhom][khoa]) || { ket_qua: \"chua_kiem_tra\" };\nconst tatCaMuc = BANG.map(b => {\n  const x = lay(b.nhom, b.khoa);\n  return { nhom_checklist: b.nhom, khoa: b.khoa, ten: b.ten, nhom_ycbs: b.nhom_ycbs,\n    ket_qua_nguoi_nhap: x.ket_qua, ket_qua: x.ket_qua, nguon: \"nguoi_kiem_tra\",\n    ghi_chu: x.ghi_chu || \"\", ghi_chu_tu_dong: \"\", so_lieu: x.so_lieu || {} };\n});\nconst muc = khoa => tatCaMuc.find(m => m.khoa === khoa);\nconst daCoPH = new Set();   // khóa đã có phát hiện riêng -> không sinh CHECKLIST_KHONG_DAT trùng\nconst ha = (m, lyDo) => {\n  if (m.ket_qua !== \"khong_dat\") { m.ket_qua = \"khong_dat\"; m.nguon = \"tu_dong\"; }\n  m.ghi_chu_tu_dong = m.ghi_chu_tu_dong ? `${m.ghi_chu_tu_dong}; ${lyDo}` : lyDo;\n};\n\n// Tự kiểm 1: chiều dài tuyến\nconst cdt = muc(\"chieu_dai_tuyen\");\nconst tongOng = Math.round(d.hang_muc.filter(h => h.loai === \"ong\").reduce((s, h) => s + h.kl_hoan_cong, 0) * 1000) / 1000;\nif (typeof cdt.so_lieu.chieu_dai_ban_ve === \"number\" && Math.abs(cdt.so_lieu.chieu_dai_ban_ve - tongOng) > C.DUNG_SAI_KL) {\n  const lyDo = `Chiều dài bản vẽ ${cdt.so_lieu.chieu_dai_ban_ve} m ≠ tổng KL hoàn công ống ${tongOng} m`;\n  ha(cdt, lyDo); daCoPH.add(cdt.khoa);\n  ph.push({ ma: \"CHIEU_DAI_TUYEN_LECH\", muc_do: \"chan\", nhom_ycbs: 9, yeu_cau: \"Điều chỉnh\", hang_muc_stt: null, tien_anh_huong: null, nguon: \"N10\",\n    noi_dung: `Chiều dài tuyến: ${lyDo}${cdt.ghi_chu ? \". \" + cdt.ghi_chu : \"\"}` });\n}\n// Tự kiểm 2: bóc tách cọc\nconst bt = muc(\"boc_tach_coc_vs_thong_ke_vat_tu\");\nif ((bt.so_lieu.so_muc_lech || 0) > 0) ha(bt, `${bt.so_lieu.so_muc_lech} mục bóc tách cọc lệch bảng thống kê vật tư${Array.isArray(bt.so_lieu.danh_sach_lech) && bt.so_lieu.danh_sach_lech.length ? \" (\" + bt.so_lieu.danh_sach_lech.join(\", \") + \")\" : \"\"}`);\n// Tự kiểm 3: vật tư Biwase\nconst vt = muc(\"don_gia_vat_tu_biwase\");\nif ((vt.so_lieu.so_muc_khong_khop || 0) > 0) ha(vt, `${vt.so_lieu.so_muc_khong_khop} vật tư chưa khớp đủ 5 thuộc tính (đường kính, vật liệu, kiểu đấu nối, góc, kiểu nối)${Array.isArray(vt.so_lieu.danh_sach) && vt.so_lieu.danh_sach.length ? \": \" + vt.so_lieu.danh_sach.join(\", \") : \"\"}`);\n// Tự kiểm 4: mốc pháp lý (D10: theo ngày lập dự toán)\nconst mp = muc(\"can_cu_phap_ly_theo_moc\");\nconst mocDung = d.cong_trinh.ngay_lap_du_toan >= C.MOC_PHAP_LY ? \"tu_01072026\" : \"truoc_01072026\";  // so chuỗi YYYY-MM-DD\nif (mp.so_lieu.moc_ap_dung && mp.so_lieu.moc_ap_dung !== mocDung) {\n  const lyDo = `Ngày lập dự toán ${d.cong_trinh.ngay_lap_du_toan} phải áp căn cứ ${mocDung === \"tu_01072026\" ? \"từ 01/7/2026\" : \"trước 01/7/2026\"}, hồ sơ khai ${mp.so_lieu.moc_ap_dung}`;\n  ha(mp, lyDo); daCoPH.add(mp.khoa);\n  ph.push({ ma: \"MOC_PHAP_LY_SAI\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Điều chỉnh\", hang_muc_stt: null, tien_anh_huong: null, nguon: \"N10\",\n    noi_dung: `Căn cứ pháp lý theo mốc: ${lyDo}` });\n}\n// Tự kiểm 5: cộng dồn tổng (luôn chạy) – trước thuế và sau thuế\nconst cd = muc(\"cong_don_tong\");\nconst khaiBao = d.tong_hop_khai_bao.tong_quyet_toan_truoc_thue;\nconst tinhLai = d.doi_chieu.tong_qt_tinh_lai;\nconst thue = d.tong_hop_khai_bao.thue_suat_gtgt;\nconst sauThueKhai = d.tong_hop_khai_bao.tong_quyet_toan_sau_thue;\nconst sauThueTuKhai = Math.round(khaiBao * (1 + thue / 100));\nlet congDonKhop = true;\nif (Math.abs(khaiBao - tinhLai) > C.DUNG_SAI_TIEN) {\n  congDonKhop = false;\n  const lyDo = `Tổng khai báo ${fmtTien(khaiBao)} đ ≠ Σ(KL quyết toán × đơn giá) ${fmtTien(tinhLai)} đ`;\n  ha(cd, lyDo); daCoPH.add(cd.khoa);\n  ph.push({ ma: \"CONG_DON_SAI\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Điều chỉnh\", hang_muc_stt: null, tien_anh_huong: khaiBao - tinhLai, nguon: \"N10\",\n    noi_dung: `Cộng dồn tổng: ${lyDo}` });\n}\nif (Math.abs(sauThueKhai - sauThueTuKhai) > C.DUNG_SAI_TIEN) {\n  congDonKhop = false;\n  const lyDo = `Tổng sau thuế khai báo ${fmtTien(sauThueKhai)} đ ≠ ${fmtTien(khaiBao)} × (1 + ${thue}%) = ${fmtTien(sauThueTuKhai)} đ`;\n  ha(cd, lyDo); daCoPH.add(cd.khoa);\n  ph.push({ ma: \"CONG_DON_SAI\", muc_do: \"chan\", nhom_ycbs: 6, yeu_cau: \"Điều chỉnh\", hang_muc_stt: null, tien_anh_huong: sauThueKhai - sauThueTuKhai, nguon: \"N10\",\n    noi_dung: `Cộng dồn tổng (sau thuế): ${lyDo}` });\n}\nif (congDonKhop && cd.ket_qua === \"chua_kiem_tra\") { cd.ket_qua = \"dat\"; cd.nguon = \"tu_dong\"; cd.ghi_chu_tu_dong = \"Máy cộng dồn khớp\"; }\n\n// Sinh phát hiện cho mọi mục còn lại\nfor (const m of tatCaMuc) {\n  if (m.ket_qua === \"khong_dat\" && !daCoPH.has(m.khoa)) ph.push({ ma: \"CHECKLIST_KHONG_DAT\",\n    muc_do: m.khoa === \"loi_trinh_bay\" ? \"luu_y\" : \"chan\", nhom_ycbs: m.nhom_ycbs, yeu_cau: \"Điều chỉnh\", hang_muc_stt: null, tien_anh_huong: null, nguon: \"N10\",\n    noi_dung: `${m.ten}: không đạt${[m.ghi_chu, m.ghi_chu_tu_dong].filter(Boolean).length ? \". \" + [m.ghi_chu, m.ghi_chu_tu_dong].filter(Boolean).join(\". \") : \"\"}` });\n  if (m.ket_qua === \"chua_kiem_tra\") ph.push({ ma: \"CHECKLIST_CHUA_KIEM_TRA\", muc_do: \"thieu_can_cu\", nhom_ycbs: m.nhom_ycbs, yeu_cau: \"Bổ sung\",\n    hang_muc_stt: null, tien_anh_huong: null, nguon: \"N10\", noi_dung: `${m.ten}: chưa kiểm tra / chưa đủ hồ sơ để kiểm tra` });\n}\nconst boSoLieu = ({ nhom_checklist, ...m }) => m;\nreturn [{ json: { ...d,\n  checklist_gd5: {\n    ban_ve_hoan_cong: tatCaMuc.filter(m => m.nhom_checklist === \"checklist_ban_ve_hoan_cong\").map(boSoLieu),\n    du_toan_quyet_toan: tatCaMuc.filter(m => m.nhom_checklist === \"checklist_du_toan_quyet_toan\").map(boSoLieu),\n    so_khong_dat: tatCaMuc.filter(m => m.ket_qua === \"khong_dat\").length,\n    so_chua_kiem_tra: tatCaMuc.filter(m => m.ket_qua === \"chua_kiem_tra\").length,\n    tong_chieu_dai_ong_hoan_cong: tongOng, moc_phap_ly_suy_ra: mocDung },\n  phat_hien: [...d.phat_hien, ...ph] } }];\n"
+      },
+      "id": "e3553c49-b7de-4e18-babe-0246ff4aac74",
+      "name": "Tổng hợp checklist GĐ5",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N11 – Đánh giá 15 tiêu chí. Người kiểm tra nhập 1–14; máy chỉ được HẠ TC13/TC14 khi dữ liệu chứng minh; TC15 lập ở N12.\n// Tên tiêu chí là TẠM (D3) – logic chỉ phụ thuộc số và nhóm.\nconst d = $input.first().json;\nconst DM = [\n  { so: 1,  ten: \"Căn cứ pháp lý, chủ trương đầu tư\", nhom: \"KHONG_BAT_BUOC\", nhom_ycbs: 1 },\n  { so: 2,  ten: \"Sự phù hợp quy hoạch, lộ giới\", nhom: \"KHONG_BAT_BUOC\", nhom_ycbs: 2 },\n  { so: 3,  ten: \"Quy mô, phạm vi theo chủ trương\", nhom: \"KHONG_BAT_BUOC\", nhom_ycbs: 3 },\n  { so: 4,  ten: \"Điều chỉnh nhỏ vị trí tuyến trong phạm vi cho phép\", nhom: \"KHONG_BAT_BUOC\", nhom_ycbs: 4 },\n  { so: 5,  ten: \"Thay đổi hướng tuyến / chiều dài tuyến\", nhom: \"BAT_BUOC_DC\", nhom_ycbs: 5 },\n  { so: 6,  ten: \"Thay đổi đường kính / vật liệu ống\", nhom: \"BAT_BUOC_DC\", nhom_ycbs: 5 },\n  { so: 7,  ten: \"Thay đổi biện pháp thi công không làm đổi khối lượng chính\", nhom: \"KHONG_BAT_BUOC\", nhom_ycbs: 4 },\n  { so: 8,  ten: \"Thay đổi giải pháp kỹ thuật lắp đặt / đấu nối\", nhom: \"BAT_BUOC_DC\", nhom_ycbs: 4 },\n  { so: 9,  ten: \"Phát sinh / cắt giảm hạng mục so với dự toán duyệt\", nhom: \"BAT_BUOC_DC\", nhom_ycbs: 6 },\n  { so: 10, ten: \"Hoàn chỉnh trình bày hồ sơ bản vẽ, thuyết minh\", nhom: \"KHONG_BAT_BUOC\", nhom_ycbs: 9 },\n  { so: 11, ten: \"Khối lượng thay đổi so với dự toán duyệt\", nhom: \"BAT_BUOC_DC\", nhom_ycbs: 6 },\n  { so: 12, ten: \"Chênh lệch chi phí\", nhom: \"THAM_KHAO\", nhom_ycbs: 7 },\n  { so: 13, ten: \"Chỉ có biên bản hiện trường, không có hồ sơ điều chỉnh\", nhom: \"CHAN_QT\", nhom_ycbs: 5 },\n  { so: 14, ten: \"Hoàn công khác thiết kế mà không có điều chỉnh\", nhom: \"CHAN_QT\", nhom_ycbs: 5 },\n  { so: 15, ten: \"Kết luận tổng hợp\", nhom: \"TONG_HOP\", nhom_ycbs: null },\n];\nconst nhap = new Map((d.danh_gia_tieu_chi || []).filter(t => t.so !== 15).map(t => [t.so, t]));\nconst tc = DM.map(m => {\n  if (m.so === 15) return { ...m, ket_qua_nguoi_nhap: null, ket_qua: null, nguon: \"tu_dong\", nhan_xet: \"\", ly_do_tu_dong: \"\" };\n  const t = nhap.get(m.so);\n  return { ...m, nhom_ycbs: (t && t.nhom_ycbs) || m.nhom_ycbs,\n    ket_qua_nguoi_nhap: t ? t.ket_qua : null, ket_qua: t ? t.ket_qua : \"chua_du_can_cu\",\n    nguon: t ? \"nguoi_kiem_tra\" : \"mac_dinh\", nhan_xet: (t && t.nhan_xet) || \"\", ly_do_tu_dong: \"\" };\n});\nconst hm = d.doi_chieu.hang_muc; const dc = d.kiem_tra_ho_so.co_dieu_chinh_day_du;\nconst coBBHT = (d.ho_so.find(h => h && h.ma === \"BB_NGHIEM_THU_HIEN_TRUONG\") || {}).co === true;\nconst ha = (so, lyDo) => { const t = tc[so - 1]; if (t.ket_qua !== \"khong_phu_hop\") { t.ket_qua = \"khong_phu_hop\"; t.nguon = \"tu_dong\"; } t.ly_do_tu_dong = lyDo; };\n\nconst nt = hm.filter(x => x.khac_thiet_ke_nt).map(x => `HM${x.stt} (${x.kl_nghiem_thu_hien_truong}/${x.kl_tk_tham_chieu} ${x.don_vi})`);\nif (coBBHT && nt.length && !dc) ha(13, `Khối lượng chốt hiện trường khác thiết kế ở: ${nt.join(\", \")} – chỉ có biên bản hiện trường, chưa có hồ sơ thiết kế – dự toán điều chỉnh`);\nconst hc = hm.filter(x => x.khac_thiet_ke_hc).map(x => `HM${x.stt} (${x.kl_hoan_cong}/${x.kl_tk_tham_chieu} ${x.don_vi})`);\nif (hc.length) ha(14, dc ? `Hoàn công khác cả thiết kế điều chỉnh ở: ${hc.join(\", \")}` : `Hoàn công khác thiết kế, không có điều chỉnh ở: ${hc.join(\", \")}`);\n\nreturn [{ json: { ...d, tieu_chi: tc } }];\n"
+      },
+      "id": "072b55b6-5877-4cfb-9f91-105f3c4838f1",
+      "name": "Đánh giá 15 tiêu chí",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2160,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N12 – Áp quy tắc kết luận theo thứ tự ưu tiên (dừng ở quy tắc đầu tiên thỏa). D1: cổng số liệu đang BẬT.\nconst d = $input.first().json;\nconst kq = so => d.tieu_chi[so - 1].ket_qua;\nconst ph = d.phat_hien;\nconst lyDo = [], canBoSung = [], luuY = [];\nlet ma;\n\nconst tcChan = [13, 14].filter(s => kq(s) === \"khong_phu_hop\");\nconst tcDC = [5, 6, 8, 9, 11].filter(s => kq(s) === \"khong_phu_hop\");\nconst tcThieu = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14].filter(s => kq(s) === \"chua_du_can_cu\");\nconst phThieu = ph.filter(p => p.muc_do === \"thieu_can_cu\");\nconst phChan = ph.filter(p => p.muc_do === \"chan\");\nconst t = s => d.tieu_chi[s - 1];\n\nif (tcChan.length) {\n  ma = \"DUNG_QUYET_TOAN\";\n  tcChan.forEach(s => lyDo.push(`Tiêu chí ${s} – ${t(s).ten}: ${t(s).ly_do_tu_dong || t(s).nhan_xet || \"không phù hợp\"}`));\n} else if (tcDC.length) {\n  ma = \"DIEU_CHINH_TK_DT\";\n  tcDC.forEach(s => lyDo.push(`Tiêu chí ${s} – ${t(s).ten}: ${t(s).nhan_xet || \"không phù hợp\"}`));\n} else if (tcThieu.length || phThieu.length || phChan.length) {\n  ma = \"CHUA_KET_LUAN\";\n  tcThieu.forEach(s => canBoSung.push(`Tiêu chí ${s} – ${t(s).ten}: chưa đủ căn cứ${t(s).nhan_xet ? \" (\" + t(s).nhan_xet + \")\" : \"\"}`));\n  phThieu.forEach(p => canBoSung.push(p.noi_dung));\n  phChan.forEach(p => lyDo.push(p.noi_dung));\n  if (phChan.length) lyDo.unshift(\"Số liệu quyết toán chưa khớp – cần điều chỉnh bảng quyết toán trước khi kết luận\");\n} else ma = \"DAT\";\n\n// Bổ sung ngữ cảnh cho mọi kết luận\n[1, 2, 3, 4, 7, 10].filter(s => kq(s) === \"khong_phu_hop\").forEach(s => luuY.push(`Tiêu chí ${s} – ${t(s).ten}: không phù hợp (không bắt buộc điều chỉnh)`));\nph.filter(p => p.muc_do === \"luu_y\").forEach(p => luuY.push(p.noi_dung));\nif (ma !== \"CHUA_KET_LUAN\") { // vẫn liệt kê thiếu sót để chi nhánh xử lý cùng lúc\n  tcThieu.forEach(s => canBoSung.push(`Tiêu chí ${s} – ${t(s).ten}: chưa đủ căn cứ`));\n  phThieu.forEach(p => canBoSung.push(p.noi_dung));\n}\n\nconst NHAN = { DUNG_QUYET_TOAN: \"Không đạt — dừng quyết toán\", DIEU_CHINH_TK_DT: \"Không đạt — phải điều chỉnh thiết kế – dự toán\",\n               CHUA_KET_LUAN: \"Chưa kết luận\", DAT: \"Đạt — chuyển trình ký\" };\nconst tc = d.tieu_chi.map(x => x.so !== 15 ? x : { ...x,\n  ket_qua: ma === \"DAT\" ? \"phu_hop\" : ma === \"CHUA_KET_LUAN\" ? \"chua_du_can_cu\" : \"khong_phu_hop\", nhan_xet: NHAN[ma] });\n\nreturn [{ json: { ...d, tieu_chi: tc, ket_luan: { ma, nhan: NHAN[ma], ly_do: lyDo, can_bo_sung: [...new Set(canBoSung)], luu_y: luuY,\n  quy_tac_ap_dung: { DUNG_QUYET_TOAN: 1, DIEU_CHINH_TK_DT: 2, CHUA_KET_LUAN: 3, DAT: 4 }[ma] } } }];\n"
+      },
+      "id": "ba29c503-0b83-44ca-8e0f-11dd71b81a5d",
+      "name": "Áp quy tắc kết luận",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "rules",
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "17687fec-82ee-45b7-91fd-c369d5b36dee",
+                    "leftValue": "={{ $json.ket_luan.ma }}",
+                    "rightValue": "DUNG_QUYET_TOAN",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Dừng quyết toán"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c78b6b6d-0f97-41ba-877d-db27fc5979f3",
+                    "leftValue": "={{ $json.ket_luan.ma }}",
+                    "rightValue": "DIEU_CHINH_TK_DT",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Điều chỉnh TK-DT"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "831af6f7-caab-49f9-9e35-07b98654eff7",
+                    "leftValue": "={{ $json.ket_luan.ma }}",
+                    "rightValue": "CHUA_KET_LUAN",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Chưa kết luận"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "74ae443c-003e-4403-83a0-e1b46d6b449b",
+                    "leftValue": "={{ $json.ket_luan.ma }}",
+                    "rightValue": "DAT",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Đạt"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": "Ngoài dự kiến",
+          "allMatchingOutputs": false
+        }
+      },
+      "id": "402a1c1a-a82f-4c68-ae20-04c360f1004d",
+      "name": "Phân loại kết luận",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2640,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N14 – Lập phiếu YCBS (Markdown + HTML sinh từ cùng dữ liệu). Bản nháp – chỉ có hiệu lực sau khi lãnh đạo duyệt (D11).\n// --- Hàm dùng chung (chèn lúc build; Code node n8n không chia sẻ hàm) ---\nfunction fmtTien(n) {\n  if (n === null || n === undefined || !Number.isFinite(Number(n))) return String(n);\n  const v = Math.round(Number(n));\n  const s = String(Math.abs(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \".\");\n  return (v < 0 ? \"-\" : \"\") + s;\n}\nfunction escMd(s) { return String(s == null ? \"\" : s).replace(/\\|/g, \"\\\\|\").replace(/\\r?\\n/g, \"<br>\"); }\nfunction escHtml(s) {\n  return String(s == null ? \"\" : s).replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\")\n    .replace(/\"/g, \"&quot;\").replace(/'/g, \"&#39;\");\n}\n// --- Hết hàm dùng chung ---\nconst d = $input.first().json;\nconst ct = d.cong_trinh; const kl = d.ket_luan; const dcj = d.doi_chieu;\nconst ZONE = \"Asia/Ho_Chi_Minh\";\nconst NHOM_YCBS = [\"Pháp lý dự án\", \"Sự phù hợp quy hoạch\", \"Quy mô – phạm vi đầu tư\", \"Giải pháp kỹ thuật\", \"Thiết kế cơ sở/TKKT\",\n  \"Khối lượng – Dự toán\", \"Tổng mức đầu tư\", \"Hiệu quả đầu tư\", \"Hồ sơ bản vẽ\", \"Hồ sơ thuyết minh\", \"Các nội dung khác\"];\n\n// --- Thông tin phiếu ---\nconst chay = DateTime.fromISO(d.meta.thoi_diem, { setZone: true }).setZone(ZONE);\nconst homNay = chay.startOf(\"day\");\nconst n = ct.thoi_han_bo_sung_ngay;\nconst canhBao = [];\nlet han = DateTime.fromISO(ct.ngay_nhan, { zone: ZONE }).plus({ days: n });\nlet hanTuNgayLap = false;\nif (han <= homNay) { han = homNay.plus({ days: n }); hanTuNgayLap = true; canhBao.push(\"Hạn tính từ ngày nhận đã qua – tính lại từ ngày lập phiếu\"); }\nconst maFile = String(ct.ma_cong_trinh).replace(/[^A-Za-z0-9_-]/g, \"_\");\nconst so_phieu = `YCBS-${ct.ma_cong_trinh}-${chay.toFormat(\"yyyyLLdd\")}`;   // số tạm (D6)\nconst ngay_lap = chay.toFormat(\"dd/LL/yyyy\");\nconst han_bo_sung = han.toFormat(\"dd/LL/yyyy\");\nconst ngayNhanVN = DateTime.fromISO(ct.ngay_nhan).toFormat(\"dd/LL/yyyy\");\n\n// --- Bảng 11 nhóm ---\nfunction gopYeuCau(ds) {\n  const s = new Set(ds.filter(x => x !== \"Không\"));\n  if (s.size === 0) return \"Không\";\n  if (s.has(\"Bổ sung-điều chỉnh\") || (s.has(\"Bổ sung\") && s.has(\"Điều chỉnh\"))) return \"Bổ sung-điều chỉnh\";\n  return [...s][0];\n}\nconst muc = NHOM_YCBS.map(() => []);\nconst them = (g, noi_dung, yeu_cau) => { if (Number.isInteger(g) && g >= 1 && g <= 11) muc[g - 1].push({ noi_dung, yeu_cau }); };\nfor (const t of d.tieu_chi) {\n  if (t.so === 15) continue;\n  if (t.ket_qua === \"khong_phu_hop\") {\n    const yc = (t.so === 13 || t.so === 14) ? \"Bổ sung-điều chỉnh\" : t.so === 12 ? \"Không\" : \"Điều chỉnh\";\n    them(t.nhom_ycbs, `[TC${t.so}] ${t.ten}: ${t.ly_do_tu_dong || t.nhan_xet || \"không phù hợp\"}`, yc);\n  } else if (t.ket_qua === \"chua_du_can_cu\") {\n    them(t.nhom_ycbs, `[TC${t.so}] ${t.ten}: chưa đủ căn cứ – đề nghị bổ sung hồ sơ chứng minh`, \"Bổ sung\");\n  }\n}\nconst phSapXep = d.phat_hien.map((p, i) => ({ p, i })).sort((a, b) => {\n  const sa = a.p.hang_muc_stt == null ? Infinity : a.p.hang_muc_stt;\n  const sb = b.p.hang_muc_stt == null ? Infinity : b.p.hang_muc_stt;\n  return sa === sb ? a.i - b.i : sa - sb;\n}).map(x => x.p);\nfor (const p of phSapXep) {\n  const tien = (p.tien_anh_huong != null && p.tien_anh_huong !== 0) ? ` – ảnh hưởng ${fmtTien(p.tien_anh_huong)} đ` : \"\";\n  them(p.nhom_ycbs, `${p.noi_dung}${tien}`, p.yeu_cau);\n}\nif (d.ghi_chu_nguoi_kiem_tra && String(d.ghi_chu_nguoi_kiem_tra).trim()) them(11, `Ghi chú người kiểm tra: ${String(d.ghi_chu_nguoi_kiem_tra).trim()}`, \"Không\");\n\nconst bang = NHOM_YCBS.map((ten, i) => ({\n  stt: i + 1, nhom: ten,\n  noi_dung: muc[i].length ? muc[i].map(x => x.noi_dung) : [\"Không có ý kiến\"],\n  yeu_cau: muc[i].length ? gopYeuCau(muc[i].map(x => x.yeu_cau)) : \"Không\",\n}));\n\n// --- Mục III ---\nconst MO_DAU = {\n  DUNG_QUYET_TOAN: \"Hồ sơ quyết toán KHÔNG ĐẠT – DỪNG QUYẾT TOÁN. Đề nghị chi nhánh lập hồ sơ thiết kế – dự toán điều chỉnh, trình phê duyệt trước khi lập lại hồ sơ quyết toán.\",\n  DIEU_CHINH_TK_DT: \"Hồ sơ quyết toán KHÔNG ĐẠT – PHẢI ĐIỀU CHỈNH THIẾT KẾ – DỰ TOÁN theo các nội dung tại mục II trước khi quyết toán.\",\n  CHUA_KET_LUAN: \"CHƯA KẾT LUẬN. Đề nghị chi nhánh/nhà thầu bổ sung, điều chỉnh các nội dung sau để Phòng Đầu tư có đủ căn cứ kết luận:\",\n};\nconst moDau = MO_DAU[kl.ma] || kl.nhan;\nconst giamTru = dcj.tong_thanh_toan_du > 0 ? `Giá trị đề nghị giảm trừ tạm tính: ${fmtTien(dcj.tong_thanh_toan_du)} đ.` : \"\";\nconst hmLech = dcj.hang_muc.filter(x => x.trang_thai !== \"khop\");\nconst fmtKL = v => v == null ? \"—\" : String(v);\nconst cauHan = `Đề nghị chi nhánh ${ct.chi_nhanh} / nhà thầu ${ct.nha_thau.ten} hoàn chỉnh và gửi lại hồ sơ trước ngày ${han_bo_sung} (${n} ngày kể từ ngày ${hanTuNgayLap ? \"lập phiếu\" : \"nhận hồ sơ\"}).`;\nconst chanTrang = `Phiếu sinh tự động bởi workflow n8n (quy tắc ${d.meta.phien_ban_quy_tac}, phiên ${d.meta.ma_phien}). Chỉ có hiệu lực sau khi lãnh đạo Phòng Đầu tư duyệt.`;\nconst thongTin = [\n  [\"Tên công trình\", ct.ten_cong_trinh], [\"Địa điểm\", ct.dia_diem], [\"Chi nhánh\", ct.chi_nhanh], [\"Loại hồ sơ\", \"Quyết toán\"],\n  [\"Ngày nhận hồ sơ\", ngayNhanVN], [\"Người kiểm tra\", ct.nguoi_kiem_tra],\n];\n\n// --- Markdown ---\nconst md = [];\nmd.push(\"# PHIẾU YÊU CẦU BỔ SUNG HỒ SƠ\", `**Số:** ${so_phieu} — **Ngày:** ${ngay_lap}`, \"\");\nmd.push(\"## I. THÔNG TIN CHUNG\", \"| Mục | Nội dung |\", \"|---|---|\");\nthongTin.forEach(([a, b]) => md.push(`| ${escMd(a)} | ${escMd(b)} |`));\nmd.push(\"\", \"## II. NỘI DUNG GÓP Ý\", \"| STT | Nhóm nội dung | Nội dung góp ý | Yêu cầu chỉnh sửa |\", \"|---|---|---|---|\");\nbang.forEach(r => {\n  const nd = r.noi_dung.length === 1 && r.yeu_cau === \"Không\" && r.noi_dung[0] === \"Không có ý kiến\"\n    ? \"Không có ý kiến\" : r.noi_dung.map((x, i) => `${i + 1}) ${escMd(x)}`).join(\"<br>\");\n  md.push(`| ${r.stt} | ${escMd(r.nhom)} | ${nd} | ${escMd(r.yeu_cau)} |`);\n});\nmd.push(\"\", \"### Phụ lục II.a – Đối chiếu ba chiều (chỉ các hạng mục lệch hoặc thiếu số gốc)\",\n  \"| STT HM | Hạng mục | ĐVT | Hoàn công | Nghiệm thu HT | Quyết toán | Lệch QT–NT | Thành tiền ảnh hưởng (đ) |\",\n  \"|---|---|---|---|---|---|---|---|\");\nif (hmLech.length === 0) md.push(\"| | Không có hạng mục lệch | | | | | | |\");\nhmLech.forEach(x => md.push(`| ${x.stt} | ${escMd(x.ten)} | ${escMd(x.don_vi)} | ${fmtKL(x.kl_hoan_cong)} | ${fmtKL(x.kl_nghiem_thu_hien_truong)} | ${fmtKL(x.kl_quyet_toan)} | ${fmtKL(x.lech_qt_nt)} | ${x.thanh_tien_anh_huong == null ? \"thiếu số gốc\" : fmtTien(x.thanh_tien_anh_huong)} |`));\nmd.push(`| | **Tổng thanh toán dư** | | | | | | **${fmtTien(dcj.tong_thanh_toan_du)}** |`);\nmd.push(\"\", \"## III. KẾT LUẬN\", `**${kl.nhan}**`, \"\", moDau, \"\");\nkl.ly_do.forEach(x => md.push(`- ${x}`));\nif (kl.can_bo_sung.length) { md.push(\"\", \"Cần bổ sung:\"); kl.can_bo_sung.forEach(x => md.push(`- ${x}`)); }\nif (kl.luu_y.length) { md.push(\"\", \"Lưu ý:\"); kl.luu_y.forEach(x => md.push(`- ${x}`)); }\nif (giamTru) md.push(\"\", giamTru);\nmd.push(\"\", \"## IV. THỜI HẠN\",\n  `Đề nghị chi nhánh ${ct.chi_nhanh} / nhà thầu ${ct.nha_thau.ten} hoàn chỉnh và gửi lại hồ sơ **trước ngày ${han_bo_sung}** (${n} ngày kể từ ngày ${hanTuNgayLap ? \"lập phiếu\" : \"nhận hồ sơ\"}).`,\n  \"\", \"---\", `*${chanTrang}*`);\nconst markdown = md.join(\"\\n\");\n\n// --- HTML (từ cùng dữ liệu, mọi giá trị đã escape) ---\nconst e = escHtml;\nconst li = ds => ds.length ? `<ul>${ds.map(x => `<li>${e(x)}</li>`).join(\"\")}</ul>` : \"\";\nconst h = [];\nh.push(`<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\"><title>${e(so_phieu)}</title><style>body{font-family:\"Times New Roman\",serif;font-size:13pt} table{border-collapse:collapse;width:100%} td,th{border:1px solid #000;padding:4px;vertical-align:top}</style></head><body>`);\nh.push(`<h1>PHIẾU YÊU CẦU BỔ SUNG HỒ SƠ</h1><p><b>Số:</b> ${e(so_phieu)} — <b>Ngày:</b> ${e(ngay_lap)}</p>`);\nh.push(`<h2>I. THÔNG TIN CHUNG</h2><table><tr><th>Mục</th><th>Nội dung</th></tr>${thongTin.map(([a, b]) => `<tr><td>${e(a)}</td><td>${e(b)}</td></tr>`).join(\"\")}</table>`);\nh.push(`<h2>II. NỘI DUNG GÓP Ý</h2><table><tr><th>STT</th><th>Nhóm nội dung</th><th>Nội dung góp ý</th><th>Yêu cầu chỉnh sửa</th></tr>`);\nbang.forEach(r => {\n  const nd = r.noi_dung.length === 1 && r.noi_dung[0] === \"Không có ý kiến\" && r.yeu_cau === \"Không\"\n    ? \"Không có ý kiến\" : r.noi_dung.map((x, i) => `${i + 1}) ${e(x)}`).join(\"<br>\");\n  h.push(`<tr><td>${r.stt}</td><td>${e(r.nhom)}</td><td>${nd}</td><td>${e(r.yeu_cau)}</td></tr>`);\n});\nh.push(`</table><h3>Phụ lục II.a – Đối chiếu ba chiều (chỉ các hạng mục lệch hoặc thiếu số gốc)</h3><table><tr><th>STT HM</th><th>Hạng mục</th><th>ĐVT</th><th>Hoàn công</th><th>Nghiệm thu HT</th><th>Quyết toán</th><th>Lệch QT–NT</th><th>Thành tiền ảnh hưởng (đ)</th></tr>`);\nif (hmLech.length === 0) h.push(`<tr><td></td><td colspan=\"7\">Không có hạng mục lệch</td></tr>`);\nhmLech.forEach(x => h.push(`<tr><td>${e(x.stt)}</td><td>${e(x.ten)}</td><td>${e(x.don_vi)}</td><td>${e(fmtKL(x.kl_hoan_cong))}</td><td>${e(fmtKL(x.kl_nghiem_thu_hien_truong))}</td><td>${e(fmtKL(x.kl_quyet_toan))}</td><td>${e(fmtKL(x.lech_qt_nt))}</td><td>${x.thanh_tien_anh_huong == null ? \"thiếu số gốc\" : e(fmtTien(x.thanh_tien_anh_huong))}</td></tr>`));\nh.push(`<tr><td></td><td><b>Tổng thanh toán dư</b></td><td colspan=\"5\"></td><td><b>${e(fmtTien(dcj.tong_thanh_toan_du))}</b></td></tr></table>`);\nh.push(`<h2>III. KẾT LUẬN</h2><p><b>${e(kl.nhan)}</b></p><p>${e(moDau)}</p>${li(kl.ly_do)}`);\nif (kl.can_bo_sung.length) h.push(`<p>Cần bổ sung:</p>${li(kl.can_bo_sung)}`);\nif (kl.luu_y.length) h.push(`<p>Lưu ý:</p>${li(kl.luu_y)}`);\nif (giamTru) h.push(`<p>${e(giamTru)}</p>`);\nh.push(`<h2>IV. THỜI HẠN</h2><p>${e(cauHan)}</p><hr><p><i>${e(chanTrang)}</i></p></body></html>`);\nconst html = h.join(\"\");\n\nreturn [{ json: { ...d, to_trinh: null, phieu_ycbs: {\n  so_phieu, ngay_lap, han_bo_sung, bang, markdown, html, canh_bao: canhBao,\n  ten_file_goi_y: { markdown: `YCBS_${maFile}_${chay.toFormat(\"yyyyLLdd\")}.md`, html: `YCBS_${maFile}_${chay.toFormat(\"yyyyLLdd\")}.html` },\n} } }];\n"
+      },
+      "id": "e61a3d06-4657-4727-a90d-188cfe9a32ab",
+      "name": "Lập phiếu YCBS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        -150
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N15 – Lập tờ trình chuyển ký (chỉ khi kết luận Đạt). Bản nháp – lãnh đạo ký mới có hiệu lực.\n// --- Hàm dùng chung (chèn lúc build; Code node n8n không chia sẻ hàm) ---\nfunction fmtTien(n) {\n  if (n === null || n === undefined || !Number.isFinite(Number(n))) return String(n);\n  const v = Math.round(Number(n));\n  const s = String(Math.abs(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \".\");\n  return (v < 0 ? \"-\" : \"\") + s;\n}\nfunction escMd(s) { return String(s == null ? \"\" : s).replace(/\\|/g, \"\\\\|\").replace(/\\r?\\n/g, \"<br>\"); }\nfunction escHtml(s) {\n  return String(s == null ? \"\" : s).replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\")\n    .replace(/\"/g, \"&quot;\").replace(/'/g, \"&#39;\");\n}\n// --- Hết hàm dùng chung ---\nconst d = $input.first().json;\nconst ct = d.cong_trinh; const kl = d.ket_luan;\nconst tong = d.doi_chieu.tong_qt_tinh_lai;\nconst thue = d.tong_hop_khai_bao.thue_suat_gtgt;\nconst sauThue = Math.round(tong * (1 + thue / 100));\nconst giaHD = d.kiem_tra_hop_dong.gia_tri_hieu_luc;\nconst chenh = tong - giaHD;\nconst tieu_de = `Đề xuất trình ký quyết toán công trình ${ct.ten_cong_trinh}`;\nconst md = [\n  `# ${tieu_de}`, \"\",\n  \"| Mục | Nội dung |\", \"|---|---|\",\n  `| Mã công trình | ${escMd(ct.ma_cong_trinh)} |`,\n  `| Địa điểm | ${escMd(ct.dia_diem)} |`,\n  `| Chi nhánh | ${escMd(ct.chi_nhanh)} |`,\n  `| Nhà thầu | ${escMd(ct.nha_thau.ten)} |`,\n  `| Hợp đồng | ${escMd(d.hop_dong.so_hop_dong)} |`,\n  `| Người kiểm tra | ${escMd(ct.nguoi_kiem_tra)} |`, \"\",\n  \"| Giá trị | Số tiền (đ) |\", \"|---|---|\",\n  `| Giá trị hợp đồng (hiệu lực, trước thuế) | ${fmtTien(giaHD)} |`,\n  `| Giá trị quyết toán đề nghị (trước thuế) | ${fmtTien(tong)} |`,\n  `| Thuế GTGT ${thue}% | ${fmtTien(sauThue - tong)} |`,\n  `| Giá trị quyết toán đề nghị (sau thuế) | ${fmtTien(sauThue)} |`,\n  `| Chênh lệch so với hợp đồng (âm = giảm) | ${fmtTien(chenh)} |`, \"\",\n  `**Kết luận kiểm tra:** ${kl.nhan} (quy tắc ${d.meta.phien_ban_quy_tac}).`, \"\",\n];\nif (kl.luu_y.length) { md.push(\"**Lưu ý:**\"); kl.luu_y.forEach(x => md.push(`- ${x}`)); md.push(\"\"); }\nif (kl.can_bo_sung.length) { md.push(\"**Nội dung còn bổ sung (không chặn trình ký):**\"); kl.can_bo_sung.forEach(x => md.push(`- ${x}`)); md.push(\"\"); }\nmd.push(\"Đề nghị lãnh đạo xem xét, ký duyệt.\", \"\", \"---\",\n  `*Tờ trình sinh tự động bởi workflow n8n (phiên ${d.meta.ma_phien}). Bản nháp – chỉ có hiệu lực sau khi lãnh đạo Phòng Đầu tư ký duyệt.*`);\n\nreturn [{ json: { ...d, phieu_ycbs: null, to_trinh: {\n  tieu_de,\n  gia_tri_quyet_toan_de_nghi_truoc_thue: tong,\n  gia_tri_quyet_toan_de_nghi_sau_thue: sauThue,\n  gia_tri_hop_dong: giaHD,\n  chenh_lech_so_voi_hop_dong: chenh,\n  luu_y: kl.luu_y,\n  markdown: md.join(\"\\n\"),\n} } }];\n"
+      },
+      "id": "a751a5da-84d8-49dc-9c61-f59ac3f36fbb",
+      "name": "Lập tờ trình chuyển ký",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N16 – Tạo 1 dòng Báo cáo tổng hợp (mọi kết luận). Trả về JSON + CSV (;) + Markdown; không ghi ra kho lưu (Q4).\n// --- Hàm dùng chung (chèn lúc build; Code node n8n không chia sẻ hàm) ---\nfunction fmtTien(n) {\n  if (n === null || n === undefined || !Number.isFinite(Number(n))) return String(n);\n  const v = Math.round(Number(n));\n  const s = String(Math.abs(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, \".\");\n  return (v < 0 ? \"-\" : \"\") + s;\n}\nfunction escMd(s) { return String(s == null ? \"\" : s).replace(/\\|/g, \"\\\\|\").replace(/\\r?\\n/g, \"<br>\"); }\nfunction escHtml(s) {\n  return String(s == null ? \"\" : s).replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\")\n    .replace(/\"/g, \"&quot;\").replace(/'/g, \"&#39;\");\n}\n// --- Hết hàm dùng chung ---\nconst d = $input.first().json;\nconst ct = d.cong_trinh;\nconst COT = [\"ngay_kiem_tra\",\"ma_phien\",\"ma_cong_trinh\",\"ten_cong_trinh\",\"chi_nhanh\",\"dia_diem\",\"nha_thau\",\"loai_ho_so\",\"so_hop_dong\",\n  \"gia_tri_hop_dong\",\"gia_tri_qt_khai_bao\",\"gia_tri_qt_tinh_lai\",\"tien_thanh_toan_du\",\"so_hang_muc_lech\",\"tieu_chi_khong_phu_hop\",\n  \"tieu_chi_chua_du_can_cu\",\"ho_so_thieu\",\"ket_luan\",\"so_phieu_ycbs\",\"han_bo_sung\",\"nguoi_kiem_tra\",\"khoa_chong_trung\",\"ghi_chu\"];\nconst tc14 = d.tieu_chi.filter(t => t.so <= 14);\nconst khaiBao = d.tong_hop_khai_bao.tong_quyet_toan_truoc_thue;\nconst ghiChu = [d.ghi_chu_nguoi_kiem_tra, ...(d.kiem_tra_cau_truc.canh_bao || []), ...((d.phieu_ycbs && d.phieu_ycbs.canh_bao) || [])]\n  .filter(x => x != null && String(x).trim() !== \"\");\nconst gia_tri = {\n  ngay_kiem_tra: DateTime.fromISO(d.meta.thoi_diem, { setZone: true }).setZone(\"Asia/Ho_Chi_Minh\").toFormat(\"dd/LL/yyyy\"),\n  ma_phien: d.meta.ma_phien,\n  ma_cong_trinh: ct.ma_cong_trinh,\n  ten_cong_trinh: ct.ten_cong_trinh,\n  chi_nhanh: ct.chi_nhanh,\n  dia_diem: ct.dia_diem,\n  nha_thau: ct.nha_thau.ten,\n  loai_ho_so: \"Quyết toán\",\n  so_hop_dong: d.hop_dong.so_hop_dong,\n  gia_tri_hop_dong: Math.round(d.kiem_tra_hop_dong.gia_tri_hieu_luc),\n  gia_tri_qt_khai_bao: Math.round(khaiBao),\n  gia_tri_qt_tinh_lai: Math.round(d.doi_chieu.tong_qt_tinh_lai),\n  tien_thanh_toan_du: Math.round(d.doi_chieu.tong_thanh_toan_du),\n  so_hang_muc_lech: d.doi_chieu.so_hang_muc_lech,\n  tieu_chi_khong_phu_hop: tc14.filter(t => t.ket_qua === \"khong_phu_hop\").map(t => t.so).join(\", \"),\n  tieu_chi_chua_du_can_cu: tc14.filter(t => t.ket_qua === \"chua_du_can_cu\").map(t => t.so).join(\", \"),\n  ho_so_thieu: d.kiem_tra_ho_so.thieu.join(\"; \"),\n  ket_luan: d.ket_luan.nhan,\n  so_phieu_ycbs: d.phieu_ycbs ? d.phieu_ycbs.so_phieu : \"\",\n  han_bo_sung: d.phieu_ycbs ? d.phieu_ycbs.han_bo_sung : \"\",\n  nguoi_kiem_tra: ct.nguoi_kiem_tra,\n  khoa_chong_trung: `${ct.ma_cong_trinh}|${ct.ngay_nhan}|${Math.round(khaiBao)}`,\n  ghi_chu: ghiChu.join(\"; \"),\n};\nconst oCsv = v => `\"${String(v == null ? \"\" : v).replace(/\\r?\\n/g, \" \").replace(/\"/g, '\"\"')}\"`;\nreturn [{ json: { ...d, dong_bao_cao: {\n  cot: COT,\n  gia_tri,\n  csv_header: COT.map(oCsv).join(\";\"),\n  csv_dong: COT.map(k => oCsv(gia_tri[k])).join(\";\"),\n  markdown_dong: `| ${COT.map(k => escMd(gia_tri[k])).join(\" | \")} |`,\n} } }];\n"
+      },
+      "id": "5e96d4ba-4b69-442e-8fac-c76a17256dd0",
+      "name": "Tạo dòng báo cáo tổng hợp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3120,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N17 – Đóng gói đầu ra (Mục 6.1) + chuyển tiếp meta cho N18.\nconst d = $input.first().json;\nconst pick = (o, ks) => Object.fromEntries(ks.map(k => [k, o[k]]));\nreturn [{ json: { http_status: 200, meta: d.meta, body: {\n  ok: true, ma_phien: d.meta.ma_phien, thoi_diem: d.meta.thoi_diem, phien_ban_quy_tac: d.meta.phien_ban_quy_tac,\n  nguon: d.meta.nguon, kich_ban: d.meta.kich_ban,\n  cong_trinh: pick(d.cong_trinh, [\"ma_cong_trinh\", \"ten_cong_trinh\", \"chi_nhanh\", \"dia_diem\"]),\n  ket_luan: d.ket_luan, tieu_chi: d.tieu_chi, kiem_tra_ho_so: d.kiem_tra_ho_so, doi_chieu_ba_chieu: d.doi_chieu,\n  kiem_tra_hop_dong: d.kiem_tra_hop_dong, checklist_gd5: d.checklist_gd5, phat_hien: d.phat_hien,\n  phieu_ycbs: d.phieu_ycbs ?? null, to_trinh: d.to_trinh ?? null, dong_bao_cao: d.dong_bao_cao,\n  canh_bao: d.kiem_tra_cau_truc.canh_bao,\n  thong_bao: { can_gui: d.ket_luan.ma !== \"DAT\", trang_thai: \"cho_nguoi_duyet\",\n    nguoi_nhan: [d.cong_trinh.email_chi_nhanh, d.cong_trinh.nha_thau && d.cong_trinh.nha_thau.email].filter(Boolean) },\n} } }];\n"
+      },
+      "id": "be8e6678-2046-46c0-9ac0-91b2ca5fea91",
+      "name": "Đóng gói đầu ra",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3360,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b3358c8e-a207-4a40-927e-59bf4ec79f47",
+              "leftValue": "={{ $json.meta.nguon }}",
+              "rightValue": "webhook",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": false,
+        "options": {}
+      },
+      "id": "749393be-8ebb-4962-9677-b3f5e333ae6e",
+      "name": "Nguồn là webhook?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3600,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.body }}",
+        "options": {
+          "responseCode": "={{ $json.http_status }}",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "22022479-b28f-49bf-94fa-43c9c92b69ce",
+      "name": "Phản hồi webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        3840,
+        -100
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "81cb45c6-6d85-4f3f-922e-6fbc46f579b7",
+      "name": "Kết quả chạy thử",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3840,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N21 – Soạn thông báo (bản nháp email). Đạt hoặc lỗi: không soạn. Node gửi N22 đang TẮT (D8).\nconst d = $input.first().json; const b = d.body;\nif (!b || !b.ok || !b.thong_bao.can_gui || !b.phieu_ycbs) return [];\nreturn [{ json: {\n  to: b.thong_bao.nguoi_nhan.join(\",\"),                       // có thể rỗng -> người duyệt phải điền\n  subject: `[Biwase – Phòng Đầu tư] ${b.ket_luan.nhan} – ${b.cong_trinh.ten_cong_trinh}`,\n  html: b.phieu_ycbs.html,\n  text: b.phieu_ycbs.markdown,\n  ma_phien: b.ma_phien,\n  trang_thai: \"ban_nhap_cho_duyet\",\n} }];\n"
+      },
+      "id": "e8c800da-fc6f-44c0-ba10-eadacc8a04df",
+      "name": "Soạn thông báo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "fd580109-9455-4577-ad9a-12702680efcd",
+      "name": "Gửi email chi nhánh/nhà thầu",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        3840,
+        300
+      ],
+      "disabled": true,
+      "notes": "CẦN NGƯỜI DUYỆT: chỉ bật sau khi lãnh đạo Phòng Đầu tư duyệt nội dung phiếu YCBS và cấu hình SMTP.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "mode": "runOnceForAllItems",
+        "jsCode": "// N23 – Tạo phản hồi lỗi. Vào từ N06 (false) hoặc N13 (fallback). Không tạo dòng báo cáo (D5).\nconst d = $input.first().json;\nconst loi = d.kiem_tra_cau_truc && !d.kiem_tra_cau_truc.hop_le ? d.kiem_tra_cau_truc.loi\n          : [{ truong: \"ket_luan.ma\", ma: \"LOI_HE_THONG\", thong_bao: `Kết luận ngoài dự kiến: ${d.ket_luan && d.ket_luan.ma}` }];\nconst chiHangMucRong = loi.length > 0 && loi.every(l => l.ma === \"HANG_MUC_RONG\");\nconst coLoiHeThong = loi.some(l => l.ma === \"LOI_HE_THONG\");\nconst http_status = coLoiHeThong ? 500 : chiHangMucRong ? 422 : 400;\nconst ma_loi = coLoiHeThong ? \"LOI_HE_THONG\" : chiHangMucRong ? \"HANG_MUC_RONG\" : \"DAU_VAO_KHONG_HOP_LE\";\nreturn [{ json: { http_status, meta: d.meta || { nguon: \"webhook\" }, body: {\n  ok: false, ma_loi, thong_bao: {\n    DAU_VAO_KHONG_HOP_LE: \"Hồ sơ JSON thiếu trường hoặc sai định dạng – xem danh sách lỗi\",\n    HANG_MUC_RONG: \"Danh sách hạng mục rỗng – không thể đối chiếu khối lượng\",\n    LOI_HE_THONG: \"Lỗi xử lý nội bộ – báo quản trị n8n\" }[ma_loi],\n  loi, canh_bao: (d.kiem_tra_cau_truc && d.kiem_tra_cau_truc.canh_bao) || [],\n  ma_phien: (d.meta && d.meta.ma_phien) || null, thoi_diem: (d.meta && d.meta.thoi_diem) || null } } }];\n"
+      },
+      "id": "2c2d0222-da50-422a-9a58-c05e5290cfeb",
+      "name": "Tạo phản hồi lỗi",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        350
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## CẦN NGƯỜI DUYỆT\nNode gửi email đang TẮT. Trước khi bật: (1) lãnh đạo duyệt phiếu YCBS; (2) cấu hình SMTP credential; (3) điền fromEmail; (4) kiểm tra danh sách người nhận.\n\nWebhook đang không xác thực – bật Header Auth trước khi đưa ra ngoài mạng nội bộ.",
+        "height": 200,
+        "width": 360,
+        "color": 1
+      },
+      "id": "5111f392-0d9e-459b-98eb-21ad55eafc4f",
+      "name": "Ghi chú: cần người duyệt",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3560,
+        460
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook nhận hồ sơ": {
+      "main": [
+        [
+          {
+            "node": "Chuẩn hóa đầu vào",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chạy thử thủ công": {
+      "main": [
+        [
+          {
+            "node": "Dữ liệu mẫu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dữ liệu mẫu": {
+      "main": [
+        [
+          {
+            "node": "Chuẩn hóa đầu vào",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chuẩn hóa đầu vào": {
+      "main": [
+        [
+          {
+            "node": "Kiểm tra cấu trúc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kiểm tra cấu trúc": {
+      "main": [
+        [
+          {
+            "node": "Hợp lệ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hợp lệ?": {
+      "main": [
+        [
+          {
+            "node": "Kiểm tra hồ sơ căn cứ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tạo phản hồi lỗi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kiểm tra hồ sơ căn cứ": {
+      "main": [
+        [
+          {
+            "node": "Đối chiếu ba chiều",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Đối chiếu ba chiều": {
+      "main": [
+        [
+          {
+            "node": "Kiểm tra hợp đồng",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kiểm tra hợp đồng": {
+      "main": [
+        [
+          {
+            "node": "Tổng hợp checklist GĐ5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tổng hợp checklist GĐ5": {
+      "main": [
+        [
+          {
+            "node": "Đánh giá 15 tiêu chí",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Đánh giá 15 tiêu chí": {
+      "main": [
+        [
+          {
+            "node": "Áp quy tắc kết luận",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Áp quy tắc kết luận": {
+      "main": [
+        [
+          {
+            "node": "Phân loại kết luận",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Phân loại kết luận": {
+      "main": [
+        [
+          {
+            "node": "Lập phiếu YCBS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lập phiếu YCBS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lập phiếu YCBS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lập tờ trình chuyển ký",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tạo phản hồi lỗi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lập phiếu YCBS": {
+      "main": [
+        [
+          {
+            "node": "Tạo dòng báo cáo tổng hợp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lập tờ trình chuyển ký": {
+      "main": [
+        [
+          {
+            "node": "Tạo dòng báo cáo tổng hợp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tạo dòng báo cáo tổng hợp": {
+      "main": [
+        [
+          {
+            "node": "Đóng gói đầu ra",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Đóng gói đầu ra": {
+      "main": [
+        [
+          {
+            "node": "Nguồn là webhook?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Soạn thông báo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nguồn là webhook?": {
+      "main": [
+        [
+          {
+            "node": "Phản hồi webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Kết quả chạy thử",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Soạn thông báo": {
+      "main": [
+        [
+          {
+            "node": "Gửi email chi nhánh/nhà thầu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tạo phản hồi lỗi": {
+      "main": [
+        [
+          {
+            "node": "Nguồn là webhook?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "saveManualExecutions": true,
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all",
+    "executionTimeout": 60
+  },
+  "pinData": {},
+  "tags": []
+}
